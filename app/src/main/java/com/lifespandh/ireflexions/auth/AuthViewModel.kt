@@ -1,7 +1,40 @@
 package com.lifespandh.ireflexions.auth
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.lifespandh.ireflexions.models.Token
+import com.lifespandh.ireflexions.utils.network.NetworkResult
+import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewModel() {
+
+    private val _tokenLiveData = MutableLiveData<Token>()
+    val tokenLiveData: LiveData<Token>
+        get() = _tokenLiveData
+
+    private val _errorLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String>
+        get() = _errorLiveData
+
+    fun loginUser(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = authRepo.loginUser(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _tokenLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
 }
