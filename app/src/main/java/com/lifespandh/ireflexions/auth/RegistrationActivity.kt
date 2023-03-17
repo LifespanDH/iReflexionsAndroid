@@ -1,5 +1,7 @@
 package com.lifespandh.ireflexions.auth
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -38,5 +40,9 @@ class RegistrationActivity : BaseActivity() {
         authViewModel.errorLiveData.observeFreshly(this) {
             toast(it)
         }
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, RegistrationActivity::class.java)
     }
 }
