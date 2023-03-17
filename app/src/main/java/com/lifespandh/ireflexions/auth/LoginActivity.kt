@@ -47,6 +47,10 @@ class LoginActivity : BaseActivity() {
                 RC_SIGN_IN
             )
         }
+
+        signupbutton.setOnClickListener {
+            startActivity(RegistrationActivity.newInstance(this))
+        }
     }
 
     private fun setObservers() {

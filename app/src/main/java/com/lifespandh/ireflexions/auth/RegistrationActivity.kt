@@ -5,12 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
+import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.network.*
 import com.lifespandh.ireflexions.utils.ui.toast
+import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.activity_registration.*
+import java.util.*
 
 class RegistrationActivity : BaseActivity() {
 
@@ -29,7 +35,32 @@ class RegistrationActivity : BaseActivity() {
     }
 
     private fun setListeners() {
+        dateOfBirth.setOnClickListener {
+            MaterialDialog(this).show {
+                datePicker(
+                    currentDate = Calendar.getInstance(),
+                    maxDate = Calendar.getInstance()
+                ) { _, datetime ->
+                    dateOfBirth.text = getDateTimeInFormat(datetime.timeInMillis)
+                }
+            }
+        }
 
+        registerButton.setOnClickListener {
+            val name = name.trimString()
+            val email = email.trimString()
+            val phone = phone.trimString()
+            val region = region.trimString()
+            val dob = dateOfBirth.trimString()
+            val requestBody = createJsonRequestBody(
+                NAME to name,
+                EMAIL to email,
+                PHONE_NUMBER to phone,
+                DOB to dob,
+                REGION to region
+            )
+            authViewModel.registerUser(requestBody)
+        }
     }
 
     private fun setObservers() {
