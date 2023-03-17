@@ -7,6 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="RemindDark">#BD1D4C</color>
-    <color name="RemindLight">#D16081</color>
+    <color name="remind_dark">#BD1D4C</color>
+    <color name="remind_light">#D16081</color>
 </resources>
