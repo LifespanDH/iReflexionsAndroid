@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.auth
 
 import android.net.NetworkRequest
+import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.Token
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -15,6 +16,20 @@ class AuthRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.loginUser(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun registerUser(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.registerUser(requestBody)
         }, {
             networkResult = it
         }, {

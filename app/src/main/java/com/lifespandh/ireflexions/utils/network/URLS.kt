@@ -6,5 +6,5 @@ const val BASE_URL = BuildConfig.BASE_URL
 
 const val USERS = "users/"
 
-const val LOGIN_USER = BASE_URL + USERS + "authenticate"
-const val REGISTER_USER = BASE_URL + USERS + "api/token/refresh/"
+const val LOGIN_USER = BASE_URL + USERS + "authenticate/"
+const val REGISTER_USER = BASE_URL + USERS + "register/"

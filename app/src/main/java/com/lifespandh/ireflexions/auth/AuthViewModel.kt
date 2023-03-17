@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lifespandh.ireflexions.models.Token
+import com.lifespandh.ireflexions.utils.network.MESSAGE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -15,6 +16,10 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewMod
     private val _tokenLiveData = MutableLiveData<Token>()
     val tokenLiveData: LiveData<Token>
         get() = _tokenLiveData
+
+    private val _userRegisteredLiveData = MutableLiveData<String>()
+    val userRegisteredLiveData: LiveData<String>
+        get() = _userRegisteredLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -28,6 +33,23 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewMod
                 is NetworkResult.Success -> {
                     val data = response.data
                     _tokenLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun registerUser(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = authRepo.registerUser(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _userRegisteredLiveData.value = data.get(MESSAGE).asString
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception
