@@ -72,7 +72,8 @@ class LoginActivity : BaseActivity() {
             val account = completedTask.getResult(ApiException::class.java)
 
             // Signed in successfully, show authenticated UI.
-            val requestBody = createJsonRequestBody(Pair(OAUTH_KEY, account.idToken))
+
+            val requestBody = createJsonRequestBody(OAUTH_KEY to account.idToken)
             authViewModel.loginUser(requestBody)
             Log.d("signInResult", "Successful")
 
