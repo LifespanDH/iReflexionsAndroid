@@ -22,9 +22,3 @@ fun createJsonRequestBody(vararg params: Pair<Any, *>): RequestBody =
     RequestBody.create(
         MediaType.parse("application/json; charset=utf-8"),
         JSONObject(mapOf(*params)).toString())
-fun createJsonRequestBody(data: JSONObject): RequestBody? {
-    return RequestBody.create(
-        MediaType.parse("application/json; charset=utf-8"),
-        data.toJSONString()
-    )
-}
