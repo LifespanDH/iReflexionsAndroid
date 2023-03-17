@@ -10,6 +10,8 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.utils.date.getDateAfterDays
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.*
@@ -39,9 +41,9 @@ class RegistrationActivity : BaseActivity() {
             MaterialDialog(this).show {
                 datePicker(
                     currentDate = Calendar.getInstance(),
-                    maxDate = Calendar.getInstance()
+                    maxDate = getDateAfterDays(1)
                 ) { _, date ->
-                    dateOfBirth.text = getDateTimeInFormat(date.timeInMillis)
+                    this@RegistrationActivity.dateOfBirth.text = getDateInFormat(date.timeInMillis)
                 }
             }
         }
