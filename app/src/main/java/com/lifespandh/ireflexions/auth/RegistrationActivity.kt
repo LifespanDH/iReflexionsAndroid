@@ -40,8 +40,8 @@ class RegistrationActivity : BaseActivity() {
                 datePicker(
                     currentDate = Calendar.getInstance(),
                     maxDate = Calendar.getInstance()
-                ) { _, datetime ->
-                    dateOfBirth.text = getDateTimeInFormat(datetime.timeInMillis)
+                ) { _, date ->
+                    dateOfBirth.text = getDateTimeInFormat(date.timeInMillis)
                 }
             }
         }
