@@ -92,6 +92,9 @@ dependencies {
 
     // Google SignIn
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
+    //Country Code Selector
+    implementation 'com.hbb20:ccp:2.7.0'
 }
 
 kapt {
