@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.network.OAUTH_KEY
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -71,6 +73,8 @@ class LoginActivity : BaseActivity() {
             val account = completedTask.getResult(ApiException::class.java)
 
             // Signed in successfully, show authenticated UI.
+            val requestBody = createJsonRequestBody(Pair(OAUTH_KEY, account.idToken))
+            authViewModel.loginUser(requestBody)
             Log.d("signInResult", "Successful")
 
         } catch (e: ApiException) {
