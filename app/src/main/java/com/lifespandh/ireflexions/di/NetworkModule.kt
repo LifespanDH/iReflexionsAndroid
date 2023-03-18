@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lifespandh.ireflexions.BuildConfig
 import com.lifespandh.ireflexions.api.ApiClient
+import com.lifespandh.ireflexions.utils.network.RedirectInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +41,7 @@ class NetworkModule {
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .addInterceptor(RedirectInterceptor())
 //            .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
