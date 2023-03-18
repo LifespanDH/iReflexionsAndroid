@@ -42,7 +42,7 @@ class NetworkModule {
         val httpBuilder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(RedirectInterceptor())
-//            .addNetworkInterceptor(StethoInterceptor())
+            .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(50, TimeUnit.SECONDS)

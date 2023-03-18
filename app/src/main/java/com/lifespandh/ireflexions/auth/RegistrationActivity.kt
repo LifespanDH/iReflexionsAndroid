@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.models.User
 import com.lifespandh.ireflexions.utils.date.getDateAfterDays
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
@@ -55,8 +56,10 @@ class RegistrationActivity : BaseActivity() {
             val phone = phone.trimString()
             val region = region.trimString()
             val dob = dateOfBirth.trimString().toDate()
-            val user = User(name, email, phone, dob, region)
-            authViewModel.registerUser(user)
+            val user = dob?.let { it1 -> User(name, email, phone, it1, region) }
+            if (user != null) {
+                authViewModel.registerUser(user)
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.lifespandh.ireflexions.api
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.Token
+import com.lifespandh.ireflexions.models.User
 import com.lifespandh.ireflexions.utils.LOGIN_USER
 import com.lifespandh.ireflexions.utils.REGISTER_USER
 import okhttp3.RequestBody

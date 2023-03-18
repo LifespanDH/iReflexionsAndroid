@@ -4,6 +4,7 @@ import android.net.NetworkRequest
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.Token
+import com.lifespandh.ireflexions.models.User
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
 import okhttp3.RequestBody
