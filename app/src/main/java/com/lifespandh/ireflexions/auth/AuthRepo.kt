@@ -25,11 +25,11 @@ class AuthRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
-    suspend fun registerUser(requestBody: RequestBody): NetworkResult<JsonObject> {
+    suspend fun registerUser(user: User): NetworkResult<JsonObject> {
         var networkResult: NetworkResult<JsonObject>? = null
 
         safeApiCall({
-            apiClient.registerUser(requestBody)
+            apiClient.registerUser(user)
         }, {
             networkResult = it
         }, {
