@@ -55,14 +55,8 @@ class RegistrationActivity : BaseActivity() {
             val phone = phone.trimString()
             val region = region.trimString()
             val dob = dateOfBirth.trimString().toDate()
-            val requestBody = createJsonRequestBody(
-                NAME to name,
-                EMAIL to email,
-                PHONE_NUMBER to phone,
-                DOB to dob,
-                REGION to region
-            )
-            authViewModel.registerUser(requestBody)
+            val user = User(name, email, phone, dob, region)
+            authViewModel.registerUser(user)
         }
     }
 

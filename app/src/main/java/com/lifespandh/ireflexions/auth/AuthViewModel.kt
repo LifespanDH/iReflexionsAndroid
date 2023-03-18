@@ -42,9 +42,9 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewMod
         }
     }
 
-    fun registerUser(requestBody: RequestBody) {
+    fun registerUser(user: User) {
         viewModelScope.launch {
-            val response = authRepo.registerUser(requestBody)
+            val response = authRepo.registerUser(user)
 
             when(response) {
                 is NetworkResult.Success -> {
