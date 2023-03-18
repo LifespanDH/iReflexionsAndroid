@@ -13,6 +13,7 @@ import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.utils.date.getDateAfterDays
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
+import com.lifespandh.ireflexions.utils.date.toDate
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.*
 import com.lifespandh.ireflexions.utils.ui.toast
@@ -53,7 +54,7 @@ class RegistrationActivity : BaseActivity() {
             val email = email.trimString()
             val phone = phone.trimString()
             val region = region.trimString()
-            val dob = dateOfBirth.trimString()
+            val dob = dateOfBirth.trimString().toDate()
             val requestBody = createJsonRequestBody(
                 NAME to name,
                 EMAIL to email,

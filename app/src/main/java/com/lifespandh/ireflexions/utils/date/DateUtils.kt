@@ -21,3 +21,9 @@ fun getDateInFormat(timestamp: Long? = null): String {
     val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
     return dateFormat.format(date)
 }
+
+fun String.toDate(): Date? {
+    val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    val date = dateFormat.parse(this)
+    return date
+}
