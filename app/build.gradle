@@ -31,7 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://83c5-2601-8c0-801-b4d0-bee-de56-927c-de78.ngrok.io/\"")
+            buildConfigField("String", "BASE_URL", "\"https://ee1b-2601-8c0-801-b4d0-f39f-84ba-70c5-90ae.ngrok.io/\"")
         }
     }
     compileOptions {
@@ -101,7 +101,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:datetime:3.2.1'
 
     //
-    compile 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 }
 
 kapt {

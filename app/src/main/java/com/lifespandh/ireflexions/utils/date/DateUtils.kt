@@ -18,12 +18,12 @@ fun getDateAfterDays(after: Int): Calendar {
 fun getDateInFormat(timestamp: Long? = null): String {
     val time = timestamp ?: System.currentTimeMillis()
     val date = Date(time)
-    val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT)
     return dateFormat.format(date)
 }
 
 fun String.toDate(): Date? {
-    val dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT)
     val date = dateFormat.parse(this)
     return date
 }

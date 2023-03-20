@@ -77,7 +77,7 @@ class LoginActivity : BaseActivity() {
 
             // Signed in successfully, show authenticated UI.
 
-            val requestBody = createJsonRequestBody(OAUTH_KEY to account.id)
+            val requestBody = createJsonRequestBody(OAUTH_KEY to account.serverAuthCode)
             authViewModel.loginUser(requestBody)
             Log.d("signInResult", "Successful")
 

@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.di
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lifespandh.ireflexions.BuildConfig
