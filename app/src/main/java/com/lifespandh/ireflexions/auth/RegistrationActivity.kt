@@ -16,6 +16,7 @@ import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.date.toDate
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.*
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
@@ -56,6 +57,7 @@ class RegistrationActivity : BaseActivity() {
             val phone = phone.trimString()
             val region = region.trimString()
             val dob = dateOfBirth.trimString().toDate()
+            logE("${dateOfBirth.trimString()} ${dateOfBirth.trimString().toDate()} $dob")
             val user = dob?.let { it1 -> User(name, email, phone, it1, region) }
             if (user != null) {
                 authViewModel.registerUser(user)
