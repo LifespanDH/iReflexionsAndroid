@@ -2,22 +2,18 @@ package com.lifespandh.ireflexions.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
-import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.models.User
 import com.lifespandh.ireflexions.utils.date.getDateAfterDays
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
-import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.date.toDate
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
-import com.lifespandh.ireflexions.utils.network.*
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.activity_registration.*
