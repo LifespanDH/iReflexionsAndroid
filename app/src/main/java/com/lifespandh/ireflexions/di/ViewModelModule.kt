@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lifespandh.ireflexions.auth.AuthViewModel
+import com.lifespandh.ireflexions.onboarding.OnboardingViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,4 +26,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AuthViewModel::class)
     abstract fun authViewModel(authViewModel: AuthViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OnboardingViewModel::class)
+    abstract fun onboardingViewModel(onboardingViewModel: OnboardingViewModel): ViewModel
 }
