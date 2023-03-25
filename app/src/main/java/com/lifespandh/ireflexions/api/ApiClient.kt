@@ -18,4 +18,6 @@ interface ApiClient {
     @POST(REGISTER_USER)
     suspend fun registerUser(@Body user: User): JsonObject
 
+    //@GET(): List<SurveyQuestion>
+
 }
