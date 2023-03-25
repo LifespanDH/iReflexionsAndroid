@@ -1,8 +1,17 @@
 package com.lifespandh.ireflexions.models
 
-class SurveyQuestion {
+import com.google.gson.JsonObject
+import com.google.gson.annotations.SerializedName
 
-    //question : string
-    // image : string
-    //options : JsonObject
-}
+data class SurveyQuestion(
+
+    @SerializedName("question")
+    val question: String,
+
+    @SerializedName("image")
+    val image: String,
+
+    @SerializedName("options")
+    val options: JsonObject
+
+)
