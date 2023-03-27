@@ -31,7 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"https://1168-98-187-73-254.ngrok.io/\"")
+            buildConfigField("String", "BASE_URL", "\"http://0ff6-2601-8c0-801-b4d0-18f3-709a-5a2a-c58a.ngrok.io/\"")
         }
     }
     compileOptions {
@@ -102,6 +102,10 @@ dependencies {
 
     //
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
 }
 
 kapt {

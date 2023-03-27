@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="remind_dark">#BD1D4C</color>
     <color name="remind_light">#D16081</color>
+    <color name="icon_title_color">#F2F2F2</color>
+    <color name="dark_gray">#4C4D4D</color>
 </resources>

@@ -11,7 +11,19 @@ data class SurveyQuestion(
     @SerializedName("image")
     val image: String,
 
-    @SerializedName("options")
-    val options: JsonObject
+    @SerializedName("id")
+    val id: Int
+//    @SerializedName("options")
+//    val options: JsonObject
+
+)
+
+data class SurveyResponse(
+
+    @SerializedName("survey_question")
+    val question: SurveyQuestion,
+
+    @SerializedName("response")
+    val response: Float
 
 )
