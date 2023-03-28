@@ -87,8 +87,6 @@ class LoginActivity : BaseActivity() {
                     }
                 }
                 .addOnFailureListener(this) { e ->
-
-                    logD(e.localizedMessage)
                     oneTapClient.beginSignIn(signUpRequest)
                         .addOnSuccessListener(this) { result ->
                             try {
