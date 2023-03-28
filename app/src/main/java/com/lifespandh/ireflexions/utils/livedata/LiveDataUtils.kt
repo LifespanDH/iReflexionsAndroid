@@ -1,9 +1,6 @@
 package com.lifespandh.ireflexions.utils.livedata
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.version
+import androidx.lifecycle.*
 
 fun <T> LiveData<T>.observeFreshly(owner: LifecycleOwner, observer: Observer<in T>) {
     val sinceVersion = this.version()
@@ -41,4 +38,18 @@ class FreshObserver<T>(
     override fun hashCode(): Int {
         return delegate.hashCode()
     }
+}
+
+fun <T, K, R> LiveData<T>.combineWith(
+    liveData: LiveData<K>,
+    block: (T?, K?) -> R
+): LiveData<R> {
+    val result = MediatorLiveData<R>()
+    result.addSource(this) {
+        result.value = block(this.value, liveData.value)
+    }
+    result.addSource(liveData) {
+        result.value = block(this.value, liveData.value)
+    }
+    return result
 }

@@ -31,6 +31,12 @@ class TokenManager(private val context: Context) {
         }
     }
 
+    fun getRefreshToken(): Flow<String?> {
+        return context.dataStore.data.map { preferences ->
+            preferences[REFRESH_TOKEN]
+        }
+    }
+
     suspend fun saveRefreshToken(refreshToken: String) {
         context.dataStore.edit {
             it[REFRESH_TOKEN] = refreshToken

@@ -43,6 +43,23 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewMod
         }
     }
 
+    fun refreshToken(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = authRepo.refreshToken(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _tokenLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = authRepo.registerUser(user)
