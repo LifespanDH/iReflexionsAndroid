@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {

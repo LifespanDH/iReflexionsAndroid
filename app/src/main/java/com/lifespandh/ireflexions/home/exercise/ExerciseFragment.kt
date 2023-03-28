@@ -1,13 +1,13 @@
-package com.lifespandh.ireflexions.home
+package com.lifespandh.ireflexions.home.exercise
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 
 class ExerciseFragment : BaseFragment() {
