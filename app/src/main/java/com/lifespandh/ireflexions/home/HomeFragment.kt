@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
+import com.lifespandh.ireflexions.home.care.CareCenterFragment
 import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -60,6 +61,10 @@ class HomeFragment : BaseFragment() {
 
             }
         }
+
+        careCenter.setOnClickListener {
+            setupFragment(CareCenterFragment.newInstance())
+        }
     }
 
     private fun setupFragment(fragment: Fragment = HomeFragment.newInstance()) {
@@ -70,8 +75,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun showDialog(title: String, message: String) {
-//        ExploreWithoutAnAccountDialog.newInstance(title, message)
-//            .show(requireActivity().supportFragmentManager, TAG)
         UserNotLoggedInDialog.newInstance(
             title, message
         ).show(requireActivity().supportFragmentManager, null)

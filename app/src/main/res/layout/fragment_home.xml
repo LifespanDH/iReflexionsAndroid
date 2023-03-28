@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/montserrat"
-            android:text="@string/exercises"
+            android:text="@string/care_center"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
