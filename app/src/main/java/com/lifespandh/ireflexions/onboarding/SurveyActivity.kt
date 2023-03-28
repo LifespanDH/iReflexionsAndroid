@@ -10,7 +10,7 @@ import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.models.SurveyQuestion
 import com.lifespandh.ireflexions.models.SurveyResponse
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
@@ -79,8 +79,10 @@ class SurveyActivity : BaseActivity() {
     }
 
     private fun setQuestion() {
-        if (position >= surveyQuestions.size)
+        if (position >= surveyQuestions.size) {
+            submitResponses()
             return
+        }
 
         nextButton.text = "Next"
         prev_button.makeVisible()
@@ -102,5 +104,19 @@ class SurveyActivity : BaseActivity() {
         question_text.text = surveyQuestion.question
         Glide.with(this).load(surveyQuestion.image).into(question_image)
         seekBar.progress = seekBarProgress
+    }
+
+    private fun submitResponses() {
+        val responses = mutableListOf<SurveyResponse>()
+        for (response in surveyQuestionResponsesMap) {
+            val question = response.key
+            val value = response.value
+
+            val surveyResponse = SurveyResponse(question, value)
+            responses.add(surveyResponse)
+        }
+
+//        val requestBody = createJsonRequestBody(responses)
+        onboardingViewModel.saveSurveyQuestions(responses)
     }
 }

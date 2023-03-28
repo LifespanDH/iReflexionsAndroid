@@ -8,9 +8,15 @@ class SharedPrefs {
 
     private val pm: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(IReflexions.instance)
 
-//   var latestSupplierId: String
-//        get() = pm.getString(LATEST_SUPPLIER_ID, "") ?: ""
-//        set(value) {
-//            pm.edit().putString(LATEST_SUPPLIER_ID, value).apply()
-//        }
+    var accessToken: String
+        get() = pm.getString(ACCESS_TOKEN, "") ?: ""
+        set(value) {
+            pm.edit().putString(ACCESS_TOKEN, value).apply()
+        }
+
+    var refreshToken: String
+        get() = pm.getString(REFRESH_TOKEN, "") ?: ""
+        set(value) {
+            pm.edit().putString(REFRESH_TOKEN, value).apply()
+        }
 }

@@ -1,14 +1,23 @@
 package com.lifespandh.ireflexions.di
 
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lifespandh.ireflexions.BuildConfig
 import com.lifespandh.ireflexions.api.ApiClient
+import com.lifespandh.ireflexions.utils.jwt.TokenManager
 import com.lifespandh.ireflexions.utils.network.RedirectInterceptor
+import com.lifespandh.ireflexions.utils.network.TokenAuthenticator
+import com.lifespandh.ireflexions.utils.network.TokenInterceptor
+import com.lifespandh.ireflexions.utils.sharedPrefs.SharedPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,9 +27,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "iReflexions")
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
+
+    @Singleton
+    @Provides
+    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
+        TokenManager(context)
+
+
 
     @Provides
     @Singleton
@@ -38,11 +56,14 @@ class NetworkModule {
     @Provides
     @Singleton
     fun getOkHttpClient(
-        interceptor: Interceptor
+        interceptor: Interceptor,
+        tokenInterceptor: TokenInterceptor,
+        tokenAuthenticator: TokenAuthenticator
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(RedirectInterceptor())
+            .addInterceptor(tokenInterceptor)
             .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -50,8 +71,19 @@ class NetworkModule {
 
         return httpBuilder
             .protocols(mutableListOf(Protocol.HTTP_1_1))
+            .authenticator(tokenAuthenticator)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideTokenInterceptor(tokenManager: TokenManager): TokenInterceptor =
+        TokenInterceptor(tokenManager)
+
+    @Singleton
+    @Provides
+    fun provideTokenAuthenticator(tokenManager: TokenManager): TokenAuthenticator =
+        TokenAuthenticator(tokenManager)
 
     @Provides
     @Singleton
@@ -61,7 +93,6 @@ class NetworkModule {
             val actualRequest = request.build()
             it.proceed(actualRequest)
         }
-
     }
 
     @Provides

@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lifespandh.ireflexions.auth.AuthViewModel
+import com.lifespandh.ireflexions.auth.TokenViewModel
 import com.lifespandh.ireflexions.onboarding.OnboardingViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,6 +23,12 @@ abstract class ViewModelModule {
      * viewmodel that you have created recently and still is not
      * present in the dependency injection hashmap
      */
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TokenViewModel::class)
+    abstract fun tokenViewModel(tokenViewModel: TokenViewModel): ViewModel
+
     @Binds
     @IntoMap
     @ViewModelKey(AuthViewModel::class)

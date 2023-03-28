@@ -106,6 +106,12 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    // JWT
+    implementation 'com.auth0.android:jwtdecode:2.0.2'
+
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
 
 kapt {
