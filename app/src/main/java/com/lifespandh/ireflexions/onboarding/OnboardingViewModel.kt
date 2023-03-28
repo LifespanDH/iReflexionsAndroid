@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SurveyQuestion
 import com.lifespandh.ireflexions.models.SurveyResponse
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -19,6 +20,10 @@ class OnboardingViewModel @Inject constructor(private val onboardingRepo: Onboar
     private val _surveyResponseLiveData = MutableLiveData<Boolean>()
     val surveyResponseLiveData: LiveData<Boolean>
         get() = _surveyResponseLiveData
+
+    private val _exercisesLiveData = MutableLiveData<List<Exercise>>()
+    val exercisesLiveData: LiveData<List<Exercise>>
+        get() = _exercisesLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>

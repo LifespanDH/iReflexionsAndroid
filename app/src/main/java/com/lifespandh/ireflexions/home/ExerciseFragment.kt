@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 
 class ExerciseFragment : BaseFragment() {
+
+    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +31,18 @@ class ExerciseFragment : BaseFragment() {
     }
 
     private fun init() {
+        getExercises()
+        setObservers()
+    }
 
+    private fun getExercises() {
+        homeViewModel.getExercises()
+    }
+
+    private fun setObservers() {
+        homeViewModel.exercisesLiveData.observeFreshly(this) {
+
+        }
     }
 
     companion object {

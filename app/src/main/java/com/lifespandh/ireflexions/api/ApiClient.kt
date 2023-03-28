@@ -1,10 +1,7 @@
 package com.lifespandh.ireflexions.api
 
 import com.google.gson.JsonObject
-import com.lifespandh.ireflexions.models.SurveyQuestion
-import com.lifespandh.ireflexions.models.SurveyResponse
-import com.lifespandh.ireflexions.models.Token
-import com.lifespandh.ireflexions.models.User
+import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.utils.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -32,4 +29,6 @@ interface ApiClient {
     @POST(SAVE_SURVEY_QUESTIONS)
     suspend fun saveSurveyQuestions(@Body responses: List<SurveyResponse>): JsonObject
 
+    @GET(GET_EXERCISES)
+    suspend fun getExercises(): List<Exercise>
 }

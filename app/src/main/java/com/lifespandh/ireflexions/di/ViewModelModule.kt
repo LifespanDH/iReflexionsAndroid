@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lifespandh.ireflexions.auth.AuthViewModel
 import com.lifespandh.ireflexions.auth.TokenViewModel
+import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.onboarding.OnboardingViewModel
 import dagger.Binds
 import dagger.Module
@@ -38,4 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(OnboardingViewModel::class)
     abstract fun onboardingViewModel(onboardingViewModel: OnboardingViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
 }
