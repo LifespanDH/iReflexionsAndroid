@@ -122,8 +122,8 @@
     <string name="sign_up_with_facebook">Sign Up with Facebook</string>
     <string name="sign_up_with_google">Sign Up with Google</string>
 
-<!--    <string name="facebook_app_id">@string/FACEBOOK_APP_ID</string>-->
-<!--    <string name="fb_login_protocol_scheme">@string/FACEBOOK_LOGIN_PROTOCOL_SCHEME</string>-->
+    <!--    <string name="facebook_app_id">@string/FACEBOOK_APP_ID</string>-->
+    <!--    <string name="fb_login_protocol_scheme">@string/FACEBOOK_LOGIN_PROTOCOL_SCHEME</string>-->
 
     <string name="no_internet_connection">No internet connection</string>
     <string name="sign_in_with_provider_failed">Sign in with %s failed.</string>
