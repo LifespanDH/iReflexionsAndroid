@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Token(
 
-    @SerializedName("token")
+    @SerializedName("access_token")
     val token: String,
 
     @SerializedName("refresh")

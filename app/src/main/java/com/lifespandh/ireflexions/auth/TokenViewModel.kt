@@ -36,4 +36,16 @@ class TokenViewModel @Inject constructor(
             tokenManager.deleteToken()
         }
     }
+
+    fun saveRefreshToken(token: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            tokenManager.saveRefreshToken(token)
+        }
+    }
+
+    fun deleteRefreshToken() {
+        viewModelScope.launch(Dispatchers.IO) {
+            tokenManager.deleteRefreshToken()
+        }
+    }
 }

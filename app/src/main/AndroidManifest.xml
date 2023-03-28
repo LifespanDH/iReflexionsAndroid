@@ -16,7 +16,7 @@
         android:theme="@style/Theme.IReflexions"
         tools:targetApi="31">
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".onboarding.SurveyActivity"

@@ -11,7 +11,7 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
-import com.lifespandh.ireflexions.home.HomeScreenActivity
+import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -111,14 +111,20 @@ class LoginActivity : BaseActivity() {
         }
 
         skip_button.setOnClickListener {
-            startActivity(HomeScreenActivity.newInstance(this))
+            startActivity(HomeActivity.newInstance(this))
         }
     }
 
     private fun setObservers() {
         authViewModel.tokenLiveData.observeFreshly(this) {
-            toast("$it")
-        // We get token here, now we can proceed to the next screen
+            tokenViewModel.saveToken(it.token)
+            tokenViewModel.saveRefreshToken(it.refresh)
+        }
+
+        tokenViewModel.token.observeFreshly(this) {
+            if (it != null) {
+                startActivity(HomeActivity.newInstance(this))
+            }
         }
 
         authViewModel.errorLiveData.observeFreshly(this) {

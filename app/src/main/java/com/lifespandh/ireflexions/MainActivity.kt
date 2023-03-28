@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.lifespandh.ireflexions.auth.LoginActivity
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.utils.jwt.isJWTExpired
+import com.lifespandh.ireflexions.utils.ui.toast
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : BaseActivity() {
         if (token.isNullOrEmpty()) {
             startActivity(LoginActivity.newInstance(this))
         } else {
-            // Token is present and not expired
+            toast("To home")
         }
     }
 }

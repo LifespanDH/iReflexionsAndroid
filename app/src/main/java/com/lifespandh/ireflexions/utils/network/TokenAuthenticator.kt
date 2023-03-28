@@ -24,9 +24,13 @@ class TokenAuthenticator @Inject constructor(
             val newToken = getNewToken(token)
 
             if (newToken == null || newToken.token.isNullOrEmpty()) {
+                tokenManager.deleteRefreshToken()
                 tokenManager.deleteToken()
             }
-            newToken?.token?.let { tokenManager.saveToken(it) }
+            newToken?.let {
+                tokenManager.saveToken(it.token)
+                tokenManager.saveRefreshToken(it.refresh)
+            }
             response.request().newBuilder()
                 .header("Authorization", "${newToken?.token}")
                 .build()
