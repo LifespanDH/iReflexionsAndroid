@@ -12,9 +12,6 @@ data class SurveyQuestion(
 
     @SerializedName("id")
     val id: Int
-//    @SerializedName("options")
-//    val options: JsonObject
-
 )
 
 data class SurveyResponse(
