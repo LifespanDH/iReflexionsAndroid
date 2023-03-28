@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.auth
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
@@ -141,6 +142,11 @@ class LoginActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+
+        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java)
     }
 }
 

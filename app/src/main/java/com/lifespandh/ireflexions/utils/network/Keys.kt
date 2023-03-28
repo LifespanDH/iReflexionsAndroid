@@ -9,4 +9,6 @@ const val DOB = "dob"
 const val PHONE_NUMBER = "phone_number"
 const val REGION = "region"
 
+const val REFRESH = "refresh"
+
 

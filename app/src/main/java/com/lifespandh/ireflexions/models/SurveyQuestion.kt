@@ -1,6 +1,5 @@
 package com.lifespandh.ireflexions.models
 
-import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 data class SurveyQuestion(
@@ -9,7 +8,7 @@ data class SurveyQuestion(
     val question: String,
 
     @SerializedName("image")
-    val image: String,
+    val image: String?,
 
     @SerializedName("id")
     val id: Int
@@ -24,6 +23,6 @@ data class SurveyResponse(
     val question: SurveyQuestion,
 
     @SerializedName("response")
-    val response: Float
+    val response: Int
 
 )

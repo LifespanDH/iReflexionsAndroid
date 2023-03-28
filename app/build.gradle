@@ -31,7 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://0ff6-2601-8c0-801-b4d0-18f3-709a-5a2a-c58a.ngrok.io/\"")
+            buildConfigField("String", "BASE_URL", "\"http://da7d-2601-8c0-801-b4d0-2aaf-c762-ae8b-cd85.ngrok.io/\"")
         }
     }
     compileOptions {
@@ -106,6 +106,12 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    // JWT
+    implementation 'com.auth0.android:jwtdecode:2.0.2'
+
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
 
 kapt {
