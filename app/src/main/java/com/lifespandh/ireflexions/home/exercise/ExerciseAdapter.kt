@@ -11,7 +11,7 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Exercise
 
 class ExerciseAdapter(
-    private val exercises: List<Exercise>
+    private var exercises: List<Exercise>
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ExerciseViewHolder(getView(R.layout.item_exercise, parent))
@@ -24,6 +24,11 @@ class ExerciseAdapter(
 
     override fun getItemCount(): Int {
         return exercises.size
+    }
+
+    fun setList(list: List<Exercise>) {
+        this.exercises = list
+        notifyDataSetChanged()
     }
 
     inner class ExerciseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

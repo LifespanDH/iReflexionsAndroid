@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import kotlinx.android.synthetic.main.fragment_exercise.*
 
 class ExerciseFragment : BaseFragment() {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
-
+    private val exerciseAdapter by lazy { ExerciseAdapter(listOf()) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,8 +33,16 @@ class ExerciseFragment : BaseFragment() {
     }
 
     private fun init() {
+        setRecyclerView()
         getExercises()
         setObservers()
+    }
+
+    private fun setRecyclerView() {
+        exercisesRecyclerView.apply {
+            adapter = exerciseAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun getExercises() {
@@ -41,7 +51,7 @@ class ExerciseFragment : BaseFragment() {
 
     private fun setObservers() {
         homeViewModel.exercisesLiveData.observeFreshly(this) {
-
+            exerciseAdapter.setList(it)
         }
     }
 
