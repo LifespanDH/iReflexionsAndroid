@@ -6,152 +6,179 @@
     android:layout_height="match_parent"
     tools:context=".home.HomeFragment">
 
-    <ImageButton
-        android:id="@+id/img_courses"
+    <LinearLayout
+        android:id="@+id/courses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_course"
-        app:layout_constraintBottom_toTopOf="@+id/img_community"
-        app:layout_constraintEnd_toStartOf="@+id/img_how_am_i"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/community"
+        app:layout_constraintEnd_toStartOf="@+id/howAmI"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txt_courses"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/courses"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/img_courses"
-        app:layout_constraintStart_toStartOf="@id/img_courses"
-        app:layout_constraintTop_toBottomOf="@id/img_courses" />
+        <ImageButton
+            android:id="@+id/img_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_course" />
 
-    <ImageButton
-        android:id="@+id/img_how_am_i"
+        <TextView
+            android:id="@+id/txt_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/courses"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/howAmI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_how_am_i"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_courses"
-        app:layout_constraintTop_toTopOf="@+id/img_courses" />
+        app:layout_constraintStart_toEndOf="@+id/courses"
+        app:layout_constraintTop_toTopOf="@+id/courses">
 
-    <TextView
-        android:id="@+id/txt_how_am_i"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/how_am_i_today"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/img_how_am_i"
-        app:layout_constraintStart_toStartOf="@id/img_how_am_i"
-        app:layout_constraintTop_toBottomOf="@id/img_how_am_i" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_how_am_i" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/how_am_i_today"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
 
-    <ImageButton
-        android:id="@+id/img_community"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/community"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_community"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/img_courses"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/courses"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txt_community"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/community"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/img_community"
-        app:layout_constraintStart_toStartOf="@id/img_community"
-        app:layout_constraintTop_toBottomOf="@id/img_community" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_community" />
 
-    <ImageButton
-        android:id="@+id/exerciseImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_exercises"
-        app:layout_constraintEnd_toEndOf="@+id/img_how_am_i"
-        app:layout_constraintTop_toTopOf="@+id/img_community" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/community"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/txt_exercises"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/exercises"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/exerciseImage"
-        app:layout_constraintStart_toStartOf="@id/exerciseImage"
-        app:layout_constraintTop_toBottomOf="@id/exerciseImage" />
+    </LinearLayout>
 
-
-    <ImageButton
-        android:id="@+id/img_care_center"
+    <LinearLayout
+        android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_home_care_center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/howAmI"
+        app:layout_constraintTop_toTopOf="@+id/community">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_exercises" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/exercises"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/careCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/img_community"
-        app:layout_constraintStart_toStartOf="@+id/img_courses"
-        app:layout_constraintTop_toBottomOf="@id/img_community" />
+        app:layout_constraintEnd_toEndOf="@+id/community"
+        app:layout_constraintStart_toStartOf="@+id/courses"
+        app:layout_constraintTop_toBottomOf="@id/community">
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_home_care_center" />
 
-    <TextView
-        android:id="@+id/txt_care_center"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/care_center"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/img_care_center"
-        app:layout_constraintStart_toStartOf="@id/img_care_center"
-        app:layout_constraintTop_toBottomOf="@id/img_care_center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/exercises"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
 
-    <ImageButton
-        android:id="@+id/img_biometrics"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/biometrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:src="@drawable/ic_biometrics"
-        app:layout_constraintEnd_toEndOf="@+id/img_how_am_i"
-        app:layout_constraintTop_toTopOf="@+id/img_care_center" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/howAmI"
+        app:layout_constraintTop_toTopOf="@+id/careCenter">
 
-    <TextView
-        android:id="@+id/txt_biometrics"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/autonomic_practice"
-        android:textAllCaps="true"
-        android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/img_biometrics"
-        app:layout_constraintStart_toStartOf="@id/img_biometrics"
-        app:layout_constraintTop_toBottomOf="@id/img_biometrics" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@null"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:src="@drawable/ic_biometrics" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/autonomic_practice"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseFragment() {
+class ExerciseFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,7 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_exercise, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,24 +27,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun init() {
-        setListeners()
-    }
 
-    private fun setListeners() {
-        exercise.setOnClickListener {
-            setupFragment(ExerciseFragment.newInstance())
-        }
-    }
-
-    private fun setupFragment(fragment: Fragment = HomeFragment.newInstance()) {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameContainer, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
     companion object {
-
-        fun newInstance() = HomeFragment()
+        fun newInstance() = ExerciseFragment()
     }
 }
