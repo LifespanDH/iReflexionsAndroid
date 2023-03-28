@@ -1,17 +1,420 @@
 <resources>
-    <string name="app_name">IReflexions</string>
+    <string name="app_name">iReflexions</string>
     <string name="your_web_client_id">488875091554-c5oqhfe6fqn52gmvv3i7fmveiajc98el.apps.googleusercontent.com</string>
-    <string name="let_s_personalize_your_experience">Let\'s personalize your experience.</string>
-    <string name="strongly_agree">Strongly\nAgree</string>
-    <string name="strongly_disagree">Strongly\nDisagree</string>
-    <string name="na">N/A</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">iREFLEXIONS</string>
+    <string name="nav_header_subtitle">Thought Technology</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">HOME</string>
+    <string name="menu_settings">SETTINGS</string>
+    <string name="menu_breath_pacer">BREATH PACER</string>
+    <string name="menu_find_resources">FIND RESOURCES</string>
+    <string name="menu_privacy">PRIVACY</string>
+    <string name="menu_account">ACCOUNT</string>
+    <string name="menu_logout">LOGOUT</string>
+    <string name="menu_exit">Exit</string>
+
     <string name="courses">COURSES</string>
     <string name="how_am_i_today">HOW AM I TODAY?</string>
     <string name="community">COMMUNITY</string>
     <string name="exercises">EXERCISES</string>
     <string name="biometrics">BIOMETRICS</string>
     <string name="care_center">CARE CENTER</string>
-    <string name="autonomic_practice">Autonomic Practice</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="current_program">CURRENT PROGRAM</string>
+    <string name="current_course">CURRENT COURSE</string>
+    <string name="browse_programs">BROWSE PROGRAMS</string>
+
+
+    <string name="menu_sensor">Sensor</string>
+    <string name="menu_connect_sensor">Connect Sensor</string>
+    <string name="connect">Connect</string>
+    <string name="no_thanks">No Thanks</string>
+    <string name="begin">Begin</string>
+    <string name="baseline_reading">Baseline Reading</string>
+    <string name="baseline_reading_info">Please find a comfortable position and sit without movement while we gather a baseline
+    reading of your body\'s current state. Press begin when you are ready.</string>
+    <string name="connect_biofeedback">Connect Biofeedback Device?</string>
+    <string name="connect_biofeedback_desc">This exercise has a biofeedback component and will require a sensor to work.
+        Would you like to connect and use one now?</string>
+    <string name="connect_biofeedback_optional_desc">This exercise has a biofeedback component (optional).
+        Would you like to connect and use one now?</string>
+
+
+    <!-- TPS device connection -->
+    <string name="title_select_tps_dialog">Select a TPS</string>
+    <string name="title_bluetooth_off">Bluetooth off</string>
+    <string name="question_bluetooth_turn_on">Do you want to turn Bluetooth on?</string>
+    <string name="msg_tps_is_connected_with_param">TPS device %1$s is connected.</string>
+    <string name="msg_pair_tps_in_bluetooth_settings">Please pair TPS in your Bluetooth settings.</string>
+    <string name="msg_connection_tps_failed">Connection to %1$s failed.</string>
+    <string name="title_tps_disconnected">TPS disconnected</string>
+    <string name="end_question_tps_reconnection">is disconnected. Connect it?</string>
+    <string name="msg_tps_disconnected">TPS device is disconnected</string>
+    <string name="title_account_information">Account Information</string>
+    <string name="question_disconnect_tps">Disconnect TPS device?</string>
+    <string name="text_please_select">Please Select</string>
+    <string name="title_disconnect_tps">Disconnect TPS</string>
+    <string name="error_tps_contact_off">TPS contact is off, cannot proceed further.</string>
+    <string name="tps_lost_contact_return_home">stops. TPS contact is lost. Returning to Home.</string>
+    <string name="exercise_stops_tps_lost_contact_return_home">Exercise stops. Sensor contact is lost. Returning to Home.</string>
+    <string name="battery_state">Battery state</string>
+    <string name="hand_contact_state">Hand contact state</string>
+    <string name="email_address">E-mail address</string>
+    <string name="email">Email</string>
+    <string name="new_email">Enter new email</string>
+    <string name="password">Password</string>
+    <string name="new_password">New Password</string>
+    <string name="stay_logged_in">STAY LOGGED IN</string>
+    <string name="forgot_detail">FORGOT DETAILS?</string>
+    <string name="explore_ireflextions_without_account">EXPLORE WITHOUT AN ACCOUNT</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="or">OR</string>
+    <string name="already_have_an_account">ALREADY HAVE AN ACCOUNT?</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="user_name">User Name</string>
+    <string name="username">Username</string>
+    <string name="new_username">Enter new username</string>
+    <string name="sign_up_with">SIGN UP WITH:</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gender">Gender</string>
+    <string name="birthdate">Birthdate</string>
+
+    <string name="i_have_read_and_agree_to_the_terms_of_service">I\'ve read and agree to the <a href="https://s3.amazonaws.com/dev.legaldocs/iReflexions_TOS.html">Terms and Conditions</a></string>
+    <string name="agree_to_privacy_policy">Agree to  <a href="https://s3.amazonaws.com/dev.legaldocs/LifespanDH_PrivacyPolicy.html">Privacy Policy</a></string>
+    <string name="enter_email_address">Please, enter your email address</string>
+
+    <string name="invalid_email_error">This is not a valid email address</string>
+    <string name="email_empty_error">Email cannot be empty</string>
+    <string name="username_email_exists_error">User with this email exists</string>
+    <string name="username_email_is_not_exists_error">User with this email is not exists</string>
+    <string name="username_exists_error">User with this username exists</string>
+    <string name="user_already_exists">User already exists</string>
+    <string name="accept_tc_error">You should accept Terms &amp; Conditions</string>
+    <string name="accept_share_data_error">You should agree to privacy policy</string>
+    <string name="gender_error">Please, select gender</string>
+
+
+    <string name="password_confirm_match_error">Your passwords do not match. Please try again.</string>
+    <string name="password_empty_error">Please enter your password</string>
+    <string name="password_invalid">There was an error with your password. It must contain: \n-A lowercase letter. \n-An uppercase letter. \n-A special character. \n-A number. \n-At least 10 characters.</string>
+    <string name="userName_error">User name cannot be empty</string>
+    <string name="error_user_name">Please enter your username</string>
+    <string name="user_password_error">Username or Password do not match. Please try again!</string>
+    <string name="birthdate_empty_error">Please enter a valid birthdate</string>
+
+    <string name="action_exit">Exit</string>
+    <string name="action_logout">Logout</string>
+    <string name="text_logout">Are you sure you want to logout?</string>
+    <string name="text_exit">Are you sure you want to exit?</string>
+    <string name="text_delete_account">Are you sure you want to delete account?</string>
+    <string name="what_is_ireflexions">What is iReflexions?</string>
+    <string name="next">NEXT</string>
+
+    <string name="action_enroll_program">Enroll program</string>
+    <string name="text_confirm_enrolment_from_uncompleted">You can be enrolled into one program at a time. If you want to enroll in %s, you will be unenrolled from the current %s program.</string>
+    <string name="text_confirm_enrolment_from_completed">Would you like to enroll in a program %s?</string>
+
+    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
+    <string name="sign_up_with_google">Sign Up with Google</string>
+
+<!--    <string name="facebook_app_id">@string/FACEBOOK_APP_ID</string>-->
+<!--    <string name="fb_login_protocol_scheme">@string/FACEBOOK_LOGIN_PROTOCOL_SCHEME</string>-->
+
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="sign_in_with_provider_failed">Sign in with %s failed.</string>
+    <string name="google_sign_in_unavailable">"Google sign in is unavailable."</string>
+    <string name="facebook_sign_in_unavailable">"Facebook sign in is unavailable."</string>
+    <string name="user_signed_out_from_google">"User is Signed out from Google."</string>
+    <string name="user_signed_out_from_facebook">"User is Signed out from Facebook."</string>
+
+
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="how_are_you_today">HOW ARE YOU TODAY?</string>
+
+    <string-array name="gender_array">
+        <item>Gender</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Nonbinary</item>
+        <item>Other</item>
+        <item>Rather Not Say</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string name="title_activity_video_view">VideoViewActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="skip">SKIP</string>
+    <string name="close_app">Close app</string>
+    <string name="let_s_personalize_your_experience">Let\'s personalize your experience.</string>
+    <string name="strongly_disagree">Strongly\nDisagree</string>
+    <string name="strongly_agree">Strongly\nAgree</string>
+    <string name="na">N/A</string>
+    <string name="done">Done</string>
+    <string name="suggested_programs_for_you">Suggested programs for you.</string>
+    <string name="enroll">+ ENROLL</string>
+    <string name="unenroll">- UNENROLL</string>
+    <string name="temp_units">Temp Units</string>
+    <string name="give_feedback">Give Feedback</string>
+    <string name="report_issue">Report Issue</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="temperature_celsius">⁰C</string>
+    <string name="temperature_fahrenheit">⁰F</string>
+    <string name="inhalation_time">Inhalation Time</string>
+    <string name="hold_in">Hold In</string>
+    <string name="exhalation_time">Exhalation Time</string>
+    <string name="hold_out">Hold Out</string>
+    <string name="view_terms_of_service">View Terms of Service</string>
+    <string name="share_anonymous_data_with_ireflexions_team">Share anonymous data with iReflexions team</string>
+    <string name="dont_share">Don\'t Share</string>
+    <string name="share">Share</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="membership">Membership</string>
+    <string name="edit">Edit</string>
+    <string name="change">Change</string>
+    <string name="send">Send</string>
+    <string name="heart_rate_variability">Heart Rate Variability</string>
+    <string name="skin_temperature">Skin Temperature</string>
+    <string name="skin_conductance">Skin Conductance</string>
+    <string name="signal_viewer">Signal Viewer</string>
+    <string name="past_data">Past Data</string>
+    <string name="live_view">Live View</string>
+    <string name="hr_info_title">What is Heart Rate variability and why is it important?</string>
+    <string name="hr_info_description">Lorem Ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <string name="verify_internet_connection">Please, verify your device Internet connection!</string>
+
+    <string name="take_a_moment_for_yourself">Take a moment for yourself.</string>
+    <string name="get_support">GET SUPPORT</string>
+    <string name="self_support">Self-Support</string>
+    <string name="guided_meditation">Guided Meditation</string>
+    <string name="mindfulness_exercise">Mindfulness Exercise</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirmation_code">Confirmation Code</string>
+    <string name="confirmation_code_sent">Confirmation code sent</string>
+    <string name="confirmation_code_error">Error sending confirmation code</string>
+    <string name="create_account_error">Error creating account</string>
+    <string name="create_account_success">Account created successfully</string>
+    <string name="confirmation_code_invalid">Confirmation code is invalid</string>
+    <string name="confirmation_code_empty">Please enter your confirmation code</string>
+    <string name="signing_up">Signing Up</string>
+    <string name="deleting_account">Deleting Account</string>
+    <string name="updating_user">Updating</string>
+    <string name="logging_in">Logging In</string>
+    <string name="error_login">Error Logging In</string>
+    <string name="offline_login_warning_message">You signed in with offline mode. Some app features cannot be available.</string>
+
+    <string name="add_some_friends_family_to_reach_out_to_in_times_of_need">Add some friends/family to reach out to in times of need</string>
+    <string name="plus_sign">+</string>
+    <string name="text">Text</string>
+    <string name="call">Call</string>
+    <string name="call_therapist">Call a therapist</string>
+    <string name="text_crisis_line">Text a crisis line</string>
+
+    <string name="call_app_not_found">Call application is not found.</string>
+    <string name="messaging_app_not_found">Messaging application is not found.</string>
+    <string name="call_error_message">Call is failed.</string>
+    <string name="set_up_support">Set up support</string>
+    <string name="x_sign">X</string>
+    <string name="add_support_contact_text">Enter the name, number, and picture (optional) of a person you\'d reach out to in your time of need.</string>
+    <string name="select_photo">Select photo</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="check">Check</string>
+    <string name="back_to_courses">Back to Courses</string>
+    <string name="pick_support_from_contacts">Pick support from Contacts</string>
+    <string name="take_photo">Take Picture</string>
+    <string name="text_crisis_lines">Text Crisis Lines</string>
+    <string name="text_crisis_lines_description">The following are crisis text lines available for anyone to use. Please note, you will be sent to your phone\'s default SMS messaging app to use.</string>
+    <string name="crisis_text_line">Crisis Text Line</string>
+    <string name="youth_line">YouthLine</string>
+    <string name="website">Website</string>
+    <string name="ages_11_21">(ages 11-21)</string>
+    <string name="the_trevor_project">The Trevor Project</string>
+    <string name="lgbtqia">(LGBTQIA+)</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="update_successfully">Updated Successfully</string>
+    <string name="update_error">Error Updating</string>
+    <string name="view_weekly_data">View Weekly \nData</string>
+    <string name="view_monthly_data">View Monthly \nData</string>
+    <string name="no_entries_yet">No Entries Yet</string>
+    <string name="add_new_entry">Add New Entry</string>
+    <string name="what_is_happening">What\'s Happening?</string>
+    <string name="environmental_conditions">Environmental Conditions</string>
+    <string name="movement">Movement</string>
+    <string name="title_movement">Movement:</string>
+    <string name="no_body_movement">No Body \nMovement</string>
+    <string name="intense_body_movement">Intense Body \nMovement</string>
+    <string name="sleep">Sleep</string>
+    <string name="_0_hours">0 Hours</string>
+    <string name="_12_hours">12+ Hours</string>
+    <string name="poor_quality">Poor \nQuality</string>
+    <string name="high_quality">High \nQuality</string>
+    <string name="unsure">Unsure</string>
+    <string name="journal_entry">Journal Entry</string>
+    <string name="write_about_your_day_and_or_thoughts_and_feelings_if_you_d_like"><font size="12">Write about your day and/or thoughts and feelings if you\'d like.
+        \n\n</font></string>
+    <string name="discard">Discard</string>
+    <string name="how_are_you_doing">How are you doing?</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="confirm_remove_item">Are you sure want to remove item %1$s?</string>
+    <string name="review">Review</string>
+    <string name="start">Start</string>
+    <string name="preview">Preview</string>
+    <string name="percent_complete_format_with_line">- %s%% complete</string>
+    <string name="percent_complete_format">%s%% complete</string>
+    <string name="percent_match_format">%s%% MATCH</string>
+
+
+    <string name="offline">Offline</string>
+    <string name="feature_available_only_online">The feature is available only online.</string>
+    <string name="record_panic_attack">Record Panic Attack</string>
+    <string name="time">Time</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="triggers">Trigger(s)</string>
+    <string name="intensity">Intensity</string>
+    <string name="item_name_not_filled">Item name is not filled in.</string>
+    <string name="hh_mm">HH:mm</string>
+    <string name="select_program">Select the program to enroll</string>
+    <string name="no_current_course">No current course selected</string>
+    <string name="action_next_lesson">Next Lesson</string>
+    <string name="format_program_courses">%s courses</string>
+    <string name="check_your_email_for_confirmation_code">Please check your email for your confirmation code.</string>
+    <string name="environment">Environment:</string>
+    <string name="journal">Journal:</string>
+    <string name="title_sleep">Sleep:</string>
+    <string name="questions_title">A very quick set of questions to help solidify your learning.</string>
+    <string name="hint_question_answer">Write your answer:</string>
+    <string name="question_response">Question Response</string>
+    <string name="assessment">Assessment</string>
+    <string name="how_have_i_been_weekly">HOW HAVE I BEEN? - Weekly</string>
+    <string name="submit">Submit</string>
+
+    <string name="prompt_info_title">Login for iReflexions</string>
+    <string name="prompt_info_subtitle">Login using your credential</string>
+
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="error_unexpected">Unexpected error occurred.</string>
+    <string name="error_not_found">Data not found.</string>
+    <string name="error_invalid_request">Invalid request to server.</string>
+    <string name="error_unexpected_response">Unexpected response from server.</string>
+    <string name="error_server_conflict">Conflict server error. Record already exists on server.</string>
+    <string name="error_server">Error occurred on server. Try again later.</string>
+    <string name="error_authorization">Needs authorization or not enough right for action.</string>
+    <string name="error_multiple_enroll">User is enrolled in multiple programs or courses.</string>
+    <string name="error_delete_account">Error deleting account.</string>
+    <string name="message_fingerpint">You do not have an active user session. Please sign in with the "STAY LOGGED IN" switch and then you can sign in with your fingerprint!</string>
+
+    <!-- Monthly report -->
+    <string name="how_have_i_been_monthly">HOW HAVE I BEEN? - Monthly</string>
+    <string name="explore_without_an_account_dialog_title">Explore without an account</string>
+    <string name="explore_without_an_account_dialog_body_text_entry">Please register to enable saving the entry.</string>
+    <string name="explore_without_an_account_Program_text">Please register to see programs and course content.</string>
+    <string name="explore_without_an_account_dialog_body_text_care_center">Please register to enable saving the contact.</string>
+    <string name="message_loading_items_waiting_please">Loading items. Waiting please…</string>
+    <string name="message_updated_successfully">updated successfully</string>
+    <string name="message_saving_data_waiting_please">Saving data. Waiting please…</string>
+    <string name="message_updating_data_waiting_please">Updating data. Waiting please…</string>
+    <string name="message_items_loaded_successfully">Items loaded successfully</string>
+    <string name="delete_contact_error">Error deleting contact.</string>
+
+    <string name="member_ship_level_no_subscription_dialog_title">Subscription Info</string>
+    <string name="member_ship_level_no_subscription_dialog_body_text_entry">You have no subscription membership level. Please go to our website and update your level to Basic or above! Thank you ;)</string>
+    <string name="member_ship_level_no_subscription_dialog_body_text_entry_community">You have no subscription membership level. Community is available only for subscribed user! Please go to our website and update your level to Basic or above! Thank you ;)</string>
+
+    <string-array name="calendarCategories">
+        <item>Emotions</item>
+        <item>Sleep</item>
+        <item>Journal Entries</item>
+        <item>Panic Attack</item>
+        <item>Movement</item>
+    </string-array>
+
+    <string-array name="movementLabels">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
+    <string name="game_view_content_description">Game View</string>
+    <string name="device_disconnected_exit_exercise_cause_message">Heart rate sensor is disconnected. Exercise will be terminated.</string>
+    <string name="exercise">Exercise</string>
+    <string name="exercise_player_not_initialized">Exercise player is not initialized. Try to reopen exercise.</string>
+    <string name="autonomic_training">Autonomic Training</string>
+    <string name="view_only">View Only</string>
+    <string name="practice_training">Practice Training</string>
+    <string name="comfort_level">Comfort Level</string>
+    <string name="autonomic_view_desc">Learn how to control your autonomic nervous system by seeing how different strategies
+        (deep breathing, anchoring, visualizations) affect your overall Comfort Level.</string>
+    <string name="comfort_level_info">This score has been calculated using several biometric signals from your sensor</string>
+    <string name="seconds_remain">Seconds Remain</string>
+    <string name="you_ve_completed_your_program">You\'ve Completed Your Program!!</string>
+    <string name="enroll_in_new_program">Enroll in new program</string>
+    <string name="take_a_break">Take a break</string>
+    <string name="completion_program_desc">Congratulations on completing the <b>%1$s Program</b>! We hope you have learned a bit more about your brain, your body, and yourself.
+        \n\nFeel free to enroll in a new program or take some time off to focus on solidifying your new skills.
+</string>
+
+    <string name="program_rate_match">%1$s MATCH</string>
+    <string name="error_receiving_tokens_message">Error receiving tokens</string>
+    <string name="unknown_error_message">Unknown error</string>
+    <string name="autonomic_practice">Autonomic Practice</string>
+    <string name="saved_locally">saved to Local DB</string>
+    <string name="saved_successfully">saved successfully</string>
+    <string name="connecting_message">Connecting...</string>
+    <string name="updated_successfully_text">updated successfully</string>
+    <string name="feedback_not_available">Feedback is not available!</string>
+    <string name="forgot_password_text">Forgot your login information? Enter your email below and if we have an associated account on file, we\'ll send a new confirmation code.</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="error_exercise_not_found">Exercise not found</string>
+    <string name="no_enrolment">Enrolment can be done online only</string>
+    <string name="unexpected_local_database_error">"Unexpected local database error."</string>
+    <string name="no_program_chosen">No program chosen</string>
+    <string name="checking_username_message">Checking username...</string>
+    <string name="loading_message">Loading...</string>
+    <string name="checking_email_message">Checking email...</string>
+    <string name="inactivity_logout_message">You were automatically logged out for security reasons due to 5 minutes of inactivity. Please log in again!</string>
+    <string name="biofeedback_coming_soon">Coming soon…</string>
+    <string name="home_message_text_crisis_line">Home</string>
+    <string name="teen2teen_message_text_crisis_line">teen2teen</string>
+    <string name="loading_courses_message">Loading courses</string>
+    <string name="error_message_unenroll">Sorry, there was a server error. Please choose another program from the list to unenroll of current program!</string>
+
+    <string name="action_delete_contact">Delete contact</string>
+    <string name="text_delete_contact">Are you sure you want to delete contact\n<b><i>%s %s</i></b>?</string>
+
+    <string name="hint_feedback">Enter your feedback</string>
+    <string name="hint_report_issue">Report issue</string>
+    <string name="message_feedback_sent">Feedback sent</string>
+    <string name="message_report_issue_sent">Report issue sent</string>
+
+
+    <string name="action_logout_change_email">Log out to confirm that your account</string>
+    <string name="text_logout_change_email">We need to make sure this is your account and you have access to change email address!</string>
+
+    <string name="answer_is_empty">Answer is empty.</string>
+
+    <string name="error_download_lesson_content">An error occurred during downloading the lesson content.</string>
+    <string name="loading">Loading&#8230;</string>
 </resources>

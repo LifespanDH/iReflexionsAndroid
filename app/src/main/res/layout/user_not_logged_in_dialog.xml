@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card_background"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/explore_without_an_account_dialog_title"
+            android:textSize="@dimen/font_explore_without_an_account_layout_title" />
+
+        <TextView
+            android:id="@+id/tvBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="@color/icon_title_color"
+            android:textSize="@dimen/font_explore_without_an_account_layout_body" />
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_30dp"
+            android:background="@drawable/purple_short_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleY="0.80"
+            android:scaleX="0.80"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@android:string/ok"
+            android:textSize="16sp"
+            android:textColor="@color/icon_title_color" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

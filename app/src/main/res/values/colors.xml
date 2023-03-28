@@ -13,5 +13,6 @@
     <color name="dark_gray">#4C4D4D</color>
 
     <color name="lightPrimaryColor">#75B8B7BD</color>
+    <color name="card_background">#323232</color>
 
 </resources>

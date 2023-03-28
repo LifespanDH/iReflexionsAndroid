@@ -1,0 +1,55 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="quiz_card_text">20sp</dimen>
+    <dimen name="quiz_title">22sp</dimen>
+    <dimen name="hand_movement_lines_offset">6dp</dimen>
+
+    <dimen name="question_text_size">18sp</dimen>
+    <dimen name="suggestion_title">22sp</dimen>
+
+    <dimen name="margin_2dp">2dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="padding_6dp">6dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_12dp">12dp</dimen>
+    <dimen name="padding_14dp">14dp</dimen>
+    <dimen name="padding_22dp">22dp</dimen>
+
+    <dimen name="spinner_calendar_view_corner_radius">8dp</dimen>
+    <dimen name="spinner_calendar_view_card_elevation">6dp</dimen>
+
+    <dimen name="font_category_dropdown_item">15sp</dimen>
+    <dimen name="font_monthly_report_title">12sp</dimen>
+    <dimen name="font_spinner_category">15sp</dimen>
+    <dimen name="font_day_of_week">16sp</dimen>
+    <dimen name="font_calendar_title_date">22sp</dimen>
+    <dimen name="font_monthly_name">10sp</dimen>
+    <dimen name="font_sleep_hours">14sp</dimen>
+    <dimen name="font_emotion_name">14sp</dimen>
+    <dimen name="font_emotion_item_count">12sp</dimen>
+    <dimen name="font_emotion_item_expand">16sp</dimen>
+    <dimen name="font_explore_without_an_account_layout_title">18sp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="font_explore_without_an_account_layout_body">16sp</dimen>
+    <dimen name="width_explore_without_an_account_layout_btn_ok">60dp</dimen>
+    <dimen name="height_explore_without_an_account_layout_btn_ok">30dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+
+    <dimen name="size_width_emotions_item">30dp</dimen>
+    <dimen name="size_height_emotions_item">3dp</dimen>
+    <dimen name="sliderShadowedViewHeight">20dp</dimen>
+    <dimen name="width_emotion_item_count">15dp</dimen>
+    <dimen name="lesson_name">18sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+
+</resources>
