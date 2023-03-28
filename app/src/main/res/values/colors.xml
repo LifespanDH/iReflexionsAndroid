@@ -11,4 +11,7 @@
     <color name="remind_light">#D16081</color>
     <color name="icon_title_color">#F2F2F2</color>
     <color name="dark_gray">#4C4D4D</color>
+
+    <color name="lightPrimaryColor">#75B8B7BD</color>
+
 </resources>

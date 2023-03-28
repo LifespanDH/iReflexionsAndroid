@@ -6,7 +6,7 @@ const val BASE_URL = BuildConfig.BASE_URL
 
 const val USERS = "users/"
 const val ON_BOARDING = "onboarding/"
-const val IREF_USERS = "iref_users"
+const val IREF_USERS = "iref_users/"
 
 const val REFRESH_TOKEN = BASE_URL + USERS + "api/token/refresh/"
 
