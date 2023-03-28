@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".home.HomeScreenActivity">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ireflexions_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:elevation="0dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintEnd_toStartOf="@id/app_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/img_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_course"
+        app:layout_constraintBottom_toTopOf="@+id/img_community"
+        app:layout_constraintEnd_toStartOf="@+id/img_how_am_i"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/courses"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_courses"
+        app:layout_constraintStart_toStartOf="@id/img_courses"
+        app:layout_constraintTop_toBottomOf="@id/img_courses" />
+
+    <ImageButton
+        android:id="@+id/img_how_am_i"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_how_am_i"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_courses"
+        app:layout_constraintTop_toTopOf="@+id/img_courses" />
+
+    <TextView
+        android:id="@+id/txt_how_am_i"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/how_am_i_today"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_how_am_i"
+        app:layout_constraintStart_toStartOf="@id/img_how_am_i"
+        app:layout_constraintTop_toBottomOf="@id/img_how_am_i" />
+
+
+    <ImageButton
+        android:id="@+id/img_community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_community"
+        app:layout_constraintBottom_toTopOf="@+id/img_care_center"
+        app:layout_constraintStart_toStartOf="@+id/img_courses"
+        app:layout_constraintTop_toBottomOf="@id/img_courses" />
+
+    <TextView
+        android:id="@+id/txt_community"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/community"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_community"
+        app:layout_constraintStart_toStartOf="@id/img_community"
+        app:layout_constraintTop_toBottomOf="@id/img_community" />
+
+    <ImageButton
+        android:id="@+id/img_exercises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_exercises"
+        app:layout_constraintEnd_toEndOf="@+id/img_how_am_i"
+        app:layout_constraintTop_toTopOf="@+id/img_community" />
+
+    <TextView
+        android:id="@+id/txt_exercises"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/exercises"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_exercises"
+        app:layout_constraintStart_toStartOf="@id/img_exercises"
+        app:layout_constraintTop_toBottomOf="@id/img_exercises" />
+
+
+    <ImageButton
+        android:id="@+id/img_care_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_home_care_center"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@+id/img_community"
+        app:layout_constraintStart_toStartOf="@+id/img_courses"
+        app:layout_constraintTop_toBottomOf="@id/img_community" />
+
+
+    <TextView
+        android:id="@+id/txt_care_center"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/care_center"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_care_center"
+        app:layout_constraintStart_toStartOf="@id/img_care_center"
+        app:layout_constraintTop_toBottomOf="@id/img_care_center" />
+
+    <!-- TODO uncomment when feature will be ready-->
+    <ImageButton
+        android:id="@+id/img_biometrics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_biometrics"
+        app:layout_constraintEnd_toEndOf="@+id/img_how_am_i"
+        app:layout_constraintTop_toTopOf="@+id/img_care_center" />
+
+    <TextView
+        android:id="@+id/txt_biometrics"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/autonomic_practice"
+        android:textAllCaps="true"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/img_biometrics"
+        app:layout_constraintStart_toStartOf="@id/img_biometrics"
+        app:layout_constraintTop_toBottomOf="@id/img_biometrics" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

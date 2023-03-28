@@ -5,4 +5,11 @@
     <string name="strongly_agree">Strongly\nAgree</string>
     <string name="strongly_disagree">Strongly\nDisagree</string>
     <string name="na">N/A</string>
+    <string name="courses">COURSES</string>
+    <string name="how_am_i_today">HOW AM I TODAY?</string>
+    <string name="community">COMMUNITY</string>
+    <string name="exercises">EXERCISES</string>
+    <string name="biometrics">BIOMETRICS</string>
+    <string name="care_center">CARE CENTER</string>
+    <string name="autonomic_practice">Autonomic Practice</string>
 </resources>

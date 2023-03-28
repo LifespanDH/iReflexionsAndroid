@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.home.HomeScreenActivity
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -106,6 +107,10 @@ class LoginActivity : BaseActivity() {
 
         signupbutton.setOnClickListener {
             startActivity(RegistrationActivity.newInstance(this))
+        }
+
+        skip_button.setOnClickListener {
+            startActivity(HomeScreenActivity.newInstance(this))
         }
     }
 
