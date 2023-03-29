@@ -129,6 +129,7 @@ class LoginActivity : BaseActivity() {
 
         tokenViewModel.token.observeFreshly(this) {
             if (it != null) {
+                sharedPrefs.isLoggedIn = true
                 startActivity(HomeActivity.newInstance(this))
             }
         }

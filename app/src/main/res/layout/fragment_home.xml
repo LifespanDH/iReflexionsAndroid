@@ -10,8 +10,8 @@
         android:id="@+id/courses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/community"
         app:layout_constraintEnd_toStartOf="@+id/howAmI"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/courses"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
     </LinearLayout>
@@ -44,8 +44,8 @@
         android:id="@+id/howAmI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/courses"
         app:layout_constraintTop_toTopOf="@+id/courses">
@@ -55,18 +55,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@null"
+            android:clickable="false"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:clickable="false"
             android:src="@drawable/ic_how_am_i" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/how_am_i_today"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -76,8 +76,8 @@
         android:id="@+id/community"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/courses"
         app:layout_constraintTop_toTopOf="parent">
@@ -96,9 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/community"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -108,8 +108,8 @@
         android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/howAmI"
         app:layout_constraintTop_toTopOf="@+id/community">
 
@@ -118,18 +118,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@null"
+            android:clickable="false"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:clickable="false"
             android:src="@drawable/ic_exercises" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/exercises"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -139,8 +139,8 @@
         android:id="@+id/careCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/community"
         app:layout_constraintStart_toStartOf="@+id/courses"
@@ -160,9 +160,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/care_center"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -172,8 +172,8 @@
         android:id="@+id/biometrics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:clickable="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/howAmI"
         app:layout_constraintTop_toTopOf="@+id/careCenter">
 
@@ -191,9 +191,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:clickable="false"
             android:fontFamily="@font/montserrat"
             android:text="@string/autonomic_practice"
-            android:clickable="false"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -203,14 +203,12 @@
         android:id="@+id/home_screen_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login User"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/careCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/remind_dark"
-        >
-    </Button>
+        android:text="Login User"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/careCenter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
