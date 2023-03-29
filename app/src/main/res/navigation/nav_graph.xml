@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/careCenterFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterFragment"
-        android:label="CareCenterFragment" />
+        android:label="CareCenterFragment" >
+        <action
+            android:id="@+id/action_careCenterFragment_to_editSupportContactFragment"
+            app:destination="@id/editSupportContactFragment" />
+    </fragment>
     <fragment
         android:id="@+id/introFragment"
         android:name="com.lifespandh.ireflexions.intro.IntroFragment"
@@ -41,4 +45,8 @@
         android:name="com.lifespandh.ireflexions.home.community.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
+    <dialog
+        android:id="@+id/editSupportContactFragment"
+        android:name="com.lifespandh.ireflexions.home.care.EditSupportContactFragment"
+        android:label="EditSupportContactFragment" />
 </navigation>
