@@ -15,10 +15,7 @@ import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
-import com.lifespandh.ireflexions.utils.network.OAUTH_KEY
-import com.lifespandh.ireflexions.utils.network.PASSWORD
-import com.lifespandh.ireflexions.utils.network.USERNAME
-import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.network.*
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.activity_login.*
@@ -116,9 +113,13 @@ class LoginActivity : BaseActivity() {
         }
 
         loginbutton.setOnClickListener {
-            val username = usernametext.trimString()
+            val email = emailtext.trimString()
             val password = passwordtext.trimString()
-            val requestBody = createJsonRequestBody(USERNAME to username, PASSWORD to password)
+            if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+                toast("Please enter details correctly")
+                return@setOnClickListener
+            }
+            val requestBody = createJsonRequestBody(EMAIL to email, PASSWORD to password)
             authViewModel.loginCustomUser(requestBody)
         }
     }
