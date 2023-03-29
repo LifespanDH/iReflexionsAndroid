@@ -17,31 +17,6 @@ class EditSupportContactFragment : DialogFragment(), PopupMenu.OnMenuItemClickLi
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-
-            sharedPrefsHelper = SharedPrefsHelper(it)
-
-            val inflater = requireActivity().layoutInflater
-            binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_edit_support_contact,
-                null,
-                false
-            )
-
-            builder.setView(binding!!.root)
-            binding!!.viewModel = viewModel
-            setListeners(binding!!.root)
-
-            val dialog = builder.create()
-            dialog.setCanceledOnTouchOutside(false)
-            updateUWithArguments()
-
-            viewModel.imgUri.observe(this, {
-                val contactIcon =
-                    binding!!.root.findViewById<ImageView>(R.id.contact_icon_imageView)
-                contactIcon.setImageBitmap(it)
-            })
-
             dialog
         } ?: throw IllegalStateException("Activity cannot be null.")
     }
