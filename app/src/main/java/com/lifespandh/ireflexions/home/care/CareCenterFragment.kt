@@ -1,10 +1,13 @@
 package com.lifespandh.ireflexions.home.care
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.lifespandh.ireflexions.Manifest
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
@@ -34,10 +37,18 @@ class CareCenterFragment : BaseFragment() {
 
     private fun setListeners() {
         addContactCardView.setOnClickListener {
-            showDialog(
-                requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
-                requireContext().getString(R.string.explore_without_an_account_Program_text)
-            )
+            if (sharedPrefs.isLoggedIn) {
+                if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    findNavController().navigate(R.id.editSupportContactFragment)
+                } else {
+                    // request permission here
+                }
+            } else {
+                showDialog(
+                    requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
+                    requireContext().getString(R.string.explore_without_an_account_Program_text)
+                )
+            }
         }
     }
 
