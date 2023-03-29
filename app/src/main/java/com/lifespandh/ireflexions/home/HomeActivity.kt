@@ -43,10 +43,9 @@ class HomeActivity : BaseActivity() {
 
     override fun onBackPressed() {
         logE("called ${navController.currentDestination}")
+        val currentFragment = navController.currentDestination
 
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStackImmediate()
-        } else {
+        if (currentFragment?.id == R.id.homeFragment) {
             if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
                 finishAffinity()
                 super.onBackPressed();
@@ -55,6 +54,8 @@ class HomeActivity : BaseActivity() {
                 toast("Tap back button in order to exit")
             }
             mBackPressed = System.currentTimeMillis();
+        } else {
+            navController.navigateUp()
         }
     }
 
