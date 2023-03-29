@@ -51,13 +51,10 @@ class LoginActivity : BaseActivity() {
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.your_web_client_id))
-                    // Only show accounts previously used to sign in.
                     .setFilterByAuthorizedAccounts(true)
                     .build()
             )
-            // Automatically sign in when exactly one credential is retrieved.
             .setAutoSelectEnabled(true)
             .build()
 
@@ -65,9 +62,7 @@ class LoginActivity : BaseActivity() {
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.your_web_client_id))
-                    // Show all accounts on the device.
                     .setFilterByAuthorizedAccounts(false)
                     .build()
             )
