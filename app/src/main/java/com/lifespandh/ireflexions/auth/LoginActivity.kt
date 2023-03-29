@@ -35,6 +35,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun init() {
+        sharedPrefs.isLoggedIn = false
         initializeAuth()
         setListeners()
         setObservers()

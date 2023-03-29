@@ -39,6 +39,7 @@ class MainActivity : BaseActivity() {
                     val requestBody = createJsonRequestBody("refresh" to refresh)
                     authViewModel.refreshToken(requestBody)
                 } else {
+                    sharedPrefs.isLoggedIn = true
                     startActivity(HomeActivity.newInstance(this))
                 }
             }
@@ -47,6 +48,7 @@ class MainActivity : BaseActivity() {
         authViewModel.tokenLiveData.observeFreshly(this) {
             tokenViewModel.saveToken(it.token)
             tokenViewModel.saveRefreshToken(it.refresh)
+            sharedPrefs.isLoggedIn = true
             startActivity(HomeActivity.newInstance(this))
         }
 
