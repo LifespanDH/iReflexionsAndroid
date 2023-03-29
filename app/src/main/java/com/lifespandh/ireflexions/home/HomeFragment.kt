@@ -1,20 +1,18 @@
 package com.lifespandh.ireflexions.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.lifespandh.ireflexions.R
+import com.lifespandh.ireflexions.auth.LoginActivity
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
-import com.lifespandh.ireflexions.home.care.CareCenterFragment
-import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.runBlocking
 
 class HomeFragment : BaseFragment() {
 
@@ -37,6 +35,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun init() {
+        setUpViews()
         setListeners()
         setObservers()
     }
@@ -70,12 +69,20 @@ class HomeFragment : BaseFragment() {
         community.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_communityFragment)
         }
+
+        home_screen_login_button.setOnClickListener{
+            startActivity(LoginActivity.newInstance(requireContext()))
+        }
     }
 
     private fun showDialog(title: String, message: String) {
         UserNotLoggedInDialog.newInstance(
             title, message
         ).show(requireActivity().supportFragmentManager, null)
+    }
+
+    private fun setUpViews() {
+        home_screen_login_button.isVisible = !sharedPrefs.isLoggedIn
     }
 
     companion object {

@@ -199,4 +199,18 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/home_screen_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login User"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/careCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/remind_dark"
+        >
+    </Button>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
