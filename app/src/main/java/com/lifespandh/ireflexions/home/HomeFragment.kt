@@ -50,7 +50,6 @@ class HomeFragment : BaseFragment() {
     private fun setListeners() {
         exercise.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_exerciseFragment)
-//            setupFragment(ExerciseFragment.newInstance())
         }
 
         courses.setOnClickListener {
@@ -66,15 +65,11 @@ class HomeFragment : BaseFragment() {
 
         careCenter.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_careCenterFragment)
-//            setupFragment(CareCenterFragment.newInstance())
         }
-    }
 
-    private fun setupFragment(fragment: Fragment = HomeFragment.newInstance()) {
-//        val transaction = parentFragmentManager.beginTransaction()
-//        transaction.replace(R.id.frameContainer, fragment)
-//        transaction.addToBackStack(null)
-//        transaction.commit()
+        community.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_communityFragment)
+        }
     }
 
     private fun showDialog(title: String, message: String) {
