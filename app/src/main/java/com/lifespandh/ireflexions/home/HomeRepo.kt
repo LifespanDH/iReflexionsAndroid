@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home
 
+import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SupportContact
@@ -28,6 +29,20 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getSupportContacts()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun addSupportContact(supportContact: SupportContact): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.addSupportContact(supportContact)
         }, {
             networkResult = it
         }, {

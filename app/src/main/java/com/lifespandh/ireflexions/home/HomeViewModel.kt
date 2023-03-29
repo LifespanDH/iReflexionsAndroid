@@ -20,6 +20,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val supportContactsLiveData: LiveData<List<SupportContact>>
         get() = _supportContactsLiveData
 
+    private val _supportContactAddedLiveData = MutableLiveData<Boolean>()
+    val supportContactAddedLiveData: LiveData<Boolean>
+        get() = _supportContactAddedLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
@@ -49,6 +53,23 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 is NetworkResult.Success -> {
                     val data = response.data
                     _supportContactsLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun addSupportContact(supportContact: SupportContact) {
+        viewModelScope.launch {
+            val response = homeRepo.addSupportContact(supportContact)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _supportContactAddedLiveData.value = true
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception
