@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_introFragment"
             app:destination="@id/introFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -33,4 +36,9 @@
         android:id="@+id/introFragment"
         android:name="com.lifespandh.ireflexions.intro.IntroFragment"
         android:label="IntroFragment" />
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.lifespandh.ireflexions.home.community.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
 </navigation>
