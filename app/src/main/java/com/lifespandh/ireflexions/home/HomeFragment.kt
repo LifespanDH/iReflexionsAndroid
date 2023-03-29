@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
@@ -48,7 +49,8 @@ class HomeFragment : BaseFragment() {
 
     private fun setListeners() {
         exercise.setOnClickListener {
-            setupFragment(ExerciseFragment.newInstance())
+            findNavController().navigate(R.id.action_homeFragment_to_exerciseFragment)
+//            setupFragment(ExerciseFragment.newInstance())
         }
 
         courses.setOnClickListener {
@@ -63,15 +65,16 @@ class HomeFragment : BaseFragment() {
         }
 
         careCenter.setOnClickListener {
-            setupFragment(CareCenterFragment.newInstance())
+            findNavController().navigate(R.id.action_homeFragment_to_careCenterFragment)
+//            setupFragment(CareCenterFragment.newInstance())
         }
     }
 
     private fun setupFragment(fragment: Fragment = HomeFragment.newInstance()) {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameContainer, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+//        val transaction = parentFragmentManager.beginTransaction()
+//        transaction.replace(R.id.frameContainer, fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
     }
 
     private fun showDialog(title: String, message: String) {
