@@ -18,7 +18,7 @@ interface ApiClient {
     suspend fun loginUser(@Body requestBody: RequestBody): Token
 
     @POST(LOGIN_CUSTOM_USER)
-    suspend fun loginCustomUser(@Body user: User): Token
+    suspend fun loginCustomUser(@Body requestBody: RequestBody): Token
 
     @POST(REGISTER_USER)
     suspend fun registerUser(@Body user: User): JsonObject

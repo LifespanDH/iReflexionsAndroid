@@ -43,9 +43,9 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo): ViewMod
         }
     }
 
-    fun loginCustomUser(user: User) {
+    fun loginCustomUser(requestBody: RequestBody) {
         viewModelScope.launch {
-            val response = authRepo.loginCustomUser(user)
+            val response = authRepo.loginCustomUser(requestBody)
 
             when(response) {
                 is NetworkResult.Success -> {

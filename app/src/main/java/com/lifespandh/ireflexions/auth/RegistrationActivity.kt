@@ -53,8 +53,9 @@ class RegistrationActivity : BaseActivity() {
             val phone = phone.trimString()
             val region = region.trimString()
             val dob = dateOfBirth.trimString().toDate()
+            val password = password.trimString()
             logE("${dateOfBirth.trimString()} ${dateOfBirth.trimString().toDate()} $dob")
-            val user = dob?.let { it1 -> User(name, email, phone, it1, region) }
+            val user = dob?.let { it1 -> User(name, email, phone, it1, region, password) }
             if (user != null) {
                 authViewModel.registerUser(user)
             }
@@ -63,7 +64,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun setObservers() {
         authViewModel.userRegisteredLiveData.observeFreshly(this) {
-            toast(it)
+            finish()
         }
 
         authViewModel.errorLiveData.observeFreshly(this) {

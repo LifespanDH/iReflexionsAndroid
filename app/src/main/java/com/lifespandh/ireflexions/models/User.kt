@@ -19,5 +19,8 @@ data class User(
     val dob: Date,
 
     @SerializedName(REGION)
-    val region: String
+    val region: String,
+
+    @SerializedName(PASSWORD)
+    val password: String
 )

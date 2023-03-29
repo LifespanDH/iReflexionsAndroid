@@ -16,8 +16,11 @@ import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.OAUTH_KEY
+import com.lifespandh.ireflexions.utils.network.PASSWORD
+import com.lifespandh.ireflexions.utils.network.USERNAME
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
+import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -110,6 +113,13 @@ class LoginActivity : BaseActivity() {
 
         skip_button.setOnClickListener {
             startActivity(HomeActivity.newInstance(this))
+        }
+
+        loginbutton.setOnClickListener {
+            val username = usernametext.trimString()
+            val password = passwordtext.trimString()
+            val requestBody = createJsonRequestBody(USERNAME to username, PASSWORD to password)
+            authViewModel.loginCustomUser(requestBody)
         }
     }
 
