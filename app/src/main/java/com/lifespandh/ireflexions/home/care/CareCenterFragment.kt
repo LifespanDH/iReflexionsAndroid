@@ -48,7 +48,6 @@ class CareCenterFragment : BaseFragment() {
     }
 
     companion object {
-
         fun newInstance() = CareCenterFragment()
     }
 }
