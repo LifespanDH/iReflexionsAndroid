@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment() {
         }
 
         courses.setOnClickListener {
-            if (token.isNullOrEmpty()) {
+            if (sharedPrefs.isLoggedIn) {
                 showDialog(
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
                     requireContext().getString(R.string.explore_without_an_account_Program_text)
