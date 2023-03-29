@@ -15,7 +15,8 @@ import com.lifespandh.ireflexions.models.SupportContact
 import kotlinx.android.synthetic.main.care_center_contact_item.view.*
 
 class SupportContactAdapter(
-    private var supportContacts: List<SupportContact>
+    private var supportContacts: List<SupportContact>,
+    private val listener: OnSupportContactClicked
 ): BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -23,7 +24,7 @@ class SupportContactAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is SupportContactAdapter.SupportContactViewHolder)
+        if (holder is SupportContactViewHolder)
             holder.bind(supportContacts[position])
     }
 
@@ -36,7 +37,6 @@ class SupportContactAdapter(
         notifyDataSetChanged()
     }
 
-
     inner class SupportContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val supportContactImage: ImageView = itemView.findViewById(R.id.contact_icon_imageView)
@@ -45,24 +45,27 @@ class SupportContactAdapter(
         private val textContactButton: Button = itemView.findViewById(R.id.text_contact_button)
         private val moreActionsImageView: ImageView = itemView.findViewById(R.id.more_actions_imageView)
 
-
         fun bind(supportContact: SupportContact) {
-
             supportContactName.text = supportContact.name
             Glide.with(getContext()).load(supportContact.image).into(supportContactImage)
 
             callContactButton.setOnClickListener{
-
-
+                listener.callContactClicked()
             }
 
             textContactButton.setOnClickListener{
-
+                listener.textContactClicked()
             }
 
             moreActionsImageView.setOnClickListener {
-
+                listener.moreActionsClicked()
             }
         }
+    }
+
+    interface OnSupportContactClicked {
+        fun callContactClicked()
+        fun textContactClicked()
+        fun moreActionsClicked()
     }
 }
