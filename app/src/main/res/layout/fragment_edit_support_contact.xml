@@ -132,7 +132,6 @@
         android:background="@drawable/purple_short_button"
         android:fontFamily="@font/montserrat_regular"
         android:text="Save"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_editText" />
 
