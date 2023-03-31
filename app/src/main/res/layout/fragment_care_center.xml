@@ -95,6 +95,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:id="@+id/guided_meditation_tab"
+                android:clickable="true"
                 android:layout_margin="8dp"
                 android:background="@drawable/rounded_rectangle"
                 android:backgroundTint="@color/light_gray"
@@ -107,6 +109,7 @@
                 <TextView
                     android:id="@+id/txt_meditation"
                     android:layout_width="0dp"
+                    android:clickable="false"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
@@ -122,6 +125,7 @@
                     android:id="@+id/img_meditation"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
+                    android:clickable="false"
                     android:contentDescription="@string/guided_meditation"
                     android:src="@drawable/guided_meditation"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +137,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
+                android:id="@+id/mindfulness_tab"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:layout_margin="8dp"
                 android:background="@drawable/rounded_rectangle"
                 android:backgroundTint="@color/light_gray"
@@ -148,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
+                    android:clickable="false"
                     android:padding="8dp"
                     android:text="@string/mindfulness_exercise"
                     android:textColor="@color/white"
@@ -159,6 +166,7 @@
                 <ImageView
                     android:id="@+id/img_mindfulness"
                     android:layout_width="0dp"
+                    android:clickable="false"
                     android:layout_height="150dp"
                     android:contentDescription="@string/mindfulness_exercise"
                     android:src="@drawable/mindfulness_exercises"

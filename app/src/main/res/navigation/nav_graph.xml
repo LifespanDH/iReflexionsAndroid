@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_careCenterFragment_to_editSupportContactFragment"
             app:destination="@id/editSupportContactFragment" />
+        <action
+            android:id="@+id/action_careCenterFragment_to_careCenterExerciseFragment"
+            app:destination="@id/careCenterExerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -80,4 +83,13 @@
         android:name="com.lifespandh.ireflexions.home.howAmIToday.MonthlyReportFragment"
         android:label="fragment_monthly_report"
         tools:layout="@layout/fragment_monthly_report" />
+    <fragment
+        android:id="@+id/careCenterExerciseFragment"
+        android:name="com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment"
+        android:label="CareCenterExerciseFragment" >
+    <argument
+        android:name="isMindfulness"
+        app:argType="boolean"
+        android:defaultValue="false" />
+    </fragment>
 </navigation>
