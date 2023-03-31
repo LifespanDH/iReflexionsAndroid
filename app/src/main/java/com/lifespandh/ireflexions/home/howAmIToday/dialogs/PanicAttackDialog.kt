@@ -1,36 +1,5 @@
 package com.lifespandh.ireflexions.home.howAmIToday.dialogs
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
-import android.util.TypedValue
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.lifespandh.ireflexions.R
-import com.lifespandh.ireflexions.models.DailyCheckInEntry
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
-
 //class PanicAttackDialog(
 //    context: Context,
 //    val dailyItem: DailyCheckInEntry,

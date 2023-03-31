@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.models.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

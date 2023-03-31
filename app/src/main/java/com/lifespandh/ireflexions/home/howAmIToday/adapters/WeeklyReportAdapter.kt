@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import java.util.*
 import kotlin.collections.ArrayList
 
 class WeeklyReportAdapter (
-     var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
-     var dateList: ArrayList<String>,
-     var dateListOrigin: ArrayList<Date>,
-     var dayList: ArrayList<String>,
-     var dates: ArrayList<String>,
+    var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
+    var dateList: ArrayList<String>,
+    var dateListOrigin: ArrayList<Date>,
+    var dayList: ArrayList<String>,
+    var dates: ArrayList<String>,
     private val findNavController: NavController
         ): BaseRecyclerViewAdapter () {
 

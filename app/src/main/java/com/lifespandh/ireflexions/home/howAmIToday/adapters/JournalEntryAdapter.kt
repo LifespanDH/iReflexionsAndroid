@@ -1,17 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import android.graphics.drawable.GradientDrawable
-import android.util.Log
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.lifespandh.ireflexions.R
-import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 
 class JournalEntryAdapter(
     private var itemListDailyCheckIn: List<DailyCheckInEntry> = emptyList(),

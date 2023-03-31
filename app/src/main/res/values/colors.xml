@@ -5,19 +5,148 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="remind_dark">#BD1D4C</color>
     <color name="remind_light">#D16081</color>
-    <color name="icon_title_color">#F2F2F2</color>
-    <color name="dark_gray">#4C4D4D</color>
     <color name="lighter_gray">#d0d0d0</color>
+
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#4C4D4D</color>
+
+    <color name="black">#000</color>
+    <color name="dark_gray">#4C4D4D</color>
+    <!--    <color name="light_gray">#D7D7D7</color>-->
     <color name="grey">#9E9E9E</color>
+    <color name="red">#ff0000</color>
+    <color name="meditation_player_red">#E83B3F</color>
+    <color name="meditation_player_red_enabled">#75B8B7BD</color>
+    <color name="player_item_background">#201F1F</color>
+    <color name="no_internet_connection">#60FF0000</color>
+
+    <color name="panic_attack">#FA8072</color>
+
+    <color name="icon_title_color">#F2F2F2</color>
+    <color name="complete_lesson_title_color">#797979</color>
+    <color name="whats_happening_item">#8CA9B9</color>
+    <color name="whats_happening_item_pushed">#1C74A0</color>
+    <color name="environment_button">#587067</color>
+    <color name="unsure_button">#3F78B7</color>
+
+
+    <color name="deep_teal">#005e60</color>
+    <color name="bluegreen">#028385</color>
+    <color name="light_gray">#A8AAAA</color>
+    <color name="dark_green">#82BF42</color>
+    <color name="bluetooth">#FF2260A5</color>
+
+    <color name="meditation_background">#262626</color>
+
+    <color name="tempInitial">#34373E</color>
+    <color name="scInitial">#282A30</color>
+    <color name="bvpInitial">#3E434A</color>
+    <color name="tempColor">#5A7BEF</color>
+    <color name="scColor">#82BF42</color>
+    <color name="bvpColor">#F6B478</color>
+
+    <!--   card colors-->
+    <color name="card1_start">#7468F8</color>
+    <color name="card1_end">#A573FF</color>
+
+    <color name="card2_start">#FF6A61</color>
+    <color name="card2_end">#F6B478</color>
+
+    <color name="card3_start">#F04698</color>
+    <color name="card3_end">#FB4752</color>
+
+    <color name="card4_start">#24BCDD</color>
+    <color name="card4_end">#14D2D1</color>
+
+    <color name="card5_start">#5A7BEF</color>
+    <color name="card5_end">#4148EE</color>
+
+    <color name="card6_start">#1C1C1C</color>
+    <color name="card6_end">#353434</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="description">#211129</color>
+
+    <!--   daily checkin colors-->
+    <!--   trait categories-->
+    <color name="calm">#8E555B</color>
+    <color name="mad">#51663D</color>
+    <color name="scared">#3F697A</color>
+    <color name="powerful">#775739</color>
+    <color name="joyful">#8E8E68</color>
+    <color name="sad">#63847B</color>
+
+    <!--   traits calm-->
+    <color name="calm0">#C0B2B6</color>
+    <color name="calm1">#B39FA4</color>
+    <color name="calm2">#AA8F95</color>
+    <color name="calm3">#9C7C82</color>
+    <color name="calm4">#8F686D</color>
+    <color name="calm5">#86575B</color>
+
+    <!--   traits mad-->
+    <color name="mad0">#B8BCAF</color>
+    <color name="mad1">#9AA28A</color>
+    <color name="mad2">#869075</color>
+    <color name="mad3">#6F7B5D</color>
+    <color name="mad4">#637150</color>
+    <color name="mad5">#556541</color>
+
+    <!--   traits scared-->
+    <color name="scared0">#8EB6B9</color>
+    <color name="scared1">#7FA7AB</color>
+    <color name="scared2">#6F969E</color>
+    <color name="scared3">#60848F</color>
+    <color name="scared4">#527280</color>
+    <color name="scared5">#486878</color>
+
+    <!--   traits powerful-->
+    <color name="powerful0">#B39B86</color>
+    <color name="powerful1">#A58C77</color>
+    <color name="powerful2">#997F6A</color>
+    <color name="powerful3">#897059</color>
+    <color name="powerful4">#7D634A</color>
+    <color name="powerful5">#72593D</color>
+
+    <!--   traits joyful-->
+    <color name="joyful0">#C5C3B7</color>
+    <color name="joyful1">#B7B3A0</color>
+    <color name="joyful2">#AEAD92</color>
+    <color name="joyful3">#A4A287</color>
+    <color name="joyful4">#939171</color>
+    <color name="joyful5">#8E8E6C</color>
+
+    <!--   traits sad-->
+    <color name="sad0">#C8D5CF</color>
+    <color name="sad1">#B2C3BC</color>
+    <color name="sad2">#A3B6AE</color>
+    <color name="sad3">#92A9A1</color>
+    <color name="sad4">#7D958D</color>
+    <color name="sad5">#6A837B</color>
+
+
+    <color name="card_background">#323232</color>
+    <color name="contact_background">#5A5959</color>
+    <color name="website_color">#698cbc</color>
+
+    <color name="webview_background">#363a3f</color>
 
     <color name="lightPrimaryColor">#75B8B7BD</color>
-    <color name="card_background">#323232</color>
-    <color name="meditation_background">#262626</color>
-    <color name="light_gray">#A8AAAA</color>
-    <color name="edt_dark_grey">#232323</color>
+    <color name="enabled_meditation">#81000000</color>
+    <!--chart monthly calendar -->
+    <color name="chart_sleep">#58aa6d</color>
+    <color name="chart_movement">#62c8d5</color>
+    <color name="chart_background">#a4dd8d</color>
+    <color name="spinner_category_dropdown_item">#232323</color>
+    <color name="calendar_title_date">#F2F2F2</color>
+    <color name="spinner_calendar_card_view">#232323</color>
+    <color name="progress_bar_emotion_background_tint">#232323</color>
+    <color name="baseline_dialog">#262626</color>
+    <color name="autonomic_background">#1D1D1D</color>
+    <color name="agree_to_privacy_policy_link">#388BD3</color>
 
+    <color name="edt_dark_grey">#232323</color>
 </resources>

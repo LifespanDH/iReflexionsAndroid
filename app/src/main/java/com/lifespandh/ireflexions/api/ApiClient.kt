@@ -2,6 +2,7 @@ package com.lifespandh.ireflexions.api
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
+import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -40,4 +41,7 @@ interface ApiClient {
 
     @POST(GET_JOURNAL_ENTRIES)
     suspend fun getJournalEntries(@Body requestBody: RequestBody): List<DailyCheckInEntry>
+
+    @POST(GET_CARE_CENTER_EXERCISES)
+    suspend fun getCareCenterExercises(@Body requestBody: RequestBody): List<CareCenterExercise>
 }
