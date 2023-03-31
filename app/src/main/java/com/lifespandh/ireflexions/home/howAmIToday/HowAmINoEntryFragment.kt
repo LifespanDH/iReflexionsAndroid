@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HowAmINoEntryFragment : BaseFragment() {
+class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener {
 
     private var token: String? = null
     private var toDate = Calendar.getInstance().time
@@ -22,7 +23,7 @@ class HowAmINoEntryFragment : BaseFragment() {
     private lateinit var currentDate: Date
     private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
 
-    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
     private val formatDay = SimpleDateFormat("EEE", Locale.US)
     private val formatMonth = SimpleDateFormat("MMM", Locale.US)
@@ -149,8 +150,26 @@ class HowAmINoEntryFragment : BaseFragment() {
             days, month, date, dateList = dateList
         )
 
-//        weekAdapter.setOnItemClickedListener(this)
-//        dayView.adapter = weekAdapter
+        dayView.adapter = weekAdapter
+        weekAdapter.setOnItemClickedListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val cal = Calendar.getInstance()
+
+        cal.time = toDate
+//        viewModel.selectedItem = cal.get(Calendar.DAY_OF_WEEK) - 2
+
+        cal.apply {
+            firstDayOfWeek = Calendar.MONDAY
+            this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+        }
+
+        setAdapter(cal)
+    }
+
+    override fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder) {
 
     }
 }

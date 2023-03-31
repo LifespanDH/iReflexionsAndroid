@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    >
+    android:background="@drawable/gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -90,8 +89,8 @@
             android:id="@+id/weekView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/view_data_rectangle"
             android:layout_marginTop="16dp"
+            android:background="@drawable/view_data_rectangle"
             app:layout_constraintEnd_toEndOf="@+id/guidelineWeekEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/dayView">
@@ -126,8 +125,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_month"
             android:layout_width="0dp"
-            android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/view_data_rectangle"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@+id/guidelineMonthStart"
@@ -168,8 +167,6 @@
             app:layout_constraintTop_toBottomOf="@id/layout_month" />
 
 
-
-
         <TextView
             android:id="@+id/txt_noentry"
             android:layout_width="wrap_content"
@@ -191,10 +188,10 @@
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/add_circle"
+            app:layout_constraintBottom_toTopOf="@id/txt_add_noentry"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/txt_noentry"
-            app:layout_constraintBottom_toTopOf="@id/txt_add_noentry"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_noentry" />
 
         <TextView
             android:id="@+id/txt_add_noentry"
@@ -207,17 +204,17 @@
             android:text="@string/add_new_entry"
             android:textColor="@color/light_gray"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addCircleImageViewBig"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/addCircleImageViewBig" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/journalEntryOverview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
             android:layout_marginTop="16dp"
+            android:scrollbars="vertical"
 
             app:layout_constraintEnd_toEndOf="@id/guidelineEndView"
             app:layout_constraintStart_toStartOf="@id/guidelineStartView"
@@ -244,14 +241,14 @@
             android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:singleLine="false"
-            android:visibility="invisible"
             android:text="@string/add_new_entry"
             android:textColor="@color/light_gray"
             android:textSize="16sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/addCircleImageView"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/addCircleImageView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

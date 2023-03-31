@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "IReflexions"
-include ':app'
 include ':ttlgraphs'
+include ':app'
+rootProject.name = "IReflexions"

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lifespandh.ireflexions.BuildConfig
@@ -13,7 +12,6 @@ import com.lifespandh.ireflexions.utils.jwt.TokenManager
 import com.lifespandh.ireflexions.utils.network.RedirectInterceptor
 import com.lifespandh.ireflexions.utils.network.TokenAuthenticator
 import com.lifespandh.ireflexions.utils.network.TokenInterceptor
-import com.lifespandh.ireflexions.utils.sharedPrefs.SharedPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,7 +62,7 @@ class NetworkModule {
             .addInterceptor(interceptor)
             .addInterceptor(RedirectInterceptor())
             .addInterceptor(tokenInterceptor)
-            .addNetworkInterceptor(StethoInterceptor())
+//            .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(50, TimeUnit.SECONDS)
