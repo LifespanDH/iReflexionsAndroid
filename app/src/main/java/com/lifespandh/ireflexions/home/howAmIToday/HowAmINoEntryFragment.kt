@@ -38,7 +38,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_how_am_i_no_entry, container, false)
     }
 
@@ -51,10 +50,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         tokenViewModel.token.observeFreshly(viewLifecycleOwner) {
             token = it
         }
-    }
-
-    companion object {
-        fun newInstance() = HowAmINoEntryFragment()
     }
 
     private fun init() {
@@ -117,9 +112,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
     }
 
     private fun setAdapter(calendar: Calendar) {
-
         currentDate = calendar.time
-
         var firstDayString = String()
         var lastDayString = String()
         val days = ArrayList<String>()
@@ -149,9 +142,12 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         weekAdapter = WeekAdapter(
             days, month, date, dateList = dateList
         )
-
         dayView.adapter = weekAdapter
         weekAdapter.setOnItemClickedListener(this)
+    }
+
+    companion object {
+        fun newInstance() = HowAmINoEntryFragment()
     }
 
     override fun onResume() {
