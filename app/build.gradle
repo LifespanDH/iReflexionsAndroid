@@ -32,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://c428-2601-8c0-801-b4d0-b6d3-ae39-96d7-a234.ngrok.io/\"")
+            buildConfigField("String", "BASE_URL", "\"http://a033-2601-8c0-801-b4d0-95c3-a646-9427-89b7.ngrok.io/\"")
 
         }
     }
@@ -51,6 +51,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation files('C:\\Users\\user\\Desktop\\iReflexionsAndroid\\ttlgraphs\\ttlgraphs.aar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -119,6 +120,9 @@ dependencies {
     def nav_version = "2.5.3"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // SDK
+    implementation project(':ttlgraphs')
 }
 
 kapt {

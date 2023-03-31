@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_communityFragment"
             app:destination="@id/communityFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_howAmINoEntryFragment"
+            app:destination="@id/howAmINoEntryFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -49,4 +52,32 @@
         android:id="@+id/editSupportContactFragment"
         android:name="com.lifespandh.ireflexions.home.care.EditSupportContactFragment"
         android:label="EditSupportContactFragment" />
+    <fragment
+        android:id="@+id/howAmINoEntryFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.HowAmINoEntryFragment"
+        android:label="HowAmINoEntryFragment" >
+        <action
+            android:id="@+id/action_howAmINoEntryFragment_to_howAmICreateEntryFragment"
+            app:destination="@id/howAmICreateEntryFragment" />
+        <action
+            android:id="@+id/action_howAmINoEntryFragment_to_weeklyReportFragment2"
+            app:destination="@id/weeklyReportFragment" />
+        <action
+            android:id="@+id/action_howAmINoEntryFragment_to_monthlyReportFragment2"
+            app:destination="@id/monthlyReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/howAmICreateEntryFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.HowAmICreateEntryFragment"
+        android:label="HowAmICreateEntryFragment" />
+    <fragment
+        android:id="@+id/weeklyReportFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.WeeklyReportFragment"
+        android:label="fragment_weekly_report"
+        tools:layout="@layout/fragment_weekly_report" />
+    <fragment
+        android:id="@+id/monthlyReportFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.MonthlyReportFragment"
+        android:label="fragment_monthly_report"
+        tools:layout="@layout/fragment_monthly_report" />
 </navigation>

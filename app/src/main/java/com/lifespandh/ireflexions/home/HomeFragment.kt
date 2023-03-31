@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment() {
         }
 
         courses.setOnClickListener {
-            if (sharedPrefs.isLoggedIn) {
+            if (!sharedPrefs.isLoggedIn) {
                 showDialog(
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
                     requireContext().getString(R.string.explore_without_an_account_Program_text)
@@ -68,6 +68,10 @@ class HomeFragment : BaseFragment() {
 
         community.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_communityFragment)
+        }
+
+        howAmI.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_howAmINoEntryFragment)
         }
 
         home_screen_login_button.setOnClickListener{
