@@ -38,4 +38,6 @@ interface ApiClient {
     @POST(ADD_SUPPORT_CONTACT)
     suspend fun addSupportContact(@Body supportContact: SupportContact): JsonObject
 
+    @POST(GET_JOURNAL_ENTRIES)
+    suspend fun getJournalEntries(@Body requestBody: RequestBody): List<DailyCheckInEntry>
 }

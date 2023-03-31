@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lifespandh.ireflexions.models.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewModel() {
@@ -24,9 +26,19 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val supportContactAddedLiveData: LiveData<Boolean>
         get() = _supportContactAddedLiveData
 
+    private val _dailyCheckInEntriesLiveData = MutableLiveData<List<DailyCheckInEntry>>()
+    val dailyCheckInEntryLiveData: LiveData<List<DailyCheckInEntry>>
+        get() = _dailyCheckInEntriesLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
+
+    var selectedPosition = -1
+        set(value) {
+            field = value
+        }
+        get
 
     fun getExercises() {
         viewModelScope.launch {
@@ -78,5 +90,26 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
             }
         }
     }
+
+    fun getJournalEntries(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.getJournalEntries(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _dailyCheckInEntriesLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+//    fun changeSelectedPosition(position: Int) {
+//        this.selectedPosition = position
+//    }
 
 }

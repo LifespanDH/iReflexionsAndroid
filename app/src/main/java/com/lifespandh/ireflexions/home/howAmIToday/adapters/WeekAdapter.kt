@@ -1,6 +1,5 @@
-package com.lifespandh.ireflexions.home.howAmIToday
+package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
+import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.DailyCheckInEntry
-import com.lifespandh.ireflexions.utils.logs.logE
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -22,30 +21,37 @@ class WeekAdapter(
     private var month: ArrayList<String>,
     private var date: ArrayList<String>,
     private var dateList: ArrayList<String>,
+    private val homeViewModel: HomeViewModel,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
 
     private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     lateinit var listener: OnItemClickedListener
-    private var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeekViewHolder(getView(R.layout.day_item, parent))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        logE("called here vbind $holder $position")
         if (holder is WeekViewHolder)
             holder.bind(dateList[position])
     }
 
     override fun getItemCount(): Int {
-        logE("called size ${weekDays.size}")
         return weekDays.size
     }
 
     fun setOnItemClickedListener(listener: OnItemClickedListener) {
         this.listener = listener
+    }
+
+    /**
+     * This function might not be the best way to do this
+     * Need to check this and change later, copied rn from previous code to save time
+     */
+    fun changeDataSet(position: Int) {
+        homeViewModel.selectedPosition = position
+        notifyDataSetChanged()
     }
 
     inner class WeekViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -59,11 +65,14 @@ class WeekAdapter(
         fun bind(date: String) {
             val parsedDateTime = parser.parse(date).time
 
+//            if (DateUtils.isToday(parsedDateTime))
+//                selectedPosition = absoluteAdapterPosition
+
             if (System.currentTimeMillis() < parsedDateTime) {
                 itemView.isClickable = false
             }
 
-            if (position == selectedPosition && System.currentTimeMillis() > parsedDateTime) {
+            if (absoluteAdapterPosition == homeViewModel.selectedPosition && System.currentTimeMillis() > parsedDateTime) {
                 itemView.background =
                     ContextCompat.getDrawable(getContext(), R.drawable.week_day_round_rectangle)
             } else {
@@ -93,11 +102,15 @@ class WeekAdapter(
                 val adapter = JournalEntryListAdapter(dailyEntryList)
                 listDailyEntries.adapter = adapter
             }
+
+            itemView.setOnClickListener {
+                listener.onItemClick(absoluteAdapterPosition, parser.parse(dateList[absoluteAdapterPosition]))
+            }
         }
     }
 
     interface OnItemClickedListener {
-        fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder)
+        fun onItemClick(position: Int, toDate: Date)
     }
 }
 
@@ -111,7 +124,7 @@ class JournalEntryListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is JournalEntryListAdapter.JournalEntryViewHolder)
+        if (holder is JournalEntryViewHolder)
             holder.bind(dailyCheckInItems[position])
     }
 
