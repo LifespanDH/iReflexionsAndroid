@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,7 +34,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
     private val formatMonth = SimpleDateFormat("MMM", Locale.US)
     private val formatDate = SimpleDateFormat("dd", Locale.US)
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

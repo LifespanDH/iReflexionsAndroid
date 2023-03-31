@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,7 +40,7 @@ class WeeklyReportFragment : BaseFragment(),
     private val formatDate = SimpleDateFormat("dd", Locale.US)
     private val calendar = Calendar.getInstance()
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory}
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +107,7 @@ class WeeklyReportFragment : BaseFragment(),
 
     }
 
-    fun setWeeklyReportAdapter() {
+    private fun setWeeklyReportAdapter() {
         val dateList = ArrayList<String>()
         val datesOrigin = ArrayList<Date>()
         val dayList = ArrayList<String>()
@@ -122,7 +123,6 @@ class WeeklyReportFragment : BaseFragment(),
     }
 
     private fun setAdapter(calendar: Calendar) {
-
         currentDate = calendar.time
 
         var firstDayString = String()
@@ -169,6 +169,7 @@ class WeeklyReportFragment : BaseFragment(),
         )
 
         adapter.setOnItemClickedListener(this)
+        dayView.adapter = adapter
     }
 
     private fun getDayNumberSuffix(day: Int): String? {
