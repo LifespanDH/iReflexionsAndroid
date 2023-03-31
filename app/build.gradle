@@ -32,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://a033-2601-8c0-801-b4d0-95c3-a646-9427-89b7.ngrok.io/\"")
+            buildConfigField("String", "BASE_URL", "\"http://9b0c-2601-8c0-801-b4d0-fcc3-9fe1-c162-77a5.ngrok.io/\"")
 
         }
     }
@@ -130,6 +130,9 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    // Compressor
+    implementation 'id.zelory:compressor:3.0.0'
 }
 
 kapt {

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class SupportContact (
 
     @SerializedName("id")
-    val id: String,
+    val id: Int = -1,
 
     @SerializedName("name")
     val name: String,
