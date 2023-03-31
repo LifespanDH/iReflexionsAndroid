@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
+import com.lifespandh.ireflexions.models.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
 import java.text.SimpleDateFormat
@@ -28,6 +32,8 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
     private val formatDay = SimpleDateFormat("EEE", Locale.US)
     private val formatMonth = SimpleDateFormat("MMM", Locale.US)
     private val formatDate = SimpleDateFormat("dd", Locale.US)
+
+    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,10 +146,57 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         weekAdapter = WeekAdapter(
-            days, month, date, dateList = dateList
+            days, month, date, dateList = dateList, homeViewModel = homeViewModel
         )
         dayView.adapter = weekAdapter
         weekAdapter.setOnItemClickedListener(this)
+    }
+
+    private fun setJournalAdapter(date: Date) {
+//        var dailyEntries: List<DailyCheckInEntry> = emptyList()
+//
+//        val dailyItems = homeViewModel.dailyCheckInList.groupBy {
+//            dateFormat.format(parser.parse(it.date))
+//        }
+//
+//        if (dailyItems.containsKey(dateFormat.format(date))) {
+//            dailyEntries = dailyItems[dateFormat.format(date)]!!
+//        }
+//
+//        if (journalEntryOverview != null) {
+//            journalEntryOverview.layoutManager = GridLayoutManager(context, 1)
+//            journalEntryAdapter = JournalEntryAdapter(
+//                requireContext(),
+//                itemListDailyCheckIn = dailyEntries
+//            )
+//
+//            journalEntryAdapter.setOnItemClickedListener(this)
+//            journalEntryOverview.adapter = journalEntryAdapter
+//
+//            if (dailyEntries.isNotEmpty()) {
+//                setEntryLayout()
+//            } else {
+//                setNoEntryLayout()
+//            }
+//        }
+    }
+
+    private fun setEntryLayout() {
+        txt_entry.visibility = View.VISIBLE
+        addCircleImageView.visibility = View.VISIBLE
+
+        txt_noentry.visibility = View.INVISIBLE
+        txt_add_noentry.visibility = View.INVISIBLE
+        addCircleImageViewBig.visibility = View.INVISIBLE
+    }
+
+    private fun setNoEntryLayout() {
+        txt_entry.visibility = View.INVISIBLE
+        addCircleImageView.visibility = View.INVISIBLE
+
+        txt_noentry.visibility = View.VISIBLE
+        txt_add_noentry.visibility = View.VISIBLE
+        addCircleImageViewBig.visibility = View.VISIBLE
     }
 
     companion object {
@@ -155,7 +208,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         val cal = Calendar.getInstance()
 
         cal.time = toDate
-//        viewModel.selectedItem = cal.get(Calendar.DAY_OF_WEEK) - 2
+        homeViewModel.selectedPosition = cal.get(Calendar.DAY_OF_WEEK) - 2
 
         cal.apply {
             firstDayOfWeek = Calendar.MONDAY
@@ -165,7 +218,9 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         setAdapter(cal)
     }
 
-    override fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder) {
-
+    override fun onItemClick(position: Int, toDate: Date) {
+        weekAdapter.changeDataSet(position)
+        this.toDate = toDate
+        setJournalAdapter(toDate)
     }
 }
