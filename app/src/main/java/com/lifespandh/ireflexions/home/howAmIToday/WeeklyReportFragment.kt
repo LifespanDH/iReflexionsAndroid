@@ -5,56 +5,179 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
+import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.models.DailyCheckInEntry
+import kotlinx.android.synthetic.main.fragment_weekly_report.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class WeeklyReportFragment : BaseFragment(),
+    WeeklyReportAdapter.OnItemClickedListener,
+    WeekAdapter.OnItemClickedListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [WeeklyReportFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class WeeklyReportFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var adapter: WeekAdapter
+    private lateinit var currentDate: Date
+
+    private val dateBundle = Bundle()
+
+    private lateinit var weeklyReportAdapter: WeeklyReportAdapter
+
+    private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+    private var date = Calendar.getInstance().time
+    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+
+    private val formatDay = SimpleDateFormat("EEE", Locale.US)
+    private val formatMonth = SimpleDateFormat("MMM", Locale.US)
+    private val formatDate = SimpleDateFormat("dd", Locale.US)
+    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_weekly_report, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WeeklyReportFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WeeklyReportFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        fun newInstance() = WeeklyReportFragment()
+    }
+
+    private fun init() {
+        calendar.apply {
+            firstDayOfWeek = Calendar.MONDAY
+            this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+        }
+        setWeeklyReportAdapter()
+        setAdapter(calendar)
+        setListeners()
+        setObservers()
+    }
+
+    private fun setListeners(){
+        arrow_previous.setOnClickListener {
+            val calendarPrevious = Calendar.getInstance().apply {
+                time = currentDate
+                firstDayOfWeek = Calendar.MONDAY
+                add(Calendar.DAY_OF_MONTH, -7)
+                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+            }
+
+            setWeeklyReportAdapter()
+            setAdapter(calendarPrevious)
+
+        }
+
+        arrow_next.setOnClickListener {
+            val calendarNext = Calendar.getInstance().apply {
+                time = currentDate
+                firstDayOfWeek = Calendar.MONDAY
+                add(Calendar.DAY_OF_MONTH, 7)
+                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+            }
+
+            setWeeklyReportAdapter()
+            setAdapter(calendarNext)
+        }
+
+    }
+
+    private fun setObservers(){
+
+    }
+
+    fun setWeeklyReportAdapter() {
+        val dateList = ArrayList<String>()
+        val datesOrigin = ArrayList<Date>()
+        val dayList = ArrayList<String>()
+        val dates = ArrayList<String>()
+        val items: Map<String, List<DailyCheckInEntry>> = emptyMap()
+
+        weekEntryOverview.layoutManager = GridLayoutManager(context, 1)
+        weeklyReportAdapter = WeeklyReportAdapter(
+            items, dateList, datesOrigin, dayList, dates, findNavController()
+        )
+        weeklyReportAdapter.setOnItemClickedListener(this)
+        weekEntryOverview.adapter = weeklyReportAdapter
+    }
+
+    private fun setAdapter(calendar: Calendar) {
+
+        currentDate = calendar.time
+
+        var firstDayString = String()
+        var lastDayString = String()
+        val days = ArrayList<String>()
+        val month = ArrayList<String>()
+        val date = ArrayList<String>()
+        val dateList = ArrayList<String>()
+        val weekDateList = ArrayList<String>()
+        val weekDateListOrigin = ArrayList<Date>()
+
+        for (i in 0..6) {
+            when (i) {
+                0 -> {
+                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
+                    firstDayString = parser.format(fDay)
+                }
+                6 -> {
+                    lastDayString = parser.format(calendar.time)
                 }
             }
+
+            days.add(formatDay.format(calendar.time))
+            month.add(formatMonth.format(calendar.time))
+            date.add(formatDate.format(calendar.time))
+            val dayNumberSuffix = getDayNumberSuffix(calendar.get(Calendar.DAY_OF_MONTH))
+            val formatter = SimpleDateFormat("EEEE, MMMM dd'$dayNumberSuffix', y", Locale.US)
+            weekDateList.add(formatter.format(calendar.time))
+            weekDateListOrigin.add(calendar.time)
+            dateList.add(parser.format(calendar.time))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        weeklyReportAdapter.dateList = weekDateList
+        weeklyReportAdapter.dateListOrigin = weekDateListOrigin
+        weeklyReportAdapter.dayList = date
+        weeklyReportAdapter.dates = dateList
+        weeklyReportAdapter.notifyDataSetChanged()
+
+        dayView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter = WeekAdapter(
+            days, month, date, dateList = dateList
+        )
+
+        adapter.setOnItemClickedListener(this)
+    }
+
+    private fun getDayNumberSuffix(day: Int): String? {
+        return if (day in 11..13) {
+            "th"
+        } else when (day % 10) {
+            1 -> "st"
+            2 -> "nd"
+            3 -> "rd"
+            else -> "th"
+        }
+    }
+
+    override fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder) {
+        TODO("Not yet implemented")
     }
 }
