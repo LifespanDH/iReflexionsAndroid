@@ -1,16 +1,19 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeeklyReportAdapter
 import com.lifespandh.ireflexions.models.DailyCheckInEntry
 import kotlinx.android.synthetic.main.fragment_weekly_report.*
 import java.text.SimpleDateFormat
@@ -35,6 +38,8 @@ class WeeklyReportFragment : BaseFragment(),
     private val formatMonth = SimpleDateFormat("MMM", Locale.US)
     private val formatDate = SimpleDateFormat("dd", Locale.US)
     private val calendar = Calendar.getInstance()
+
+    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,7 +165,7 @@ class WeeklyReportFragment : BaseFragment(),
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = WeekAdapter(
-            days, month, date, dateList = dateList
+            days, month, date, dateList = dateList, homeViewModel = homeViewModel
         )
 
         adapter.setOnItemClickedListener(this)
@@ -175,6 +180,10 @@ class WeeklyReportFragment : BaseFragment(),
             3 -> "rd"
             else -> "th"
         }
+    }
+
+    override fun onItemClick(position: Int, toDate: Date) {
+        TODO("Not yet implemented")
     }
 
     override fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder) {

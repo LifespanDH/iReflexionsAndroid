@@ -1,4 +1,4 @@
-package com.lifespandh.ireflexions.home.howAmIToday
+package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
 import android.os.Bundle
 import android.view.View
@@ -31,7 +31,7 @@ class WeeklyReportAdapter (
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is WeeklyReportAdapter.WeeklyReportViewHolder)
+        if (holder is WeeklyReportViewHolder)
             holder.bind(dateList[position])
     }
 
