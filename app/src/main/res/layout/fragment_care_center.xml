@@ -216,7 +216,7 @@
 
             <include
                 android:id="@+id/text_crisis_line"
-                layout="@layout/care_center_contact_item"
+                layout="@layout/care_center_text_crisis_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -226,7 +226,7 @@
 
             <include
                 android:id="@+id/therapist_contact"
-                layout="@layout/care_center_contact_item"
+                layout="@layout/care_center_therapist_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
