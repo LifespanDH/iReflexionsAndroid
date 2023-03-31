@@ -2,10 +2,12 @@ package com.lifespandh.ireflexions.home
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
+import com.lifespandh.ireflexions.models.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
@@ -43,6 +45,20 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.addSupportContact(supportContact)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getJournalEntries(requestBody: RequestBody): NetworkResult<List<DailyCheckInEntry>> {
+        var networkResult: NetworkResult<List<DailyCheckInEntry>>? = null
+
+        safeApiCall({
+            apiClient.getJournalEntries(requestBody)
         }, {
             networkResult = it
         }, {
