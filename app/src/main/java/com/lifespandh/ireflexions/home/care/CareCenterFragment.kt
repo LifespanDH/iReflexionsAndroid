@@ -60,15 +60,13 @@ class CareCenterFragment : BaseFragment() {
 
 
             mindfulness_tab.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putBoolean("is_mindfulness",true)
-                findNavController().navigate(R.id.action_careCenterFragment_to_careCenterExerciseFragment,bundle)
+                val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(true)
+                findNavController().navigate(action)
             }
 
             guided_meditation_tab.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putBoolean("is_mindfulness",false)
-                findNavController().navigate(R.id.action_careCenterFragment_to_careCenterExerciseFragment,bundle)
+                val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(false)
+                findNavController().navigate(action)
             }
         }
     }

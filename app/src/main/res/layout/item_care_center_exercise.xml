@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_selector_meditation">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="8dp"
+        android:paddingStart="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+
+        <TextView
+            android:id="@+id/title_meditation_exercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:paddingStart="12dp"
+            android:singleLine="true"
+            android:textColor="@color/icon_title_color"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/guidelineText"
+            app:layout_constraintTop_toTopOf="@id/img_meditation_exercise" />
+
+
+        <ImageView
+            android:id="@+id/img_meditation_exercise"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_intro_mindfulness"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guidelineText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/background_selector_play"
+            app:layout_constraintBottom_toTopOf="@+id/desc_meditation_exercise"
+            app:layout_constraintEnd_toStartOf="@id/seekBar"
+            app:layout_constraintStart_toEndOf="@id/img_meditation_exercise"
+            app:layout_constraintTop_toBottomOf="@id/title_meditation_exercise" />
+
+        <ImageView
+            android:id="@+id/img_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/player_pause_icon"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/desc_meditation_exercise"
+            app:layout_constraintEnd_toStartOf="@id/seekBar"
+            app:layout_constraintStart_toEndOf="@id/img_meditation_exercise"
+            app:layout_constraintTop_toBottomOf="@id/title_meditation_exercise" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:progress="0"
+            android:progressBackgroundTint="@color/selector_meditation_player_red"
+            android:progressTint="@color/selector_meditation_player_red"
+            android:thumbTint="@color/selector_meditation_player_red"
+            app:layout_constraintBottom_toBottomOf="@+id/img_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_play"
+            app:layout_constraintTop_toTopOf="@id/img_play" />
+
+        <TextView
+            android:id="@+id/desc_meditation_exercise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_light"
+            android:justificationMode="inter_word"
+            android:paddingStart="12dp"
+            android:singleLine="false"
+            android:textColor="@color/icon_title_color"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/seekBar"
+            app:layout_constraintStart_toStartOf="@id/img_play"
+            app:layout_constraintTop_toBottomOf="@+id/img_play" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

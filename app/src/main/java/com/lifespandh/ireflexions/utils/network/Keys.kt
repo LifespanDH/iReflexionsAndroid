@@ -15,4 +15,6 @@ const val USERNAME = "username"
 
 const val REFRESH = "refresh"
 
+const val IS_MINDFULNESS = "is_mindfulness"
+
 
