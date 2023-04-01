@@ -58,6 +58,7 @@ class CareCenterFragment : BaseFragment() {
                 )
             }
 
+
             mindfulness_tab.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putBoolean("is_mindfulness",true)
