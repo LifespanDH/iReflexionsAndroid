@@ -13,4 +13,10 @@ class SharedPrefs {
         set(value) {
             pm.edit().putBoolean(IS_LOGGED_IN, value).apply()
         }
+
+    var membershipLevel: Int
+        get() = pm.getInt(MEMBERSHIP_LEVEL, 1)
+        set(value) {
+            pm.edit().putInt(MEMBERSHIP_LEVEL, value).apply()
+        }
 }

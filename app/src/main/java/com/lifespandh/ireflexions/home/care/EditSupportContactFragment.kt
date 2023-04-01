@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -12,13 +13,18 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.models.MembershipLevel
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.image.getBitmapFromUriPath
+import com.lifespandh.ireflexions.utils.image.getImageUri
 import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.network.ID
+import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.fragment_edit_support_contact.*
@@ -34,8 +40,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private var supportContact: SupportContact? = null
     private var inEditMode = false
 
-    private lateinit var contactName: String
-    private lateinit var phoneNumber: String
+    private var imageUrl = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +66,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         name_editText.setText(supportContact?.name ?: "")
         phone_editText.setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
+
+        delete_button.isVisible = inEditMode
     }
 
     private fun getValuesFromArgument() {
@@ -82,28 +89,33 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                     requireContext().getString(R.string.explore_without_an_account_dialog_title),
                     requireContext().getString(R.string.explore_without_an_account_dialog_body_text_entry)
                 )
-            } else if (false /** check membership level here **/) {
+            } else if (sharedPrefs.membershipLevel == MembershipLevel.Basic.level) {
                 showDialog(
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_body_text_entry)
                 )
             } else {
-                val name = name_editText.trimString()
-                val phoneNumber = phone_editText.trimString()
-                val image = ""
+                val name = supportContact?.name ?: name_editText.trimString()
+                val phoneNumber = supportContact?.phoneNumber ?: phone_editText.trimString()
+                val image = supportContact?.image ?: imageUrl
 
                 if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty() || image.isNullOrEmpty()) {
                     toast("Incomplete Information")
                 }
-                val supportContact = SupportContact(name = name, phoneNumber = phoneNumber, image = image)
-                homeViewModel.addSupportContact(supportContact)
+                if (supportContact == null) {
+                    val supportContact = SupportContact(name = name, phoneNumber = phoneNumber, image = image)
+                    homeViewModel.addSupportContact(supportContact)
+                } else {
+                    val supportContact = SupportContact(id = supportContact!!.id, name = name, phoneNumber = phoneNumber, image = image)
+                    homeViewModel.editSupportContact(supportContact)
+                }
             }
         }
 
         delete_button.setOnClickListener {
             showDeleteContactConfirmationDialog() {
-                // delete from server
-                toast("Contact deleted")
+                val requestBody = createJsonRequestBody(ID to supportContact?.id)
+                homeViewModel.deleteSupportContact(requestBody)
             }
         }
 
@@ -127,11 +139,16 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setObservers(){
         homeViewModel.supportContactAddedLiveData.observeFreshly(this) {
-            if (it) {
-                toast("Contact added")
-            }
+            toast("Contact added")
         }
 
+        homeViewModel.supportContactEditedLiveData.observeFreshly(this) {
+            toast("Contact edited")
+        }
+
+        homeViewModel.supportContactDeletedLiveData.observeFreshly(this) {
+            toast("Contact deleted")
+        }
     }
 
     private fun showDeleteContactConfirmationDialog(
@@ -142,8 +159,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             getString(R.string.action_delete_contact),
             getString(
                 R.string.text_delete_contact,
-                contactName,
-                PhoneNumberUtils.formatNumber(phoneNumber, Locale.US.country)
+                supportContact?.name,
+                PhoneNumberUtils.formatNumber(supportContact?.phoneNumber, Locale.US.country)
             ),
             okClickAction
         )
@@ -173,6 +190,12 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .into(contact_icon_imageView)
     }
 
+    private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
+        val uri = compressedBitmap?.let { getImageUri(requireContext(), it) }
+        val intent = uri?.let { S3UploadService.newInstance(it) }
+        S3UploadService.enqueueWork(requireContext(), intent)
+    }
+
     companion object {
         private val TAG = EditSupportContactFragment::class.simpleName
 
@@ -198,6 +221,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                                 actualImage: File?,
                                 compressedBitmap: Bitmap?
                             ) {
+                                uploadImageToAWS(compressedBitmap)
                                 setContactImage(compressedBitmap)
                             }
 
@@ -216,6 +240,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                                 originalImage: File,
                                 compressedBitmap: Bitmap?
                             ) {
+                                uploadImageToAWS(compressedBitmap)
                                 setContactImage(compressedBitmap)
                             }
 

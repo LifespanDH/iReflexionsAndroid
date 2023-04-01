@@ -1,9 +1,11 @@
 package com.lifespandh.ireflexions.utils.file
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
+import com.lifespandh.ireflexions.utils.logs.logE
 import java.io.*
 
 private const val EOF = -1
@@ -90,4 +92,27 @@ private fun copy(input: InputStream, output: OutputStream?): Long {
         count += n.toLong()
     }
     return count
+}
+
+fun createNewFile(rotatedBitmap: Bitmap?, context: Context): File? {
+    try {
+        val path =
+            File("/storage/emulated/0/Android/data/" + context.packageName + "/upload/" + "image");
+
+        if (!path.exists()) {
+            path.mkdirs()
+            path.mkdir()
+        }
+
+        val outFile = File(path, "${System.currentTimeMillis()}.jpeg")
+        val out = FileOutputStream(outFile);
+        rotatedBitmap?.compress(Bitmap.CompressFormat.PNG, 100, out)
+        out.close()
+
+        return outFile
+    } catch (e: Exception) {
+        logE("$e while creating file")
+        e.printStackTrace();
+    }
+    return null
 }
