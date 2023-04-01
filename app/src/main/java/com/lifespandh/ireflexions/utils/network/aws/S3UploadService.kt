@@ -6,8 +6,15 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.app.JobIntentService
+import com.amplifyframework.core.Amplify
+import com.lifespandh.ireflexions.utils.file.createNewFile
+import com.lifespandh.ireflexions.utils.network.LiveSubject
+import com.lifespandh.ireflexions.utils.network.UploadFileStatus
+import java.io.File
 
-class S3UploadService : JobIntentService() {
+class S3UploadService(
+    private val context: Context
+) : JobIntentService() {
 
 //    private val secrets = getSecrets()
 
@@ -18,15 +25,33 @@ class S3UploadService : JobIntentService() {
             if (imageUri != null) {
                 image = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
             }
-//            val file = image?.let { createFile(this, System.currentTimeMillis().toString(), "Uploaded Files", bitmap = it) }
-//            if (file != null) {
-//                val extension = file.absolutePath.toString().split(".").last()
-//                file?.absolutePath?.let { it2 -> s3Upload(it2, this, extension) }
-//            }
+
+            val file = image?.let { createNewFile(it, context) }
+            if (file != null) {
+                val extension = file.absolutePath.toString().split(".").last()
+//                file?.absolutePath?.let { it2 -> uploadFile(it2) }
+                file?.let { uploadFile(it) }
+            }
         }
     }
 
-    private fun s3Upload(path: String, context: Context, extension: String = "jpeg", fileName: String = System.currentTimeMillis().toString()) {
+    private fun uploadFile(file: File) {
+        val upload = Amplify.Storage.uploadFile("ExampleKey", file, {
+            LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Complete(it.key))
+        }, {
+            LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Error(it))
+        }).setOnProgress {
+            LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(it.fractionCompleted.toInt()))
+        }
+    //        try {
+//            val result = upload.result()
+//            Log.i("MyAmplifyApp", "Successfully uploaded: ${result.key}")
+//        } catch (error: StorageException) {
+//            Log.e("MyAmplifyApp", "Upload failed", error)
+//        }
+    }
+
+//    private fun s3Upload(path: String, context: Context, extension: String = "jpeg", fileName: String = System.currentTimeMillis().toString()) {
 //        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
 //        StrictMode.setThreadPolicy(policy)
 //        val credentials = BasicAWSCredentials(secrets.awsAccessKey, secrets.awsSecretKey)
@@ -64,8 +89,8 @@ class S3UploadService : JobIntentService() {
 //        }
 //
 //        uploadObserver.setTransferListener(transferListener)
-
-    }
+//
+//    }
 
     companion object {
         /**
@@ -85,5 +110,7 @@ class S3UploadService : JobIntentService() {
                 S3UploadService::class.java, JOB_ID,
                 work!!)
         }
+
+        fun newInstance(imageUri: Uri) = Intent(IMAGE_URI, imageUri)
     }
 }

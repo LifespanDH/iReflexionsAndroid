@@ -27,6 +27,14 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val supportContactAddedLiveData: LiveData<Boolean>
         get() = _supportContactAddedLiveData
 
+    private val _supportContactEditedLiveData = MutableLiveData<Boolean>()
+    val supportContactEditedLiveData: LiveData<Boolean>
+        get() = _supportContactEditedLiveData
+
+    private val _supportContactDeletedLiveData = MutableLiveData<Boolean>()
+    val supportContactDeletedLiveData: LiveData<Boolean>
+        get() = _supportContactDeletedLiveData
+
     private val _dailyCheckInEntriesLiveData = MutableLiveData<List<DailyCheckInEntry>>()
     val dailyCheckInEntryLiveData: LiveData<List<DailyCheckInEntry>>
         get() = _dailyCheckInEntriesLiveData
@@ -87,6 +95,40 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 is NetworkResult.Success -> {
                     val data = response.data
                     _supportContactAddedLiveData.value = true
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun editSupportContact(supportContact: SupportContact) {
+        viewModelScope.launch {
+            val response = homeRepo.editSupportContact(supportContact)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _supportContactEditedLiveData.value = true
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun deleteSupportContact(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.deleteSupportContact(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _supportContactDeletedLiveData.value = true
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

@@ -55,6 +55,34 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
+    suspend fun editSupportContact(supportContact: SupportContact): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.editSupportContact(supportContact)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun deleteSupportContact(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.deleteSupportContact(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
     suspend fun getJournalEntries(requestBody: RequestBody): NetworkResult<List<DailyCheckInEntry>> {
         var networkResult: NetworkResult<List<DailyCheckInEntry>>? = null
 

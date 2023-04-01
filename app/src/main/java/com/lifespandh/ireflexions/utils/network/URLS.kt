@@ -20,5 +20,7 @@ const val SAVE_SURVEY_QUESTIONS = BASE_URL + ON_BOARDING + "save_survey_response
 const val GET_EXERCISES = BASE_URL + IREF_USERS + "get_exercises/"
 const val GET_SUPPORT_CONTACTS = BASE_URL + IREF_USERS + "get_support_contacts/"
 const val ADD_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "add_support_contact/"
+const val EDIT_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "edit_support_contact/"
+const val DELETE_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "delete_support_contact/"
 const val GET_JOURNAL_ENTRIES = BASE_URL + IREF_USERS + "get_journal_entries/"
 const val GET_CARE_CENTER_EXERCISES = BASE_URL + IREF_USERS + "get_care_center_exercises/"
