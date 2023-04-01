@@ -1,8 +1,11 @@
 package com.lifespandh.ireflexions
 
 import android.app.Application
+import android.util.Log
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.logs.logV
 import dagger.hilt.android.HiltAndroidApp
@@ -15,10 +18,13 @@ class IReflexions: Application() {
         instance = this
 
         try {
+            // Add these lines to add the AWSCognitoAuthPlugin and AWSS3StoragePlugin plugins
+            Amplify.addPlugin(AWSCognitoAuthPlugin())
+            Amplify.addPlugin(AWSS3StoragePlugin())
             Amplify.configure(applicationContext)
-            logV( "Initialized Amplify", "MyAmplifyApp")
+            Log.i("MyAmplifyApp", "Initialized Amplify")
         } catch (error: AmplifyException) {
-            logE("Could not initialize Amplify", "MyAmplifyApp")
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error)
         }
     }
 

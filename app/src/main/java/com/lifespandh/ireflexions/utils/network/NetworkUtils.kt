@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.utils.network
 
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.json.JSONObject
 
@@ -20,5 +21,5 @@ suspend fun <T> safeApiCall(
 
 fun createJsonRequestBody(vararg params: Pair<Any, *>): RequestBody =
     RequestBody.create(
-        MediaType.parse("application/json; charset=utf-8"),
+        "application/json; charset=utf-8".toMediaTypeOrNull(),
         JSONObject(mapOf(*params)).toString())

@@ -1,4 +1,4 @@
-package com.lifespandh.ireflexions.utils.permissions
+package com.lifespandh.ireflexions.utils.launchers
 
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment

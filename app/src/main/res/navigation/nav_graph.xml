@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.lifespandh.ireflexions.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/careCenterFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterFragment"
-        android:label="CareCenterFragment" >
+        android:label="CareCenterFragment">
         <action
             android:id="@+id/action_careCenterFragment_to_editSupportContactFragment"
             app:destination="@id/editSupportContactFragment" />
@@ -54,11 +54,24 @@
     <dialog
         android:id="@+id/editSupportContactFragment"
         android:name="com.lifespandh.ireflexions.home.care.EditSupportContactFragment"
-        android:label="EditSupportContactFragment" />
+        android:label="EditSupportContactFragment">
+
+        <argument
+            android:name="supportContact"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.lifespandh.ireflexions.models.SupportContact" />
+
+        <argument
+            android:name="inEditMode"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+    </dialog>
     <fragment
         android:id="@+id/howAmINoEntryFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.HowAmINoEntryFragment"
-        android:label="HowAmINoEntryFragment" >
+        android:label="HowAmINoEntryFragment">
         <action
             android:id="@+id/action_howAmINoEntryFragment_to_howAmICreateEntryFragment"
             app:destination="@id/howAmICreateEntryFragment" />
@@ -86,10 +99,10 @@
     <fragment
         android:id="@+id/careCenterExerciseFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment"
-        android:label="CareCenterExerciseFragment" >
-    <argument
-        android:name="isMindfulness"
-        app:argType="boolean"
-        android:defaultValue="false" />
+        android:label="CareCenterExerciseFragment">
+        <argument
+            android:name="isMindfulness"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 </navigation>

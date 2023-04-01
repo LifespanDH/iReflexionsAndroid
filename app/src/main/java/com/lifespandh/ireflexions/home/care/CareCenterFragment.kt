@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
-import com.lifespandh.ireflexions.utils.permissions.PermissionLauncher
+import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import kotlinx.android.synthetic.main.fragment_care_center.*
 
 class CareCenterFragment : BaseFragment() {
@@ -38,6 +38,7 @@ class CareCenterFragment : BaseFragment() {
         addContactCardView.setOnClickListener {
             if (sharedPrefs.isLoggedIn) {
                 if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+
                     findNavController().navigate(R.id.editSupportContactFragment)
                 } else {
                     PermissionLauncher(this, object : PermissionLauncher.OnPermissionResult {

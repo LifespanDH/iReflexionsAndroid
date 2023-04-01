@@ -1,7 +1,10 @@
 package com.lifespandh.ireflexions.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SupportContact (
 
     @SerializedName("id")
@@ -15,4 +18,4 @@ data class SupportContact (
 
     @SerializedName("image")
     val image: String,
-)
+): Parcelable

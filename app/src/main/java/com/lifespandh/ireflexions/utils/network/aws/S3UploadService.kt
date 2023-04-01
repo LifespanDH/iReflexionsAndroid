@@ -4,20 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.StrictMode
 import android.provider.MediaStore
 import androidx.core.app.JobIntentService
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.regions.Region
-import com.amazonaws.regions.Regions
-import com.lifespandh.ireflexions.utils.network.UploadFileStatus
-import java.io.File
-import java.nio.file.Files.createFile
-import java.util.*
 
 class S3UploadService : JobIntentService() {
 
-    private val secrets = getSecrets()
+//    private val secrets = getSecrets()
 
     override fun onHandleWork(intent: Intent) {
         if (intent.extras?.containsKey(IMAGE_URI) == true) {
@@ -35,43 +27,43 @@ class S3UploadService : JobIntentService() {
     }
 
     private fun s3Upload(path: String, context: Context, extension: String = "jpeg", fileName: String = System.currentTimeMillis().toString()) {
-        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-        val credentials = BasicAWSCredentials(secrets.awsAccessKey, secrets.awsSecretKey)
-        val s3 = AmazonS3Client(credentials)
-        java.security.Security.setProperty("networkaddress.cache.ttl","60")
-        s3.setRegion(Region.getRegion(Regions.US_WEST_2))
-        s3.endpoint = secrets.awsEndpoint
-        val transferUtility = TransferUtility.builder()
-            .defaultBucket(
-                secrets.s3BucketName)
-            .context(context).s3Client(s3).build()
-        val file = File(path)
-        val uploadObserver =
-            transferUtility.upload(
-                secrets.s3BucketName,
-                "$fileName.$extension",
-                file,
-                CannedAccessControlList.PublicRead
-            )
-
-        val transferListener = object : TransferListener {
-            override fun onStateChanged(id: Int, state: TransferState)  {
-                if (state == TransferState.COMPLETED) {
-                    val url = "${secrets.s3BaseUrl}/$fileName.$extension"
-                    LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Complete(url))
-                }
-            }
-            override fun onProgressChanged(id: Int, current: Long, total: Long) {
-                val status = (((current.toDouble() / total) * 100.0).toInt())
-                LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(status))
-            }
-            override fun onError(id: Int, ex: Exception) {
-                LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Error(ex))
-            }
-        }
-
-        uploadObserver.setTransferListener(transferListener)
+//        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+//        val credentials = BasicAWSCredentials(secrets.awsAccessKey, secrets.awsSecretKey)
+//        val s3 = AmazonS3Client(credentials)
+//        java.security.Security.setProperty("networkaddress.cache.ttl","60")
+//        s3.setRegion(Region.getRegion(Regions.US_WEST_2))
+//        s3.endpoint = secrets.awsEndpoint
+//        val transferUtility = TransferUtility.builder()
+//            .defaultBucket(
+//                secrets.s3BucketName)
+//            .context(context).s3Client(s3).build()
+//        val file = File(path)
+//        val uploadObserver =
+//            transferUtility.upload(
+//                secrets.s3BucketName,
+//                "$fileName.$extension",
+//                file,
+//                CannedAccessControlList.PublicRead
+//            )
+//
+//        val transferListener = object : TransferListener {
+//            override fun onStateChanged(id: Int, state: TransferState)  {
+//                if (state == TransferState.COMPLETED) {
+//                    val url = "${secrets.s3BaseUrl}/$fileName.$extension"
+//                    LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Complete(url))
+//                }
+//            }
+//            override fun onProgressChanged(id: Int, current: Long, total: Long) {
+//                val status = (((current.toDouble() / total) * 100.0).toInt())
+//                LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(status))
+//            }
+//            override fun onError(id: Int, ex: Exception) {
+//                LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Error(ex))
+//            }
+//        }
+//
+//        uploadObserver.setTransferListener(transferListener)
 
     }
 

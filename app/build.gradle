@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.dagger.hilt.android'
-    id 'androidx.navigation.safeargs.kotlin'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -37,7 +37,7 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
+//        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -127,12 +127,15 @@ dependencies {
     // Amplify core dependency
     implementation 'com.amplifyframework:core:2.5.0'
 
+    implementation 'com.amplifyframework:aws-storage-s3:2.5.0'
+    implementation 'com.amplifyframework:aws-auth-cognito:2.5.0'
+
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     // Compressor
-    implementation 'id.zelory:compressor:3.0.0'
+    implementation 'id.zelory:compressor:3.0.1'
 }
 
 kapt {
