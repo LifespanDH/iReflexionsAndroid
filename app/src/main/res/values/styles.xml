@@ -8,4 +8,17 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NavigationView" >
+        <item name="android:listDivider">@color/light_gray</item>
+    </style>
+
+    <style name="menu_text_style" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textColor">@color/icon_title_color</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 </resources>
