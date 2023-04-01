@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.CareCenterExercise
+import com.lifespandh.ireflexions.utils.logs.logE
 
 class CareCenterExerciseAdapter(
     private var exercises: List<CareCenterExercise>
@@ -64,10 +65,22 @@ class CareCenterExerciseAdapter(
         notifyDataSetChanged()
     }
 
-    private fun releaseMediaPlayer() {
+    fun releaseMediaPlayer() {
         mediaPlayer.release()
         isMediaPlayerInitialized = false
 //        mediaPlayer = null
+    }
+
+    fun stopPlayer() {
+        handler.removeCallbacksAndMessages(null)
+        mediaPlayer.stop()
+        releaseMediaPlayer()
+
+        playTime = 0
+        endTime = 0
+        val playingItemIdx = selectedItem
+        selectedItem = -1
+        notifyItemChanged(playingItemIdx)
     }
 
     inner class ExerciseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -169,6 +182,7 @@ class CareCenterExerciseAdapter(
         }
 
         private fun createMediaPlayer(url: String): MediaPlayer {
+            logE("called url $url")
             return MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()

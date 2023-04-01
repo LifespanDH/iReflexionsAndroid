@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.activity_home.*

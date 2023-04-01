@@ -12,6 +12,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.IS_MINDFULNESS
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.care_center_exercise_fragment.*
@@ -48,6 +49,7 @@ class CareCenterExerciseFragment : BaseFragment() {
 
     private fun getDataFromArguments() {
         isMindFullNess = args.isMindfulness
+        logE("called mind $isMindFullNess")
     }
 
     private fun fetchData() {
@@ -68,8 +70,22 @@ class CareCenterExerciseFragment : BaseFragment() {
         }
     }
 
+    private fun releaseMediaPlayer() {
+        careCenterExerciseAdapter.releaseMediaPlayer()
+    }
+
     companion object {
 
         fun newInstance() = CareCenterExerciseFragment()
+    }
+
+    override fun onPause() {
+        careCenterExerciseAdapter.stopPlayer()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        careCenterExerciseAdapter.releaseMediaPlayer()
+        super.onDestroy()
     }
 }

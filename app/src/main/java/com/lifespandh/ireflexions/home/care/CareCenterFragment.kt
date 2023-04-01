@@ -10,9 +10,12 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_care_center.*
 
-class CareCenterFragment : BaseFragment() {
+class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult {
+
+    private val permissionLauncher =  PermissionLauncher(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +44,7 @@ class CareCenterFragment : BaseFragment() {
                     val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, false)
                     findNavController().navigate(action)
                 } else {
-                    PermissionLauncher(this, object : PermissionLauncher.OnPermissionResult {
-                        override fun onPermissionGranted() {
-
-                        }
-
-                        override fun onPermissionDenied() {
-
-                        }
-                    }).launch(android.Manifest.permission.READ_CONTACTS)
+                    permissionLauncher.launch(android.Manifest.permission.READ_CONTACTS)
                 }
             } else {
                 showDialog(
@@ -57,17 +52,16 @@ class CareCenterFragment : BaseFragment() {
                     requireContext().getString(R.string.explore_without_an_account_Program_text)
                 )
             }
+        }
 
+        mindfulness_tab.setOnClickListener {
+            val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(true)
+            findNavController().navigate(action)
+        }
 
-            mindfulness_tab.setOnClickListener {
-                val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(true)
-                findNavController().navigate(action)
-            }
-
-            guided_meditation_tab.setOnClickListener {
-                val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(false)
-                findNavController().navigate(action)
-            }
+        guided_meditation_tab.setOnClickListener {
+            val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(false)
+            findNavController().navigate(action)
         }
     }
 
@@ -79,5 +73,13 @@ class CareCenterFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = CareCenterFragment()
+    }
+
+    override fun onPermissionGranted() {
+
+    }
+
+    override fun onPermissionDenied() {
+
     }
 }

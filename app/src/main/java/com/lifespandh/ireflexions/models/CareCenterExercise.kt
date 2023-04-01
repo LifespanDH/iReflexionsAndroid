@@ -13,6 +13,6 @@ data class CareCenterExercise(
     @SerializedName("image")
     val image: String,
 
-    @SerializedName("audio_url")
+    @SerializedName("audio")
     val audioUrl: String
 )
