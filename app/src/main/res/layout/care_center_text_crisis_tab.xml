@@ -39,6 +39,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
+            android:elevation="15dp"
             android:fontFamily="@font/montserrat_bold"
             android:maxLines="1"
             android:textColor="@color/icon_title_color"
@@ -47,9 +48,7 @@
             app:layout_constraintEnd_toStartOf="@id/text_crisis_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-
-            tools:text="TEXT A CRISIS LINE" />
+            android:text="TEXT A CRISIS LINE" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

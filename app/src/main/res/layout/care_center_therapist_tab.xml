@@ -27,29 +27,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:layout_goneMarginEnd="0dp"
             app:layout_goneMarginStart="0dp" />
 
         <TextView
             android:id="@+id/contact_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
+            android:layout_marginStart="80dp"
             android:fontFamily="@font/montserrat_bold"
-            android:maxLines="1"
             android:textColor="@color/icon_title_color"
             android:textSize="15sp"
+            android:elevation="15dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/call_therapist_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-
-            tools:text="CALL A THERAPIST" />
+            android:text="CALL A THERAPIST" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

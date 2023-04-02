@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_careCenterFragment_to_careCenterExerciseFragment"
             app:destination="@id/careCenterExerciseFragment" />
+        <action
+            android:id="@+id/action_careCenterFragment_to_textCrisisLinesFragment"
+            app:destination="@id/textCrisisLinesFragment" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -105,4 +108,9 @@
             android:defaultValue="false"
             app:argType="boolean" />
     </fragment>
+    <fragment
+        android:id="@+id/textCrisisLinesFragment"
+        android:name="com.lifespandh.ireflexions.home.care.TextCrisisLinesFragment"
+        android:label="fragment_text_crisis_lines"
+        tools:layout="@layout/fragment_text_crisis_lines" />
 </navigation>

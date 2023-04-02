@@ -11,6 +11,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.logs.logE
+import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
 import kotlinx.android.synthetic.main.fragment_care_center.*
 
 class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult {
@@ -62,6 +63,10 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         guided_meditation_tab.setOnClickListener {
             val action = CareCenterFragmentDirections.actionCareCenterFragmentToCareCenterExerciseFragment(false)
             findNavController().navigate(action)
+        }
+
+        text_crisis_button.setOnClickListener {
+            findNavController().navigate(R.id.action_careCenterFragment_to_textCrisisLinesFragment)
         }
     }
 
