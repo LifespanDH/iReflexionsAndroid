@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.unity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.navigation.fragment.navArgs
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.unity3d.player.UnityPlayer
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -69,6 +71,8 @@ class UnityExerciseFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         unityPlayer?.resume()
+        if(exerciseId == "CreatureComfort")
+            (context as HomeActivity).requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
     }
 
     override fun onPause() {
