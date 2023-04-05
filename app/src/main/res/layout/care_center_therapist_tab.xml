@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,15 +8,29 @@
     app:cardBackgroundColor="@color/meditation_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="381dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:elevation="15dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="CALL A THERAPIST"
+            android:textColor="@color/icon_title_color"
+            android:textSize="15sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/call_therapist_button"
-            android:layout_width="80sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="300dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/background_selector_call_contact_button"
             android:scaleX="0.90"
             android:scaleY="0.70"
@@ -25,25 +38,8 @@
             android:textColor="@color/white"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginEnd="0dp"
-            app:layout_goneMarginStart="0dp" />
-
-        <TextView
-            android:id="@+id/contact_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/icon_title_color"
-            android:textSize="15sp"
-            android:elevation="15dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="CALL A THERAPIST" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
