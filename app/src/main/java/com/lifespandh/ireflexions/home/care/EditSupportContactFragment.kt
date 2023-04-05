@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.*
+import android.view.View.OnTouchListener
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -27,14 +28,19 @@ import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
+import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.fragment_edit_support_contact.*
 import java.io.File
 import java.util.*
 
-class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener {
+
+class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: EditSupportContactFragmentArgs by navArgs()
+    private val contactPickerLauncher =
+        ContactPickerLauncher(this, this)
+
 
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
@@ -113,7 +119,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         }
 
         delete_button.setOnClickListener {
-            showDeleteContactConfirmationDialog() {
+            showDeleteContactConfirmationDialog {
                 val requestBody = createJsonRequestBody(ID to supportContact?.id)
                 homeViewModel.deleteSupportContact(requestBody)
             }
@@ -125,16 +131,22 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
 
-        pickContactImageButton.setOnClickListener {
-            ContactPickerLauncher(this, requireContext(), object : ContactPickerLauncher.OnContactPicked {
-                override fun contactPicked(name: String?, number: String?, image: String?) {
-                    val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
-                    contact_icon_imageView.setImageBitmap(bitmap)
+        name_editText.setOnTouchListener { view, motionEvent ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (motionEvent.action == MotionEvent.ACTION_UP) {
+                if (motionEvent.rawX >= name_editText.right - name_editText.compoundDrawables
+                        .get(DRAWABLE_RIGHT).bounds.width()
+                ) {
+                    // your action here
+                    contactPickerLauncher.launch(requireContext())
+                    return@setOnTouchListener true
                 }
-
-            })
+            }
+            false
         }
-
     }
 
     private fun setObservers(){
@@ -256,5 +268,13 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
         return false
+    }
+
+    override fun contactPicked(name: String?, number: String?, image: String?) {
+        val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
+        contact_icon_imageView.setImageBitmap(bitmap)
+
+        name_editText.setText(name)
+        phone_editText.setText(number)
     }
 }

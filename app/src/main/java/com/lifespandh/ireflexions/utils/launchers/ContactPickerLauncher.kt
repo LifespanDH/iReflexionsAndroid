@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 
 class ContactPickerLauncher(
     fragment: Fragment,
-    context: Context,
     listener: OnContactPicked
 ) {
+
+    private lateinit var context: Context
 
     private val pickContactResult =
         fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -42,12 +43,11 @@ class ContactPickerLauncher(
                     cursor?.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
                 val id = contact?.let { cursor?.getString(it) }
                 listener.contactPicked(name, number, id)
-//                setContactImage(id)
-//                viewModel.updateWithContact(name, number)
             }
         }
 
-    fun launch() {
+    fun launch(context: Context) {
+        this.context = context
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
         intent.setDataAndType(null, ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE)
         pickContactResult.launch(intent)
