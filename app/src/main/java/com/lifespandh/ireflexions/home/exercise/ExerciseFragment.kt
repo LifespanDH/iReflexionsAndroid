@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
-class ExerciseFragment : BaseFragment() {
+class ExerciseFragment : BaseFragment(), ExerciseAdapter.OnExerciseClick {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
-    private val exerciseAdapter by lazy { ExerciseAdapter(listOf()) }
+    private val exerciseAdapter by lazy { ExerciseAdapter(listOf(), this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -57,5 +58,9 @@ class ExerciseFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = ExerciseFragment()
+    }
+
+    override fun onExerciseClicked(exercise: Exercise) {
+
     }
 }

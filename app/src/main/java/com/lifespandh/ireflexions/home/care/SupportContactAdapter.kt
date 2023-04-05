@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.exercise.ExerciseAdapter
-import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SupportContact
-import kotlinx.android.synthetic.main.care_center_contact_item.view.*
 
 class SupportContactAdapter(
     private var supportContacts: List<SupportContact>,

@@ -108,8 +108,13 @@
             android:defaultValue="false"
             app:argType="boolean" />
     </fragment>
-    <fragment
-        android:id="@+id/textCrisisLinesFragment"
+<!--    <fragment-->
+<!--        android:id="@+id/textCrisisLinesFragment"-->
+<!--        android:name="com.lifespandh.ireflexions.home.care.TextCrisisLinesFragment"-->
+<!--        android:label="fragment_text_crisis_lines"-->
+<!--        tools:layout="@layout/fragment_text_crisis_lines" />-->
+
+    <dialog android:id="@+id/textCrisisLinesFragment"
         android:name="com.lifespandh.ireflexions.home.care.TextCrisisLinesFragment"
         android:label="fragment_text_crisis_lines"
         tools:layout="@layout/fragment_text_crisis_lines" />
