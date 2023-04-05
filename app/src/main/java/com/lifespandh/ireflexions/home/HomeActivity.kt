@@ -53,7 +53,6 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        logE("called ${navController.currentDestination}")
         val currentFragment = navController.currentDestination
 
         if (currentFragment?.id == R.id.homeFragment) {
