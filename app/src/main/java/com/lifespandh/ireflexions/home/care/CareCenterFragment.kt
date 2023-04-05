@@ -45,7 +45,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         addContactCardView.setOnClickListener {
             if (sharedPrefs.isLoggedIn) {
                 if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-                    val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, false)
+                    val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, true)
                     findNavController().navigate(action)
                 } else {
                     permissionLauncher.launch(android.Manifest.permission.READ_CONTACTS)
