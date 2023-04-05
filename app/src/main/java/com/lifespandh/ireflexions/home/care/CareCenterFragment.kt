@@ -1,6 +1,8 @@
 package com.lifespandh.ireflexions.home.care
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +12,10 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
-import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
+import kotlinx.android.synthetic.main.care_center_therapist_tab.*
 import kotlinx.android.synthetic.main.fragment_care_center.*
+
 
 class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult {
 
@@ -68,6 +71,12 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         text_crisis_button.setOnClickListener {
             findNavController().navigate(R.id.action_careCenterFragment_to_textCrisisLinesFragment)
         }
+
+        call_therapist_button.setOnClickListener {
+            val phone = "+15141234545"
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
+            startActivity(intent)
+        }
     }
 
     private fun showDialog(title: String, message: String) {
@@ -87,4 +96,5 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     override fun onPermissionDenied() {
 
     }
+
 }
