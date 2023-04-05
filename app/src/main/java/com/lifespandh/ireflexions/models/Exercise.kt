@@ -11,6 +11,9 @@ data class Exercise(
     val description: String,
 
     @SerializedName("image")
-    val image: String
+    val image: String,
+
+    @SerializedName("unity_id")
+    val unityId: String
 
 )

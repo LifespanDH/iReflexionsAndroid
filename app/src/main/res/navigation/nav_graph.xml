@@ -30,7 +30,11 @@
         android:id="@+id/exerciseFragment"
         android:name="com.lifespandh.ireflexions.home.exercise.ExerciseFragment"
         android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_exercise" >
+        <action
+            android:id="@+id/action_exerciseFragment_to_unityExerciseFragment"
+            app:destination="@id/unityExerciseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/careCenterFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterFragment"
@@ -118,4 +122,14 @@
         android:name="com.lifespandh.ireflexions.home.care.TextCrisisLinesFragment"
         android:label="fragment_text_crisis_lines"
         tools:layout="@layout/fragment_text_crisis_lines" />
+    <fragment
+        android:id="@+id/unityExerciseFragment"
+        android:name="com.lifespandh.ireflexions.home.unity.UnityExerciseFragment"
+        android:label="fragment_unity_exercise"
+        tools:layout="@layout/fragment_unity_exercise">
+        <argument
+            android:name="exerciseId"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 </navigation>
