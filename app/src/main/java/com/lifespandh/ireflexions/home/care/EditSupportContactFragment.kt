@@ -28,6 +28,7 @@ import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -53,13 +54,13 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private lateinit var view: View
     private var imageUrl = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? { // check this container - > null
-        return inflater.inflate(R.layout.fragment_edit_support_contact, container, false)
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? { // check this container - > null
+//        return inflater.inflate(R.layout.fragment_edit_support_contact, container, false)
+//    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -144,8 +145,9 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
         view.findViewById<ImageView>(R.id.contact_icon_imageView).setOnClickListener {
 //            if (inEditMode) {
-                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
+//                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
 //            }
+            showPhotoActionMenuPopup()
         }
 
         view.findViewById<EditText>(R.id.name_editText).setOnTouchListener { view, motionEvent ->
@@ -201,7 +203,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .show(parentFragmentManager, TAG)
     }
 
-    private fun showPhotoActionMenuPopup(view: View) {
+    private fun showPhotoActionMenuPopup() {
         val popup = PopupMenu(requireContext(), view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.take_picture_menu, popup.menu)
