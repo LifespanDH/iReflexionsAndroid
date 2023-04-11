@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_howAmINoEntryFragment"
             app:destination="@id/howAmINoEntryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_courseListFragment"
+            app:destination="@id/courseListFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -132,4 +135,8 @@
             android:defaultValue=""
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/courseListFragment"
+        android:name="com.lifespandh.ireflexions.home.course.CourseListFragment"
+        android:label="CourseListFragment" />
 </navigation>

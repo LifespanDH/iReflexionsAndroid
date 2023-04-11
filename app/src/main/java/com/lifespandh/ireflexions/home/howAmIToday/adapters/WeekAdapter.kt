@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -72,7 +73,7 @@ class WeekAdapter(
                 itemView.isClickable = false
             }
 
-            if (absoluteAdapterPosition == homeViewModel.selectedPosition && System.currentTimeMillis() > parsedDateTime) {
+            if (absoluteAdapterPosition == homeViewModel.selectedPosition) {
                 itemView.background =
                     ContextCompat.getDrawable(getContext(), R.drawable.week_day_round_rectangle)
             } else {

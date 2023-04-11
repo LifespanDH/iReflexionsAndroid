@@ -5,6 +5,7 @@ import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.CareCenterExercise
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.Exercise
+import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
@@ -18,6 +19,20 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getExercises()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getPrograms(): NetworkResult<List<Program>> {
+        var networkResult: NetworkResult<List<Program>>? = null
+
+        safeApiCall({
+            apiClient.getPrograms()
         }, {
             networkResult = it
         }, {

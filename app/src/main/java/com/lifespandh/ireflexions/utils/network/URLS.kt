@@ -18,6 +18,7 @@ const val GET_SURVEY_QUESTIONS = BASE_URL + ON_BOARDING + "get_survey_questions/
 const val SAVE_SURVEY_QUESTIONS = BASE_URL + ON_BOARDING + "save_survey_responses/"
 
 const val GET_EXERCISES = BASE_URL + IREF_USERS + "get_exercises/"
+const val GET_PROGRAMS = BASE_URL + IREF_USERS + "get_programs"
 const val GET_SUPPORT_CONTACTS = BASE_URL + IREF_USERS + "get_support_contacts/"
 const val ADD_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "add_support_contact/"
 const val EDIT_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "edit_support_contact/"

@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.lifespandh.ireflexions.models.CareCenterExercise
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.Exercise
+import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
@@ -42,6 +44,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     private val _careCenterExercisesLiveData = MutableLiveData<List<CareCenterExercise>>()
     val careCenterExercisesLiveData: LiveData<List<CareCenterExercise>>
         get() = _careCenterExercisesLiveData
+
+    private val _programsLiveData = MutableLiveData<List<Program>>()
+    val programsLiveData: LiveData<List<Program>>
+        get() = _programsLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -163,6 +169,24 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 is NetworkResult.Success -> {
                     val data = response.data
                     _careCenterExercisesLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getPrograms() {
+        viewModelScope.launch {
+            val response = homeRepo.getPrograms()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("apiCall", ""+response)
+                    val data = response.data
+                    _programsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

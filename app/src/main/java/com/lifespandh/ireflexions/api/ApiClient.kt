@@ -33,6 +33,9 @@ interface ApiClient {
     @GET(GET_EXERCISES)
     suspend fun getExercises(): List<Exercise>
 
+    @POST(GET_PROGRAMS)
+    suspend fun getPrograms(): List<Program>
+
     @GET(GET_SUPPORT_CONTACTS)
     suspend fun getSupportContacts(): List<SupportContact>
 

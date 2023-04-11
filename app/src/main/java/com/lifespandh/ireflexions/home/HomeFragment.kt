@@ -74,6 +74,10 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_homeFragment_to_howAmINoEntryFragment)
         }
 
+        courses.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_courseListFragment)
+        }
+
         home_screen_login_button.setOnClickListener{
             startActivity(LoginActivity.newInstance(requireContext()))
         }
