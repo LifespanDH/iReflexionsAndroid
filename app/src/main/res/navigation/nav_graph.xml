@@ -95,12 +95,21 @@
     <fragment
         android:id="@+id/howAmICreateEntryFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.HowAmICreateEntryFragment"
-        android:label="HowAmICreateEntryFragment" />
+        android:label="HowAmICreateEntryFragment">
+        <argument
+            android:name="date"
+            app:argType="date"
+            android:defaultValue="" />
+    </fragment>
     <fragment
         android:id="@+id/weeklyReportFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.WeeklyReportFragment"
         android:label="fragment_weekly_report"
-        tools:layout="@layout/fragment_weekly_report" />
+        tools:layout="@layout/fragment_weekly_report" >
+        <action
+            android:id="@+id/action_weeklyReportFragment_to_howAmICreateEntryFragment"
+            app:destination="@id/howAmICreateEntryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/monthlyReportFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.MonthlyReportFragment"

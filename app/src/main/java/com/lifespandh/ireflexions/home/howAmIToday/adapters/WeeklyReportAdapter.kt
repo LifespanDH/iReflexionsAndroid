@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
@@ -20,11 +19,10 @@ class WeeklyReportAdapter (
     var dateListOrigin: ArrayList<Date>,
     var dayList: ArrayList<String>,
     var dates: ArrayList<String>,
-    private val findNavController: NavController
+    private val listener: OnItemClickedListener
         ): BaseRecyclerViewAdapter () {
 
     private val dailyBundle = Bundle()
-    lateinit var listener: WeekAdapter.OnItemClickedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeeklyReportViewHolder(getView(R.layout.weekly_report_fragment_item, parent))
@@ -36,14 +34,7 @@ class WeeklyReportAdapter (
     }
 
     override fun getItemCount(): Int {
-    return dayList.size
-    }
-    interface OnItemClickedListener {
-        fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder)
-    }
-
-    fun setOnItemClickedListener(listener: WeekAdapter.OnItemClickedListener) {
-        this.listener = listener
+        return dayList.size
     }
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -68,6 +59,16 @@ class WeeklyReportAdapter (
                 addCircleImage.visibility = View.INVISIBLE
                 txtNoEntry.visibility = View.INVISIBLE
 
+//                val adapter = JournalEntryAdapter(
+//                    itemListDailyCheckIn = dailyEntryList,
+//                    isChangeColor = true
+//                )
+//                adapter.setOnItemClickedListener(this)
+//                weeklyEntryOverview.adapter = adapter
+            }
+
+            addCircleImage.setOnClickListener {
+                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
             }
 
             if (System.currentTimeMillis() < dateListOrigin[position].time) {
@@ -76,4 +77,8 @@ class WeeklyReportAdapter (
         }
     }
 
+    interface OnItemClickedListener {
+        fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder)
+        fun onAddEntryClicked(date: String)
+    }
 }

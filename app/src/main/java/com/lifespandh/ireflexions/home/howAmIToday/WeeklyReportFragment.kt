@@ -115,9 +115,8 @@ class WeeklyReportFragment : BaseFragment(),
 
         weekEntryOverview.layoutManager = GridLayoutManager(context, 1)
         weeklyReportAdapter = WeeklyReportAdapter(
-            items, dateList, datesOrigin, dayList, dates, findNavController()
+            items, dateList, datesOrigin, dayList, dates, this
         )
-        weeklyReportAdapter.setOnItemClickedListener(this)
         weekEntryOverview.adapter = weeklyReportAdapter
     }
 
@@ -188,5 +187,11 @@ class WeeklyReportFragment : BaseFragment(),
 
     override fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder) {
         TODO("Not yet implemented")
+    }
+
+    override fun onAddEntryClicked(date: String) {
+        val parsedDate = parser.parse(date)
+        val action = WeeklyReportFragmentDirections.actionWeeklyReportFragmentToHowAmICreateEntryFragment(parsedDate)
+        findNavController().navigate(action)
     }
 }

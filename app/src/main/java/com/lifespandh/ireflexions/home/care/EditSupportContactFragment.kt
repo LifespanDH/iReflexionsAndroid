@@ -1,9 +1,15 @@
 package com.lifespandh.ireflexions.home.care
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -22,6 +28,7 @@ import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -31,30 +38,47 @@ import kotlinx.android.synthetic.main.fragment_edit_support_contact.*
 import java.io.File
 import java.util.*
 
-class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener {
+
+class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: EditSupportContactFragmentArgs by navArgs()
+    private val contactPickerLauncher =
+        ContactPickerLauncher(this, this)
+
 
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
     private var inEditMode = false
 
+    private lateinit var view: View
     private var imageUrl = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? { // check this container - > null
-        return inflater.inflate(R.layout.fragment_edit_support_contact, container, false)
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? { // check this container - > null
+//        return inflater.inflate(R.layout.fragment_edit_support_contact, container, false)
+//    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
 
+            val inflater = requireActivity().layoutInflater
+            val view = inflater.inflate(R.layout.fragment_edit_support_contact, null)
+            builder.setView(view)
+
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false)
+
+            this.view = view
+            init()
+
+            dialog
+        } ?: throw IllegalStateException("Activity cannot be null.")
+    }
     private fun init() {
         getValuesFromArgument()
         setupViews()
@@ -63,11 +87,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun setupViews() {
-        name_editText.setText(supportContact?.name ?: "")
-        phone_editText.setText(supportContact?.phoneNumber ?: "")
+        view.findViewById<EditText>(R.id.name_editText).setText(supportContact?.name ?: "")
+        view.findViewById<EditText>(R.id.phone_editText).setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
 
-        delete_button.isVisible = inEditMode
+        view.findViewById<Button>(R.id.delete_button).isVisible = inEditMode
     }
 
     private fun getValuesFromArgument() {
@@ -79,11 +103,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setListeners(){
 
-        close_dialog_textView.setOnClickListener {
+        view.findViewById<TextView>(R.id.close_dialog_textView).setOnClickListener {
             dismiss()
         }
 
-        save_button.setOnClickListener {
+        view.findViewById<Button>(R.id.save_button).setOnClickListener {
             if (!sharedPrefs.isLoggedIn) {
                 showDialog(
                     requireContext().getString(R.string.explore_without_an_account_dialog_title),
@@ -112,29 +136,37 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
 
-        delete_button.setOnClickListener {
-            showDeleteContactConfirmationDialog() {
+        view.findViewById<Button>(R.id.delete_button).setOnClickListener {
+            showDeleteContactConfirmationDialog {
                 val requestBody = createJsonRequestBody(ID to supportContact?.id)
                 homeViewModel.deleteSupportContact(requestBody)
             }
         }
 
-        contact_icon_imageView.setOnClickListener {
-            if (inEditMode) {
-                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
-            }
+        view.findViewById<ImageView>(R.id.contact_icon_imageView).setOnClickListener {
+//            if (inEditMode) {
+//                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
+//            }
+            showPhotoActionMenuPopup()
         }
 
-        pickContactImageButton.setOnClickListener {
-            ContactPickerLauncher(this, requireContext(), object : ContactPickerLauncher.OnContactPicked {
-                override fun contactPicked(name: String?, number: String?, image: String?) {
-                    val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
-                    contact_icon_imageView.setImageBitmap(bitmap)
+        view.findViewById<EditText>(R.id.name_editText).setOnTouchListener { view, motionEvent ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            val name_editText = view.findViewById<EditText>(R.id.name_editText)
+            if (motionEvent.action == MotionEvent.ACTION_UP) {
+                if (motionEvent.rawX >= name_editText.right - name_editText.compoundDrawables
+                        .get(DRAWABLE_RIGHT).bounds.width()
+                ) {
+                    // your action here
+                    contactPickerLauncher.launch(requireContext())
+                    return@setOnTouchListener true
                 }
-
-            })
+            }
+            false
         }
-
     }
 
     private fun setObservers(){
@@ -171,7 +203,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .show(parentFragmentManager, TAG)
     }
 
-    private fun showPhotoActionMenuPopup(view: View) {
+    private fun showPhotoActionMenuPopup() {
         val popup = PopupMenu(requireContext(), view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.take_picture_menu, popup.menu)
@@ -187,7 +219,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .placeholder(R.drawable.add_person_icon)
             .error(R.drawable.error_exclamation)
             .fallback(R.drawable.info_icon)
-            .into(contact_icon_imageView)
+            .into(view.findViewById<ImageView>(R.id.contact_icon_imageView))
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
@@ -256,5 +288,13 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
         return false
+    }
+
+    override fun contactPicked(name: String?, number: String?, image: String?) {
+        val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
+        view.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
+
+        view.findViewById<EditText>(R.id.name_editText).setText(name)
+        view.findViewById<EditText>(R.id.phone_editText).setText(number)
     }
 }
