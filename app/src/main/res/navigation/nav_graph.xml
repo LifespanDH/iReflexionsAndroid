@@ -33,7 +33,7 @@
         android:id="@+id/exerciseFragment"
         android:name="com.lifespandh.ireflexions.home.exercise.ExerciseFragment"
         android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" >
+        tools:layout="@layout/fragment_exercise">
         <action
             android:id="@+id/action_exerciseFragment_to_unityExerciseFragment"
             app:destination="@id/unityExerciseFragment" />
@@ -98,14 +98,15 @@
         android:label="HowAmICreateEntryFragment">
         <argument
             android:name="date"
-            app:argType="date"
-            android:defaultValue="" />
+            app:argType="java.util.Date"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/weeklyReportFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.WeeklyReportFragment"
         android:label="fragment_weekly_report"
-        tools:layout="@layout/fragment_weekly_report" >
+        tools:layout="@layout/fragment_weekly_report">
         <action
             android:id="@+id/action_weeklyReportFragment_to_howAmICreateEntryFragment"
             app:destination="@id/howAmICreateEntryFragment" />
