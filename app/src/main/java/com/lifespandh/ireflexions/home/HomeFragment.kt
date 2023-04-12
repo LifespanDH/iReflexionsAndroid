@@ -47,8 +47,12 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        exercise.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_exerciseFragment)
+//        exercise.setOnClickListener {
+//            findNavController().navigate(R.id.action_homeFragment_to_exerciseFragment)
+//        }
+
+        resourceLibrary.setOnClickListener {
+            // Open resource library here
         }
 
         courses.setOnClickListener {
