@@ -8,19 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.home.exercise.ExerciseAdapter
 import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
+import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
 
-class CourseListFragment : BaseFragment() {
+class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
-    private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf()) }
+    private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,4 +69,11 @@ class CourseListFragment : BaseFragment() {
         fun newInstance() = CourseListFragment()
     }
 
+    override fun onItemClick(program: Program) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onProgramEnroll(program: Program) {
+        TODO("Not yet implemented")
+    }
 }

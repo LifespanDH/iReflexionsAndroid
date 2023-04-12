@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.models.Program
 
 class CourseListProgramAdapter(
-    private var programs: List<Program>
+    private var programs: List<Program>,
+    private val listener: OnItemClicked
 ) : BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -54,6 +54,14 @@ class CourseListProgramAdapter(
             setLayoutParams(itemView, displaymetrics)
             guidelineContainerBottom.setGuidelinePercent(1f)
             guidelineContainerEnd.setGuidelinePercent(0.9f)
+
+            programContainer.setOnClickListener {
+                listener.onItemClick(program)
+            }
+
+            textEnroll.setOnClickListener {
+                listener.onProgramEnroll(program)
+            }
         }
 
     }
@@ -69,7 +77,7 @@ class CourseListProgramAdapter(
     }
 
     interface OnItemClicked {
-        fun onItemClick(position: Int, viewHolder: RecyclerView.ViewHolder)
-        fun onProgramEnroll(position: Int)
+        fun onItemClick(program: Program)
+        fun onProgramEnroll(program: Program)
     }
 }
