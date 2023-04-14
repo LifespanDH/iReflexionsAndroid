@@ -28,7 +28,6 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     private var parentProgram: Program? = null
     private val args: CourseFragmentArgs by navArgs()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

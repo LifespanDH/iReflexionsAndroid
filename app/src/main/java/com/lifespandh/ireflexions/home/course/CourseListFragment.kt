@@ -74,6 +74,6 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
 
     override fun onProgramEnroll(program: Program) {
-        TODO("Not yet implemented")
+
     }
 }

@@ -14,8 +14,9 @@ data class Program (
     val name: String,
 
     @SerializedName("image")
-    val img: String,
+    val img: String?
 
-    @SerializedName("courses")
-    val courses: List<Course>
+//    @SerializedName("courses")
+//    val courses: List<Course>
+
 ): Parcelable
