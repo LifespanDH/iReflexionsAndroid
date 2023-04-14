@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
+import android.util.Log
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -295,6 +296,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     override fun contactPicked(name: String?, number: String?, image: String?) {
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
+
+        if(bitmap!=null)
         view_.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
 
         view_.findViewById<EditText>(R.id.name_editText).setText(name)
