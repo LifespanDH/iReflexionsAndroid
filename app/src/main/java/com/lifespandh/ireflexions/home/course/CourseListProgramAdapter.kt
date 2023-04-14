@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Program
+import com.lifespandh.ireflexions.utils.logs.logE
 
 class CourseListProgramAdapter(
     private var programs: List<Program>,
@@ -47,13 +48,13 @@ class CourseListProgramAdapter(
         private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
         private val displaymetrics = DisplayMetrics()
 
-        fun bind(program: Program){
+        fun bind(program: Program) {
             myTextView.text = program.name
             Glide.with(getContext()).load(program.img).into(imgCard)
             //HomeActivity().windowManager.defaultDisplay.getMetrics(displaymetrics)
-            setLayoutParams(itemView, displaymetrics)
-            guidelineContainerBottom.setGuidelinePercent(1f)
-            guidelineContainerEnd.setGuidelinePercent(0.9f)
+//            setLayoutParams(itemView, displaymetrics)
+//            guidelineContainerBottom.setGuidelinePercent(1f)
+//            guidelineContainerEnd.setGuidelinePercent(0.9f)
 
             programContainer.setOnClickListener {
                 listener.onItemClick(program)

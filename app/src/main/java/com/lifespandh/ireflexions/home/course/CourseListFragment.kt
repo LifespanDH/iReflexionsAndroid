@@ -18,6 +18,7 @@ import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
 import com.lifespandh.ireflexions.home.exercise.ExerciseFragmentDirections
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
 
@@ -58,7 +59,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
 
     private fun setObservers() {
-        homeViewModel.programsLiveData.observeFreshly(this){
+        homeViewModel.programsLiveData.observeFreshly(this) {
             courseListProgramAdapter.setList(it)
         }
     }

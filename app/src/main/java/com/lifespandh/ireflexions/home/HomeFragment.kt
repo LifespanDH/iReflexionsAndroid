@@ -11,6 +11,7 @@ import com.lifespandh.ireflexions.auth.LoginActivity
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -56,14 +57,15 @@ class HomeFragment : BaseFragment() {
         }
 
         courses.setOnClickListener {
-            if (!sharedPrefs.isLoggedIn) {
-                showDialog(
-                    requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
-                    requireContext().getString(R.string.explore_without_an_account_Program_text)
-                )
-            } else {
-
-            }
+            logE("called click ${sharedPrefs.isLoggedIn}")
+//            if (!sharedPrefs.isLoggedIn) {
+//                showDialog(
+//                    requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
+//                    requireContext().getString(R.string.explore_without_an_account_Program_text)
+//                )
+//            } else {
+                findNavController().navigate(R.id.action_homeFragment_to_courseListFragment)
+//            }
         }
 
         careCenter.setOnClickListener {
@@ -76,10 +78,6 @@ class HomeFragment : BaseFragment() {
 
         howAmI.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_howAmINoEntryFragment)
-        }
-
-        courses.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_courseListFragment)
         }
 
         home_screen_login_button.setOnClickListener{
