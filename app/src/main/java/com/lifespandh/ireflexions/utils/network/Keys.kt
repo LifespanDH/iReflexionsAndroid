@@ -1,5 +1,7 @@
 package com.lifespandh.ireflexions.utils.network
 
+const val COURSE_ID = "course_id"
+const val PROGRAM_ID = "program_id"
 const val ID = "id"
 
 const val MESSAGE = "message"

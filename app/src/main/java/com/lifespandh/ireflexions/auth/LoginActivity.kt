@@ -92,11 +92,11 @@ class LoginActivity : BaseActivity() {
                                     null, 0, 0, 0
                                 )
                             } catch (e: IntentSender.SendIntentException) {
-
+                                logE("called $e")
                             }
                         }
                         .addOnFailureListener(this) { e ->
-
+                            logE("called $e")
                         }
                 }
         }

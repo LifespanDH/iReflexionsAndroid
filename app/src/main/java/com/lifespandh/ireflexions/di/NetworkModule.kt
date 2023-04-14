@@ -36,8 +36,6 @@ class NetworkModule {
     fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
         TokenManager(context)
 
-
-
     @Provides
     @Singleton
     fun getRetrofit(

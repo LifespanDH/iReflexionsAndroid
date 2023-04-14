@@ -1,7 +1,6 @@
 package com.lifespandh.ireflexions.home.course
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,10 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
-import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.network.ID
+import com.lifespandh.ireflexions.utils.network.COURSE_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
-import kotlinx.android.synthetic.main.fragment_lesson.*
+import kotlinx.android.synthetic.main.fragment_lesson.rvLessons
 
 class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
@@ -25,7 +23,6 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
     private var parentCourse: Course? = null
     private val args: LessonFragmentArgs by navArgs()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +44,12 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun setObservers() {
-        homeViewModel.lessonsLiveData.observeFreshly(this){
+        homeViewModel.lessonsLiveData.observeFreshly(this) {
             lessonAdapter.setList(it)
         }
     }
     private fun getLessons(){
-        val requestBody = createJsonRequestBody(ID to parentCourse?.id)
+        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id)
         homeViewModel.getLessons(requestBody)
     }
 

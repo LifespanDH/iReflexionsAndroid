@@ -21,7 +21,6 @@ class CoursesAdapter(
         return CoursesViewHolder(getView(R.layout.course_item, parent))
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is CoursesViewHolder)
             holder.bind(courses[position])
@@ -52,13 +51,9 @@ class CoursesAdapter(
                 listener.onCourseClick(course)
             }
         }
-
-
-
     }
 
     interface OnCourseClick {
-
         fun onCourseClick(course : Course)
     }
 }

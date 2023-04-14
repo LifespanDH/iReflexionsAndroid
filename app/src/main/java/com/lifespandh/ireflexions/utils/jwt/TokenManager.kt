@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.lifespandh.ireflexions.di.dataStore
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -21,13 +22,14 @@ class TokenManager(private val context: Context) {
 
     suspend fun saveToken(token: String) {
         context.dataStore.edit { preferences ->
+            logE("called jere $token")
             preferences[ACCESS_TOKEN] = token
         }
     }
 
     suspend fun deleteToken() {
         context.dataStore.edit { preferences ->
-            preferences.remove(ACCESS_TOKEN)
+//            preferences.remove(ACCESS_TOKEN)
         }
     }
 

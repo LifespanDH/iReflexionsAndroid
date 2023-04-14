@@ -4,7 +4,10 @@ import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
-import android.view.*
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -28,15 +31,15 @@ import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
-import kotlinx.android.synthetic.main.fragment_edit_support_contact.*
+import kotlinx.android.synthetic.main.fragment_edit_support_contact.name_editText
+import kotlinx.android.synthetic.main.fragment_edit_support_contact.phone_editText
 import java.io.File
-import java.util.*
+import java.util.Locale
 
 
 class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked {
