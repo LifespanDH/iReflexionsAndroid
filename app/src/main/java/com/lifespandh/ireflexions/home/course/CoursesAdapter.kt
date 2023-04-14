@@ -1,28 +1,64 @@
 package com.lifespandh.ireflexions.home.course
 
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Course
+import com.lifespandh.ireflexions.models.Program
 
 class CoursesAdapter(
-    private val courses: List<Course>,
+    private var courses: List<Course>,
     private val listener: OnCourseClick
 ): BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
+        return CoursesViewHolder(getView(R.layout.course_item, parent))
     }
 
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        if(holder is CoursesViewHolder)
+            holder.bind(courses[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return courses.size
+    }
+
+    fun setList(list: List<Course>) {
+        this.courses = list
+        notifyDataSetChanged()
+    }
+
+    inner class CoursesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val courseTitle: TextView = itemView.findViewById(R.id.tvCourseTitle)
+        private val courseDescription: TextView = itemView.findViewById(R.id.tvCourseDescription)
+        private val courseImage: ImageView = itemView.findViewById(R.id.ivCourseImage)
+        private val courseItem: ConstraintLayout = itemView.findViewById(R.id.courseItemView)
+
+        fun bind(course:Course){
+            courseTitle.text = course.name
+            courseDescription.text = course.description
+            Glide.with(getContext()).load(course.image).into(courseImage)
+
+            courseItem.setOnClickListener {
+                listener.onCourseClick(course)
+            }
+        }
+
+
+
     }
 
     interface OnCourseClick {
 
+        fun onCourseClick(course : Course)
     }
 }

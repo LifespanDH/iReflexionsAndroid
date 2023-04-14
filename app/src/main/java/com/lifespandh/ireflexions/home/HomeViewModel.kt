@@ -5,11 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lifespandh.ireflexions.models.CareCenterExercise
+import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
-import com.lifespandh.ireflexions.models.Exercise
-import com.lifespandh.ireflexions.models.Program
-import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -48,6 +45,14 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     private val _programsLiveData = MutableLiveData<List<Program>>()
     val programsLiveData: LiveData<List<Program>>
         get() = _programsLiveData
+
+    private val _coursesLiveData = MutableLiveData<List<Course>>()
+    val coursesLiveData: LiveData<List<Course>>
+        get() = _coursesLiveData
+
+    private val _lessonsLiveData = MutableLiveData<List<Lesson>>()
+    val lessonsLiveData: LiveData<List<Lesson>>
+        get() = _lessonsLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -184,11 +189,50 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
 
             when(response) {
                 is NetworkResult.Success -> {
-                    Log.d("apiCall", ""+response)
+                    Log.d("ProgramsApiCall", ""+response)
                     val data = response.data
                     _programsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
+                    Log.d("ProgramsApiCall", ""+response)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getCourses(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.getCourses(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("CoursesApiCall", ""+response)
+                    val data = response.data
+                    _coursesLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("CoursesApiCall", ""+response)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getLessons(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.getLessons(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("LessonsApiCall", ""+response)
+                    val data = response.data
+                    _lessonsLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("LessonsApiCall", ""+response)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }

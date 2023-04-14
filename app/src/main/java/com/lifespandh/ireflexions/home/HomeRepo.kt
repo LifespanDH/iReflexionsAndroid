@@ -2,11 +2,8 @@ package com.lifespandh.ireflexions.home
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
-import com.lifespandh.ireflexions.models.CareCenterExercise
+import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
-import com.lifespandh.ireflexions.models.Exercise
-import com.lifespandh.ireflexions.models.Program
-import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
 import okhttp3.RequestBody
@@ -33,6 +30,34 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getPrograms()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getCourses(requestBody: RequestBody): NetworkResult<List<Course>> {
+        var networkResult: NetworkResult<List<Course>>? = null
+
+        safeApiCall({
+            apiClient.getCourses(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getLessons(requestBody: RequestBody): NetworkResult<List<Lesson>> {
+        var networkResult: NetworkResult<List<Lesson>>? = null
+
+        safeApiCall({
+            apiClient.getLessons(requestBody)
         }, {
             networkResult = it
         }, {

@@ -51,7 +51,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private var supportContact: SupportContact? = null
     private var inEditMode = false
 
-    private lateinit var view: View
+    private lateinit var view_: View
     private var imageUrl = ""
 
 //    override fun onCreateView(
@@ -73,7 +73,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             val dialog = builder.create()
             dialog.setCanceledOnTouchOutside(false)
 
-            this.view = view
+            this.view_ = view
             init()
 
             dialog
@@ -87,11 +87,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun setupViews() {
-        view.findViewById<EditText>(R.id.name_editText).setText(supportContact?.name ?: "")
-        view.findViewById<EditText>(R.id.phone_editText).setText(supportContact?.phoneNumber ?: "")
+        view_.findViewById<EditText>(R.id.name_editText).setText(supportContact?.name ?: "")
+        view_.findViewById<EditText>(R.id.phone_editText).setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
 
-        view.findViewById<Button>(R.id.delete_button).isVisible = inEditMode
+        view_.findViewById<Button>(R.id.delete_button).isVisible = inEditMode
     }
 
     private fun getValuesFromArgument() {
@@ -103,11 +103,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setListeners(){
 
-        view.findViewById<TextView>(R.id.close_dialog_textView).setOnClickListener {
+        view_.findViewById<TextView>(R.id.close_dialog_textView).setOnClickListener {
             dismiss()
         }
 
-        view.findViewById<Button>(R.id.save_button).setOnClickListener {
+        view_.findViewById<Button>(R.id.save_button).setOnClickListener {
             if (!sharedPrefs.isLoggedIn) {
                 showDialog(
                     requireContext().getString(R.string.explore_without_an_account_dialog_title),
@@ -136,21 +136,21 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
 
-        view.findViewById<Button>(R.id.delete_button).setOnClickListener {
+        view_.findViewById<Button>(R.id.delete_button).setOnClickListener {
             showDeleteContactConfirmationDialog {
                 val requestBody = createJsonRequestBody(ID to supportContact?.id)
                 homeViewModel.deleteSupportContact(requestBody)
             }
         }
 
-        view.findViewById<ImageView>(R.id.contact_icon_imageView).setOnClickListener {
+        view_.findViewById<ImageView>(R.id.contact_icon_imageView).setOnClickListener {
 //            if (inEditMode) {
 //                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
 //            }
             showPhotoActionMenuPopup()
         }
 
-        view.findViewById<EditText>(R.id.name_editText).setOnTouchListener { view, motionEvent ->
+        view_.findViewById<EditText>(R.id.name_editText).setOnTouchListener { view, motionEvent ->
             val DRAWABLE_LEFT = 0
             val DRAWABLE_TOP = 1
             val DRAWABLE_RIGHT = 2
@@ -204,7 +204,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun showPhotoActionMenuPopup() {
-        val popup = PopupMenu(requireContext(), view)
+        val popup = PopupMenu(requireContext(), view_)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.take_picture_menu, popup.menu)
         popup.setOnMenuItemClickListener(this)
@@ -219,7 +219,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .placeholder(R.drawable.add_person_icon)
             .error(R.drawable.error_exclamation)
             .fallback(R.drawable.info_icon)
-            .into(view.findViewById<ImageView>(R.id.contact_icon_imageView))
+            .into(view_.findViewById<ImageView>(R.id.contact_icon_imageView))
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
@@ -292,9 +292,9 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     override fun contactPicked(name: String?, number: String?, image: String?) {
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
-        view.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
+        view_.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
 
-        view.findViewById<EditText>(R.id.name_editText).setText(name)
-        view.findViewById<EditText>(R.id.phone_editText).setText(number)
+        view_.findViewById<EditText>(R.id.name_editText).setText(name)
+        view_.findViewById<EditText>(R.id.phone_editText).setText(number)
     }
 }
