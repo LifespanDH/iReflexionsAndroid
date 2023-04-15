@@ -16,7 +16,6 @@ class TokenInterceptor @Inject constructor(
             tokenManager.getToken().first()
         }
         val request = chain.request().newBuilder()
-        logE("called token $token")
         request.addHeader("Authorization", "$token")
         return chain.proceed(request.build())
     }

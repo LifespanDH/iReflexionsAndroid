@@ -22,14 +22,13 @@ class TokenManager(private val context: Context) {
 
     suspend fun saveToken(token: String) {
         context.dataStore.edit { preferences ->
-            logE("called jere $token")
             preferences[ACCESS_TOKEN] = token
         }
     }
 
     suspend fun deleteToken() {
         context.dataStore.edit { preferences ->
-//            preferences.remove(ACCESS_TOKEN)
+            preferences.remove(ACCESS_TOKEN)
         }
     }
 

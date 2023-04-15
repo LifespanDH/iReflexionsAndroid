@@ -62,6 +62,14 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         homeViewModel.programsLiveData.observeFreshly(this) {
             courseListProgramAdapter.setList(it)
         }
+
+        tokenViewModel.token.observeFreshly(this) {
+            logE("called token $it")
+        }
+
+        tokenViewModel.refreshToken.observeFreshly(this) {
+            logE("called regresh $it")
+        }
     }
 
     companion object {

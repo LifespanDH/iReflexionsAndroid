@@ -52,13 +52,12 @@ class NetworkModule {
     @Provides
     @Singleton
     fun getOkHttpClient(
-        interceptor: Interceptor,
         tokenInterceptor: TokenInterceptor,
         tokenAuthenticator: TokenAuthenticator
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(RedirectInterceptor())
+//            .addInterceptor(interceptor)
+//            .addInterceptor(RedirectInterceptor())
             .addInterceptor(tokenInterceptor)
 //            .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)

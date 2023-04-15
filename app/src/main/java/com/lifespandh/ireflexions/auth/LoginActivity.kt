@@ -125,6 +125,7 @@ class LoginActivity : BaseActivity() {
         authViewModel.tokenLiveData.observeFreshly(this) {
             tokenViewModel.saveToken(it.token)
             tokenViewModel.saveRefreshToken(it.refresh)
+            logE("called tokebn it ${it.refresh}")
         }
 
         tokenViewModel.token.observeFreshly(this) {
