@@ -123,11 +123,12 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_body_text_entry)
                 )
             } else {
-                val name = supportContact?.name ?: name_editText.trimString()
-                val phoneNumber = supportContact?.phoneNumber ?: phone_editText.trimString()
+
+                val name = supportContact?.name ?: view_.findViewById<EditText>(R.id.name_editText).trimString()
+                val phoneNumber = supportContact?.phoneNumber ?: view_.findViewById<EditText>(R.id.phone_editText).trimString()
                 val image = supportContact?.image ?: imageUrl
 
-                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty() || image.isNullOrEmpty()) {
+                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty() || image.isNullOrEmpty() ) {
                     toast("Incomplete Information")
                 }
                 if (supportContact == null) {
@@ -295,11 +296,12 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     override fun contactPicked(name: String?, number: String?, image: String?) {
+
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
 
-        if(bitmap!=null)
-        view_.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
-
+        if(bitmap!=null) {
+            view_.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
+        }
         view_.findViewById<EditText>(R.id.name_editText).setText(name)
         view_.findViewById<EditText>(R.id.phone_editText).setText(number)
     }
