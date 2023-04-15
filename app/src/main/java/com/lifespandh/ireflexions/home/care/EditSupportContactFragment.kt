@@ -128,6 +128,9 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 val phoneNumber = supportContact?.phoneNumber ?: view_.findViewById<EditText>(R.id.phone_editText).trimString()
                 val image = supportContact?.image ?: imageUrl
 
+                /**
+                 * Need to add check for image too after AWS code
+                 */
                 if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty()) {
                     toast("Incomplete Information")
                 }
