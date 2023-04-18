@@ -112,7 +112,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:datetime:3.2.1'
 
     //
-    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
 
     // Glide

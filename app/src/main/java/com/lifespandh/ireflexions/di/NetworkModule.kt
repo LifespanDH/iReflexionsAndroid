@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lifespandh.ireflexions.BuildConfig
@@ -53,13 +55,14 @@ class NetworkModule {
     @Singleton
     fun getOkHttpClient(
         tokenInterceptor: TokenInterceptor,
-        tokenAuthenticator: TokenAuthenticator
+        tokenAuthenticator: TokenAuthenticator,
+        redirectInterceptor: RedirectInterceptor
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
 //            .addInterceptor(interceptor)
-//            .addInterceptor(RedirectInterceptor())
+            .addInterceptor(redirectInterceptor)
             .addInterceptor(tokenInterceptor)
-//            .addNetworkInterceptor(StethoInterceptor())
+            .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(50, TimeUnit.SECONDS)
@@ -74,6 +77,10 @@ class NetworkModule {
     @Provides
     fun provideTokenInterceptor(tokenManager: TokenManager): TokenInterceptor =
         TokenInterceptor(tokenManager)
+
+    @Singleton
+    @Provides
+    fun providesRedirectInterceptor(tokenManager: TokenManager): RedirectInterceptor = RedirectInterceptor(tokenManager)
 
     @Singleton
     @Provides

@@ -194,7 +194,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                     _programsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
-                    Log.d("ProgramsApiCall", ""+response)
+                    Log.d("ProgramsApiCall", ""+response.exception)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }

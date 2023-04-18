@@ -7,6 +7,8 @@ import com.lifespandh.ireflexions.utils.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 
 @JvmSuppressWildcards
@@ -37,6 +39,7 @@ interface ApiClient {
     suspend fun getPrograms(): List<Program>
 
     @POST(GET_COURSES)
+    @Headers("Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA5NzM4LCJpYXQiOjE2ODE1OTg5MzgsImp0aSI6IjM0NTQ0MWI0ZDZmOTRhYmFiZGM0OTgzYzEzYmIwNTJjIiwidXNlcl9pZCI6Ik5vbmUifQ.vw0ON_CiGDSzeR9TizTDsHjHwqJrJUH9YY12bSM4eG0")
     suspend fun getCourses(@Body requestBody: RequestBody): List<Course>
 
     @POST(GET_LESSONS)
