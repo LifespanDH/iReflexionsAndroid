@@ -52,6 +52,12 @@ class HomeFragment : BaseFragment() {
 //            findNavController().navigate(R.id.action_homeFragment_to_exerciseFragment)
 //        }
 
+        logout.setOnClickListener {
+            tokenViewModel.deleteToken()
+            tokenViewModel.deleteRefreshToken()
+            startActivity(LoginActivity.newInstance(requireContext()))
+        }
+
         resourceLibrary.setOnClickListener {
             // Open resource library here
         }
@@ -93,6 +99,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setUpViews() {
         home_screen_login_button.isVisible = !sharedPrefs.isLoggedIn
+        logout.isVisible = sharedPrefs.isLoggedIn
     }
 
     companion object {

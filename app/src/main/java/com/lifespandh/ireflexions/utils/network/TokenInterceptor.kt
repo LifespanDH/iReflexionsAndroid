@@ -16,8 +16,8 @@ class TokenInterceptor @Inject constructor(
             tokenManager.getToken().first()
         }
         val request = chain.request().newBuilder()
-        request.addHeader("Authorization", "$token")
-        logE("called token added $token")
+        if (token?.isNullOrEmpty()?.not() == true)
+            request.addHeader("HTTP-Authorization", "Bearer $token")
         return chain.proceed(request.build())
     }
 }
