@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.utils.phone.getMessageUri
 import kotlinx.android.synthetic.main.fragment_text_crisis_lines.*
 
 class TextCrisisLinesFragment : BaseDialogFragment() {
@@ -113,11 +114,6 @@ class TextCrisisLinesFragment : BaseDialogFragment() {
             putExtra("sms_body", messageText)
         }
         startActivity(intent)
-    }
-
-    fun getMessageUri(phoneNumber: String): Uri {
-        val normalized = PhoneNumberUtils.normalizeNumber(phoneNumber)
-        return Uri.parse("smsto: $normalized")
     }
 
 }

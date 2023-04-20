@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.phone.getMessageUri
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
 import kotlinx.android.synthetic.main.care_center_therapist_tab.*
 import kotlinx.android.synthetic.main.fragment_care_center.*
@@ -92,8 +94,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
         call_therapist_button.setOnClickListener {
             val phone = "+15141234545"
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
-            startActivity(intent)
+            openPhoneApp(phone)
         }
     }
 
@@ -110,6 +111,19 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         ).show(requireActivity().supportFragmentManager, null)
     }
 
+    private fun openMessageAppWithPhoneNumber(phoneNumber: String, messageText:String = "``") {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = getMessageUri(phoneNumber)
+            putExtra("sms_body", messageText)
+        }
+        startActivity(intent)
+    }
+
+    private fun openPhoneApp(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+        startActivity(intent)
+    }
+
     companion object {
         fun newInstance() = CareCenterFragment()
     }
@@ -122,12 +136,12 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
     }
 
-    override fun callContactClicked() {
-        TODO("Not yet implemented")
+    override fun callContactClicked(phoneNumber: String) {
+        openPhoneApp(phoneNumber)
     }
 
-    override fun textContactClicked() {
-        TODO("Not yet implemented")
+    override fun textContactClicked(phoneNumber: String) {
+        openMessageAppWithPhoneNumber(phoneNumber)
     }
 
     override fun moreActionsClicked() {

@@ -47,11 +47,11 @@ class SupportContactAdapter(
             Glide.with(getContext()).load(supportContact.image).into(supportContactImage)
 
             callContactButton.setOnClickListener{
-                listener.callContactClicked()
+                listener.callContactClicked(supportContact.phoneNumber)
             }
 
             textContactButton.setOnClickListener{
-                listener.textContactClicked()
+                listener.textContactClicked(supportContact.phoneNumber)
             }
 
             moreActionsImageView.setOnClickListener {
@@ -61,8 +61,8 @@ class SupportContactAdapter(
     }
 
     interface OnSupportContactClicked {
-        fun callContactClicked()
-        fun textContactClicked()
+        fun callContactClicked(phoneNumber: String)
+        fun textContactClicked(phoneNumber: String)
         fun moreActionsClicked()
     }
 }
