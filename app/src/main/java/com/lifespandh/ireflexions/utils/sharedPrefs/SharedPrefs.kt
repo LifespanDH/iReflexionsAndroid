@@ -7,6 +7,11 @@ import com.lifespandh.ireflexions.IReflexions
 class SharedPrefs {
 
     private val pm: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(IReflexions.instance)
+    var accessToken: String
+        get() = pm.getString(ACCESS_TOKEN,"abcd") ?: "abcd"
+        set(value) {
+            pm.edit().putString(ACCESS_TOKEN, value).apply()
+        }
 
     var isLoggedIn: Boolean
         get() = pm.getBoolean(IS_LOGGED_IN, false) ?: false
