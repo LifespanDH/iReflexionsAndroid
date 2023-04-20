@@ -7,18 +7,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
+import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
 import kotlinx.android.synthetic.main.care_center_therapist_tab.*
 import kotlinx.android.synthetic.main.fragment_care_center.*
 
 
-class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult {
+class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult,
+    SupportContactAdapter.OnSupportContactClicked {
 
+    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val supportContactAdapter by lazy { SupportContactAdapter(listOf(), this) }
     private val permissionLauncher =  PermissionLauncher(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +46,17 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     }
 
     private fun init() {
+        homeViewModel.getSupportContacts()
+        setViews()
         setListeners()
+        setObservers()
+    }
+
+    private fun setViews() {
+        support_contacts_recyclerView.apply {
+            adapter = supportContactAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun setListeners() {
@@ -79,6 +97,13 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         }
     }
 
+    private fun setObservers() {
+        homeViewModel.supportContactsLiveData.observeFreshly(viewLifecycleOwner) {
+            logE("called here $it")
+            supportContactAdapter.setList(it)
+        }
+    }
+
     private fun showDialog(title: String, message: String) {
         UserNotLoggedInDialog.newInstance(
             title, message
@@ -95,6 +120,18 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
     override fun onPermissionDenied() {
 
+    }
+
+    override fun callContactClicked() {
+        TODO("Not yet implemented")
+    }
+
+    override fun textContactClicked() {
+        TODO("Not yet implemented")
+    }
+
+    override fun moreActionsClicked() {
+        TODO("Not yet implemented")
     }
 
 }

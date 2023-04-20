@@ -58,14 +58,6 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private lateinit var view_: View
     private var imageUrl = ""
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? { // check this container - > null
-//        return inflater.inflate(R.layout.fragment_edit_support_contact, container, false)
-//    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -179,15 +171,18 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setObservers(){
         homeViewModel.supportContactAddedLiveData.observeFreshly(this) {
-            toast("Contact added")
+            dialog?.dismiss()
+            toast("Contact Added")
         }
 
         homeViewModel.supportContactEditedLiveData.observeFreshly(this) {
+            dialog?.dismiss()
             toast("Contact edited")
         }
 
         homeViewModel.supportContactDeletedLiveData.observeFreshly(this) {
             toast("Contact deleted")
+            dialog?.dismiss()
         }
     }
 
