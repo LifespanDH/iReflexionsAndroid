@@ -13,7 +13,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -76,6 +76,85 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
                 app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/addContactCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/meditation_background"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/textView2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/plus_sign_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/plus_sign"
+                        android:textColor="@color/icon_title_color"
+                        android:textSize="24sp"
+
+                        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                        app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+                    <TextView
+                        android:id="@+id/add_family_friends_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_some_friends_family_to_reach_out_to_in_times_of_need"
+                        android:textColor="@color/icon_title_color"
+
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                        app:layout_constraintStart_toEndOf="@id/plus_sign_textView"
+                        app:layout_constraintTop_toBottomOf="@id/textView2" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/support_contacts_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="120dp"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/addContactCardView"
+                tools:listitem="@layout/care_center_contact_item" />
+
+            <include
+                android:id="@+id/therapist_contact"
+                layout="@layout/care_center_therapist_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/support_contacts_recyclerView" />
+
+            <include
+                android:id="@+id/text_crisis_line"
+                layout="@layout/care_center_text_crisis_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/therapist_contact" />
+
 
             <TextView
                 android:id="@+id/self_support_textView"
@@ -174,85 +253,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_mindfulness" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addContactCardView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="@color/meditation_background"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textView2">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:id="@+id/plus_sign_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/plus_sign"
-                        android:textColor="@color/icon_title_color"
-                        android:textSize="24sp"
-
-                        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-                        app:layout_constraintTop_toBottomOf="@id/textView2" />
-
-                    <TextView
-                        android:id="@+id/add_family_friends_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_some_friends_family_to_reach_out_to_in_times_of_need"
-                        android:textColor="@color/icon_title_color"
-
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                        app:layout_constraintStart_toEndOf="@id/plus_sign_textView"
-                        app:layout_constraintTop_toBottomOf="@id/textView2" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <include
-                android:id="@+id/text_crisis_line"
-                layout="@layout/care_center_text_crisis_tab"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-                app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@+id/therapist_contact" />
-
-            <include
-                android:id="@+id/therapist_contact"
-                layout="@layout/care_center_therapist_tab"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-                app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@+id/support_contacts_recyclerView" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/support_contacts_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:minHeight="120dp"
-                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-                app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/textView2"
-                tools:listitem="@layout/care_center_contact_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
