@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Course
-import com.lifespandh.ireflexions.models.Program
 
 class CoursesAdapter(
     private var courses: List<Course>,
