@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPrograms"
@@ -12,311 +13,249 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline10"
+        android:layout_marginBottom="10dp"
         tools:listitem="@layout/program_item" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.05" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08071136" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineStart"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.05" />-->
+    <TextView
+        android:id="@+id/tvCurrentProgram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/current_program"
+        android:textColor="@color/icon_title_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline1" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineEnd"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.95" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/currentProgramContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        tools:background="@color/card1_start">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvCurrentProgram"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--        android:text="@string/current_program"-->
-    <!--        android:textColor="@color/icon_title_color"-->
-    <!--        android:textSize="18sp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/guidelineTextCurrentProgramBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />-->
+        <TextView
+            android:id="@+id/tvProgramName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Relationship Resilience" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvSelectProgram"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--        android:text="@string/select_program"-->
-    <!--        android:textColor="@color/icon_title_color"-->
-    <!--        android:textSize="18sp"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/guidelineCurrentCourseBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTextCurrentProgramBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.08" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineCurrentProgramCardTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.1" />-->
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/currentProgramContainer"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/guidelineCurrentProgramCardBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineCurrentProgramCardTop"-->
-    <!--        tools:background="@color/card1_start">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvProgramName"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--            android:gravity="center"-->
-    <!--            android:padding="4dp"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="14sp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            tools:text="Relationship Resilience" />-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineCurrentProgramCardBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.17" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTextCurrentCourseTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.2" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvCurrentCourse"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--        android:text="@string/current_course"-->
-    <!--        android:textColor="@color/icon_title_color"-->
-    <!--        android:textSize="18sp"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guidelineTextCurrentCourseBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineTextCurrentCourseTop" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTextCurrentCourseBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.23" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineCurrentCourseCardTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.25" />-->
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/currentCourseContainer"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:background="@drawable/current_course_gradient"-->
-    <!--        android:padding="6dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@id/guidelineCurrentCourseBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineCurrentCourseCardTop">-->
+    <TextView
+        android:id="@+id/tvCurrentCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/current_course"
+        android:textColor="@color/icon_title_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5" />
 
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvTitleCourseCard"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:fontFamily="@font/montserrat_light"-->
-    <!--            android:textColor="@color/icon_title_color"-->
-    <!--            android:textSize="18sp"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            tools:text="THE BASICS" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.23" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvCoursePercent"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="8dp"-->
-    <!--            android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--            android:textColor="@color/icon_title_color"-->
-    <!--            android:textSize="13sp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="@id/tvTitleCourseCard"-->
-    <!--            app:layout_constraintStart_toEndOf="@id/tvTitleCourseCard"-->
-    <!--            app:layout_constraintTop_toTopOf="@id/tvTitleCourseCard"-->
-    <!--            tools:text="- 50% complete" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
-    <!--        <View-->
-    <!--            android:id="@+id/divider"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="1dp"-->
-    <!--            android:layout_marginTop="4dp"-->
-    <!--            android:layout_marginBottom="4dp"-->
-    <!--            android:background="@color/white"-->
-    <!--            android:visibility="invisible"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/tvTitleCourseCard" />-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/currentCourseContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/current_course_gradient"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
 
-    <!--        <androidx.recyclerview.widget.RecyclerView-->
-    <!--            android:id="@+id/rvLessons"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/divider" />-->
 
-    <!--        <FrameLayout-->
-    <!--            android:id="@+id/flClickArea"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent" />-->
+        <TextView
+            android:id="@+id/tvTitleCourseCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/icon_title_color"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="THE BASICS" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvHaveNotCurrentCourse"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:background="@drawable/current_course_gradient"-->
-    <!--            android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--            android:gravity="center"-->
-    <!--            android:text="@string/no_current_course"-->
-    <!--            android:textColor="@color/icon_title_color"-->
-    <!--            android:textSize="18sp"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <TextView
+            android:id="@+id/tvCoursePercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textColor="@color/icon_title_color"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitleCourseCard"
+            app:layout_constraintStart_toEndOf="@id/tvTitleCourseCard"
+            app:layout_constraintTop_toTopOf="@id/tvTitleCourseCard"
+            tools:text="- 50% complete" />
 
-    <!--        <FrameLayout-->
-    <!--            android:id="@+id/pbCurrentCourseContainer"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:background="@drawable/current_course_gradient"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent">-->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/white"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleCourseCard" />
 
-    <!--            <ProgressBar-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_gravity="center"-->
-    <!--                android:indeterminateTint="@color/colorPrimaryDark" />-->
-    <!--        </FrameLayout>-->
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLessons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineCurrentCourseBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.5" />-->
+        <FrameLayout
+            android:id="@+id/flClickArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTextBrowseProgramTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.53" />-->
+        <TextView
+            android:id="@+id/tvHaveNotCurrentCourse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/current_course_gradient"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:text="@string/no_current_course"
+            android:textColor="@color/icon_title_color"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvBrowsePrograms"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--        android:text="@string/browse_programs"-->
-    <!--        android:textColor="@color/icon_title_color"-->
-    <!--        android:textSize="18sp"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/guidelineTextBrowseProgramBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineTextBrowseProgramTop" />-->
+        <FrameLayout
+            android:id="@+id/pbCurrentCourseContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/current_course_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineTextBrowseProgramBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.55" />-->
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorPrimaryDark" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineBrowseProgramTop"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.57" />-->
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rvPrograms"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/guidelineStart"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/guidelineBrowseProgramTop" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guidelineBottom"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.98" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
 
-    <!--    <FrameLayout-->
-    <!--        android:id="@+id/progressContainer"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:background="@drawable/gradient"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        tools:visibility="gone">-->
+    <TextView
+        android:id="@+id/tvBrowsePrograms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/browse_programs"
+        android:textColor="@color/icon_title_color"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/guideline9"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"/>
 
-    <!--        <ProgressBar-->
-    <!--            android:id="@+id/pbCourseListPage"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center"-->
-    <!--            android:indeterminateTint="@color/colorPrimaryDark" />-->
-    <!--    </FrameLayout>-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

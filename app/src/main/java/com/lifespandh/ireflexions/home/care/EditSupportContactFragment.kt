@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
-import android.util.Log
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -37,8 +36,6 @@ import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
-import kotlinx.android.synthetic.main.fragment_edit_support_contact.name_editText
-import kotlinx.android.synthetic.main.fragment_edit_support_contact.phone_editText
 import java.io.File
 import java.util.Locale
 
@@ -47,16 +44,21 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: EditSupportContactFragmentArgs by navArgs()
-    private val contactPickerLauncher =
-        ContactPickerLauncher(this, this)
-
+    private val contactPickerLauncher = ContactPickerLauncher(this, this)
 
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
     private var inEditMode = false
+    private var imageUrl = ""
 
     private lateinit var view_: View
-    private var imageUrl = ""
+    private lateinit var nameEditText : EditText
+    private lateinit var phoneEditText : EditText
+    private lateinit var deleteButton : Button
+    private lateinit var saveButton : Button
+    private lateinit var closeDialog : TextView
+    private lateinit var contactIconImage : ImageView
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -77,17 +79,27 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
     private fun init() {
         getValuesFromArgument()
+        initViews()
         setupViews()
         setListeners()
         setObservers()
     }
 
+    private fun initViews(){
+        nameEditText = view_.findViewById<EditText>(R.id.name_editText)
+        phoneEditText = view_.findViewById<EditText>(R.id.phone_editText)
+        deleteButton = view_.findViewById(R.id.delete_button)
+        saveButton = view_.findViewById(R.id.save_button)
+        closeDialog = view_.findViewById(R.id.close_dialog_textView)
+        contactIconImage = view_.findViewById(R.id.contact_icon_imageView)
+    }
+
     private fun setupViews() {
-        view_.findViewById<EditText>(R.id.name_editText).setText(supportContact?.name ?: "")
-        view_.findViewById<EditText>(R.id.phone_editText).setText(supportContact?.phoneNumber ?: "")
+        nameEditText.setText(supportContact?.name ?: "")
+        phoneEditText.setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
 
-        view_.findViewById<Button>(R.id.delete_button).isVisible = inEditMode
+        deleteButton.isVisible = inEditMode
     }
 
     private fun getValuesFromArgument() {
@@ -99,11 +111,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setListeners(){
 
-        view_.findViewById<TextView>(R.id.close_dialog_textView).setOnClickListener {
+        closeDialog.setOnClickListener {
             dismiss()
         }
 
-        view_.findViewById<Button>(R.id.save_button).setOnClickListener {
+        saveButton.setOnClickListener {
             if (!sharedPrefs.isLoggedIn) {
                 showDialog(
                     requireContext().getString(R.string.explore_without_an_account_dialog_title),
@@ -116,8 +128,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 )
             } else {
 
-                val name = supportContact?.name ?: view_.findViewById<EditText>(R.id.name_editText).trimString()
-                val phoneNumber = supportContact?.phoneNumber ?: view_.findViewById<EditText>(R.id.phone_editText).trimString()
+                val name = supportContact?.name ?: nameEditText.trimString()
+                val phoneNumber = supportContact?.phoneNumber ?: phoneEditText.trimString()
                 val image = supportContact?.image ?: imageUrl
 
                 /**
@@ -136,28 +148,27 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
 
-        view_.findViewById<Button>(R.id.delete_button).setOnClickListener {
+        deleteButton.setOnClickListener {
             showDeleteContactConfirmationDialog {
                 val requestBody = createJsonRequestBody(ID to supportContact?.id)
                 homeViewModel.deleteSupportContact(requestBody)
             }
         }
 
-        view_.findViewById<ImageView>(R.id.contact_icon_imageView).setOnClickListener {
+        contactIconImage.setOnClickListener {
 //            if (inEditMode) {
 //                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
 //            }
             showPhotoActionMenuPopup()
         }
 
-        view_.findViewById<EditText>(R.id.name_editText).setOnTouchListener { view, motionEvent ->
+        nameEditText.setOnTouchListener { view, motionEvent ->
             val DRAWABLE_LEFT = 0
             val DRAWABLE_TOP = 1
             val DRAWABLE_RIGHT = 2
             val DRAWABLE_BOTTOM = 3
-            val name_editText = view.findViewById<EditText>(R.id.name_editText)
             if (motionEvent.action == MotionEvent.ACTION_UP) {
-                if (motionEvent.rawX >= name_editText.right - name_editText.compoundDrawables
+                if (motionEvent.rawX >= nameEditText.right - nameEditText.compoundDrawables
                         .get(DRAWABLE_RIGHT).bounds.width()
                 ) {
                     // your action here
@@ -298,9 +309,9 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
 
         if(bitmap!=null) {
-            view_.findViewById<ImageView>(R.id.contact_icon_imageView).setImageBitmap(bitmap)
+            contactIconImage.setImageBitmap(bitmap)
         }
-        view_.findViewById<EditText>(R.id.name_editText).setText(name)
-        view_.findViewById<EditText>(R.id.phone_editText).setText(number)
+        nameEditText.setText(name)
+        phoneEditText.setText(number)
     }
 }
