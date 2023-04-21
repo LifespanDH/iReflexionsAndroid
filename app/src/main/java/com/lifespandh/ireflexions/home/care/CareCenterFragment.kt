@@ -73,7 +73,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             } else {
                 showDialog(
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
-                    requireContext().getString(R.string.explore_without_an_account_Program_text)
+                    requireContext().getString(R.string.explore_without_an_account_care_center_text)
                 )
             }
         }
@@ -89,12 +89,29 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         }
 
         text_crisis_button.setOnClickListener {
-            findNavController().navigate(R.id.action_careCenterFragment_to_textCrisisLinesFragment)
+            if (sharedPrefs.isLoggedIn) {
+                findNavController().navigate(R.id.action_careCenterFragment_to_textCrisisLinesFragment)
+            }
+            else {
+                showDialog(
+                    requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
+                    requireContext().getString(R.string.explore_without_an_account_care_center_text_crisis_lines)
+                )
+
+            }
         }
 
         call_therapist_button.setOnClickListener {
-            val phone = "+15141234545"
-            openPhoneApp(phone)
+            if (sharedPrefs.isLoggedIn) {
+                val phone = "+15141234545"
+                openPhoneApp(phone)
+            }
+            else {
+                showDialog(
+                    requireContext().getString(R.string.member_ship_level_no_subscription_dialog_title),
+                    requireContext().getString(R.string.explore_without_an_account_care_center_call_therapist)
+                )
+            }
         }
     }
 

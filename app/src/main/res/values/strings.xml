@@ -330,6 +330,10 @@
     <string name="explore_without_an_account_dialog_title">Explore without an account</string>
     <string name="explore_without_an_account_dialog_body_text_entry">Please register to enable saving the entry.</string>
     <string name="explore_without_an_account_Program_text">Please register to see programs and course content.</string>
+    <string name="explore_without_an_account_care_center_text">Please register to be able to add contacts.</string>
+    <string name="explore_without_an_account_care_center_text_crisis_lines">Please register to get access to crisis lines.</string>
+    <string name="explore_without_an_account_care_center_call_therapist">Please register to get access to therapist contacts.</string>
+
     <string name="explore_without_an_account_dialog_body_text_care_center">Please register to enable saving the contact.</string>
     <string name="message_loading_items_waiting_please">Loading items. Waiting please…</string>
     <string name="message_updated_successfully">updated successfully</string>
@@ -340,7 +344,8 @@
 
     <string name="member_ship_level_no_subscription_dialog_title">Subscription Info</string>
     <string name="member_ship_level_no_subscription_dialog_body_text_entry">You have no subscription membership level. Please go to our website and update your level to Basic or above! Thank you ;)</string>
-    <string name="member_ship_level_no_subscription_dialog_body_text_entry_community">You have no subscription membership level. Community is available only for subscribed user! Please go to our website and update your level to Basic or above! Thank you ;)</string>
+    <string name="membership_level_no_access_care_center">You have no subscription membership level. This feature is available only for subscribed users! Please go to our website and update your level to Basic or above! Thank you ;)</string>
+
 
     <string-array name="calendarCategories">
         <item>Emotions</item>
