@@ -18,7 +18,5 @@ data class Course (
 
     @SerializedName("image")
     val image: String?
-//    @SerializedName("lessons")
-//    val lessons: List<Lesson>
 
 ): Parcelable
