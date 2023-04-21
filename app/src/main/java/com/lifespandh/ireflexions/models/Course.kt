@@ -17,13 +17,6 @@ data class Course (
     val description: String,
 
     @SerializedName("image")
-<<<<<<< Updated upstream
     val image: String?
-=======
-    val image: String,
-
-//    @SerializedName("lessons")
-//    val lessons: List<Lesson>
->>>>>>> Stashed changes
 
 ): Parcelable
