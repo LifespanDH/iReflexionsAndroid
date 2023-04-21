@@ -37,6 +37,19 @@
         app:layout_constraintTop_toBottomOf="@id/tvCourseTitle"
         android:src="@drawable/program_copingwithcovidicon" />
 
+    <ProgressBar
+        android:id="@+id/courseProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvCourseTitle"
+        app:layout_constraintBottom_toTopOf="@id/tvCourseDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        />
+
     <TextView
         android:id="@+id/tvCourseDescription"
         android:layout_width="0dp"
@@ -44,11 +57,12 @@
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/icon_title_color"
         android:textSize="12sp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="@id/ivCourseImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guidelineCenter"
-        app:layout_constraintTop_toBottomOf="@id/tvCourseTitle"
-        tools:text="Learn about preparation techniques, anchoring, practice tests and more" />
+        app:layout_constraintTop_toBottomOf="@id/courseProgressBar"
+        android:text="Learn about preparation techniques, anchoring, practice tests and more" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

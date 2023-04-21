@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline3"
-        tools:background="@color/card1_start">
+        android:background="@color/card1_start">
 
         <TextView
             android:id="@+id/tvProgramName"
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Relationship Resilience" />
+            android:text="Relationship Resilience" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -124,7 +124,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/currentCourseContainer"
+        android:id="@+id/currentCourseConstrainedLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="25dp"
@@ -136,86 +136,27 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7">
 
 
-        <TextView
-            android:id="@+id/tvTitleCourseCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/icon_title_color"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="THE BASICS" />
 
-        <TextView
-            android:id="@+id/tvCoursePercent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/icon_title_color"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitleCourseCard"
-            app:layout_constraintStart_toEndOf="@id/tvTitleCourseCard"
-            app:layout_constraintTop_toTopOf="@id/tvTitleCourseCard"
-            tools:text="- 50% complete" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/white"
-            android:visibility="invisible"
-            app:layout_constraintTop_toBottomOf="@id/tvTitleCourseCard" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvLessons"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <FrameLayout
-            android:id="@+id/flClickArea"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/tvHaveNotCurrentCourse"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/current_course_gradient"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:gravity="center"
-            android:text="@string/no_current_course"
-            android:textColor="@color/icon_title_color"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <FrameLayout
-            android:id="@+id/pbCurrentCourseContainer"
+            android:id="@+id/currentCourseContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/current_course_gradient"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" >
+            <include
+                layout="@layout/course_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </include>
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/colorPrimaryDark" />
         </FrameLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -16,8 +16,9 @@
         android:textColor="@color/icon_title_color"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="The Person and Environment" />
+        android:text="The Person and Environment" />
 
     <TextView
         android:id="@+id/tvLessonDescription"
@@ -26,14 +27,13 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/rectangle"
         android:fontFamily="@font/montserrat_italic"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:textColor="@color/icon_title_color"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/tvLessonName"
-        app:layout_constraintTop_toTopOf="@id/tvLessonName"
-        app:layout_constraintBottom_toBottomOf="@id/tvLessonName"
-        tools:text="Review"
+        app:layout_constraintStart_toEndOf="@+id/tvLessonName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Review"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

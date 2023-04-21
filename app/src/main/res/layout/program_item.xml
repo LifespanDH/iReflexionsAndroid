@@ -65,13 +65,26 @@
 
         <ImageView
             android:id="@+id/img_program"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:src="@drawable/program_copingwithcovidicon"
             app:layout_constraintBottom_toTopOf="@+id/guidelineImageBottom"
-            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@+id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/guidelineViewTop" />
+
+        <ProgressBar
+            android:id="@+id/programProgressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/img_program"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/guidelineViewTop"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineImageBottom"
+            />
+
+        />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineImageBottom"
