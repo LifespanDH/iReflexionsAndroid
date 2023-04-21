@@ -50,7 +50,8 @@ class CourseListProgramAdapter(
 
         fun bind(program: Program) {
             myTextView.text = program.name
-            Glide.with(getContext()).load(program.img).into(imgCard)
+            if(program.img!=null)
+            {Glide.with(getContext()).load(program.img).into(imgCard)}
             //HomeActivity().windowManager.defaultDisplay.getMetrics(displaymetrics)
 //            setLayoutParams(itemView, displaymetrics)
 //            guidelineContainerBottom.setGuidelinePercent(1f)
