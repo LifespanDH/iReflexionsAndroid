@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="@+id/guidelineCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCourseTitle"
-        tools:src="@drawable/program_copingwithcovidicon" />
+        android:src="@drawable/program_copingwithcovidicon" />
 
     <TextView
         android:id="@+id/tvCourseDescription"
