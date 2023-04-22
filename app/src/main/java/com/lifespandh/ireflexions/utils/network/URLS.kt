@@ -19,6 +19,7 @@ const val SAVE_SURVEY_QUESTIONS = BASE_URL + ON_BOARDING + "save_survey_response
 
 const val GET_EXERCISES = BASE_URL + IREF_USERS + "get_exercises/"
 const val GET_PROGRAMS = BASE_URL + IREF_USERS + "get_programs/"
+const val GET_REGISTERED_PROGRAMS = BASE_URL + IREF_USERS + "get_user_registered_programs/"
 const val GET_COURSES = BASE_URL + IREF_USERS + "get_courses/"
 const val GET_LESSONS = BASE_URL + IREF_USERS + "get_lessons/"
 const val GET_SUPPORT_CONTACTS = BASE_URL + IREF_USERS + "get_support_contacts/"

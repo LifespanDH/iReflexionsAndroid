@@ -1,9 +1,11 @@
 package com.lifespandh.ireflexions.home.course
 
+import android.opengl.Visibility
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
@@ -43,6 +45,7 @@ class CourseListProgramAdapter(
         private val textScore: TextView = itemView.findViewById(R.id.txt_match)
         private val textEnroll: TextView = itemView.findViewById(R.id.txt_enroll)
         private val programContainer: ConstraintLayout = itemView.findViewById(R.id.programContainer)
+        private val progressBar: ProgressBar = itemView.findViewById(R.id.programProgressBar)
         private val imgCard: ImageView = itemView.findViewById(R.id.img_program)
         private val guidelineContainerBottom: Guideline = itemView.findViewById(R.id.guidelineContainerBottom)
         private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
@@ -52,6 +55,7 @@ class CourseListProgramAdapter(
             myTextView.text = program.name
             if(program.img!=null)
             {Glide.with(getContext()).load(program.img).into(imgCard)}
+            progressBar.visibility = View.INVISIBLE
             //HomeActivity().windowManager.defaultDisplay.getMetrics(displaymetrics)
 //            setLayoutParams(itemView, displaymetrics)
 //            guidelineContainerBottom.setGuidelinePercent(1f)

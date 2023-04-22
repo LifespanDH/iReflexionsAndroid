@@ -32,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://5a23-2601-8c0-801-b4d0-8c3f-845f-4b3c-1fad.ngrok-free.app/\"")
+            buildConfigField("String", "BASE_URL", "\"http://62e1-2601-8c0-801-b4d0-980b-a76b-5451-e410.ngrok-free.app/\"")
 
         }
     }

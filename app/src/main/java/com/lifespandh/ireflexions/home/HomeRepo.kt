@@ -38,6 +38,19 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
 
         return networkResult!!
     }
+    suspend fun getRegisteredProgramList(): NetworkResult<List<Program>> {
+        var networkResult: NetworkResult<List<Program>>? = null
+
+        safeApiCall({
+            apiClient.getRegisteredProgramList()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
 
     suspend fun getCourses(requestBody: RequestBody): NetworkResult<List<Course>> {
         var networkResult: NetworkResult<List<Course>>? = null

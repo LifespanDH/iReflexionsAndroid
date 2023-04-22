@@ -167,6 +167,7 @@
     <string name="done">Done</string>
     <string name="suggested_programs_for_you">Suggested programs for you.</string>
     <string name="enroll">+ ENROLL</string>
+    <string name="browse">+ BROWSE</string>
     <string name="unenroll">- UNENROLL</string>
     <string name="temp_units">Temp Units</string>
     <string name="give_feedback">Give Feedback</string>

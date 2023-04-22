@@ -26,6 +26,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
+    private var currentProgram: List<Program>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +42,14 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
 
     private fun init() {
+        getPrograms()
         setViews()
         setObservers()
-        getPrograms()
     }
 
     private fun getPrograms() {
         homeViewModel.getPrograms()
+        homeViewModel.getRegisteredProgramList()
     }
 
     private fun setViews(){
@@ -55,12 +57,22 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
             adapter = courseListProgramAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        if(currentProgram == null)
+        {
+            browseProgramsTV.visibility = View.VISIBLE
+        }
     }
 
 
     private fun setObservers() {
         homeViewModel.programsLiveData.observeFreshly(this) {
             courseListProgramAdapter.setList(it)
+        }
+
+        homeViewModel.registeredProgramsLiveData.observeFreshly(this){
+            currentProgram = it
+            updateCurrentProgram()
         }
 
         tokenViewModel.token.observeFreshly(this) {
@@ -74,6 +86,10 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
     companion object {
         fun newInstance() = CourseListFragment()
+    }
+    private fun updateCurrentProgram() {
+        browseProgramsTV.visibility = View.INVISIBLE
+        currentProgramContainer.visibility = View.VISIBLE
     }
 
     override fun onItemClick(program: Program) {

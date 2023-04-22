@@ -46,6 +46,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val programsLiveData: LiveData<List<Program>>
         get() = _programsLiveData
 
+    private val _registeredProgramsLiveData = MutableLiveData<List<Program>>()
+    val registeredProgramsLiveData: LiveData<List<Program>>
+        get() = _registeredProgramsLiveData
+
     private val _coursesLiveData = MutableLiveData<List<Course>>()
     val coursesLiveData: LiveData<List<Course>>
         get() = _coursesLiveData
@@ -195,6 +199,25 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 }
                 is NetworkResult.Error -> {
                     Log.d("ProgramsApiCall", ""+response.exception)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getRegisteredProgramList(){
+        viewModelScope.launch {
+            val response = homeRepo.getRegisteredProgramList()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("RegisteredProgramsApiCall", ""+response)
+                    val data = response.data
+                    _registeredProgramsLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("RegisteredProgramsApiCall", ""+response.exception)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }
