@@ -17,7 +17,10 @@ import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import kotlinx.android.synthetic.main.fragment_course_page.currentCourseContainer
 import kotlinx.android.synthetic.main.fragment_course_page.rvCourses
+import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseContainer
+import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseProgressBar
 
 class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
@@ -26,6 +29,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     private val args: CourseFragmentArgs by navArgs()
 
     private var parentProgram: Program? = null
+    private var courseProgress: Float = 0.0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +71,12 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
             adapter = courseAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+        currentCourseContainer.currentCourseProgressBar.progress = courseProgress.toInt()
+
     }
     private fun getBundleValues() {
         parentProgram = args.parentProgram
+        courseProgress = args.courseProgress
     }
 
     companion object {

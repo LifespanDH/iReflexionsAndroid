@@ -41,6 +41,12 @@ interface ApiClient {
     @GET(GET_REGISTERED_PROGRAMS)
     suspend fun getRegisteredProgramList(): List<Program>
 
+    @POST(GET_USER_PROGRAM_PROGRESS)
+    suspend fun getUserProgramProgress(): JsonObject
+
+    @POST(ADD_USER_TO_PROGRAM)
+    suspend fun addUserToProgram(@Body programId: Int): JsonObject
+
     @POST(GET_COURSES)
     @Headers("Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA5NzM4LCJpYXQiOjE2ODE1OTg5MzgsImp0aSI6IjM0NTQ0MWI0ZDZmOTRhYmFiZGM0OTgzYzEzYmIwNTJjIiwidXNlcl9pZCI6Ik5vbmUifQ.vw0ON_CiGDSzeR9TizTDsHjHwqJrJUH9YY12bSM4eG0")
     suspend fun getCourses(@Body requestBody: RequestBody): List<Course>

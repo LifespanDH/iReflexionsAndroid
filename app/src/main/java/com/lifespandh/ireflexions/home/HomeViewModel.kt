@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -50,6 +51,11 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val registeredProgramsLiveData: LiveData<List<Program>>
         get() = _registeredProgramsLiveData
 
+    private val _programProgressLiveData = MutableLiveData<JsonObject>()
+    val programProgressLiveData: LiveData<JsonObject>
+        get() = _programProgressLiveData
+
+
     private val _coursesLiveData = MutableLiveData<List<Course>>()
     val coursesLiveData: LiveData<List<Course>>
         get() = _coursesLiveData
@@ -57,6 +63,11 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     private val _lessonsLiveData = MutableLiveData<List<Lesson>>()
     val lessonsLiveData: LiveData<List<Lesson>>
         get() = _lessonsLiveData
+
+    private val _userEnrolledLiveData = MutableLiveData<Boolean>()
+    val userEnrolledLiveData: LiveData<Boolean>
+        get() = _userEnrolledLiveData
+
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -224,6 +235,42 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
             }
         }
     }
+
+    fun getUserProgramProgress(){
+        viewModelScope.launch {
+            val response = homeRepo.getUserProgramProgress()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("ProgramProgressApiCall", ""+response)
+                    val data = response.data
+                    _programProgressLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("ProgramProgressApiCall", ""+response.exception)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+    fun addUserToProgram(programId: Int) {
+        viewModelScope.launch {
+            val response = homeRepo.addUserToProgram(programId)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _userEnrolledLiveData.value = true
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
 
     fun getCourses(requestBody: RequestBody) {
         viewModelScope.launch {

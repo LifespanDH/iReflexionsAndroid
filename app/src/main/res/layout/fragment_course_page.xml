@@ -25,6 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:clickable="true"
         android:background="@color/card4_start">
 
         <androidx.constraintlayout.widget.Guideline
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Current Progress"
-            app:layout_constraintBottom_toTopOf="@id/currentProgramProgressBar"
+            app:layout_constraintBottom_toTopOf="@id/currentCourseProgressBar"
             app:layout_constraintStart_toEndOf="@+id/ivCourseImage"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/montserrat_bold"
@@ -89,7 +90,7 @@
 
         </TextView>
         <ProgressBar
-            android:id="@+id/currentProgramProgressBar"
+            android:id="@+id/currentCourseProgressBar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="wrap_content"
             android:textAlignment="center"

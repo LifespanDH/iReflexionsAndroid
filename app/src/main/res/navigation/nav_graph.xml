@@ -164,6 +164,10 @@
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Program"
             app:nullable="true" />
+        <argument
+            android:name="courseProgress"
+            android:defaultValue="0.0"
+            app:argType="float"/>
 
         <action
             android:id="@+id/action_courseFragment_to_lessonFragment"
