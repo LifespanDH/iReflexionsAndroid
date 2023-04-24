@@ -52,8 +52,8 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val registeredProgramsLiveData: LiveData<List<Program>>
         get() = _registeredProgramsLiveData
 
-    private val _programProgressLiveData = MutableLiveData<JsonObject>()
-    val programProgressLiveData: LiveData<JsonObject>
+    private val _programProgressLiveData = MutableLiveData<UserProgramProgress>()
+    val programProgressLiveData: LiveData<UserProgramProgress>
         get() = _programProgressLiveData
 
 

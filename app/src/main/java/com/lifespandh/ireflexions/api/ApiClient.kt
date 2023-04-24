@@ -42,7 +42,7 @@ interface ApiClient {
     suspend fun getRegisteredProgramList(): List<Program>
 
     @POST(GET_USER_PROGRAM_PROGRESS)
-    suspend fun getUserProgramProgress(): JsonObject
+    suspend fun getUserProgramProgress(): UserProgramProgress
 
     @POST(ADD_USER_TO_PROGRAM)
     suspend fun addUserToProgram(@Body requestBody: RequestBody): JsonObject

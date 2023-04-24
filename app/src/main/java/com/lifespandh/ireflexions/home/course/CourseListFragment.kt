@@ -13,6 +13,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Program
+import com.lifespandh.ireflexions.models.UserProgramProgress
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_PROGRESS
@@ -31,7 +32,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
     private var currentPrograms: List<Program>? = null
-    private var userProgramProgress: JsonObject? = null
+    private lateinit var userProgramProgress: UserProgramProgress
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +56,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
     private fun setListeners(){
         currentProgramContainer.setOnClickListener {
-            val courseprogress = userProgramProgress?.get("course_progress")
+            val courseprogress = userProgramProgress?.courseProgress
             val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentPrograms?.get(0), courseProgress = 0.0F)
             findNavController().navigate(action)
         }
@@ -111,27 +112,34 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         fun newInstance() = CourseListFragment()
     }
     private fun updateCurrentProgram() {
-
+        val currentProgram = currentPrograms?.get(0)
         browseProgramsTV.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
         currentProgramItem.txt_enroll.visibility = View.INVISIBLE
-        currentProgramItem.txt_program.text = currentPrograms?.get(0)!!.name
-        Glide.with(this).load(currentPrograms?.get(0)!!.img).into(currentProgramItem.img_program)
+        currentProgramItem.txt_program.text = currentProgram?.name
+
+
+        Glide.with(this)
+            .load(currentProgram?.img)
+            .centerCrop()
+            .placeholder(R.drawable.program_copingwithcovidicon)
+            .error(R.drawable.program_copingwithcovidicon)
+            .into(currentProgramItem.img_program)
 
         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first() ?: null)
     }
 
     private fun updateProgramProgress() {
-        val programProgress = userProgramProgress?.get(PROGRAM_PROGRESS)
-        currentProgramItem.programProgressBar.progress = programProgress?.asFloat?.toInt() ?: 0
+        val programProgress = userProgramProgress?.programProgress
+        currentProgramItem.programProgressBar.progress = programProgress?.toInt() ?: 0
     }
 
     override fun onItemClick(program: Program) {
 
         if (program.id == currentPrograms?.get(0)?.id) {
 
-            val courseprogress = userProgramProgress?.get(COURSE_PROGRESS)
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, courseProgress = courseprogress?.asFloat ?: 0.0F)
+            val courseprogress = userProgramProgress?.courseProgress
+            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, courseProgress = courseprogress ?: 0.0F)
             findNavController().navigate(action)
         }
         else
