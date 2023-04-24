@@ -1,28 +1,25 @@
 package com.lifespandh.ireflexions.home.course
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.home.exercise.ExerciseAdapter
-import com.lifespandh.ireflexions.home.exercise.ExerciseFragment
-import com.lifespandh.ireflexions.home.exercise.ExerciseFragmentDirections
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.COURSE_PROGRESS
+import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
+import com.lifespandh.ireflexions.utils.network.PROGRAM_PROGRESS
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.fragment_course_list.*
-import kotlinx.android.synthetic.main.program_item.txt_program
 import kotlinx.android.synthetic.main.program_item.view.img_program
 import kotlinx.android.synthetic.main.program_item.view.programProgressBar
 import kotlinx.android.synthetic.main.program_item.view.txt_enroll
@@ -33,7 +30,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
-    private var currentProgram: List<Program>? = null
+    private var currentPrograms: List<Program>? = null
     private var userProgramProgress: JsonObject? = null
 
     override fun onCreateView(
@@ -59,7 +56,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private fun setListeners(){
         currentProgramContainer.setOnClickListener {
             val courseprogress = userProgramProgress?.get("course_progress")
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentProgram?.get(0), courseProgress = 0.0F)
+            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentPrograms?.get(0), courseProgress = 0.0F)
             findNavController().navigate(action)
         }
     }
@@ -76,7 +73,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        if(currentProgram == null)
+        if(currentPrograms == null)
         {
             browseProgramsTV.visibility = View.VISIBLE
         }
@@ -89,7 +86,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         }
 
         homeViewModel.registeredProgramsLiveData.observeFreshly(this){
-            currentProgram = it
+            currentPrograms = it
             if(it?.isEmpty() != true) {
                 updateCurrentProgram()
             }
@@ -114,24 +111,27 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         fun newInstance() = CourseListFragment()
     }
     private fun updateCurrentProgram() {
+
         browseProgramsTV.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
         currentProgramItem.txt_enroll.visibility = View.INVISIBLE
-        currentProgramItem.txt_program.text = currentProgram?.get(0)!!.name
-        Glide.with(this).load(currentProgram?.get(0)!!.img).into(currentProgramItem.img_program)
+        currentProgramItem.txt_program.text = currentPrograms?.get(0)!!.name
+        Glide.with(this).load(currentPrograms?.get(0)!!.img).into(currentProgramItem.img_program)
+
+        courseListProgramAdapter.setCurrentProgram(currentPrograms?.first() ?: null)
     }
 
     private fun updateProgramProgress() {
-        val programProgress = userProgramProgress?.get("program_progress")
-        currentProgramItem.programProgressBar.progress = 4.5.toInt()
+        val programProgress = userProgramProgress?.get(PROGRAM_PROGRESS)
+        currentProgramItem.programProgressBar.progress = programProgress?.asFloat?.toInt() ?: 0
     }
 
     override fun onItemClick(program: Program) {
 
-        if (program.id == currentProgram?.get(0)?.id) {
+        if (program.id == currentPrograms?.get(0)?.id) {
 
-            val courseprogress = userProgramProgress?.get("course_progress")
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, courseProgress = 0.0F)
+            val courseprogress = userProgramProgress?.get(COURSE_PROGRESS)
+            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, courseProgress = courseprogress?.asFloat ?: 0.0F)
             findNavController().navigate(action)
         }
         else
@@ -141,7 +141,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
 
     override fun onProgramEnroll(program: Program) {
-
-        homeViewModel.addUserToProgram(program.id)
+        val requestBody = createJsonRequestBody(PROGRAM_ID to program.id)
+        homeViewModel.addUserToProgram(requestBody)
     }
 }

@@ -21,7 +21,7 @@ const val GET_EXERCISES = BASE_URL + IREF_USERS + "get_exercises/"
 const val GET_PROGRAMS = BASE_URL + IREF_USERS + "get_programs/"
 const val GET_REGISTERED_PROGRAMS = BASE_URL + IREF_USERS + "get_user_registered_programs/"
 const val GET_USER_PROGRAM_PROGRESS = BASE_URL + IREF_USERS + "get_user_program_progress/"
-const val ADD_USER_TO_PROGRAM = BASE_URL + IREF_USERS + "get_user_to_program/"
+const val ADD_USER_TO_PROGRAM = BASE_URL + IREF_USERS + "add_user_to_program/"
 
 const val GET_COURSES = BASE_URL + IREF_USERS + "get_courses/"
 const val GET_LESSONS = BASE_URL + IREF_USERS + "get_lessons/"

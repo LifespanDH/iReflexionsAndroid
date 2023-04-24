@@ -108,6 +108,21 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineStart"
             app:layout_constraintTop_toTopOf="@+id/guidelineImageBottom" />
 
+        <TextView
+            android:id="@+id/txtEnrolled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Enrolled"
+            android:visibility="gone"
+            android:textColor="@color/icon_title_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toTopOf="@+id/guidelineImageBottom" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineBottom"
             android:layout_width="wrap_content"

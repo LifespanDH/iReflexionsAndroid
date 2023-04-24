@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -254,12 +255,13 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
             }
         }
     }
-    fun addUserToProgram(programId: Int) {
+    fun addUserToProgram(requestBody: RequestBody) {
         viewModelScope.launch {
-            val response = homeRepo.addUserToProgram(programId)
+            val response = homeRepo.addUserToProgram(requestBody)
 
             when(response) {
                 is NetworkResult.Success -> {
+                    logD("$response")
                     val data = response.data
                     _userEnrolledLiveData.value = true
                 }
