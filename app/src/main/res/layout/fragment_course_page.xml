@@ -131,9 +131,9 @@
         android:text="Relationship Resilience course"
         android:textAllCaps="true"
         android:textColor="@color/icon_title_color"
+        android:layout_marginStart="20dp"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline3" />
 
