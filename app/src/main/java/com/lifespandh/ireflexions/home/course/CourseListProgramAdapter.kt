@@ -61,7 +61,7 @@ class CourseListProgramAdapter(
     inner class ProgramViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val myTextView: TextView = itemView.findViewById(R.id.txt_program)
-        private val textScore: TextView = itemView.findViewById(R.id.txt_match)
+//        private val textScore: TextView = itemView.findViewById(R.id.txt_match)
         private val textEnroll: TextView = itemView.findViewById(R.id.txt_enroll)
         private val textEnrolled: TextView = itemView.findViewById(R.id.txtEnrolled)
 
@@ -72,7 +72,7 @@ class CourseListProgramAdapter(
         private val progressBar: ProgressBar = itemView.findViewById(R.id.programProgressBar)
 
         private val guidelineContainerBottom: Guideline = itemView.findViewById(R.id.guidelineContainerBottom)
-        private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
+       // private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
 
         private val displaymetrics = DisplayMetrics()
 
