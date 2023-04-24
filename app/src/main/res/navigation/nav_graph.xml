@@ -166,7 +166,8 @@
             app:nullable="true" />
         <argument
             android:name="programProgress"
-            android:defaultValue="0.0"
+            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="com.lifespandh.ireflexions.models.UserProgramProgress"/>
 
         <action
