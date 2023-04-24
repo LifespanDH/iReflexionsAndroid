@@ -52,8 +52,8 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
-    suspend fun getUserProgramProgress(): NetworkResult<JsonObject> {
-        var networkResult: NetworkResult<JsonObject>? = null
+    suspend fun getUserProgramProgress(): NetworkResult<UserProgramProgress> {
+        var networkResult: NetworkResult<UserProgramProgress>? = null
 
         safeApiCall({
             apiClient.getUserProgramProgress()
