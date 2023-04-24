@@ -21,8 +21,8 @@ import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.PROGRAM_PROGRESS
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.fragment_course_list.*
-import kotlinx.android.synthetic.main.fragment_course_list.view.programProgressBar
 import kotlinx.android.synthetic.main.program_item.view.img_program
+import kotlinx.android.synthetic.main.program_item.view.programProgressBar
 import kotlinx.android.synthetic.main.program_item.view.txt_enroll
 import kotlinx.android.synthetic.main.program_item.view.txt_program
 
@@ -131,7 +131,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
     private fun updateProgramProgress() {
         val programProgress = userProgramProgress?.programProgress
-        currentProgramContainer.programProgressBar.progress = programProgress?.toInt() ?: 0
+        currentProgramItem.programProgressBar.progress = programProgress?.toInt() ?: 0
     }
 
     override fun onItemClick(program: Program) {

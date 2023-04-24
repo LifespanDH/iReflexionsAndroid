@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,9 @@ class CourseListProgramAdapter(
 
         private val programContainer: ConstraintLayout = itemView.findViewById(R.id.programContainer)
 
+        private val progressBarText: TextView = itemView.findViewById(R.id.progressBarText)
         private val progressBar: ProgressBar = itemView.findViewById(R.id.programProgressBar)
+
 
         private val guidelineContainerBottom: Guideline = itemView.findViewById(R.id.guidelineContainerBottom)
        // private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
@@ -85,6 +88,7 @@ class CourseListProgramAdapter(
             textEnrolled.isVisible = program.id == currentProgram?.id
             textEnroll.isVisible = program.id != currentProgram?.id
 
+            progressBarText.visibility = View.INVISIBLE
             progressBar.visibility = View.INVISIBLE
             //HomeActivity().windowManager.defaultDisplay.getMetrics(displaymetrics)
 //            setLayoutParams(itemView, displaymetrics)

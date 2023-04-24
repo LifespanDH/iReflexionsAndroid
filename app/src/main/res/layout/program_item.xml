@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="25dp"
+        android:background="@color/bluegreen"
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -93,6 +94,33 @@
             app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <TextView
+            android:id="@+id/progressBarText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Current Progress:"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/programProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/guidelineImageBottom"
+            />
+
+        <ProgressBar
+            android:id="@+id/programProgressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingLeft="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="10dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
