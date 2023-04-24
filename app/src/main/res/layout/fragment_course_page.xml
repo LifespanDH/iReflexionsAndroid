@@ -19,14 +19,14 @@
         android:id="@+id/currentCourseContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/guideline1"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:background="@color/card4_start"
         android:clickable="true"
-        android:background="@color/card4_start">
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline1">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineImageEnd"
@@ -46,59 +46,59 @@
             android:id="@+id/tvCourseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:fontFamily="@font/montserrat_semi_bold"
+            android:text="THE BASICS"
             android:textColor="@color/icon_title_color"
             android:textSize="17sp"
-            android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="THE BASICS" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvCourseDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:fontFamily="@font/montserrat_regular"
             android:paddingBottom="4dp"
-            android:layout_margin="8dp"
+            android:text="Learn about preparation techniques, anchoring, practice tests and more"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCourseTitle"
-            android:text="Learn about preparation techniques, anchoring, practice tests and more" />
+            app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
 
         <ImageView
             android:id="@+id/ivCourseImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:src="@drawable/program_copingwithcovidicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/guidelineImageEnd"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCourseDescription"
-            android:src="@drawable/program_copingwithcovidicon" />
+            app:layout_constraintTop_toBottomOf="@id/tvCourseDescription" />
 
         <TextView
+            android:id="@+id/currentProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Progress"
-            app:layout_constraintBottom_toTopOf="@id/currentCourseProgressBar"
-            app:layout_constraintStart_toEndOf="@+id/ivCourseImage"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/montserrat_bold"
+            android:text="0%"
             android:textColor="@color/white"
-            android:layout_marginBottom="20dp">
+            app:layout_constraintBottom_toTopOf="@id/currentCourseProgressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivCourseImage" />
 
-        </TextView>
         <ProgressBar
             android:id="@+id/currentCourseProgressBar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="wrap_content"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivCourseImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,28 +128,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_semi_bold"
+        android:text="Relationship Resilience course"
         android:textAllCaps="true"
         android:textColor="@color/icon_title_color"
         android:textSize="17sp"
-        app:layout_constraintTop_toBottomOf="@id/guideline3"
         app:layout_constraintBottom_toTopOf="@id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Relationship Resilience course" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCourses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@id/guideline4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        tools:listitem="@layout/course_item"
-        />
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline4"
+        tools:listitem="@layout/course_item" />
 
 
     <!--    <androidx.constraintlayout.widget.Guideline-->

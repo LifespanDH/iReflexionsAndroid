@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.home.course
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Course
+import com.lifespandh.ireflexions.utils.ui.makeInvisible
 
 class CoursesAdapter(
     private var courses: List<Course>,
@@ -40,11 +42,14 @@ class CoursesAdapter(
         private val courseDescription: TextView = itemView.findViewById(R.id.tvCourseDescription)
         private val courseImage: ImageView = itemView.findViewById(R.id.ivCourseImage)
         private val courseItem: ConstraintLayout = itemView.findViewById(R.id.courseItemView)
+        private val courseProgressBar: ProgressBar = itemView.findViewById(R.id.courseProgressBar)
 
         fun bind(course:Course){
             courseTitle.text = course.name
             courseDescription.text = course.description
             Glide.with(getContext()).load(course.image).into(courseImage)
+
+            courseProgressBar.makeInvisible()
 
             courseItem.setOnClickListener {
                 listener.onCourseClick(course)

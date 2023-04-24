@@ -18,7 +18,12 @@ import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseContainer
+import kotlinx.android.synthetic.main.fragment_course_page.currentCourseProgressBar
+import kotlinx.android.synthetic.main.fragment_course_page.currentProgress
 import kotlinx.android.synthetic.main.fragment_course_page.rvCourses
+import kotlinx.android.synthetic.main.fragment_course_page.tvCourseDescription
+import kotlinx.android.synthetic.main.fragment_course_page.tvCourseTitle
+import kotlinx.android.synthetic.main.fragment_course_page.tvCurrentProgramCourses
 import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseContainer
 import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseProgressBar
 
@@ -30,6 +35,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
     private var parentProgram: Program? = null
     private var courseProgress: Float = 0.0F
+    private var courseNumber: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +67,8 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
     private fun setObservers(){
         homeViewModel.coursesLiveData.observeFreshly(this) {
-            logE("called here $it")
             courseAdapter.setList(it)
+            setCurrentCourse(it)
         }
     }
 
@@ -71,12 +77,24 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
             adapter = courseAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        currentCourseContainer.currentCourseProgressBar.progress = courseProgress.toInt()
 
+        tvCurrentProgramCourses.text = "${parentProgram?.name} courses"
+
+        currentProgress.text = "$courseProgress %"
+        currentCourseProgressBar.progress = courseProgress.toInt()
     }
     private fun getBundleValues() {
         parentProgram = args.parentProgram
         courseProgress = args.courseProgress
+    }
+
+    private fun setCurrentCourse(courses: List<Course>) {
+        if (courseNumber > 0 && courses.size >= courseNumber -1) {
+            val currentCourse = courses.get(courseNumber - 1)
+            tvCourseTitle.text = currentCourse.name
+            tvCourseDescription.text = currentCourse.description
+            // Set image here
+        }
     }
 
     companion object {
