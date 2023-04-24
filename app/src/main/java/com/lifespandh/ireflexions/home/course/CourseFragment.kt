@@ -13,6 +13,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Program
+import com.lifespandh.ireflexions.models.UserProgramProgress
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
@@ -34,8 +35,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     private val args: CourseFragmentArgs by navArgs()
 
     private var parentProgram: Program? = null
-    private var courseProgress: Float = 0.0F
-    private var courseNumber: Int = -1
+    private var userProgramProgress: UserProgramProgress? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,16 +80,17 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
         tvCurrentProgramCourses.text = "${parentProgram?.name} courses"
 
-        currentProgress.text = "$courseProgress %"
-        currentCourseProgressBar.progress = courseProgress.toInt()
+        currentProgress.text = "${userProgramProgress?.courseProgress} %"
+        currentCourseProgressBar.progress = userProgramProgress?.courseProgress?.toInt() ?: 0
     }
     private fun getBundleValues() {
         parentProgram = args.parentProgram
-        courseProgress = args.courseProgress
+        userProgramProgress = args.programProgress
     }
 
     private fun setCurrentCourse(courses: List<Course>) {
-        if (courseNumber > 0 && courses.size >= courseNumber -1) {
+        val courseNumber = userProgramProgress?.courseNumber ?: 0
+        if (courseNumber > 0 && courses.size >= courseNumber - 1) {
             val currentCourse = courses.get(courseNumber - 1)
             tvCourseTitle.text = currentCourse.name
             tvCourseDescription.text = currentCourse.description
