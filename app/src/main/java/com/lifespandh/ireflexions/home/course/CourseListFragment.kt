@@ -57,7 +57,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private fun setListeners(){
         currentProgramContainer.setOnClickListener {
             val courseprogress = userProgramProgress?.courseProgress
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentPrograms?.get(0), courseProgress = 0.0F)
+            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentPrograms?.get(0), programProgress = userProgramProgress)
             findNavController().navigate(action)
         }
     }
@@ -139,7 +139,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         if (program.id == currentPrograms?.get(0)?.id) {
 
             val courseprogress = userProgramProgress?.courseProgress
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, courseProgress = courseprogress ?: 0.0F)
+            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
             findNavController().navigate(action)
         }
         else
