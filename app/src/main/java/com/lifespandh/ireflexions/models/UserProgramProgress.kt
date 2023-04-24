@@ -1,7 +1,10 @@
 package com.lifespandh.ireflexions.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class UserProgramProgress (
 
     @SerializedName("course_number")
@@ -16,4 +19,4 @@ data class UserProgramProgress (
     @SerializedName("course_progress")
     val courseProgress: Float,
 
-    )
+): Parcelable
