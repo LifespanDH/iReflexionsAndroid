@@ -32,13 +32,11 @@ class MainActivity : BaseActivity() {
 
     private fun setObservers() {
         CombinedLiveData(tokenViewModel.token, tokenViewModel.refreshToken) { token, refresh ->
-            logE("called here /4 $token $refresh")
             if (token.isNullOrEmpty()) {
                 startActivity(LoginActivity.newInstance(this))
             } else {
                 val expired = token.isJWTExpired()
-                logE("in here")
-                if (true) {
+                if (expired) {
                     val requestBody = createJsonRequestBody("refresh" to refresh)
                     authViewModel.refreshToken(requestBody)
                 } else {
