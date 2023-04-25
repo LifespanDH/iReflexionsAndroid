@@ -48,12 +48,13 @@ import java.util.Locale
 
 
 class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked,
-    ImagePickerLauncher.OnImagePicked {
+    ImagePickerLauncher.OnImagePicked, ImageCaptureLauncher.OnImageCaptured {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: EditSupportContactFragmentArgs by navArgs()
     private val contactPickerLauncher = ContactPickerLauncher(this, this)
     private val imagePickerLauncher = ImagePickerLauncher(this, this)
+    private val imageCaptureLauncher = ImageCaptureLauncher(this, this)
 
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
@@ -245,11 +246,6 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
-        logE("ca;;ed hjere $compressedBitmap")
-//        val uri = compressedBitmap?.let { getImageUri(requireContext(), it) }
-//        val intent = uri?.let { S3UploadService.newInstance(it) }
-//        logE("called here $uri $intent")
-//        S3UploadService.enqueueWork(requireContext(), intent)
         val bitmapString = serializeToJson(compressedBitmap)
         val builder = Data.Builder()
         builder.putString(S3UploadWorker.IMAGE_BITMAP_STRING, bitmapString)
@@ -276,22 +272,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         item?.let {
             return when (it.itemId) {
                 R.id.action_take_photo -> {
-                    ImageCaptureLauncher(
-                        this,
-                        requireContext(),
-                        object : ImageCaptureLauncher.OnImageCaptured {
-                            override fun onImageCaptured(
-                                actualImage: File?,
-                                compressedBitmap: Bitmap?
-                            ) {
-                                uploadImageToAWS(compressedBitmap)
-                                setContactImage(compressedBitmap)
-                            }
-
-                            override fun onImageNotCaptured(exception: Exception?) {
-                                toast("Image could not be captured")
-                            }
-                        })
+                    imageCaptureLauncher.launch(requireContext())
                     true
                 }
                 R.id.action_select_photo -> {
@@ -327,6 +308,18 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     override fun onPickError(exception: Exception) {
         toast("Error")
+    }
+
+    override fun onImageCaptured(
+        actualImage: File?,
+        compressedBitmap: Bitmap?
+    ) {
+        uploadImageToAWS(compressedBitmap)
+        setContactImage(compressedBitmap)
+    }
+
+    override fun onImageNotCaptured(exception: Exception?) {
+        toast("Image could not be captured")
     }
 
 }

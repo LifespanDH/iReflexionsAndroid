@@ -12,9 +12,10 @@ import java.io.IOException
 
 class ImageCaptureLauncher(
     fragment: Fragment,
-    context: Context,
     listener: OnImageCaptured
 ) {
+
+    private lateinit var context: Context
 
     private val imageCaptureResult =
         fragment.registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
@@ -31,10 +32,10 @@ class ImageCaptureLauncher(
                         ImageCompressor(context, object : ImageCompressor.OnImageCompressed {
                             override fun onImageCompressed(compressedBitmap: Bitmap) {
                                 compressedImage = compressedBitmap
+                                listener.onImageCaptured(actualImage, compressedImage)
                             }
                         }).compressImage(actualImage)
                     }
-                    listener.onImageCaptured(actualImage, compressedImage)
                 } catch (e: IOException) {
                     listener.onImageNotCaptured(e)
                     e.printStackTrace()
@@ -44,7 +45,8 @@ class ImageCaptureLauncher(
             }
         }
 
-    fun launch() {
+    fun launch(context: Context) {
+        this.context = context
         imageCaptureResult.launch(null)
     }
 
