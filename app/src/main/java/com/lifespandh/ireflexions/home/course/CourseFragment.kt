@@ -15,18 +15,14 @@ import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.UserProgramProgress
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
-import kotlinx.android.synthetic.main.fragment_course_page.currentCourseContainer
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseProgressBar
 import kotlinx.android.synthetic.main.fragment_course_page.currentProgress
 import kotlinx.android.synthetic.main.fragment_course_page.rvCourses
-import kotlinx.android.synthetic.main.fragment_course_page.tvCourseDescription
-import kotlinx.android.synthetic.main.fragment_course_page.tvCourseTitle
+import kotlinx.android.synthetic.main.fragment_course_page.currentCourseDescription
+import kotlinx.android.synthetic.main.fragment_course_page.currentCourseTitle
 import kotlinx.android.synthetic.main.fragment_course_page.tvCurrentProgramCourses
-import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseContainer
-import kotlinx.android.synthetic.main.fragment_course_page.view.currentCourseProgressBar
 
 class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
@@ -92,8 +88,8 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         val courseNumber = userProgramProgress?.courseNumber ?: 0
         if (courseNumber > 0 && courses.size >= courseNumber - 1) {
             val currentCourse = courses.get(courseNumber - 1)
-            tvCourseTitle.text = currentCourse.name
-            tvCourseDescription.text = currentCourse.description
+            currentCourseTitle.text = currentCourse.name
+            currentCourseDescription.text = currentCourse.description
             // Set image here
         }
     }
@@ -103,7 +99,8 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     }
 
     override fun onCourseClick(course: Course) {
-        val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentCourse = course)
+        val lessonNumber = userProgramProgress?.lessonNumber ?: 0
+        val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentCourse = course, lessonNumber = lessonNumber)
         findNavController().navigate(action)
     }
 

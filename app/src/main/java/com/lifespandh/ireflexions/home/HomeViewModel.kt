@@ -69,6 +69,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val userEnrolledLiveData: LiveData<Boolean>
         get() = _userEnrolledLiveData
 
+    private val _resourceContentLiveData = MutableLiveData<List<ResourceLibraryItem>>()
+    val resourceContentLiveData: LiveData<List<ResourceLibraryItem>>
+        get() = _resourceContentLiveData
+
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -305,6 +309,25 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 }
                 is NetworkResult.Error -> {
                     Log.d("LessonsApiCall", ""+response)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getResourceContent() {
+        viewModelScope.launch {
+            val response = homeRepo.getResourceContent()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("ResourcesApiCall", ""+response)
+                    val data = response.data
+                    _resourceContentLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("ResourcesApiCall", ""+response)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }

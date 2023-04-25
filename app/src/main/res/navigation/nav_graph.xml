@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_courseListFragment"
             app:destination="@id/courseListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_resourceLibraryFragment"
+            app:destination="@id/resourceLibraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
@@ -186,5 +189,23 @@
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Course"
             app:nullable="true" />
+        <argument
+            android:name="lessonNumber"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+        <action
+            android:id="@+id/action_lessonFragment_to_lessonContentFragment"
+            app:destination="@id/lessonContentFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/lessonContentFragment"
+        android:name="com.lifespandh.ireflexions.home.course.LessonContentFragment"
+        android:label="fragment_lesson_content"
+        tools:layout="@layout/fragment_lesson_content" />
+    <fragment
+        android:id="@+id/resourceLibraryFragment"
+        android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceLibraryFragment"
+        android:label="fragment_resource_library"
+        tools:layout="@layout/fragment_resource_library" />
 </navigation>

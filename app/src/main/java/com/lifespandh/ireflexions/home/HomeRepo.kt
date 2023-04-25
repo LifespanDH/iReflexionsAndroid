@@ -192,4 +192,18 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
+    suspend fun getResourceContent() : NetworkResult<List<ResourceLibraryItem>> {
+        var networkResult: NetworkResult<List<ResourceLibraryItem>>? = null
+
+        safeApiCall({
+            apiClient.getResourceContent()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
 }

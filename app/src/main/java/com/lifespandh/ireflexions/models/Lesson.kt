@@ -13,4 +13,12 @@ data class Lesson (
     @SerializedName("description")
     val description: String,
 
+    @SerializedName("heading")
+    val heading: String,
+
+    @SerializedName("content")
+    val content: String,
+
+    @SerializedName("image")
+    val image: String,
 ): Parcelable

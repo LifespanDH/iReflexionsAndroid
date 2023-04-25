@@ -71,4 +71,9 @@ interface ApiClient {
 
     @POST(GET_CARE_CENTER_EXERCISES)
     suspend fun getCareCenterExercises(@Body requestBody: RequestBody): List<CareCenterExercise>
+
+    @GET(GET_RESOURCE_CONTENT)
+    suspend fun getResourceContent(): List<ResourceLibraryItem>
+
+
 }

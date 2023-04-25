@@ -86,6 +86,10 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_homeFragment_to_howAmINoEntryFragment)
         }
 
+        resourceLibrary.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_resourceLibraryFragment)
+        }
+
         home_screen_login_button.setOnClickListener{
             startActivity(LoginActivity.newInstance(requireContext()))
         }

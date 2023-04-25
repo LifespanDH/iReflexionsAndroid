@@ -43,7 +43,7 @@
             app:layout_constraintGuide_percent="0.8" />
 
         <TextView
-            android:id="@+id/tvCourseTitle"
+            android:id="@+id/currentCourseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvCourseDescription"
+            android:id="@+id/currentCourseDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -65,17 +65,17 @@
             android:textColor="@color/icon_title_color"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
+            app:layout_constraintTop_toBottomOf="@id/currentCourseTitle" />
 
         <ImageView
-            android:id="@+id/ivCourseImage"
+            android:id="@+id/currentCourseImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/program_copingwithcovidicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/guidelineImageEnd"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCourseDescription" />
+            app:layout_constraintTop_toBottomOf="@id/currentCourseDescription" />
 
         <TextView
             android:id="@+id/currentProgress"
@@ -87,7 +87,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/currentCourseProgressBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivCourseImage" />
+            app:layout_constraintStart_toEndOf="@+id/currentCourseImage" />
 
         <ProgressBar
             android:id="@+id/currentCourseProgressBar"
@@ -97,7 +97,7 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivCourseImage"
+            app:layout_constraintStart_toEndOf="@+id/currentCourseImage"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -143,7 +143,6 @@
         android:layout_height="0dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
