@@ -59,7 +59,6 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private lateinit var closeDialog : TextView
     private lateinit var contactIconImage : ImageView
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -155,11 +154,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             }
         }
 
-        contactIconImage.setOnClickListener {
+        contactIconImage.setOnClickListener { view ->
 //            if (inEditMode) {
 //                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
 //            }
-            showPhotoActionMenuPopup()
+            showPhotoActionMenuPopup(view)
         }
 
         nameEditText.setOnTouchListener { view, motionEvent ->
@@ -217,8 +216,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             .show(parentFragmentManager, TAG)
     }
 
-    private fun showPhotoActionMenuPopup() {
-        val popup = PopupMenu(requireContext(), view_)
+    private fun showPhotoActionMenuPopup(view: View) {
+        val popup = PopupMenu(requireContext(), view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.take_picture_menu, popup.menu)
         popup.setOnMenuItemClickListener(this)
