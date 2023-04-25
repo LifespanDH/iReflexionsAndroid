@@ -30,7 +30,9 @@ class ImageCompressor(
         fun compress() = launch {
             val result = compress(actualImage)
             result.let {
-                listener.onImageCompressed(it)
+                withContext(Dispatchers.Main) {
+                    listener.onImageCompressed(it)
+                }
             }
         }
     }

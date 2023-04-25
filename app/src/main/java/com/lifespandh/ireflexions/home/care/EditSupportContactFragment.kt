@@ -17,6 +17,10 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
@@ -27,12 +31,15 @@ import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.image.getBitmapFromUriPath
 import com.lifespandh.ireflexions.utils.image.getImageUri
+import com.lifespandh.ireflexions.utils.image.serializeToJson
 import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
+import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
@@ -40,11 +47,13 @@ import java.io.File
 import java.util.Locale
 
 
-class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked {
+class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemClickListener, ContactPickerLauncher.OnContactPicked,
+    ImagePickerLauncher.OnImagePicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: EditSupportContactFragmentArgs by navArgs()
     private val contactPickerLauncher = ContactPickerLauncher(this, this)
+    private val imagePickerLauncher = ImagePickerLauncher(this, this)
 
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
@@ -236,9 +245,18 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
-        val uri = compressedBitmap?.let { getImageUri(requireContext(), it) }
-        val intent = uri?.let { S3UploadService.newInstance(it) }
-        S3UploadService.enqueueWork(requireContext(), intent)
+        logE("ca;;ed hjere $compressedBitmap")
+//        val uri = compressedBitmap?.let { getImageUri(requireContext(), it) }
+//        val intent = uri?.let { S3UploadService.newInstance(it) }
+//        logE("called here $uri $intent")
+//        S3UploadService.enqueueWork(requireContext(), intent)
+        val bitmapString = serializeToJson(compressedBitmap)
+        val builder = Data.Builder()
+        builder.putString(S3UploadWorker.IMAGE_BITMAP_STRING, bitmapString)
+        val oneTimeWorkRequest = OneTimeWorkRequest.Builder(S3UploadWorker::class.java)
+            .setInputData(builder.build())
+            .build()
+        WorkManager.getInstance(requireContext()).enqueue(oneTimeWorkRequest)
     }
 
     companion object {
@@ -277,22 +295,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                     true
                 }
                 R.id.action_select_photo -> {
-                    ImagePickerLauncher(
-                        this,
-                        requireContext(),
-                        object : ImagePickerLauncher.OnImagePicked {
-                            override fun onImagePickResult(
-                                originalImage: File,
-                                compressedBitmap: Bitmap?
-                            ) {
-                                uploadImageToAWS(compressedBitmap)
-                                setContactImage(compressedBitmap)
-                            }
-
-                            override fun onPickError(exception: Exception) {
-                                toast("Error")
-                            }
-                        }).launch(IMAGE_PICKER_INPUT)
+                    imagePickerLauncher.launch(IMAGE_PICKER_INPUT, requireContext())
                     true
                 }
                 else -> {
@@ -313,4 +316,17 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         nameEditText.setText(name)
         phoneEditText.setText(number)
     }
+
+    override fun onImagePickResult(
+        originalImage: File,
+        compressedBitmap: Bitmap?
+    ) {
+        uploadImageToAWS(compressedBitmap)
+        setContactImage(compressedBitmap)
+    }
+
+    override fun onPickError(exception: Exception) {
+        toast("Error")
+    }
+
 }

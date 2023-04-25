@@ -11,9 +11,10 @@ import java.io.IOException
 
 class ImagePickerLauncher(
     fragment: Fragment,
-    context: Context,
     listener: OnImagePicked
 ) {
+
+    private lateinit var context: Context
 
     private val imagePickerResult =
         fragment.registerForActivityResult(ActivityResultContracts.GetContent()) {
@@ -24,9 +25,9 @@ class ImagePickerLauncher(
                     ImageCompressor(context, object : ImageCompressor.OnImageCompressed {
                         override fun onImageCompressed(compressedBitmap: Bitmap) {
                             compressedImage = compressedBitmap
+                            listener.onImagePickResult(actualImage, compressedImage)
                         }
                     }).compressImage(actualImage)
-                    listener.onImagePickResult(actualImage, compressedImage)
                 } catch (e: IOException) {
                     listener.onPickError(e)
                     e.printStackTrace()
@@ -35,7 +36,8 @@ class ImagePickerLauncher(
             }
         }
 
-    fun launch(input: String) {
+    fun launch(input: String, context: Context) {
+        this.context = context
         imagePickerResult.launch(input)
     }
 

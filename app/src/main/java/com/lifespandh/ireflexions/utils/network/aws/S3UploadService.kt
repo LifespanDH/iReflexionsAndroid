@@ -19,20 +19,20 @@ class S3UploadService(
 //    private val secrets = getSecrets()
 
     override fun onHandleWork(intent: Intent) {
-        if (intent.extras?.containsKey(IMAGE_URI) == true) {
-            val imageUri = intent.getParcelableExtra<Uri>(IMAGE_URI)
-            var image: Bitmap? = null
-            if (imageUri != null) {
-                image = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
-            }
+            if (intent.extras?.containsKey(IMAGE_URI) == true) {
+                val imageUri = intent.getParcelableExtra<Uri>(IMAGE_URI)
+                var image: Bitmap? = null
+                if (imageUri != null) {
+                    image = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                }
 
-            val file = image?.let { createNewFile(it, context) }
-            if (file != null) {
-                val extension = file.absolutePath.toString().split(".").last()
-//                file?.absolutePath?.let { it2 -> uploadFile(it2) }
-                file?.let { uploadFile(it) }
+                val file = image?.let { createNewFile(it, context) }
+                if (file != null) {
+                    val extension = file.absolutePath.toString().split(".").last()
+    //                file?.absolutePath?.let { it2 -> uploadFile(it2) }
+                    file?.let { uploadFile(it) }
+                }
             }
-        }
     }
 
     private fun uploadFile(file: File) {
