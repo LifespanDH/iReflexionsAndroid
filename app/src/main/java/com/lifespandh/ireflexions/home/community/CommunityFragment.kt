@@ -33,7 +33,7 @@ class CommunityFragment : Fragment() {
     private fun setupWebView() {
         communityWebView.apply {
             settings.javaScriptEnabled = true
-            loadUrl("https://lifespandhstaging.tribe.so")
+            loadUrl("https://www.heypeers.com/")
         }
     }
 
