@@ -14,6 +14,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.UserProgramProgress
+import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_PROGRESS
@@ -32,6 +33,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
     private var currentPrograms: List<Program>? = null
+    private val dialogUtils = DialogUtils()
     private lateinit var userProgramProgress: UserProgramProgress
 
     override fun onCreateView(
@@ -96,6 +98,12 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         homeViewModel.programProgressLiveData.observeFreshly(this){
             userProgramProgress = it
             updateProgramProgress()
+        }
+
+        homeViewModel.userEnrolledLiveData.observeFreshly(this) {
+            if(it) {
+                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+            }
         }
 
 

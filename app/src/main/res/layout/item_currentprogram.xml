@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    >
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/currentCourseConstrainedLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/bluegreen"
-        app:cardCornerRadius="25sp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/programContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
 
 
         <TextView
@@ -33,17 +34,18 @@
             android:padding="8dp"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineViewTop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineViewTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.30" />
 
         <ImageView
             android:id="@+id/img_program"
@@ -51,6 +53,7 @@
             android:layout_height="0dp"
             android:src="@drawable/program_copingwithcovidicon"
             app:layout_constraintTop_toBottomOf="@id/guidelineViewTop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guidelineImageBottom"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -64,47 +67,16 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.78" />
 
-
-        <TextView
-            android:id="@+id/txt_enroll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/enroll"
-            android:textColor="@color/icon_title_color"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:id="@+id/txtEnrolled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="Enrolled"
-            android:textColor="@color/icon_title_color"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
         <TextView
             android:id="@+id/progressBarText"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Current Progress:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Progress:"
             android:fontFamily="@font/montserrat"
             android:textColor="@color/white"
+            android:layout_marginStart="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/programProgressBar"
             app:layout_constraintTop_toBottomOf="@id/guidelineImageBottom"
             />
 
@@ -115,24 +87,21 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:paddingLeft="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/progressBarText"            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="10dp"
             />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineContainerBottom"
+        android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="1.0" />
-
-
+        app:layout_constraintGuide_percent="0.31" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

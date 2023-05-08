@@ -10,6 +10,9 @@ data class Lesson (
     @SerializedName("name")
     val name: String,
 
+    @SerializedName("id")
+    val id: Int,
+
     @SerializedName("description")
     val description: String,
 

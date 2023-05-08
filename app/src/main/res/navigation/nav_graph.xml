@@ -185,6 +185,12 @@
         tools:layout="@layout/fragment_lesson">
 
         <argument
+            android:name="parentProgram"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Program"
+            app:nullable="true" />
+
+        <argument
             android:name="parentCourse"
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Course"
@@ -192,8 +198,7 @@
         <argument
             android:name="lessonNumber"
             android:defaultValue="0"
-            app:argType="integer"
-            />
+            app:argType="integer" />
         <action
             android:id="@+id/action_lessonFragment_to_lessonContentFragment"
             app:destination="@id/lessonContentFragment" />
@@ -202,10 +207,52 @@
         android:id="@+id/lessonContentFragment"
         android:name="com.lifespandh.ireflexions.home.course.LessonContentFragment"
         android:label="fragment_lesson_content"
-        tools:layout="@layout/fragment_lesson_content" />
+        tools:layout="@layout/fragment_lesson_content" >
+
+        <argument
+            android:name="parentProgram"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Program"
+            app:nullable="true"/>
+
+        <argument
+            android:name="parentCourse"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Course"
+            app:nullable="true"/>
+
+        <argument
+            android:name="parentLesson"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Lesson"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_lessonContentFragment_to_lessonQuizFragment"
+            app:destination="@id/lessonQuizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/resourceLibraryFragment"
         android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceLibraryFragment"
         android:label="fragment_resource_library"
         tools:layout="@layout/fragment_resource_library" />
+    <fragment
+        android:id="@+id/lessonQuizFragment"
+        android:name="com.lifespandh.ireflexions.home.course.LessonQuizFragment"
+        android:label="LessonQuizFragment" >
+    <argument
+        android:name="parentLesson"
+        android:defaultValue="@null"
+        app:argType="com.lifespandh.ireflexions.models.Lesson"
+        app:nullable="true"/>
+        <argument
+            android:name="parentCourse"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Course"
+            app:nullable="true"/>
+        <argument
+            android:name="parentProgram"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Program"
+            app:nullable="true"/>
+    </fragment>
 </navigation>

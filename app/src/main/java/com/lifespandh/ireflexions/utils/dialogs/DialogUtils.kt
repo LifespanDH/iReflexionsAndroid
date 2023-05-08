@@ -44,6 +44,26 @@ class DialogUtils {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
+    fun showMessageDialog(context:Context, header: String, message:String){
+        val dialog = AlertDialog.Builder(context)
+            .create()
+
+        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.popup_view, null).apply {
+            dialog.setView(this)
+            findViewById<TextView>(R.id.headerTextView)?.text = header
+            findViewById<TextView>(R.id.messageTextView)?.text = message
+            val cancelButton = findViewById<Button>(R.id.cancelButton)
+            cancelButton.setOnClickListener {
+                dialog.dismiss()
+            }
+            findViewById<Button>(R.id.okButton).setOnClickListener {
+
+            }
+        }
+
+        dialog.show()
+    }
+
 //    fun showMessageDialog(context: Context, message: String, postAction: () -> Unit) {
 //        messageDialog = AlertDialog.Builder(context)
 //            .create()

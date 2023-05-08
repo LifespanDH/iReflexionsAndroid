@@ -100,7 +100,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
     override fun onCourseClick(course: Course) {
         val lessonNumber = userProgramProgress?.lessonNumber ?: 0
-        val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentCourse = course, lessonNumber = lessonNumber)
+        val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentProgram= parentProgram ,parentCourse = course, lessonNumber = lessonNumber)
         findNavController().navigate(action)
     }
 

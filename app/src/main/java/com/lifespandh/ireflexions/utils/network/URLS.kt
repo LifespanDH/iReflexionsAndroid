@@ -25,6 +25,9 @@ const val ADD_USER_TO_PROGRAM = BASE_URL + IREF_USERS + "add_user_to_program/"
 
 const val GET_COURSES = BASE_URL + IREF_USERS + "get_courses/"
 const val GET_LESSONS = BASE_URL + IREF_USERS + "get_lessons/"
+const val GET_LESSON_QUESTIONS = BASE_URL + IREF_USERS + "get_lesson_questions/"
+const val SAVE_PROGRAM_PROGRESS = BASE_URL + IREF_USERS + "save_program_progress/"
+
 const val GET_SUPPORT_CONTACTS = BASE_URL + IREF_USERS + "get_support_contacts/"
 const val ADD_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "add_support_contact/"
 const val EDIT_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "edit_support_contact/"

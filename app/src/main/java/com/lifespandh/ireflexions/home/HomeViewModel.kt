@@ -65,6 +65,14 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val lessonsLiveData: LiveData<List<Lesson>>
         get() = _lessonsLiveData
 
+    private val _lessonQuestionsLiveData = MutableLiveData<List<LessonQuestion>>()
+    val lessonQuestionsLiveData: LiveData<List<LessonQuestion>>
+        get() = _lessonQuestionsLiveData
+
+    private val _saveProgressLiveData = MutableLiveData<JsonObject>()
+    val saveProgressLiveData: LiveData<JsonObject>
+        get() = _saveProgressLiveData
+
     private val _userEnrolledLiveData = MutableLiveData<Boolean>()
     val userEnrolledLiveData: LiveData<Boolean>
         get() = _userEnrolledLiveData
@@ -316,6 +324,43 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
         }
     }
 
+    fun getLessonQuestions(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.getLessonQuestions(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("LessonQuestionsApiCall", ""+response)
+                    val data = response.data
+                    _lessonQuestionsLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("LessonQuestionsApiCall", ""+response)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun saveProgramProgress(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.saveProgramProgress(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    Log.d("SaveProgressApiCall", ""+response)
+                    val data = response.data
+                    _saveProgressLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    Log.d("SaveProgressApiCall", ""+response)
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
     fun getResourceContent() {
         viewModelScope.launch {
             val response = homeRepo.getResourceContent()

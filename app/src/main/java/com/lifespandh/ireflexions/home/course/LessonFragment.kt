@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
@@ -13,6 +14,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
+import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -27,6 +29,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
+    private var parentProgram: Program? = null
     private var parentCourse: Course? = null
     private var lessonNumber: Int = 0
     private val args: LessonFragmentArgs by navArgs()
@@ -79,6 +82,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun getBundleValues() {
+        parentProgram = args.parentProgram
         parentCourse = args.parentCourse
         lessonNumber = args.lessonNumber
 
@@ -89,6 +93,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     override fun onLessonClick(lesson: Lesson) {
-
+        val action = LessonFragmentDirections.actionLessonFragmentToLessonContentFragment(parentProgram = parentProgram, parentCourse = parentCourse, parentLesson = lesson)
+        findNavController().navigate(action)
     }
 }

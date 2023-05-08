@@ -108,6 +108,34 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
+    suspend fun getLessonQuestions(requestBody: RequestBody): NetworkResult<List<LessonQuestion>> {
+        var networkResult: NetworkResult<List<LessonQuestion>>? = null
+
+        safeApiCall({
+            apiClient.getLessonQuestions(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun saveProgramProgress(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.saveProgramProgress(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
     suspend fun getSupportContacts(): NetworkResult<List<SupportContact>> {
         var networkResult: NetworkResult<List<SupportContact>>? = null
 

@@ -12,6 +12,7 @@ import com.lifespandh.ireflexions.models.User
 import com.lifespandh.ireflexions.utils.date.getDateAfterDays
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.toDate
+import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.toast
@@ -22,6 +23,8 @@ import java.util.*
 class RegistrationActivity : BaseActivity() {
 
     private val authViewModel by viewModels<AuthViewModel> { viewModelFactory }
+    private val dialogUtils = DialogUtils()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun setObservers() {
         authViewModel.userRegisteredLiveData.observeFreshly(this) {
+            dialogUtils.showMessageDialog(this, "Success", "User Registered")
             finish()
         }
 

@@ -47,10 +47,9 @@ class CoursesAdapter(
         fun bind(course:Course){
             courseTitle.text = course.name
             courseDescription.text = course.description
+
             Glide.with(getContext()).load(course.image).into(courseImage)
-
             courseProgressBar.makeInvisible()
-
             courseItem.setOnClickListener {
                 listener.onCourseClick(course)
             }
