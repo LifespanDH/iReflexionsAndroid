@@ -15,7 +15,7 @@ data class LessonQuestion (
     val questionType: Int,
 
     @SerializedName("answers")
-    val answers: JsonObject,
+    val answers: List<String>,
 
     @SerializedName("correct_answer")
     val correctAnswer: String

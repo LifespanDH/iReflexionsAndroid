@@ -1,14 +1,12 @@
 package com.lifespandh.ireflexions.home.course
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
@@ -25,7 +23,7 @@ import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
-import kotlinx.android.synthetic.main.item_quiz.multipleChoiceContainer
+import kotlinx.android.synthetic.main.item_multiplechoice.view.answersRecyclerView
 import kotlinx.android.synthetic.main.item_quiz.view.customAnswerEditText
 import kotlinx.android.synthetic.main.item_quiz.view.multipleChoiceContainer
 import kotlinx.android.synthetic.main.item_quiz.view.question_text
@@ -78,7 +76,7 @@ class LessonQuizFragment : BaseFragment() {
         val questionType =  when(lessonQuestion.questionType) {
             QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
                 itemQuiz.multipleChoiceContainer.makeVisible()
-                setAnswersRecyclerView(questionNumber)
+                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
             }
             QUESTION_TYPE.TRUE_FALSE.type -> {
                 itemQuiz.trueFalseContainer.makeVisible()
@@ -88,13 +86,18 @@ class LessonQuizFragment : BaseFragment() {
             }
             else -> {
                 itemQuiz.multipleChoiceContainer.makeVisible()
+                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
             }
         }
         itemQuiz.question_text.text = lessonQuestion.question
     }
 
-    private fun setAnswersRecyclerView(questionNumber: Int){
-//        val adapter
+    private fun setAnswersRecyclerView(questionNumber: Int, answers: List<String>) {
+        val quizAnswersAdapter = QuizAnswersAdapter(answers)
+        itemQuiz.multipleChoiceContainer.answersRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = quizAnswersAdapter
+        }
     }
 
     private fun getBundleValues() {
@@ -105,14 +108,15 @@ class LessonQuizFragment : BaseFragment() {
 
     private fun setListeners() {
         itemQuiz.previousButton.setOnClickListener {
-
-            setQuestion(--questionNumber)
+            selectedAnswers[questionNumber] = ""
+            questionNumber -= 1
+            setQuestion(questionNumber)
         }
-        // button click pe question number +- 1
-        // setquestion (questionNumber)
 
         itemQuiz.nextButton.setOnClickListener {
-            setQuestion(++questionNumber)
+            selectedAnswers[questionNumber] = ""
+            questionNumber += 1
+            setQuestion(questionNumber)
         }
     }
 
@@ -134,8 +138,7 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun setViews() {
-
-
+        setQuestion(questionNumber)
     }
 
 }

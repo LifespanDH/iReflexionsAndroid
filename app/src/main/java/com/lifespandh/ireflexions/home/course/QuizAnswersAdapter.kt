@@ -9,8 +9,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 
 class QuizAnswersAdapter(
-    private var options: List<String>,
-    private val listener: CoursesAdapter.OnCourseClick
+    private var options: List<String>
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return QuizAnswersViewHolder(getView(R.layout.item_question, parent))
@@ -38,8 +37,5 @@ class QuizAnswersAdapter(
         fun bind(question: String){
             optionsTV.text = question
         }
-
-
-
     }
 }
