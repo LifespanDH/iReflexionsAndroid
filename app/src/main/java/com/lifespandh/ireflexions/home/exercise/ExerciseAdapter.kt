@@ -11,7 +11,8 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.Exercise
 
 class ExerciseAdapter(
-    private var exercises: List<Exercise>
+    private var exercises: List<Exercise>,
+    private val listener: OnExerciseClick
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ExerciseViewHolder(getView(R.layout.item_exercise, parent))
@@ -41,6 +42,14 @@ class ExerciseAdapter(
             exerciseTitle.text = exercise.name
             exerciseDescription.text = exercise.description
             Glide.with(getContext()).load(exercise.image).into(exerciseImage)
+
+            itemView.setOnClickListener {
+                listener.onExerciseClicked(exercise)
+            }
         }
+    }
+
+    interface OnExerciseClick {
+        fun onExerciseClicked(exercise: Exercise)
     }
 }

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBtnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBtnEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <TextView
+            android:id="@+id/txt_how_are_you"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/how_are_you_doing"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@id/checkinCircleCategory"
+            app:layout_constraintTop_toTopOf="@+id/checkinCircleCategory" />
+
+        <com.thoughttechnology.ttlgraphs.drawings.CheckInCircleView
+            android:id="@+id/checkinCircleCategory"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/txt_how_are_you" />
+
+        <com.thoughttechnology.ttlgraphs.drawings.CheckInCircleView
+            android:id="@+id/checkinCircleTrait"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/txt_how_are_you" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/traitView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/txt_happening"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/checkinCircleTrait" />
+
+        <TextView
+            android:id="@+id/txt_happening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/what_is_happening"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/traitView" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/happeningView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/txt_environment"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/txt_happening" />
+
+
+        <TextView
+            android:id="@+id/txt_environment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/environmental_conditions"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/happeningView" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/environmentalView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_movement"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineBtnEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineBtnStart"
+            app:layout_constraintTop_toBottomOf="@id/txt_environment" />
+
+
+        <TextView
+            android:id="@+id/txt_movement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/movement"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/environmentalView" />
+
+
+        <SeekBar
+            android:id="@+id/seekBar_movement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:max="5"
+            android:min="1"
+            android:paddingStart="0dp"
+            android:progress="2"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/white"
+            android:thumb="@drawable/ic_sliderhandle"
+            android:thumbOffset="1dp"
+            app:layout_constraintEnd_toStartOf="@id/movement_val"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/txt_movement" />
+
+
+        <TextView
+            android:id="@+id/movement_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/icon_title_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/seekBar_movement" />
+
+        <TextView
+            android:id="@+id/txt_intense_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="end"
+            android:paddingTop="5dp"
+            android:text="@string/intense_body_movement"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/seekBar_movement"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_movement" />
+
+        <TextView
+            android:id="@+id/txt_no_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="start"
+            android:paddingTop="5dp"
+            android:text="@string/no_body_movement"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/seekBar_movement"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_movement" />
+
+        <TextView
+            android:id="@+id/txt_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/sleep"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/txt_intense_body" />
+
+        <SeekBar
+            android:id="@+id/seekBar_sleep"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:max="13"
+            android:paddingStart="0dp"
+            android:progress="8"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/white"
+            android:thumb="@drawable/ic_sliderhandle"
+            android:thumbOffset="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/sleep_val"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/txt_sleep" />
+
+        <TextView
+            android:id="@+id/sleep_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/icon_title_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sleep_hour"
+            app:layout_constraintStart_toEndOf="@id/seekBar_sleep"
+            app:layout_constraintTop_toTopOf="@id/seekBar_sleep" />
+
+        <TextView
+            android:id="@+id/txt_sleep_zero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="end"
+            android:paddingTop="5dp"
+            android:text="@string/_0_hours"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/seekBar_sleep"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep" />
+
+        <TextView
+            android:id="@+id/txt_sleep_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="start"
+            android:paddingTop="5dp"
+            android:text="@string/_12_hours"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/seekBar_sleep"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep" />
+
+        <com.thoughttechnology.ttlgraphs.drawings.ButtonShadowView
+            android:id="@+id/btn_sleep_hour"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="20dp"
+            android:scaleX="0.9"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBar_sleep"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineBtnEnd"
+            app:layout_constraintTop_toTopOf="@+id/seekBar_sleep" />
+
+        <SeekBar
+            android:id="@+id/seekBar_sleep_quality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:max="5"
+            android:paddingStart="0dp"
+            android:progress="2"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/white"
+            android:thumb="@drawable/ic_sliderhandle"
+            android:thumbOffset="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/sleep_quality_val"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/txt_sleep_hour" />
+
+        <TextView
+            android:id="@+id/sleep_quality_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/icon_title_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_sleep_quality"
+            app:layout_constraintStart_toEndOf="@id/seekBar_sleep_quality"
+            app:layout_constraintTop_toTopOf="@id/seekBar_sleep_quality" />
+
+        <TextView
+            android:id="@+id/txt_sleep_poor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="start"
+            android:paddingTop="5dp"
+            android:text="@string/poor_quality"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/seekBar_sleep_quality"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep_quality" />
+
+        <TextView
+            android:id="@+id/txt_sleep_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="end"
+            android:paddingTop="5dp"
+            android:text="@string/high_quality"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/seekBar_sleep_quality"
+            app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep_quality" />
+
+        <com.thoughttechnology.ttlgraphs.drawings.ButtonShadowView
+            android:id="@+id/btn_sleep_quality"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:scaleX="0.9"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBar_sleep_quality"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineBtnEnd"
+            app:layout_constraintTop_toTopOf="@+id/seekBar_sleep_quality" />
+
+
+        <TextView
+            android:id="@+id/txt_journal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/journal_entry"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sleep_good" />
+
+        <EditText
+            android:id="@+id/edt_journal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_rectangle"
+            android:backgroundTint="@color/icon_title_color"
+            android:gravity="start|top"
+            android:hint="@string/write_about_your_day_and_or_thoughts_and_feelings_if_you_d_like"
+            android:padding="8dp"
+            android:textColorHint="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/txt_journal" />
+
+        <Button
+            android:id="@+id/btn_discard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/green_short_button"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:scaleY="0.90"
+            android:text="@string/discard"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/edt_journal" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/purple_short_button"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:scaleY="0.90"
+            android:text="@string/save"
+            android:textAllCaps="true"
+            android:textColor="@color/icon_title_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@+id/edt_journal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

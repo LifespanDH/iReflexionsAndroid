@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.34" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/title_text_style"
+            android:text="@string/text_crisis_lines"
+            android:layout_marginTop="16dp"
+
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/close_dialog_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/title_text_style"
+            android:text="@string/x_sign"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
+
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/crisis_text_line_description_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
+            android:text="@string/text_crisis_lines_description"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/textView3"
+            />
+
+        <TextView
+            android:id="@+id/crisis_line1_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
+            android:text="@string/crisis_text_line"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/crisis_text_line_description_textView"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line1_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/website"
+            android:textColor="@color/website_color"
+            android:textSize="12sp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:clickable="true"
+            android:focusable="true"
+
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_30"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line1_title"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line1_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="end"
+            android:text="Text &quot;Home&quot; to 741741"
+            android:textColor="#D46D6A"
+            android:textColorLink="#D46D6A"
+            android:textSize="12sp"
+
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_30"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line1_title" />
+
+        <TextView
+            android:id="@+id/crisis_line2_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
+            android:text="@string/youth_line"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/crisis_text_line1_website"
+            />
+
+        <TextView
+            android:id="@+id/crisis_line2_ages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="#436695"
+            android:textSize="12sp"
+            android:text="@string/ages_11_21"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_30"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/crisis_text_line1_website"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line2_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/website"
+            android:textColor="@color/website_color"
+            android:textSize="12sp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_30"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line2_title"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line2_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textColor="#D46D6A"
+            android:textSize="12sp"
+            android:textColorLink="#D46D6A"
+            android:linksClickable="true"
+
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:gravity="end"
+
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_30"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line2_title"
+            android:text="Text &quot;teen2teen&quot; to 839863"
+            />
+
+        <TextView
+            android:id="@+id/crisis_line3_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
+            android:text="@string/the_trevor_project"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/crisis_text_line2_website"
+            />
+
+        <TextView
+            android:id="@+id/crisis_line3_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
+            android:text="@string/lgbtqia"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_30"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@id/crisis_text_line2_website"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line3_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/website"
+            android:textColor="@color/website_color"
+            android:textSize="12sp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:clickable="true"
+            android:focusable="true"
+
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guideline_vertical_30"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line3_title"
+            />
+
+        <TextView
+            android:id="@+id/crisis_text_line3_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textColor="#D46D6A"
+            android:textSize="12sp"
+            android:textColorLink="#D46D6A"
+            android:linksClickable="true"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:gravity="end"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_30"
+            app:layout_constraintTop_toBottomOf="@id/crisis_line3_title"
+            android:text="Text &quot;START&quot; to 678678"
+            />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

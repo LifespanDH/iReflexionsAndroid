@@ -1,5 +1,7 @@
 package com.lifespandh.ireflexions.onboarding
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -7,6 +9,7 @@ import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
+import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.models.SurveyQuestion
 import com.lifespandh.ireflexions.models.SurveyResponse
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
@@ -111,12 +114,16 @@ class SurveyActivity : BaseActivity() {
         for (response in surveyQuestionResponsesMap) {
             val question = response.key
             val value = response.value
-
             val surveyResponse = SurveyResponse(question, value)
             responses.add(surveyResponse)
         }
 
 //        val requestBody = createJsonRequestBody(responses)
         onboardingViewModel.saveSurveyQuestions(responses)
+        startActivity(HomeActivity.newInstance(this))
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, SurveyActivity::class.java)
     }
 }

@@ -4,6 +4,7 @@ import com.lifespandh.ireflexions.BuildConfig
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.Token
 import com.lifespandh.ireflexions.utils.jwt.TokenManager
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
@@ -18,11 +19,10 @@ class TokenAuthenticator @Inject constructor(
 
     override fun authenticate(route: Route?, response: Response): Request? {
         val token = runBlocking {
-            tokenManager.getToken().first()
+            tokenManager.getRefreshToken().first()
         }
         return runBlocking {
             val newToken = getNewToken(token)
-
             if (newToken == null || newToken.token.isNullOrEmpty()) {
                 tokenManager.deleteRefreshToken()
                 tokenManager.deleteToken()
@@ -31,7 +31,7 @@ class TokenAuthenticator @Inject constructor(
                 tokenManager.saveToken(it.token)
                 tokenManager.saveRefreshToken(it.refresh)
             }
-            response.request().newBuilder()
+            response.request.newBuilder()
                 .header("Authorization", "${newToken?.token}")
                 .build()
         }
@@ -60,6 +60,7 @@ class TokenAuthenticator @Inject constructor(
             service.refreshToken(requestBody)
         }, {
             token = it.data
+            logE("called sus ${it.data}")
         }, {
             token = null
         })

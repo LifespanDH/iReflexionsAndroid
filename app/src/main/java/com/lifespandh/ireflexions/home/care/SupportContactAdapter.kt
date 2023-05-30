@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.exercise.ExerciseAdapter
-import com.lifespandh.ireflexions.models.Exercise
 import com.lifespandh.ireflexions.models.SupportContact
-import kotlinx.android.synthetic.main.care_center_contact_item.view.*
 
 class SupportContactAdapter(
     private var supportContacts: List<SupportContact>,
@@ -50,11 +47,11 @@ class SupportContactAdapter(
             Glide.with(getContext()).load(supportContact.image).into(supportContactImage)
 
             callContactButton.setOnClickListener{
-                listener.callContactClicked()
+                listener.callContactClicked(supportContact.phoneNumber)
             }
 
             textContactButton.setOnClickListener{
-                listener.textContactClicked()
+                listener.textContactClicked(supportContact.phoneNumber)
             }
 
             moreActionsImageView.setOnClickListener {
@@ -64,8 +61,8 @@ class SupportContactAdapter(
     }
 
     interface OnSupportContactClicked {
-        fun callContactClicked()
-        fun textContactClicked()
+        fun callContactClicked(phoneNumber: String)
+        fun textContactClicked(phoneNumber: String)
         fun moreActionsClicked()
     }
 }

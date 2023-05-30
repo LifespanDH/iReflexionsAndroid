@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.utils.network
 
 import com.lifespandh.ireflexions.utils.jwt.TokenManager
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -15,7 +16,8 @@ class TokenInterceptor @Inject constructor(
             tokenManager.getToken().first()
         }
         val request = chain.request().newBuilder()
-        request.addHeader("Authorization", "$token")
+        if (token?.isNullOrEmpty()?.not() == true)
+            request.addHeader("HTTP-Authorization", "Bearer $token")
         return chain.proceed(request.build())
     }
 }

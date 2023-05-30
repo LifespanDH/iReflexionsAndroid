@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_menu"
+        android:title="@string/hand_contact_state"
+        android:icon="@drawable/drawer_menu"
+        app:showAsAction="always" />
+
+    <!--<item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/action_share"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_preview"
+        android:icon="@drawable/ic_preview"
+        android:title="@string/title_preview"
+        android:visible="false"
+        app:showAsAction="always" />-->
+</menu>

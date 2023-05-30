@@ -13,6 +13,8 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.home.HomeFragment
+import com.lifespandh.ireflexions.onboarding.SurveyActivity
+import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -25,6 +27,7 @@ class LoginActivity : BaseActivity() {
 
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
+    private val dialogUtils = DialogUtils()
     private lateinit var signUpRequest: BeginSignInRequest
     private val LOGIN_REQUEST_CODE = 12
     private val authViewModel by viewModels<AuthViewModel> { viewModelFactory }
@@ -92,11 +95,11 @@ class LoginActivity : BaseActivity() {
                                     null, 0, 0, 0
                                 )
                             } catch (e: IntentSender.SendIntentException) {
-
+                                logE("called $e")
                             }
                         }
                         .addOnFailureListener(this) { e ->
-
+                            logE("called $e")
                         }
                 }
         }
@@ -125,12 +128,20 @@ class LoginActivity : BaseActivity() {
         authViewModel.tokenLiveData.observeFreshly(this) {
             tokenViewModel.saveToken(it.token)
             tokenViewModel.saveRefreshToken(it.refresh)
+            logE("called tokebn it ${it.refresh}")
         }
 
         tokenViewModel.token.observeFreshly(this) {
             if (it != null) {
                 sharedPrefs.isLoggedIn = true
+                dialogUtils.showMessageDialog(this, "SUCCESS", "USER LOGGED IN")
                 startActivity(HomeActivity.newInstance(this))
+
+//                if(newuser) {
+//                    startActivity(SurveyActivity.newInstance(this))
+//                } else {
+//                    startActivity(HomeActivity.newInstance(this))
+//                }
             }
         }
 

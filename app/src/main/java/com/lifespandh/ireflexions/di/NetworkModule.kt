@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -13,7 +14,6 @@ import com.lifespandh.ireflexions.utils.jwt.TokenManager
 import com.lifespandh.ireflexions.utils.network.RedirectInterceptor
 import com.lifespandh.ireflexions.utils.network.TokenAuthenticator
 import com.lifespandh.ireflexions.utils.network.TokenInterceptor
-import com.lifespandh.ireflexions.utils.sharedPrefs.SharedPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,8 +38,6 @@ class NetworkModule {
     fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
         TokenManager(context)
 
-
-
     @Provides
     @Singleton
     fun getRetrofit(
@@ -56,13 +54,13 @@ class NetworkModule {
     @Provides
     @Singleton
     fun getOkHttpClient(
-        interceptor: Interceptor,
         tokenInterceptor: TokenInterceptor,
-        tokenAuthenticator: TokenAuthenticator
+        tokenAuthenticator: TokenAuthenticator,
+        redirectInterceptor: RedirectInterceptor
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(RedirectInterceptor())
+//            .addInterceptor(interceptor)
+            .addInterceptor(redirectInterceptor)
             .addInterceptor(tokenInterceptor)
             .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -79,6 +77,10 @@ class NetworkModule {
     @Provides
     fun provideTokenInterceptor(tokenManager: TokenManager): TokenInterceptor =
         TokenInterceptor(tokenManager)
+
+    @Singleton
+    @Provides
+    fun providesRedirectInterceptor(tokenManager: TokenManager): RedirectInterceptor = RedirectInterceptor(tokenManager)
 
     @Singleton
     @Provides

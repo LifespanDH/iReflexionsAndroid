@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courseItemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    tools:background="@color/card4_start">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <TextView
+        android:id="@+id/tvCourseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="THE BASICS"
+        android:textColor="@color/icon_title_color"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCourseImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/program_copingwithcovidicon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ProgressBar
+        android:id="@+id/courseProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/tvCourseDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
+
+    <TextView
+        android:id="@+id/tvCourseDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Learn about preparation techniques, anchoring, practice tests and more"
+        android:textColor="@color/icon_title_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivCourseImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@id/courseProgressBar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

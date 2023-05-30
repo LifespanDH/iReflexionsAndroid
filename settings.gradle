@@ -12,5 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "IReflexions"
+include ':ttlgraphs'
 include ':app'
+rootProject.name = "IReflexions"
+include ':unityLibraryDebug'

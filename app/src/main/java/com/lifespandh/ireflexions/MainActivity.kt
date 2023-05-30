@@ -11,6 +11,7 @@ import com.lifespandh.ireflexions.utils.jwt.isJWTExpired
 import com.lifespandh.ireflexions.utils.livedata.CombinedLiveData
 import com.lifespandh.ireflexions.utils.livedata.combineWith
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.coroutines.flow.first
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity() {
         }.observe(this) {}
 
         authViewModel.tokenLiveData.observeFreshly(this) {
+            logE("called rref $it")
             tokenViewModel.saveToken(it.token)
             tokenViewModel.saveRefreshToken(it.refresh)
             sharedPrefs.isLoggedIn = true
