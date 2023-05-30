@@ -21,6 +21,7 @@ import com.lifespandh.ireflexions.utils.network.COURSE_PROGRESS
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.PROGRAM_PROGRESS
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.fragment_course_list.*
 import kotlinx.android.synthetic.main.program_item.view.img_program
 import kotlinx.android.synthetic.main.program_item.view.programProgressBar
@@ -34,7 +35,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
     private var currentPrograms: List<Program>? = null
     private val dialogUtils = DialogUtils()
-    private lateinit var userProgramProgress: UserProgramProgress
+    private var userProgramProgress: UserProgramProgress? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,7 +135,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
             .error(R.drawable.program_copingwithcovidicon)
             .into(currentProgramItem.img_program)
 
-        courseListProgramAdapter.setCurrentProgram(currentPrograms?.first() ?: null)
+        courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())
     }
 
     private fun updateProgramProgress() {
@@ -143,16 +144,18 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
 
     override fun onItemClick(program: Program) {
-
-        if (program.id == currentPrograms?.get(0)?.id) {
-
-            val courseprogress = userProgramProgress?.courseProgress
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
-            findNavController().navigate(action)
-        }
-        else
-        {
-            //toast
+        if (currentPrograms?.isNullOrEmpty() == true) {
+            // Show program registration dialog here
+            toast("Show registration dialog here")
+        } else {
+            val currentProgram = currentPrograms?.first()!!
+            if (currentProgram.id == program.id) {
+                // User is registered in this program, open course page
+                val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
+                findNavController().navigate(action)
+            } else {
+                toast("You can register to only one program at a time")
+            }
         }
     }
 

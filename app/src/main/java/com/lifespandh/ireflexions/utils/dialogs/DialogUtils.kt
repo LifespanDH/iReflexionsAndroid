@@ -48,7 +48,7 @@ class DialogUtils {
         val dialog = AlertDialog.Builder(context)
             .create()
 
-        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.popup_view, null).apply {
+        LayoutInflater.from(context).inflate(R.layout.popup_view, null).apply {
             dialog.setView(this)
             findViewById<TextView>(R.id.headerTextView)?.text = header
             findViewById<TextView>(R.id.messageTextView)?.text = message
