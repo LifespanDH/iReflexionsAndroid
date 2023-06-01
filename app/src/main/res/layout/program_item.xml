@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardLayout"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +116,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:paddingLeft="5dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guidelineImageBottom"
             app:layout_constraintEnd_toEndOf="parent"

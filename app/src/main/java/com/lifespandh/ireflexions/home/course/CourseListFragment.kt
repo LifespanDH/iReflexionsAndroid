@@ -128,7 +128,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
 
         Glide.with(this)
-            .load(currentProgram?.img)
+            .load(currentProgram?.image)
             .centerCrop()
             .placeholder(R.drawable.program_copingwithcovidicon)
             .error(R.drawable.program_copingwithcovidicon)
