@@ -146,7 +146,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     }
 
     override fun onPermissionGranted() {
-
+        addContactCardView.callOnClick()
     }
 
     override fun onPermissionDenied() {
