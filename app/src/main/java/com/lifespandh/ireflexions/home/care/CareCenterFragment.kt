@@ -157,7 +157,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         ).show(requireActivity().supportFragmentManager, null)
     }
 
-    private fun openMessageAppWithPhoneNumber(phoneNumber: String, messageText:String = "``") {
+    private fun openMessageAppWithPhoneNumber(phoneNumber: String, messageText:String = "") {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = getMessageUri(phoneNumber)
             putExtra("sms_body", messageText)

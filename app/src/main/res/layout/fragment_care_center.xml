@@ -126,8 +126,8 @@
             <include
                 android:id="@+id/contactsLoader"
                 layout="@layout/loader"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
