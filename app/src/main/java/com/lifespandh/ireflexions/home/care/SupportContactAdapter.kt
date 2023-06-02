@@ -39,6 +39,12 @@ class SupportContactAdapter(
         notifyItemInserted(this.supportContacts.size - 1)
     }
 
+    fun deleteContact(supportContact: SupportContact) {
+        val index = this.supportContacts.indexOf(supportContact)
+        this.supportContacts.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     inner class SupportContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val supportContactImage: ImageView = itemView.findViewById(R.id.contact_icon_imageView)
@@ -60,7 +66,7 @@ class SupportContactAdapter(
             }
 
             moreActionsImageView.setOnClickListener {
-                listener.moreActionsClicked()
+                listener.moreActionsClicked(it, supportContact)
             }
         }
     }
@@ -68,6 +74,6 @@ class SupportContactAdapter(
     interface OnSupportContactClicked {
         fun callContactClicked(phoneNumber: String)
         fun textContactClicked(phoneNumber: String)
-        fun moreActionsClicked()
+        fun moreActionsClicked(view: View, supportContact: SupportContact)
     }
 }

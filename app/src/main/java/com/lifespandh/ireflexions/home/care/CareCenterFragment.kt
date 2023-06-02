@@ -4,10 +4,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,11 +20,12 @@ import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.LiveSubject
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.phone.getMessageUri
-import io.reactivex.rxjava3.core.Observer
+import com.lifespandh.ireflexions.utils.ui.toast
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
 import kotlinx.android.synthetic.main.care_center_therapist_tab.*
@@ -60,6 +62,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         setViews()
         setListeners()
         setObservers()
+        setSubscribers()
     }
 
     private fun setViews() {
@@ -129,6 +132,12 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             supportContactAdapter.setList(it)
         }
 
+        homeViewModel.supportContactDeletedLiveData.observeFreshly(viewLifecycleOwner) {
+            toast("Contact Deleted")
+        }
+    }
+
+    private fun setSubscribers() {
         val supportContactDisposable = LiveSubject.supportContactAdded.observeOn(Schedulers.io()).subscribe({
             supportContactAdapter.addToList(it)
         }, {
@@ -157,6 +166,35 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         startActivity(intent)
     }
 
+    private fun showMoreActionsMenuPopup(view: View, supportContact: SupportContact) {
+        val popup = PopupMenu(requireContext(), view)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.support_contact_menu, popup.menu)
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+            if (it?.itemId == R.id.action_edit_support_contact) {
+                if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(supportContact, true)
+                    findNavController().navigate(action)
+                } else {
+                    permissionLauncher.launch(android.Manifest.permission.READ_CONTACTS, {
+                        val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(supportContact, true)
+                        findNavController().navigate(action)
+                    })
+                }
+                return@OnMenuItemClickListener true
+            }
+            if (it?.itemId == R.id.action_delete_support_contact) {
+                // add api call to delete contact
+                val requestBody = createJsonRequestBody(ID to supportContact.id)
+                homeViewModel.deleteSupportContact(requestBody)
+                supportContactAdapter.deleteContact(supportContact)
+                return@OnMenuItemClickListener true
+            }
+            return@OnMenuItemClickListener false
+        })
+        popup.show()
+    }
+
     companion object {
         fun newInstance() = CareCenterFragment()
     }
@@ -182,8 +220,8 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
         openMessageAppWithPhoneNumber(phoneNumber)
     }
 
-    override fun moreActionsClicked() {
-//        TODO("Not yet implemented")
+    override fun moreActionsClicked(view: View, supportContact: SupportContact) {
+        showMoreActionsMenuPopup(view, supportContact)
     }
 
 }
