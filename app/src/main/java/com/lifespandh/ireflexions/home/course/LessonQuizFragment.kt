@@ -73,7 +73,7 @@ class LessonQuizFragment : BaseFragment() {
         itemQuiz.customAnswerEditText.makeGone()
 
 
-        val questionType =  when(lessonQuestion.questionType) {
+        when(lessonQuestion.questionType) {
             QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
                 itemQuiz.multipleChoiceContainer.makeVisible()
                 setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
