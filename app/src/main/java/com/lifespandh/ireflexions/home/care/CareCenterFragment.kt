@@ -22,6 +22,7 @@ import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.phone.getMessageUri
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
@@ -35,6 +36,8 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val supportContactAdapter by lazy { SupportContactAdapter(mutableListOf(), this) }
     private val permissionLauncher =  PermissionLauncher(this, this)
+
+    private val compositeDisposable by lazy { CompositeDisposable() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,11 +129,13 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             supportContactAdapter.setList(it)
         }
 
-        LiveSubject.supportContactAdded.observeOn(Schedulers.io()).subscribe({
+        val supportContactDisposable = LiveSubject.supportContactAdded.observeOn(Schedulers.io()).subscribe({
             supportContactAdapter.addToList(it)
         }, {
             logE("error $it")
         })
+
+        compositeDisposable.add(supportContactDisposable)
     }
 
     private fun showDialog(title: String, message: String) {
@@ -154,6 +159,11 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
     companion object {
         fun newInstance() = CareCenterFragment()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     override fun onPermissionGranted() {
