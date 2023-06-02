@@ -24,6 +24,8 @@ import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.phone.getMessageUri
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -58,6 +60,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     }
 
     private fun init() {
+        contactsLoader.makeVisible()
         homeViewModel.getSupportContacts()
         setViews()
         setListeners()
@@ -129,6 +132,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     private fun setObservers() {
         homeViewModel.supportContactsLiveData.observeFreshly(viewLifecycleOwner) {
             logE("called here $it")
+            contactsLoader.makeGone()
             supportContactAdapter.setList(it)
         }
 
