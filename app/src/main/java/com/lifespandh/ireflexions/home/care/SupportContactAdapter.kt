@@ -12,7 +12,7 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.SupportContact
 
 class SupportContactAdapter(
-    private var supportContacts: List<SupportContact>,
+    private var supportContacts: MutableList<SupportContact>,
     private val listener: OnSupportContactClicked
 ): BaseRecyclerViewAdapter() {
 
@@ -30,8 +30,13 @@ class SupportContactAdapter(
     }
 
     fun setList(list: List<SupportContact>) {
-        this.supportContacts = list
+        this.supportContacts = list.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addToList(supportContact: SupportContact) {
+        this.supportContacts.add(supportContact)
+        notifyItemInserted(this.supportContacts.size - 1)
     }
 
     inner class SupportContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

@@ -38,6 +38,7 @@ import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
+import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -165,9 +166,6 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         }
 
         contactIconImage.setOnClickListener { view ->
-//            if (inEditMode) {
-//                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
-//            }
             showPhotoActionMenuPopup(view)
         }
 
@@ -192,6 +190,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private fun setObservers(){
         homeViewModel.supportContactAddedLiveData.observeFreshly(this) {
             dialog?.dismiss()
+            LiveSubject.supportContactAdded.onNext(it)
             toast("Contact Added")
         }
 
@@ -288,10 +287,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     override fun contactPicked(name: String?, number: String?, image: String?) {
-
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
-
-        if(bitmap!=null) {
+        if (bitmap != null) {
             contactIconImage.setImageBitmap(bitmap)
         }
         nameEditText.setText(name)

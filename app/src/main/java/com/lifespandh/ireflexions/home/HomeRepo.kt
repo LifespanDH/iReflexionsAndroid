@@ -150,8 +150,8 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
-    suspend fun addSupportContact(supportContact: SupportContact): NetworkResult<JsonObject> {
-        var networkResult: NetworkResult<JsonObject>? = null
+    suspend fun addSupportContact(supportContact: SupportContact): NetworkResult<SupportContact> {
+        var networkResult: NetworkResult<SupportContact>? = null
 
         safeApiCall({
             apiClient.addSupportContact(supportContact)

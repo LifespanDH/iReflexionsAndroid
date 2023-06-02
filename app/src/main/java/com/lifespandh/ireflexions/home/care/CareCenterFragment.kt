@@ -15,10 +15,15 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.phone.getMessageUri
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
 import kotlinx.android.synthetic.main.care_center_therapist_tab.*
 import kotlinx.android.synthetic.main.fragment_care_center.*
@@ -28,7 +33,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     SupportContactAdapter.OnSupportContactClicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
-    private val supportContactAdapter by lazy { SupportContactAdapter(listOf(), this) }
+    private val supportContactAdapter by lazy { SupportContactAdapter(mutableListOf(), this) }
     private val permissionLauncher =  PermissionLauncher(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,6 +125,12 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             logE("called here $it")
             supportContactAdapter.setList(it)
         }
+
+        LiveSubject.supportContactAdded.observeOn(Schedulers.io()).subscribe({
+            supportContactAdapter.addToList(it)
+        }, {
+            logE("error $it")
+        })
     }
 
     private fun showDialog(title: String, message: String) {

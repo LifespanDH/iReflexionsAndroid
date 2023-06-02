@@ -64,7 +64,7 @@ interface ApiClient {
     suspend fun getSupportContacts(): List<SupportContact>
 
     @POST(ADD_SUPPORT_CONTACT)
-    suspend fun addSupportContact(@Body supportContact: SupportContact): JsonObject
+    suspend fun addSupportContact(@Body supportContact: SupportContact): SupportContact
 
     @POST(EDIT_SUPPORT_CONTACT)
     suspend fun editSupportContact(@Body supportContact: SupportContact): JsonObject
