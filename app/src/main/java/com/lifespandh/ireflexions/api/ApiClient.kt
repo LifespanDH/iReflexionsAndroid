@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.*
-import com.lifespandh.ireflexios.utils.network.*
+import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -17,6 +17,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.SupportContact
+import com.lifespandh.ireflexions.utils.NEED_HELP_TEXT
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -221,7 +222,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     }
 
     override fun textContactClicked(phoneNumber: String) {
-        openMessageAppWithPhoneNumber(phoneNumber)
+        openMessageAppWithPhoneNumber(phoneNumber, messageText = NEED_HELP_TEXT)
     }
 
     override fun moreActionsClicked(view: View, supportContact: SupportContact) {
