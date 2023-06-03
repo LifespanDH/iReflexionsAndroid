@@ -17,6 +17,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.dialogs.UserNotLoggedInDialog
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.SupportContact
+import com.lifespandh.ireflexions.utils.MAX_SUPPORT_CONTACTS_ALLOWED
 import com.lifespandh.ireflexions.utils.NEED_HELP_TEXT
 import com.lifespandh.ireflexions.utils.launchers.PermissionLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
@@ -78,6 +79,10 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
     private fun setListeners() {
         addContactCardView.setOnClickListener {
+            if (!canAddSupportContact()) {
+                toast("Cannot add more than $MAX_SUPPORT_CONTACTS_ALLOWED contacts")
+                return@setOnClickListener
+            }
             if (sharedPrefs.isLoggedIn) {
                 if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
                     val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, true)
@@ -132,7 +137,6 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
     private fun setObservers() {
         homeViewModel.supportContactsLiveData.observeFreshly(viewLifecycleOwner) {
-            logE("called here $it")
             contactsLoader.makeGone()
             supportContactAdapter.setList(it)
         }
@@ -198,6 +202,10 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             return@OnMenuItemClickListener false
         })
         popup.show()
+    }
+
+    private fun canAddSupportContact(): Boolean {
+        return supportContactAdapter.itemCount < MAX_SUPPORT_CONTACTS_ALLOWED
     }
 
     companion object {
