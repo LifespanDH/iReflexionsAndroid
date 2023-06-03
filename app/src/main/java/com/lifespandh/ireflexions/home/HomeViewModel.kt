@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.logs.logD
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -136,6 +137,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                     _supportContactAddedLiveData.value = data
                 }
                 is NetworkResult.Error -> {
+                    logE("called response $response")
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }

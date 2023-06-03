@@ -203,6 +203,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             toast("Contact deleted")
             dialog?.dismiss()
         }
+
+        homeViewModel.errorLiveData.observeFreshly(this) {
+            toast(it)
+            dialog?.dismiss()
+        }
     }
 
     private fun showDeleteContactConfirmationDialog(
