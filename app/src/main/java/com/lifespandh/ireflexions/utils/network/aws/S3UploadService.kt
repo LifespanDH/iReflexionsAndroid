@@ -41,7 +41,7 @@ class S3UploadService(
         }, {
             LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Error(it))
         }).setOnProgress {
-            LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(it.fractionCompleted.toInt()))
+            LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(it.fractionCompleted))
         }
 
     //        try {
