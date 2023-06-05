@@ -19,7 +19,9 @@ import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
+import com.lifespandh.ireflexions.utils.network.COURSE_NUMBER
 import com.lifespandh.ireflexions.utils.network.LESSON_ID
+import com.lifespandh.ireflexions.utils.network.LESSON_NUMBER
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
@@ -135,7 +137,7 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun saveProgress() {
-        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id , LESSON_ID to lesson?.id, PROGRAM_ID to parentProgram?.id)
+        val requestBody = createJsonRequestBody(COURSE_NUMBER to parentCourse?.id , LESSON_NUMBER to lesson?.id, PROGRAM_ID to parentProgram?.id)
         homeViewModel.saveProgramProgress(requestBody)
     }
 
