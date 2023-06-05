@@ -43,6 +43,7 @@ class S3UploadService(
         }).setOnProgress {
             LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.FileStatus(it.fractionCompleted.toInt()))
         }
+
     //        try {
 //            val result = upload.result()
 //            Log.i("MyAmplifyApp", "Successfully uploaded: ${result.key}")

@@ -131,10 +131,15 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     // Amplify core dependency
-    implementation 'com.amplifyframework:core:2.5.0'
+
+    // Amplify core dependency
+    implementation 'com.amplifyframework:core:2.8.4'
 
     implementation 'com.amplifyframework:aws-storage-s3:2.5.0'
     implementation 'com.amplifyframework:aws-auth-cognito:2.5.0'
+
+//    // Support for Java 8 features
+//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
