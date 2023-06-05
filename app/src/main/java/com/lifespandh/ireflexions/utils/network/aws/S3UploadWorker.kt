@@ -1,17 +1,22 @@
 package com.lifespandh.ireflexions.utils.network.aws
 
 import android.content.Context
+import android.util.Log
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.StorageException
 import com.lifespandh.ireflexions.utils.file.createNewFile
 import com.lifespandh.ireflexions.utils.image.deserializeFromJson
 import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.network.UploadFileStatus
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 
-class S3UploadWorker(private val context: Context, workerParameters: WorkerParameters): Worker(context, workerParameters) {
-    override fun doWork(): Result {
+class S3UploadWorker(private val context: Context, workerParameters: WorkerParameters): CoroutineWorker(context, workerParameters) {
+    override suspend fun doWork(): Result {
         val data = inputData.getString(IMAGE_BITMAP_STRING)
         val bitmap = deserializeFromJson(data)
 

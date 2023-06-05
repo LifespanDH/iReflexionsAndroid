@@ -34,8 +34,11 @@ import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.logs.logV
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.LiveSubject
+import com.lifespandh.ireflexions.utils.network.UploadFileStatus
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
@@ -89,6 +92,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         setupViews()
         setListeners()
         setObservers()
+        setSubscribers()
     }
 
     private fun initViews(){
@@ -204,6 +208,29 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             toast(it)
             dialog?.dismiss()
         }
+    }
+
+    private fun setSubscribers() {
+        LiveSubject.FILE_UPLOAD_FILE.subscribe({
+            when(it) {
+                is UploadFileStatus.Complete -> {
+                    logV("Image uploaded successfully")
+                }
+                is UploadFileStatus.Error -> {
+                    toast("There was some issue in uploading the image")
+                    // Remove image from the imageView here, and return to default
+                }
+                is UploadFileStatus.FileStatus -> {
+                    logE("Current progress is $it")
+                    // Change progress of the progress bar here
+                }
+                is UploadFileStatus.Start -> {
+                    logV("Image upload started")
+                }
+            }
+        }, {
+            logE("Image upload error $it")
+        })
     }
 
     private fun showDeleteContactConfirmationDialog(
