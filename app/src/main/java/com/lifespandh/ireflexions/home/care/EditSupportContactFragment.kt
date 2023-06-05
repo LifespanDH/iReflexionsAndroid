@@ -19,7 +19,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
@@ -30,16 +29,13 @@ import com.lifespandh.ireflexions.models.MembershipLevel
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.image.getBitmapFromUriPath
-import com.lifespandh.ireflexions.utils.image.getImageUri
 import com.lifespandh.ireflexions.utils.image.serializeToJson
 import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.ID
 import com.lifespandh.ireflexions.utils.network.LiveSubject
-import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
