@@ -57,7 +57,8 @@ class DialogUtils {
                 dialog.dismiss()
             }
             findViewById<Button>(R.id.okButton).setOnClickListener {
-                    onOkClick()
+                dialog.dismiss()
+                onOkClick()
             }
         }
 

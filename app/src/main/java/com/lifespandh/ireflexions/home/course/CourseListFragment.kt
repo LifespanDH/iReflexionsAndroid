@@ -98,7 +98,9 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
             if(it) {
-                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully") {
+
+                }
             }
         }
 
@@ -119,17 +121,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         val currentProgram = currentPrograms?.get(0)
         browseProgramsTV.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
-//        currentProgramItem.txt_enroll.visibility = View.INVISIBLE
-         currentProgramTitle.text = currentProgram?.name
-
-
-//        Glide.with(this)
-//            .load(currentProgram?.img)
-//            .centerCrop()
-//            .placeholder(R.drawable.program_copingwithcovidicon)
-//            .error(R.drawable.program_copingwithcovidicon)
-//            .into(currentProgramItem.img_program)
-
+        currentProgramTitle.text = currentProgram?.name
         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())
     }
 
