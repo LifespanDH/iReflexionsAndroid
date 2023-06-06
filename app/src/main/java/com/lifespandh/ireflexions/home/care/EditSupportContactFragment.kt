@@ -137,7 +137,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_body_text_entry)
                 )
             } else {
-
+                // Remove the below line after fixing URL from AWS
+                imageUrl = "https://www.testlink.com"
                 val name = supportContact?.name ?: nameEditText.trimString()
                 val phoneNumber = supportContact?.phoneNumber ?: phoneEditText.trimString()
                 val image = supportContact?.image ?: imageUrl
@@ -145,9 +146,10 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 /**
                  * Need to add check for image too after AWS code
                  */
-                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty()) {
+                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty() || image.isNullOrEmpty()) {
                     toast("Incomplete Information")
                 }
+
                 if (supportContact == null) {
                     val supportContact = SupportContact(name = name, phoneNumber = phoneNumber, image = image)
                     homeViewModel.addSupportContact(supportContact)
@@ -215,6 +217,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             when(it) {
                 is UploadFileStatus.Complete -> {
                     logV("Image uploaded successfully ${it.s3Url}")
+                    imageUrl = it.s3Url
                 }
                 is UploadFileStatus.Error -> {
                     toast("There was some issue in uploading the image")
@@ -273,6 +276,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
+        imageUrl = ""
         val bitmapString = serializeToJson(compressedBitmap)
         val builder = Data.Builder()
         builder.putString(S3UploadWorker.IMAGE_BITMAP_STRING, bitmapString)

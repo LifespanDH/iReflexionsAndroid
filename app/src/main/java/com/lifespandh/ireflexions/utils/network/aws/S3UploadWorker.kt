@@ -27,7 +27,7 @@ class S3UploadWorker(private val context: Context, workerParameters: WorkerParam
     }
 
     private fun uploadFile(extension: String, file: File) {
-        val filename = "${System.currentTimeMillis()}-${getFileName(context, file.toUri())}.$extension"
+        val filename = "${System.currentTimeMillis()}-${getFileName(context, file.toUri())}"
         val upload = Amplify.Storage.uploadFile(filename, file, {
             LiveSubject.FILE_UPLOAD_FILE.onNext(UploadFileStatus.Complete(it.key))
         }, {

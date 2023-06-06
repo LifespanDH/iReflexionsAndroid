@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.SupportContact
+import com.lifespandh.ireflexions.utils.logs.logE
 
 class SupportContactAdapter(
     private var supportContacts: MutableList<SupportContact>,
