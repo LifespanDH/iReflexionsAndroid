@@ -85,7 +85,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <TextView
+    <EditText
         android:id="@+id/dateOfBirth"
         android:textSize="20dp"
         android:fontFamily="@font/montserrat"
@@ -95,7 +95,8 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Date of birth"
-        android:inputType="date"
+        android:focusable="false"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumberLayout" />

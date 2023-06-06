@@ -31,7 +31,6 @@ class RegistrationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
-
         init()
     }
 
@@ -47,7 +46,7 @@ class RegistrationActivity : BaseActivity() {
                     currentDate = Calendar.getInstance(),
                     maxDate = getDateAfterDays(1)
                 ) { _, date ->
-                    this@RegistrationActivity.dateOfBirth.text = getDateInFormat(date.timeInMillis)
+                    this@RegistrationActivity.dateOfBirth.setText(getDateInFormat(date.timeInMillis))
                 }
             }
         }
