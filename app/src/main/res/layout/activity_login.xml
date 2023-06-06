@@ -23,14 +23,14 @@
         app:layout_constraintTop_toBottomOf="@id/emailtext" />
 
     <TextView
-        android:id="@+id/OR"
+        android:id="@+id/orSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="OR"
+        android:fontFamily="@font/montserrat"
+        android:text="SIGN UP WITH"
         android:textColor="@color/grey"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/termsandconditions"></TextView>
@@ -111,28 +111,40 @@
 
         />
 
-    <com.google.android.gms.common.SignInButton
+    <ImageButton
         android:id="@+id/signInButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:elevation="0dp"
+        android:src="@drawable/googlelogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/OR" />
+        app:layout_constraintTop_toBottomOf="@id/orSignUp" />
 
-
-    <Button
-        android:id="@+id/skip_button"
+    <TextView
+        android:id="@+id/OR"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/grey"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="CONTINUE WITHOUT LOGIN"
+        android:layout_marginTop="20dp"
+        android:text="OR"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+
+    <TextView
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text="CONTINUE WITHOUT LOGIN"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OR" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
