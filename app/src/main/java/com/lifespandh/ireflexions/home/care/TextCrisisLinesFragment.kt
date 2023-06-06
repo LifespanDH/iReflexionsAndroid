@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.base.BaseFragment
@@ -31,6 +32,7 @@ class TextCrisisLinesFragment : BaseDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_text_crisis_lines, container, false)
     }
 
