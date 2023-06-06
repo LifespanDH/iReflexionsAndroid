@@ -117,7 +117,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         nameEditText.setText(supportContact?.name ?: "")
         phoneEditText.setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
-
+        logE("called in edit mode $inEditMode")
         deleteButton.isVisible = inEditMode
     }
 

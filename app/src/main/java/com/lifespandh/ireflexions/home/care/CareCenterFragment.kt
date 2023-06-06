@@ -85,7 +85,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
             }
             if (sharedPrefs.isLoggedIn) {
                 if (requireActivity().checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-                    val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, true)
+                    val action = CareCenterFragmentDirections.actionCareCenterFragmentToEditSupportContactFragment(null, false)
                     findNavController().navigate(action)
                 } else {
                     permissionLauncher.launch(android.Manifest.permission.READ_CONTACTS)
