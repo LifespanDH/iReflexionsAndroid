@@ -137,7 +137,7 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun saveProgress() {
-        val requestBody = createJsonRequestBody(COURSE_NUMBER to parentCourse?.id , LESSON_NUMBER to lesson?.id, PROGRAM_ID to parentProgram?.id)
+        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id , LESSON_ID to lesson?.id, PROGRAM_ID to parentProgram?.id)
         homeViewModel.saveProgramProgress(requestBody)
     }
 
