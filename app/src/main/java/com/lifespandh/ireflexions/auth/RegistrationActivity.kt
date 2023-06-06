@@ -15,6 +15,8 @@ import com.lifespandh.ireflexions.utils.date.toDate
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.areFieldsEmpty
+import com.lifespandh.ireflexions.utils.ui.areStringsEmpty
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -51,12 +53,19 @@ class RegistrationActivity : BaseActivity() {
         }
 
         registerButton.setOnClickListener {
+            val areFieldsEmpty = areFieldsEmpty(name, email, phone, region, dateOfBirth, password)
+            if (areFieldsEmpty) {
+                toast("Please enter all details")
+                return@setOnClickListener
+            }
+
             val name = name.trimString()
             val email = email.trimString()
             val phone = phone.trimString()
             val region = region.trimString()
             val dob = dateOfBirth.trimString().toDate()
             val password = password.trimString()
+
             logE("${dateOfBirth.trimString()} ${dateOfBirth.trimString().toDate()} $dob")
             val user = dob?.let { it1 -> User(name, email, phone, it1, region, password) }
             if (user != null) {

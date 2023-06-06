@@ -214,7 +214,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         LiveSubject.FILE_UPLOAD_FILE.subscribe({
             when(it) {
                 is UploadFileStatus.Complete -> {
-                    logV("Image uploaded successfully")
+                    logV("Image uploaded successfully ${it.s3Url}")
                 }
                 is UploadFileStatus.Error -> {
                     toast("There was some issue in uploading the image")

@@ -1,5 +1,7 @@
 package com.lifespandh.ireflexions.utils.network
 
+import java.net.URL
+
 sealed class UploadFileStatus{
     data class FileStatus(val status: Double): UploadFileStatus()
     data class Error(val exception: Throwable): UploadFileStatus()
