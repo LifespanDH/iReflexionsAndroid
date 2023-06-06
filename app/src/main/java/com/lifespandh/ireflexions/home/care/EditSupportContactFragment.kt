@@ -204,8 +204,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setObservers(){
         homeViewModel.supportContactAddedLiveData.observeFreshly(this) {
-            dialog?.dismiss()
             LiveSubject.supportContactAdded.onNext(it)
+            dialog?.dismiss()
             toast("Contact Added")
         }
 

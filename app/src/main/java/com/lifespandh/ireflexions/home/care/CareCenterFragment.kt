@@ -29,6 +29,7 @@ import com.lifespandh.ireflexions.utils.phone.getMessageUri
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.care_center_text_crisis_tab.*
@@ -147,7 +148,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
     }
 
     private fun setSubscribers() {
-        val supportContactDisposable = LiveSubject.supportContactAdded.observeOn(Schedulers.io()).subscribe({
+        val supportContactDisposable = LiveSubject.supportContactAdded.observeOn(AndroidSchedulers.mainThread()).subscribe({
             supportContactAdapter.addToList(it)
         }, {
             logE("error $it")
