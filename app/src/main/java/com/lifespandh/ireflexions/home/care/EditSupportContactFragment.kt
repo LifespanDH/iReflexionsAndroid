@@ -41,8 +41,11 @@ import com.lifespandh.ireflexions.utils.network.LiveSubject
 import com.lifespandh.ireflexions.utils.network.UploadFileStatus
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
+import kotlinx.android.synthetic.main.fragment_edit_support_contact.imageUploadProgressBar
 import java.io.File
 import java.util.Locale
 
@@ -216,10 +219,12 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         LiveSubject.FILE_UPLOAD_FILE.subscribe({
             when(it) {
                 is UploadFileStatus.Complete -> {
+                    imageUploadProgressBar.makeGone()
                     logV("Image uploaded successfully ${it.s3Url}")
                     imageUrl = it.s3Url
                 }
                 is UploadFileStatus.Error -> {
+                    imageUploadProgressBar.makeGone()
                     toast("There was some issue in uploading the image")
                     // Remove image from the imageView here, and return to default
                 }
@@ -276,6 +281,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
+        imageUploadProgressBar.makeVisible()
         imageUrl = ""
         val bitmapString = serializeToJson(compressedBitmap)
         val builder = Data.Builder()
