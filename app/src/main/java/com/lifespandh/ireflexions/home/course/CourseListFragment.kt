@@ -74,7 +74,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
         if(currentPrograms == null)
         {
-            browseProgramsTV.visibility = View.VISIBLE
+            browseProgramContainer.visibility = View.VISIBLE
         }
     }
 
@@ -119,7 +119,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
     private fun updateCurrentProgram() {
         val currentProgram = currentPrograms?.get(0)
-        browseProgramsTV.visibility = View.INVISIBLE
+        browseProgramContainer.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
         currentProgramTitle.text = currentProgram?.name
         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())

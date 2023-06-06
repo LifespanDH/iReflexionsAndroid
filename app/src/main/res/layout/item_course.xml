@@ -5,8 +5,9 @@
     android:id="@+id/courseItemView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    tools:background="@color/card4_start">
+    android:layout_marginTop="20dp"
+    android:padding="10dp"
+    android:background="@drawable/gradient_program">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
@@ -22,9 +23,8 @@
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="THE BASICS"
         android:textColor="@color/icon_title_color"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/guidelineCenter"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -45,7 +45,6 @@
         android:layout_height="20dp"
         android:layout_marginTop="25dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/tvCourseDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
@@ -54,15 +53,14 @@
         android:id="@+id/tvCourseDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Learn about preparation techniques, anchoring, practice tests and more"
         android:textColor="@color/icon_title_color"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/ivCourseImage"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guidelineCenter"
-        app:layout_constraintTop_toBottomOf="@id/courseProgressBar" />
+        app:layout_constraintTop_toBottomOf="@id/tvCourseTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,7 +64,7 @@ class ResourceLibraryFragment : BaseFragment(), ResourceLibraryAdapter.OnItemCli
     }
 
     override fun onItemClicked(resourceLibraryItem: ResourceLibraryItem) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resourceLibraryItem.resources.))
-        startActivity(browserIntent)
+      //  val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resourceLibraryItem.resources.))
+        //startActivity(browserIntent)
     }
 }

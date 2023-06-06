@@ -21,7 +21,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/card4_start"
+        android:background="@drawable/gradient_course"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,24 +46,26 @@
             android:id="@+id/currentCourseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:padding="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:text="THE BASICS"
             android:textColor="@color/icon_title_color"
-            android:textSize="17sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/currentCourseDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:fontFamily="@font/montserrat_regular"
-            android:paddingBottom="4dp"
             android:text="Learn about preparation techniques, anchoring, practice tests and more"
             android:textColor="@color/icon_title_color"
-            android:textSize="12sp"
+            android:textSize="15sp"
+            android:layout_marginStart="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currentCourseTitle" />
 
@@ -77,17 +79,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currentCourseDescription" />
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/currentCourseDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toEndOf="@+id/currentCourseImage">
+
         <TextView
             android:id="@+id/currentProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="0%"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/currentCourseProgressBar"
+            />
+
+            <TextView
+                android:id="@+id/complete"
+                android:layout_marginStart="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Complete"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/progressBarContainer"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/progressbar_container"
+            app:layout_constraintStart_toEndOf="@id/currentCourseImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/currentCourseImage" />
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            android:layout_marginTop="30dp">
 
         <ProgressBar
             android:id="@+id/currentCourseProgressBar"
@@ -95,10 +127,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/currentCourseImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,7 +179,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline4"
-        tools:listitem="@layout/course_item" />
+        tools:listitem="@layout/item_course" />
 
 
     <!--    <androidx.constraintlayout.widget.Guideline-->
