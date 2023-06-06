@@ -64,7 +64,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
     private var inEditMode = false
-    private var imageUrl = ""
+    private var imageUrl: String? = null
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -117,7 +117,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         nameEditText.setText(supportContact?.name ?: "")
         phoneEditText.setText(supportContact?.phoneNumber ?: "")
         supportContact?.image?.let { setContactImage(compressedBitmap = null, url = it) }
-        logE("called in edit mode $inEditMode")
+
         deleteButton.isVisible = inEditMode
     }
 
@@ -147,6 +147,10 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 )
             } else {
                 // Remove the below line after fixing URL from AWS
+                if (imageUrl?.isEmpty() == true) {
+                    toast("Please wait for image to be uploaded")
+                    return@setOnClickListener
+                }
                 imageUrl = "https://www.testlink.com"
                 val name = supportContact?.name ?: nameEditText.trimString()
                 val phoneNumber = supportContact?.phoneNumber ?: phoneEditText.trimString()
@@ -155,7 +159,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 /**
                  * Need to add check for image too after AWS code
                  */
-                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty() || image.isNullOrEmpty()) {
+                if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty()) {
                     toast("Incomplete Information")
                 }
 
