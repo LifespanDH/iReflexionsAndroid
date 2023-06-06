@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
@@ -45,6 +46,7 @@ import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_edit_support_contact.imageUploadProgressBar
 import java.io.File
 import java.util.Locale
@@ -64,6 +66,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private var inEditMode = false
     private var imageUrl = ""
 
+    private val compositeDisposable by lazy { CompositeDisposable() }
+
     private lateinit var view_: View
     private lateinit var nameEditText : EditText
     private lateinit var phoneEditText : EditText
@@ -71,6 +75,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private lateinit var saveButton : Button
     private lateinit var closeDialog : TextView
     private lateinit var contactIconImage : ImageView
+    private lateinit var imageUploadProgressBar: ProgressBar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -105,6 +110,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         saveButton = view_.findViewById(R.id.save_button)
         closeDialog = view_.findViewById(R.id.close_dialog_textView)
         contactIconImage = view_.findViewById(R.id.contact_icon_imageView)
+        imageUploadProgressBar = view_.findViewById(R.id.imageUploadProgressBar)
     }
 
     private fun setupViews() {
@@ -216,7 +222,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun setSubscribers() {
-        LiveSubject.FILE_UPLOAD_FILE.subscribe({
+        val fileUploadDisposable = LiveSubject.FILE_UPLOAD_FILE.subscribe({
             when(it) {
                 is UploadFileStatus.Complete -> {
                     imageUploadProgressBar.makeGone()
@@ -239,6 +245,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         }, {
             logE("Image upload error $it")
         })
+        compositeDisposable.add(fileUploadDisposable)
     }
 
     private fun showDeleteContactConfirmationDialog(
@@ -303,6 +310,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         }
 
         fun newInstance() = EditSupportContactFragment()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
