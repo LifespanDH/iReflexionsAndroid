@@ -22,18 +22,18 @@
         style="@style/title_text_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:focusable="true"
         android:padding="12dp"
         android:text="@string/x_sign"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/support"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         android:id="@+id/contact_icon_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,16 +42,23 @@
         android:layout_marginTop="40dp"
         android:contentDescription="@string/select_photo"
         android:scaleType="fitXY"
-        android:scaleX="0.70"
-        android:scaleY="0.70"
         android:src="@drawable/add_person_icon"
         app:layout_constraintBottom_toTopOf="@id/name_editText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/support" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="@id/contact_icon_imageView"
+        app:layout_constraintEnd_toEndOf="@id/contact_icon_imageView"
+        app:layout_constraintTop_toTopOf="@id/contact_icon_imageView"
+        app:layout_constraintBottom_toBottomOf="@id/contact_icon_imageView" />
+
     <TextView
         android:id="@+id/txt_info"
-        android:layout_width="235dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="10dp"
