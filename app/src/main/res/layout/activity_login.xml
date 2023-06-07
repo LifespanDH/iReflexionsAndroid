@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ireflexions_logo" />
+        app:srcCompat="@drawable/logosplash" />
 
     <TextView
         android:id="@+id/experience_evolution"
