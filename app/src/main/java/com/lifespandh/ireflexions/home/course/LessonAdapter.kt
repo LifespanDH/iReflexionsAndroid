@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 
 class LessonAdapter(
@@ -16,7 +15,7 @@ class LessonAdapter(
 ): BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return LessonViewHolder(getView(R.layout.lesson_item, parent))
+        return LessonViewHolder(getView(R.layout.item_lesson, parent))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -41,7 +40,7 @@ class LessonAdapter(
 
         fun bind(lesson:Lesson) {
             lessonTitle.text = lesson.name
-            lessonDescription.text = lesson.description
+//            lessonDescription.text = lesson.description
 
             lessonItem.setOnClickListener {
                 listener.onLessonClick(lesson)
