@@ -11,7 +11,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESOURCE LIBRARY"
+        android:text="RESOURCE LIST"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/resourceLibraryRV"
+        android:id="@+id/resourceItemRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_resource_library"
+        tools:listitem="@layout/item_resource"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"

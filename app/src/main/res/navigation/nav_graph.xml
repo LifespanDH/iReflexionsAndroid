@@ -234,7 +234,11 @@
         android:id="@+id/resourceLibraryFragment"
         android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceLibraryFragment"
         android:label="fragment_resource_library"
-        tools:layout="@layout/fragment_resource_library" />
+        tools:layout="@layout/fragment_resource_library" >
+        <action
+            android:id="@+id/action_resourceLibraryFragment_to_resourceItemFragment"
+            app:destination="@id/resourceItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lessonQuizFragment"
         android:name="com.lifespandh.ireflexions.home.course.LessonQuizFragment"
@@ -255,4 +259,15 @@
             app:argType="com.lifespandh.ireflexions.models.Program"
             app:nullable="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/resourceItemFragment"
+        android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceItemFragment"
+        android:label="ResourceItemFragment" >
+    <argument
+        android:name="item"
+        android:defaultValue="@null"
+        app:argType="com.lifespandh.ireflexions.models.ResourceLibraryItem"
+        app:nullable="true"/>
+    </fragment>
+
 </navigation>
