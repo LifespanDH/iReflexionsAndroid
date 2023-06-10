@@ -1,21 +1,24 @@
 package com.lifespandh.ireflexions.home.resourceLibrary
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.home.course.LessonContentFragment
+import com.lifespandh.ireflexions.home.course.CourseListFragmentDirections
 import com.lifespandh.ireflexions.models.ResourceLibraryItem
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_resource_library.resourceLibraryRV
 
 
-class ResourceLibraryFragment : BaseFragment(), ResourceLibraryAdapter.onItemClicked {
+class ResourceLibraryFragment : BaseFragment(), ResourceLibraryAdapter.OnItemClicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val resourceLibraryAdapter by lazy { ResourceLibraryAdapter(listOf(), this) }
@@ -63,6 +66,7 @@ class ResourceLibraryFragment : BaseFragment(), ResourceLibraryAdapter.onItemCli
     }
 
     override fun onItemClicked(resourceLibraryItem: ResourceLibraryItem) {
-        TODO("Not yet implemented")
+        val action = ResourceLibraryFragmentDirections.actionResourceLibraryFragmentToResourceItemFragment(item = resourceLibraryItem)
+        findNavController().navigate(action)
     }
 }

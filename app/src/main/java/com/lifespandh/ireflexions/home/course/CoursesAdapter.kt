@@ -19,7 +19,7 @@ class CoursesAdapter(
 ): BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return CoursesViewHolder(getView(R.layout.course_item, parent))
+        return CoursesViewHolder(getView(R.layout.item_course, parent))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -48,7 +48,9 @@ class CoursesAdapter(
             courseTitle.text = course.name
             courseDescription.text = course.description
 
-            Glide.with(getContext()).load(course.image).into(courseImage)
+            if(course.image!=null)
+                Glide.with(getContext()).load(course.image).into(courseImage)
+
             courseProgressBar.makeInvisible()
             courseItem.setOnClickListener {
                 listener.onCourseClick(course)

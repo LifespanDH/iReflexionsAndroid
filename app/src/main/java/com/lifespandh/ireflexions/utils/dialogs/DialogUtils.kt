@@ -44,7 +44,7 @@ class DialogUtils {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    fun showMessageDialog(context:Context, header: String, message:String){
+    fun showMessageDialog(context:Context, header: String, message:String, onOkClick: () -> Unit = {}) {
         val dialog = AlertDialog.Builder(context)
             .create()
 
@@ -57,7 +57,8 @@ class DialogUtils {
                 dialog.dismiss()
             }
             findViewById<Button>(R.id.okButton).setOnClickListener {
-
+                dialog.dismiss()
+                onOkClick()
             }
         }
 

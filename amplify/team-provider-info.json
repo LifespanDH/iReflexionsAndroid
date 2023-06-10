@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ireflexionsandroid-dev-142820-authRole",
+      "UnauthRoleArn": "arn:aws:iam::635580963294:role/amplify-ireflexionsandroid-dev-142820-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::635580963294:role/amplify-ireflexionsandroid-dev-142820-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ireflexionsandroid-dev-142820-deployment",
+      "UnauthRoleName": "amplify-ireflexionsandroid-dev-142820-unauthRole",
+      "StackName": "amplify-ireflexionsandroid-dev-142820",
+      "StackId": "arn:aws:cloudformation:us-east-1:635580963294:stack/amplify-ireflexionsandroid-dev-142820/c04c5b80-03ce-11ee-902b-12759ba84969",
+      "AmplifyAppId": "d3n4hpiupbqi5i"
+    },
+    "categories": {
+      "auth": {
+        "ireflexionsandroidc211be18": {}
+      },
+      "storage": {
+        "uploads": {}
+      }
+    }
+  }
+}

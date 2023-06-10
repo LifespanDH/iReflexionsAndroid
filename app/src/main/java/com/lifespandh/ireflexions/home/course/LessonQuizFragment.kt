@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.course
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,9 @@ import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
+import com.lifespandh.ireflexions.utils.network.COURSE_NUMBER
 import com.lifespandh.ireflexions.utils.network.LESSON_ID
+import com.lifespandh.ireflexions.utils.network.LESSON_NUMBER
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
@@ -29,8 +32,8 @@ import kotlinx.android.synthetic.main.item_quiz.view.multipleChoiceContainer
 import kotlinx.android.synthetic.main.item_quiz.view.question_text
 import kotlinx.android.synthetic.main.item_quiz.view.trueFalseContainer
 import kotlinx.android.synthetic.main.lesson_quiz.itemQuiz
-import kotlinx.android.synthetic.main.lesson_quiz.view.nextButton
-import kotlinx.android.synthetic.main.lesson_quiz.view.previousButton
+import kotlinx.android.synthetic.main.lesson_quiz.nextButton
+import kotlinx.android.synthetic.main.lesson_quiz.previousButton
 
 
 class LessonQuizFragment : BaseFragment() {
@@ -73,7 +76,7 @@ class LessonQuizFragment : BaseFragment() {
         itemQuiz.customAnswerEditText.makeGone()
 
 
-        val questionType =  when(lessonQuestion.questionType) {
+        when(lessonQuestion.questionType) {
             QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
                 itemQuiz.multipleChoiceContainer.makeVisible()
                 setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
@@ -107,13 +110,13 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        itemQuiz.previousButton.setOnClickListener {
+        previousButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber -= 1
             setQuestion(questionNumber)
         }
 
-        itemQuiz.nextButton.setOnClickListener {
+        nextButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber += 1
             setQuestion(questionNumber)
@@ -123,6 +126,7 @@ class LessonQuizFragment : BaseFragment() {
     private fun setObservers() {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
             lessons = it
+            setQuestion(questionNumber)
         }
 
     }
@@ -138,7 +142,7 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun setViews() {
-        setQuestion(questionNumber)
+
     }
 
 }

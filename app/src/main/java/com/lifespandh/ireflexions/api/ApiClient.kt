@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.*
-import com.lifespandh.ireflexios.utils.network.*
+import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -64,7 +64,7 @@ interface ApiClient {
     suspend fun getSupportContacts(): List<SupportContact>
 
     @POST(ADD_SUPPORT_CONTACT)
-    suspend fun addSupportContact(@Body supportContact: SupportContact): JsonObject
+    suspend fun addSupportContact(@Body supportContact: SupportContact): SupportContact
 
     @POST(EDIT_SUPPORT_CONTACT)
     suspend fun editSupportContact(@Body supportContact: SupportContact): JsonObject

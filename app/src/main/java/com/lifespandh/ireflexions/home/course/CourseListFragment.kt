@@ -1,14 +1,15 @@
 package com.lifespandh.ireflexions.home.course
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
@@ -17,16 +18,10 @@ import com.lifespandh.ireflexions.models.UserProgramProgress
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
-import com.lifespandh.ireflexions.utils.network.COURSE_PROGRESS
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
-import com.lifespandh.ireflexions.utils.network.PROGRAM_PROGRESS
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.fragment_course_list.*
-import kotlinx.android.synthetic.main.program_item.view.img_program
-import kotlinx.android.synthetic.main.program_item.view.programProgressBar
-import kotlinx.android.synthetic.main.program_item.view.txt_enroll
-import kotlinx.android.synthetic.main.program_item.view.txt_program
 
 
 class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
@@ -79,7 +74,7 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
         if(currentPrograms == null)
         {
-            browseProgramsTV.visibility = View.VISIBLE
+            browseProgramContainer.visibility = View.VISIBLE
         }
     }
 
@@ -103,7 +98,9 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
 
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
             if(it) {
-                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully") {
+
+                }
             }
         }
 
@@ -122,25 +119,18 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
     private fun updateCurrentProgram() {
         val currentProgram = currentPrograms?.get(0)
-        browseProgramsTV.visibility = View.INVISIBLE
+        browseProgramContainer.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
-        currentProgramItem.txt_enroll.visibility = View.INVISIBLE
-        currentProgramItem.txt_program.text = currentProgram?.name
-
-
-        Glide.with(this)
-            .load(currentProgram?.img)
-            .centerCrop()
-            .placeholder(R.drawable.program_copingwithcovidicon)
-            .error(R.drawable.program_copingwithcovidicon)
-            .into(currentProgramItem.img_program)
-
+        currentProgramTitle.text = currentProgram?.name
         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())
     }
 
     private fun updateProgramProgress() {
+        val draw: Drawable = (ContextCompat.getDrawable(requireContext(), com.lifespandh.ireflexions.R.drawable.progress_drawable) ?: null) as Drawable
+        currentProgramProgressBar.progressDrawable = draw
         val programProgress = userProgramProgress?.programProgress
-        currentProgramItem.programProgressBar.progress = programProgress?.toInt() ?: 0
+        currentProgressTextView.text = programProgress?.toFloat().toString() ?: "0.0"
+        currentProgramProgressBar.progress = programProgress?.toInt() ?: 0
     }
 
     override fun onItemClick(program: Program) {

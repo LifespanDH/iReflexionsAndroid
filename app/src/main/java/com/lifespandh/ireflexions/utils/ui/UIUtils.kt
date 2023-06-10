@@ -29,3 +29,23 @@ fun Fragment.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
 fun TextView.trimString(): String {
     return this.text.toString().trim()
 }
+
+fun areFieldsEmpty(vararg textViews: TextView): Boolean {
+    var isEmpty: Boolean
+    for (tv in textViews) {
+        isEmpty = tv.trimString().isEmpty()
+        if (isEmpty)
+            return true
+    }
+    return false
+}
+
+fun areStringsEmpty(vararg strings: String): Boolean {
+    var isEmpty: Boolean
+    for (string in strings) {
+        isEmpty = string.trim().isEmpty()
+        if (isEmpty)
+            return true
+    }
+    return false
+}

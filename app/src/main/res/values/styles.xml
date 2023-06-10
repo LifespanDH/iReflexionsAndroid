@@ -21,4 +21,8 @@
         <item name="android:textColor">@color/icon_title_color</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

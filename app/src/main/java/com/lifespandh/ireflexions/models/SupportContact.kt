@@ -17,5 +17,6 @@ data class SupportContact (
     val phoneNumber: String,
 
     @SerializedName("image")
-    val image: String,
+    val image: String?,
+
 ): Parcelable
