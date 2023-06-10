@@ -12,7 +12,6 @@ import com.lifespandh.ireflexions.models.ResourceLibraryItem
 class ResourceLibraryAdapter(
     private var resourceLibraryItems: List<ResourceLibraryItem>,
     private val listener: OnItemClicked
-
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ResourceLibraryViewHolder(getView(R.layout.item_resource_library, parent))
