@@ -81,8 +81,8 @@ class CourseListProgramAdapter(
 
         fun bind(program: Program) {
             myTextView.text = program.name
-            if (program.img != null) {
-                Glide.with(getContext()).load(program.img).into(imgCard)
+            if (program.image != null) {
+                Glide.with(getContext()).load(program.image).into(imgCard)
             }
 
             textEnrolled.isVisible = program.id == currentProgram?.id

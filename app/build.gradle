@@ -33,7 +33,6 @@ android {
 
             versionNameSuffix "debug"
             buildConfigField("String", "BASE_URL", "\"http://1857-2601-8c0-801-b4d0-20cf-3f0e-1177-1152.ngrok-free.app/\"")
-
         }
     }
     compileOptions {

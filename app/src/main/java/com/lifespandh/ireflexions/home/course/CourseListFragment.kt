@@ -121,8 +121,23 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
         val currentProgram = currentPrograms?.get(0)
         browseProgramContainer.visibility = View.INVISIBLE
         currentProgramContainer.visibility = View.VISIBLE
+// <<<<<<< hait
+//         currentProgramItem.txt_enroll.visibility = View.INVISIBLE
+//         currentProgramItem.txt_program.text = currentProgram?.name
+
+
+//         Glide.with(this)
+//             .load(currentProgram?.image)
+//             .centerCrop()
+//             .placeholder(R.drawable.program_copingwithcovidicon)
+//             .error(R.drawable.program_copingwithcovidicon)
+//             .into(currentProgramItem.img_program)
+
+//         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first() ?: null)
+// =======
         currentProgramTitle.text = currentProgram?.name
         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())
+// >>>>>>> master
     }
 
     private fun updateProgramProgress() {
