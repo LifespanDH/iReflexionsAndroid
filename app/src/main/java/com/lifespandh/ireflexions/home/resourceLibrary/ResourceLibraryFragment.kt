@@ -68,6 +68,5 @@ class ResourceLibraryFragment : BaseFragment(), ResourceLibraryAdapter.OnItemCli
     override fun onItemClicked(resourceLibraryItem: ResourceLibraryItem) {
         val action = ResourceLibraryFragmentDirections.actionResourceLibraryFragmentToResourceItemFragment(item = resourceLibraryItem)
         findNavController().navigate(action)
-
     }
 }
