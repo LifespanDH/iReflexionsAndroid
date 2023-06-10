@@ -7,15 +7,21 @@ class PermissionLauncher(
     fragment: Fragment,
     listener: OnPermissionResult
 ) {
+
+    private var onPermissionGranted: (() -> Unit)? = null
+    private var onPermissionDenied: (() -> Unit)? = null
+
     private val permissionLauncher = fragment.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
-            listener.onPermissionGranted()
+            onPermissionGranted ?: listener.onPermissionGranted()
         } else {
-            listener.onPermissionDenied()
+            onPermissionDenied ?: listener.onPermissionDenied()
         }
     }
 
-    fun launch(input: String) {
+    fun launch(input: String, onPermissionGranted: (() -> Unit)? = null, onPermissionDenied: (() -> Unit)? = null) {
+        this.onPermissionGranted = onPermissionGranted
+        this.onPermissionDenied = onPermissionDenied
         permissionLauncher.launch(input)
     }
 

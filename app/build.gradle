@@ -32,8 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://d018-96-227-235-16.ngrok-free.app/\"")
-
+            buildConfigField("String", "BASE_URL", "\"http://1857-2601-8c0-801-b4d0-20cf-3f0e-1177-1152.ngrok-free.app/\"")
         }
     }
     compileOptions {
@@ -53,7 +52,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -131,10 +130,15 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     // Amplify core dependency
-    implementation 'com.amplifyframework:core:2.5.0'
+
+    // Amplify core dependency
+    implementation 'com.amplifyframework:core:2.8.4'
 
     implementation 'com.amplifyframework:aws-storage-s3:2.5.0'
     implementation 'com.amplifyframework:aws-auth-cognito:2.5.0'
+
+//    // Support for Java 8 features
+//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
@@ -146,6 +150,11 @@ dependencies {
     // Work Manager
     def work_version = "2.8.1"
     implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    // Lottie Files
+    def lottieVersion = "6.0.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 }
 
 kapt {

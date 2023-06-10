@@ -3,6 +3,8 @@ package com.lifespandh.ireflexions.utils.network
 const val COURSE_ID = "course_id"
 const val PROGRAM_ID = "program_id"
 const val LESSON_ID = "lesson_id"
+const val COURSE_NUMBER = "course_number"
+const val LESSON_NUMBER = "lesson_number"
 const val COURSE_PROGRESS = "course_progress"
 const val PROGRAM_PROGRESS = "program_progress"
 

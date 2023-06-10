@@ -44,11 +44,11 @@ class DialogUtils {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    fun showMessageDialog(context:Context, header: String, message:String){
+    fun showMessageDialog(context:Context, header: String, message:String, onOkClick: () -> Unit = {}) {
         val dialog = AlertDialog.Builder(context)
             .create()
 
-        val dialogView: View = LayoutInflater.from(context).inflate(R.layout.popup_view, null).apply {
+        LayoutInflater.from(context).inflate(R.layout.popup_view, null).apply {
             dialog.setView(this)
             findViewById<TextView>(R.id.headerTextView)?.text = header
             findViewById<TextView>(R.id.messageTextView)?.text = message
@@ -57,7 +57,8 @@ class DialogUtils {
                 dialog.dismiss()
             }
             findViewById<Button>(R.id.okButton).setOnClickListener {
-
+                dialog.dismiss()
+                onOkClick()
             }
         }
 

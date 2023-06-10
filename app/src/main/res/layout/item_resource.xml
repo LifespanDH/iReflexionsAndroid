@@ -1,74 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courseItemView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="20dp"
+    android:background="@drawable/gradient_resources"
+    android:padding="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/programContainer"
+
+    <TextView
+        android:id="@+id/tvVideoLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="VIDEO LINK"
+        android:textColor="@color/icon_title_color"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="25dp"
-        android:background="@color/bluegreen"
-       >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
-
-
-        <TextView
-            android:id="@+id/resourceNameTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESOURCE NAME"
-            android:fontFamily="@font/montserrat"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="5dp"/>
-
-
-        <ImageView
-            android:id="@+id/img_program"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:src="@drawable/program_copingwithcovidicon"
-            app:layout_constraintTop_toBottomOf="@id/resourceNameTV"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-
-        />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineImageBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.78" />
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineContainerBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

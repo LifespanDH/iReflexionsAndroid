@@ -10,9 +10,10 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.SupportContact
+import com.lifespandh.ireflexions.utils.logs.logE
 
 class SupportContactAdapter(
-    private var supportContacts: List<SupportContact>,
+    private var supportContacts: MutableList<SupportContact>,
     private val listener: OnSupportContactClicked
 ): BaseRecyclerViewAdapter() {
 
@@ -30,8 +31,19 @@ class SupportContactAdapter(
     }
 
     fun setList(list: List<SupportContact>) {
-        this.supportContacts = list
+        this.supportContacts = list.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addToList(supportContact: SupportContact) {
+        this.supportContacts.add(supportContact)
+        notifyItemInserted(this.supportContacts.size - 1)
+    }
+
+    fun deleteContact(supportContact: SupportContact) {
+        val index = this.supportContacts.indexOf(supportContact)
+        this.supportContacts.removeAt(index)
+        notifyItemRemoved(index)
     }
 
     inner class SupportContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -55,7 +67,7 @@ class SupportContactAdapter(
             }
 
             moreActionsImageView.setOnClickListener {
-                listener.moreActionsClicked()
+                listener.moreActionsClicked(it, supportContact)
             }
         }
     }
@@ -63,6 +75,6 @@ class SupportContactAdapter(
     interface OnSupportContactClicked {
         fun callContactClicked(phoneNumber: String)
         fun textContactClicked(phoneNumber: String)
-        fun moreActionsClicked()
+        fun moreActionsClicked(view: View, supportContact: SupportContact)
     }
 }

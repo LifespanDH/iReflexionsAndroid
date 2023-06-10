@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
@@ -19,7 +20,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
@@ -30,19 +30,24 @@ import com.lifespandh.ireflexions.models.MembershipLevel
 import com.lifespandh.ireflexions.models.SupportContact
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.image.getBitmapFromUriPath
-import com.lifespandh.ireflexions.utils.image.getImageUri
 import com.lifespandh.ireflexions.utils.image.serializeToJson
 import com.lifespandh.ireflexions.utils.launchers.ContactPickerLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImageCaptureLauncher
 import com.lifespandh.ireflexions.utils.launchers.ImagePickerLauncher
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.logs.logV
 import com.lifespandh.ireflexions.utils.network.ID
-import com.lifespandh.ireflexions.utils.network.aws.S3UploadService
+import com.lifespandh.ireflexions.utils.network.LiveSubject
+import com.lifespandh.ireflexions.utils.network.UploadFileStatus
 import com.lifespandh.ireflexions.utils.network.aws.S3UploadWorker
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_edit_support_contact.imageUploadProgressBar
 import java.io.File
 import java.util.Locale
 
@@ -59,7 +64,9 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private var dialogUtils = DialogUtils()
     private var supportContact: SupportContact? = null
     private var inEditMode = false
-    private var imageUrl = ""
+    private var imageUrl: String? = null
+
+    private val compositeDisposable by lazy { CompositeDisposable() }
 
     private lateinit var view_: View
     private lateinit var nameEditText : EditText
@@ -68,6 +75,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     private lateinit var saveButton : Button
     private lateinit var closeDialog : TextView
     private lateinit var contactIconImage : ImageView
+    private lateinit var imageUploadProgressBar: ProgressBar
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -92,6 +100,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         setupViews()
         setListeners()
         setObservers()
+        setSubscribers()
     }
 
     private fun initViews(){
@@ -101,6 +110,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         saveButton = view_.findViewById(R.id.save_button)
         closeDialog = view_.findViewById(R.id.close_dialog_textView)
         contactIconImage = view_.findViewById(R.id.contact_icon_imageView)
+        imageUploadProgressBar = view_.findViewById(R.id.imageUploadProgressBar)
     }
 
     private fun setupViews() {
@@ -136,7 +146,12 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                     requireContext().getString(R.string.member_ship_level_no_subscription_dialog_body_text_entry)
                 )
             } else {
-
+                // Remove the below line after fixing URL from AWS
+                if (imageUrl?.isEmpty() == true) {
+                    toast("Please wait for image to be uploaded")
+                    return@setOnClickListener
+                }
+                imageUrl = "https://www.testlink.com"
                 val name = supportContact?.name ?: nameEditText.trimString()
                 val phoneNumber = supportContact?.phoneNumber ?: phoneEditText.trimString()
                 val image = supportContact?.image ?: imageUrl
@@ -147,6 +162,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
                 if (name.isNullOrEmpty() || phoneNumber.isNullOrEmpty()) {
                     toast("Incomplete Information")
                 }
+
                 if (supportContact == null) {
                     val supportContact = SupportContact(name = name, phoneNumber = phoneNumber, image = image)
                     homeViewModel.addSupportContact(supportContact)
@@ -165,9 +181,6 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         }
 
         contactIconImage.setOnClickListener { view ->
-//            if (inEditMode) {
-//                view?.let { it1 -> showPhotoActionMenuPopup(it1) }
-//            }
             showPhotoActionMenuPopup(view)
         }
 
@@ -191,6 +204,7 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
 
     private fun setObservers(){
         homeViewModel.supportContactAddedLiveData.observeFreshly(this) {
+            LiveSubject.supportContactAdded.onNext(it)
             dialog?.dismiss()
             toast("Contact Added")
         }
@@ -204,6 +218,38 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
             toast("Contact deleted")
             dialog?.dismiss()
         }
+
+        homeViewModel.errorLiveData.observeFreshly(this) {
+            toast(it)
+            dialog?.dismiss()
+        }
+    }
+
+    private fun setSubscribers() {
+        val fileUploadDisposable = LiveSubject.FILE_UPLOAD_FILE.subscribe({
+            when(it) {
+                is UploadFileStatus.Complete -> {
+                    imageUploadProgressBar.makeGone()
+                    logV("Image uploaded successfully ${it.s3Url}")
+                    imageUrl = it.s3Url
+                }
+                is UploadFileStatus.Error -> {
+                    imageUploadProgressBar.makeGone()
+                    toast("There was some issue in uploading the image")
+                    // Remove image from the imageView here, and return to default
+                }
+                is UploadFileStatus.FileStatus -> {
+                    logE("Current progress is $it")
+                    // Change progress of the progress bar here
+                }
+                is UploadFileStatus.Start -> {
+                    logV("Image upload started")
+                }
+            }
+        }, {
+            logE("Image upload error $it")
+        })
+        compositeDisposable.add(fileUploadDisposable)
     }
 
     private fun showDeleteContactConfirmationDialog(
@@ -246,6 +292,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     private fun uploadImageToAWS(compressedBitmap: Bitmap?) {
+        imageUploadProgressBar.makeVisible()
+        imageUrl = ""
         val bitmapString = serializeToJson(compressedBitmap)
         val builder = Data.Builder()
         builder.putString(S3UploadWorker.IMAGE_BITMAP_STRING, bitmapString)
@@ -268,6 +316,11 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
         fun newInstance() = EditSupportContactFragment()
     }
 
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
+    }
+
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         item?.let {
             return when (it.itemId) {
@@ -288,10 +341,8 @@ class EditSupportContactFragment : BaseDialogFragment(), PopupMenu.OnMenuItemCli
     }
 
     override fun contactPicked(name: String?, number: String?, image: String?) {
-
         val bitmap = image?.let { it1 -> getBitmapFromUriPath(it1, requireContext()) }
-
-        if(bitmap!=null) {
+        if (bitmap != null) {
             contactIconImage.setImageBitmap(bitmap)
         }
         nameEditText.setText(name)

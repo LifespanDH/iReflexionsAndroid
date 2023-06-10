@@ -30,6 +30,7 @@ class HomeActivity : BaseActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.action_bar_items, menu)
+        supportActionBar?.title = null
         return true
     }
 

@@ -1,4 +1,4 @@
-package com.lifespandh.ireflexios.utils.network
+package com.lifespandh.ireflexions.utils.network
 
 import com.lifespandh.ireflexions.BuildConfig
 

@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_registration.view.name
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseDescription
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseTitle
 import kotlinx.android.synthetic.main.fragment_home.courses
-import kotlinx.android.synthetic.main.fragment_lesson.currentLessonName
 import kotlinx.android.synthetic.main.fragment_lesson.rvLessons
 
 class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
@@ -76,7 +75,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
         if (lessonNumber > 0 && lessons.size >= lessonNumber - 1) {
             val currentLesson = lessons.get(lessonNumber - 1)
-            currentLessonName.text = currentLesson.name
+//            currentLessonName.text = currentLesson.name
             // Set image here
         }
     }

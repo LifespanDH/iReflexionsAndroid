@@ -3,37 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
+    android:layout_marginHorizontal="30dp"
     android:id="@+id/lessonItem"
+    android:background="@drawable/gradient"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
-    <TextView
+        <TextView
         android:id="@+id/tvLessonName"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_italic"
         android:textColor="@color/icon_title_color"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="40dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="15sp"
         android:text="The Person and Environment" />
 
-    <TextView
+        <TextView
         android:id="@+id/tvLessonDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="50dp"
         android:background="@drawable/rectangle"
         android:fontFamily="@font/montserrat_italic"
         android:textColor="@color/icon_title_color"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tvLessonName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:text="Review"
         />
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,39 +22,52 @@
         style="@style/title_text_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
         android:clickable="true"
         android:focusable="true"
         android:padding="12dp"
         android:text="@string/x_sign"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/support"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/contact_icon_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
         android:contentDescription="@string/select_photo"
         android:scaleType="fitXY"
-        android:scaleX="0.70"
-        android:scaleY="0.70"
         android:src="@drawable/add_person_icon"
         app:layout_constraintBottom_toTopOf="@id/name_editText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/support" />
+        app:layout_constraintTop_toBottomOf="@id/support"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+    <ProgressBar
+        android:id="@+id/imageUploadProgressBar"
+        style="@android:style/Widget.ProgressBar.Small.Inverse"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:clickable="false"
+        android:indeterminate="true"
+        android:padding="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/contact_icon_imageView"
+        app:layout_constraintEnd_toEndOf="@id/contact_icon_imageView"
+        app:layout_constraintStart_toStartOf="@id/contact_icon_imageView"
+        app:layout_constraintTop_toTopOf="@id/contact_icon_imageView" />
 
     <TextView
         android:id="@+id/txt_info"
-        android:layout_width="235dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/montserrat_light"
         android:padding="8dp"
         android:text="@string/add_support_contact_text"
@@ -62,28 +75,19 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/name_editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/close_dialog_textView"
-        app:layout_constraintVertical_bias="0.0" />
-
-<!--    <androidx.appcompat.widget.AppCompatImageButton-->
-<!--        android:id="@+id/pickContactImageButton"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:contentDescription="@string/pick_support_from_contacts"-->
-<!--        android:src="@drawable/ic_contacts"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/name_editText"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/name_editText" />-->
-<!-- app:layout_constraintTop_toBottomOf="@id/close_dialog_textView" /> -->
+        app:layout_constraintStart_toEndOf="@id/contact_icon_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/close_dialog_textView" />
 
     <EditText
         android:id="@+id/name_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:background="@drawable/rounded_rectangle"
+        android:drawableEnd="@drawable/ic_contacts"
         android:fontFamily="@font/montserrat_regular"
         android:hint="@string/enter_name"
         android:inputType="textPersonName"
@@ -91,10 +95,8 @@
         android:text="Name"
         android:textColor="@color/lighter_gray"
         android:textColorHint="@color/grey"
-        android:drawableEnd="@drawable/ic_contacts"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contact_icon_imageView" />
 
@@ -102,7 +104,9 @@
         android:id="@+id/phone_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:background="@drawable/rounded_rectangle"
         android:fontFamily="@font/montserrat_regular"
@@ -125,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="250dp"
         android:background="@drawable/red_short_button"
         android:fontFamily="@font/montserrat_regular"
         android:text="Delete"
@@ -139,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginBottom="250dp"
         android:background="@drawable/purple_short_button"
         android:fontFamily="@font/montserrat_regular"
         android:text="Save"

@@ -134,14 +134,9 @@ class LoginActivity : BaseActivity() {
         tokenViewModel.token.observeFreshly(this) {
             if (it != null) {
                 sharedPrefs.isLoggedIn = true
-                dialogUtils.showMessageDialog(this, "SUCCESS", "USER LOGGED IN")
-                startActivity(HomeActivity.newInstance(this))
-
-//                if(newuser) {
-//                    startActivity(SurveyActivity.newInstance(this))
-//                } else {
-//                    startActivity(HomeActivity.newInstance(this))
+//                dialogUtils.showMessageDialog(this, "SUCCESS", "USER LOGGED IN") {
 //                }
+                startActivity(HomeActivity.newInstance(this))
             }
         }
 
