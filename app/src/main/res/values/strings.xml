@@ -384,7 +384,8 @@
     <string name="program_rate_match">%1$s MATCH</string>
     <string name="error_receiving_tokens_message">Error receiving tokens</string>
     <string name="unknown_error_message">Unknown error</string>
-    <string name="autonomic_practice">Autonomic Practice</string>
+    <string name="autonomic_practice">AUTONOMIC PRACTICE</string>
+    <string name="immersion">IMMERSION</string>
     <string name="saved_locally">saved to Local DB</string>
     <string name="saved_successfully">saved successfully</string>
     <string name="connecting_message">Connecting...</string>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/community"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@id/guideline15"
         app:layout_constraintTop_toTopOf="parent">
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:layout_marginTop="80dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/resourceLibrary"
         app:layout_constraintEnd_toEndOf="@id/guideline16"
         app:layout_constraintStart_toStartOf="@id/guideline14"
         app:layout_constraintTop_toTopOf="parent">
@@ -79,11 +79,10 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="vertical"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="@id/guideline14"
         app:layout_constraintStart_toStartOf="@id/guideline15"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/courses">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -113,11 +112,10 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="vertical"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="@id/guideline16"
         app:layout_constraintStart_toStartOf="@id/guideline14"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf= "@id/howAmI">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -147,7 +145,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="@id/guideline14"
         app:layout_constraintStart_toStartOf="@id/guideline15"
         app:layout_constraintTop_toBottomOf="@id/community">
@@ -180,7 +178,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="@id/guideline16"
         app:layout_constraintStart_toStartOf="@id/guideline14"
         app:layout_constraintTop_toBottomOf="@id/resourceLibrary">
@@ -201,7 +199,7 @@
             android:layout_gravity="center_horizontal"
             android:clickable="false"
             android:fontFamily="@font/montserrat"
-            android:text="@string/autonomic_practice"
+            android:text="@string/immersion"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
@@ -249,7 +247,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.10218978" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -263,5 +261,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.89" />
+        app:layout_constraintGuide_percent="0.85" />
 </androidx.constraintlayout.widget.ConstraintLayout>

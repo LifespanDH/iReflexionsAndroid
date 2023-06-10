@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:clickable="true"
+                app:cardCornerRadius="15dp"
                 android:focusable="true"
                 app:cardBackgroundColor="@color/meditation_background"
                 app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
@@ -105,7 +106,6 @@
                         android:text="@string/plus_sign"
                         android:textColor="@color/icon_title_color"
                         android:textSize="24sp"
-
                         app:layout_constraintStart_toEndOf="@id/guidelineStart"
                         app:layout_constraintTop_toBottomOf="@id/textView2" />
 
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/add_some_friends_family_to_reach_out_to_in_times_of_need"
                         android:textColor="@color/icon_title_color"
-
+                        android:layout_marginLeft="2dp"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
                         app:layout_constraintStart_toEndOf="@id/plus_sign_textView"
