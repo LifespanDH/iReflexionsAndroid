@@ -120,7 +120,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView" />
 
-<!--    <com.thoughttechnology.ttlgraphs.drawings.BarGraphView-->
+<!--    <com.lifespandh.irefgraphs.BarGraphView-->
 <!--        android:id="@+id/chartViewBarSleep"-->
 <!--        android:layout_width="0dp"-->
 <!--        android:layout_height="0dp"-->
@@ -136,7 +136,7 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView"-->
 <!--        tools:visibility="gone" />-->
 
-<!--    <com.thoughttechnology.ttlgraphs.drawings.BarGraphView-->
+<!--    <com.lifespandh.irefgraphs.BarGraphView-->
 <!--        android:id="@+id/chartViewBarMovement"-->
 <!--        android:layout_width="0dp"-->
 <!--        android:layout_height="0dp"-->

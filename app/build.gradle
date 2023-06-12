@@ -49,6 +49,8 @@ dependencies {
 
     // local modules
     implementation project(':unityLibraryDebug')
+    implementation project(':irefgraphs')
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'

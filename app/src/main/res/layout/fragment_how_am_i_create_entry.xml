@@ -60,16 +60,17 @@
             app:layout_constraintEnd_toStartOf="@id/checkinCircleCategory"
             app:layout_constraintTop_toTopOf="@+id/checkinCircleCategory" />
 
-        <com.thoughttechnology.ttlgraphs.drawings.CheckInCircleView
+        <com.lifespandh.irefgraphs.CheckInCircleView
             android:id="@+id/checkinCircleCategory"
             android:layout_width="200dp"
+            android:visibility="visible"
             android:layout_height="200dp"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@+id/txt_how_are_you" />
 
-        <com.thoughttechnology.ttlgraphs.drawings.CheckInCircleView
+        <com.lifespandh.irefgraphs.CheckInCircleView
             android:id="@+id/checkinCircleTrait"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -283,7 +284,7 @@
             app:layout_constraintEnd_toEndOf="@+id/seekBar_sleep"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep" />
 
-        <com.thoughttechnology.ttlgraphs.drawings.ButtonShadowView
+        <com.lifespandh.irefgraphs.ButtonShadowView
             android:id="@+id/btn_sleep_hour"
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -348,7 +349,7 @@
             app:layout_constraintEnd_toEndOf="@+id/seekBar_sleep_quality"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_sleep_quality" />
 
-        <com.thoughttechnology.ttlgraphs.drawings.ButtonShadowView
+        <com.lifespandh.irefgraphs.ButtonShadowView
             android:id="@+id/btn_sleep_quality"
             android:layout_width="100dp"
             android:layout_height="50dp"
