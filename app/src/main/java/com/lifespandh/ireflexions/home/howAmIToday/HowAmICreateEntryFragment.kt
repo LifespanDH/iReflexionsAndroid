@@ -5,16 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lifespandh.irefgraphs.CheckinObject
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.EnvironmentalAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
-import com.lifespandh.ireflexions.home.resourceLibrary.ResourceItemAdapter
+import com.lifespandh.ireflexions.models.howAmI.EmotionTraits
 import com.lifespandh.ireflexions.models.howAmI.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmI.EnvironmentConditions.Companion.defaultEnvironmentConditions
 import com.lifespandh.ireflexions.models.howAmI.Happening
 import com.lifespandh.ireflexions.models.howAmI.Happenings.Companion.defaultHappenings
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.environmentalView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.happeningView
 
@@ -38,10 +41,30 @@ class HowAmICreateEntryFragment : Fragment(), HappeningAdapter.OnItemClicked, En
     }
 
     private fun init(){
-        setViews()
+        setCircleViews()
+        setRecyclerViews()
     }
 
-    private fun setViews(){
+    private fun setCircleViews(){
+        val traitCategories: MutableList<CheckinObject> = mutableListOf()
+        val traits: MutableList<CheckinObject> = mutableListOf()
+
+        for ((index, traitCategory) in EmotionTraits.categories.withIndex()) {
+            traitCategories.add(
+                CheckinObject(
+                    index,
+                    ContextCompat.getColor(requireContext(), traitCategory.color),
+                    traitCategory.name
+                )
+            )
+        }
+
+        checkinCircleCategory.checkinObjects = traitCategories
+        checkinCircleCategory.isCategory = true
+
+    }
+
+    private fun setRecyclerViews(){
         happeningsList.addAll(defaultHappenings)
         happeningView.apply {
             adapter = happeningAdapter

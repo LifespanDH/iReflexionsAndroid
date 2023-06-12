@@ -48,10 +48,18 @@ class HappeningAdapter(
             if (happening.image != null) {
                 Glide.with(getContext()).load(happening.image).into(image)
             }
-            btnCircle.buttonColor = ContextCompat.getColor(getContext(),
-                R.color.whats_happening_item
-            )
-
+            if(happening.name == "Panic Attack!") {
+                btnCircle.buttonColor = ContextCompat.getColor(
+                    getContext(),
+                    R.color.red
+                )
+            }
+                else {
+                btnCircle.buttonColor = ContextCompat.getColor(
+                    getContext(),
+                    R.color.whats_happening_item
+                )
+            }
             btnCircle.buttonType = ButtonType.Circle
 
         }
