@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.network
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

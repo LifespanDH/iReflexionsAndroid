@@ -49,7 +49,7 @@ class EnvironmentalAdapter(
     }
 
     interface OnItemClicked {
-        fun onItemClicked(link: String)
+        fun onEnvironmentItemClicked()
     }
 
 

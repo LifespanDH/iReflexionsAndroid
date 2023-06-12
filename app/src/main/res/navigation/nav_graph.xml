@@ -104,6 +104,9 @@
             android:defaultValue="@null"
             app:argType="java.util.Date"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_howAmICreateEntryFragment_to_customHappeningFragment"
+            app:destination="@id/customHappeningFragment" />
     </fragment>
     <fragment
         android:id="@+id/weeklyReportFragment"
@@ -269,5 +272,9 @@
         app:argType="com.lifespandh.ireflexions.models.ResourceLibraryItem"
         app:nullable="true"/>
     </fragment>
+    <dialog
+        android:id="@+id/customHappeningFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.CustomHappeningFragment"
+        android:label="CustomHappeningFragment" />
 
 </navigation>

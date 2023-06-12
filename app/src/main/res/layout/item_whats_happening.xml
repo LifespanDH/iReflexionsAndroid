@@ -9,6 +9,7 @@
         android:id="@+id/btn_circle_item"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:clickable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -17,6 +18,7 @@
         android:id="@+id/img_item"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:clickable="true"
         android:src="@drawable/ic_heartbreak"
         app:layout_constraintBottom_toBottomOf="@+id/btn_circle_item"
         app:layout_constraintEnd_toEndOf="@+id/btn_circle_item"

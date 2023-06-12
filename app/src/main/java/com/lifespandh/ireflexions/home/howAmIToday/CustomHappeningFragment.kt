@@ -1,9 +1,14 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import kotlinx.android.synthetic.main.custom_happening.btn_save
@@ -12,35 +17,45 @@ import kotlinx.android.synthetic.main.fragment_text_crisis_lines.close_dialog_te
 
 class CustomHappeningFragment: BaseDialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var view: View
+    private lateinit var closeDialogImage : ImageView
+    private lateinit var editText: EditText
+    private lateinit var saveButton: Button
 
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+            val inflater = requireActivity().layoutInflater
+            val view = inflater.inflate(R.layout.custom_happening, null)
+            builder.setView(view)
 
-        return inflater.inflate(R.layout.custom_happening, container, false)
-    }
+            val dialog = builder.create()
+            dialog.setCanceledOnTouchOutside(false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
+            this.view = view
+            init()
+
+            dialog
+        } ?: throw IllegalStateException("Activity cannot be null.")
     }
 
     private fun init(){
+        initViews()
         setListeners()
     }
 
+    private fun initViews(){
+        closeDialogImage = view.findViewById(R.id.img_close)
+        editText = view.findViewById(R.id.custom_name_editText)
+        saveButton = view.findViewById(R.id.btn_save)
+    }
     private fun setListeners(){
-        close_dialog_textView.setOnClickListener {
+        closeDialogImage.setOnClickListener {
             dismiss()
         }
 
-        btn_save.setOnClickListener {
+        saveButton.setOnClickListener {
             //custom_name_editText.text
         }
     }

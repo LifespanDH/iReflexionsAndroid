@@ -62,10 +62,17 @@ class HappeningAdapter(
             }
             btnCircle.buttonType = ButtonType.Circle
 
+            btnCircle.setOnClickListener {
+                if(absoluteAdapterPosition == itemList.size-1)
+                    listener.onCustomItemClicked()
+                else
+                    listener.onItemClicked(happening)
+            }
         }
 
     }
     interface OnItemClicked {
-        fun onItemClicked(link: String)
+        fun onItemClicked(happening: Happening)
+        fun onCustomItemClicked()
     }
 }
