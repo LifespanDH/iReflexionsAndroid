@@ -1,23 +1,19 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
 import com.lifespandh.irefgraphs.CheckinObject
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
-import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.home.care.CareCenterFragmentDirections
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.EnvironmentalAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
@@ -26,8 +22,8 @@ import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentConditions.Companion.defaultEnvironmentConditions
 import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
+import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.network.LOGIN_CUSTOM_USER
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
@@ -42,6 +38,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     private var environmentList: ArrayList<EnvironmentCondition> = ArrayList()
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
+    private var currentCategory: TraitCategory? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,30 +53,60 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun init(){
-        setCircleViews()
+//        setCircleViews(it)
         setRecyclerViews()
         getTraitCategories()
         setObservers()
     }
 
-    private fun setCircleViews(){
+    private fun setCircleViews(traitCategories: List<TraitCategory>) {
         btn_sleep_hour.text = "Unsure"
         btn_sleep_quality.text = "Unsure"
-        val traitCategories: MutableList<CheckinObject> = mutableListOf()
+        val checkInObjects: MutableList<CheckinObject> = mutableListOf()
         val traits: MutableList<CheckinObject> = mutableListOf()
 
-        for ((index, traitCategory) in EmotionTraits.categories.withIndex()) {
-            traitCategories.add(
+        traitCategories.forEachIndexed { index, traitCategory ->
+            checkInObjects.add(
                 CheckinObject(
                     index,
-                    ContextCompat.getColor(requireContext(), traitCategory.color),
+                    Color.parseColor(traitCategory.color),
                     traitCategory.name
                 )
             )
         }
 
-        checkinCircleCategory.checkinObjects = traitCategories
+        checkinCircleCategory.checkinObjects = checkInObjects
         checkinCircleCategory.isCategory = true
+
+//        checkinCircleCategory.selectedSector.observe(viewLifecycleOwner, {
+//
+//            traits.clear()
+//            currentCategory = EmotionTraits.categories[it]
+//
+//            for ((index, trait) in currentCategory!!.traits.withIndex()) {
+//                traits.add(
+//                    CheckinObject(
+//                        index,
+//                        ContextCompat.getColor(requireContext(), trait.color),
+//                        trait.name
+//                    )
+//                )
+//            }
+//
+//            checkinCircleTrait.visibility = View.VISIBLE
+//            checkinCircleCategory.visibility = View.INVISIBLE
+//            img_back.visibility = View.VISIBLE
+//            checkinCircleTrait.checkinObjects = traits
+//
+//            checkinCircleTrait.invalidateView()
+//
+//            for (i in viewModel.hashMap[it]!!) {
+//                checkinCircleTrait.checkinObjects[i].isSelected = true
+//            }
+//
+//            viewModel.traitsMap.clear()
+//
+//        })
 
     }
 
@@ -117,8 +144,8 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun setObservers(){
-        howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this){
-
+        howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
+            setCircleViews(it)
         }
     }
 
