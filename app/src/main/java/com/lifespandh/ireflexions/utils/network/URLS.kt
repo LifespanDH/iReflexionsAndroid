@@ -35,3 +35,6 @@ const val DELETE_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "delete_support_conta
 const val GET_JOURNAL_ENTRIES = BASE_URL + IREF_USERS + "get_journal_entries/"
 const val GET_CARE_CENTER_EXERCISES = BASE_URL + IREF_USERS + "get_care_center_exercises/"
 const val GET_RESOURCE_CONTENT = BASE_URL + IREF_USERS + "get_library_resources/"
+
+// How Am I Today
+const val GET_TRAIT_CATEGORIES = BASE_URL + IREF_USERS + "get_trait_categories/"

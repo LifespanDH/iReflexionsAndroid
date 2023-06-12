@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import java.util.*
 import kotlin.collections.ArrayList
 

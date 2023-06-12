@@ -2,7 +2,8 @@ package com.lifespandh.ireflexions.api
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.utils.*
 import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
@@ -81,5 +82,6 @@ interface ApiClient {
     @GET(GET_RESOURCE_CONTENT)
     suspend fun getResourceContent(): List<ResourceLibraryItem>
 
-
+    @GET(GET_TRAIT_CATEGORIES)
+    suspend fun getTraitCategories(): List<TraitCategory>
 }

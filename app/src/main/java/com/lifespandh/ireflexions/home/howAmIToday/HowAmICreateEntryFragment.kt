@@ -12,11 +12,11 @@ import com.lifespandh.irefgraphs.CheckinObject
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.EnvironmentalAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
-import com.lifespandh.ireflexions.models.howAmI.EmotionTraits
-import com.lifespandh.ireflexions.models.howAmI.EnvironmentCondition
-import com.lifespandh.ireflexions.models.howAmI.EnvironmentConditions.Companion.defaultEnvironmentConditions
-import com.lifespandh.ireflexions.models.howAmI.Happening
-import com.lifespandh.ireflexions.models.howAmI.Happenings.Companion.defaultHappenings
+import com.lifespandh.ireflexions.models.howAmIToday.EmotionTraits
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentConditions.Companion.defaultEnvironmentConditions
+import com.lifespandh.ireflexions.models.howAmIToday.Happening
+import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.environmentalView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.happeningView

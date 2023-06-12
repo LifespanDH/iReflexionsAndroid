@@ -1,6 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 
 class JournalEntryAdapter(
     private var itemListDailyCheckIn: List<DailyCheckInEntry> = emptyList(),

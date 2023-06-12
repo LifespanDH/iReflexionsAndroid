@@ -11,7 +11,7 @@ import com.lifespandh.irefgraphs.ButtonShadowView
 import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.howAmI.Happening
+import com.lifespandh.ireflexions.models.howAmIToday.Happening
 
 class HappeningAdapter(
     private var itemList: List<Happening>,

@@ -1,6 +1,5 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

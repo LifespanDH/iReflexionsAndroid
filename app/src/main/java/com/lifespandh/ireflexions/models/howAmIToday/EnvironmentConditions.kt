@@ -1,4 +1,4 @@
-package com.lifespandh.ireflexions.models.howAmI
+package com.lifespandh.ireflexions.models.howAmIToday
 
 class EnvironmentConditions{
 

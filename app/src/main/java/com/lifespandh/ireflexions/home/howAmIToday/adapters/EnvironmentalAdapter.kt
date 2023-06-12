@@ -2,17 +2,13 @@ package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.irefgraphs.ButtonShadowView
 import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.howAmI.EnvironmentCondition
-import com.lifespandh.ireflexions.models.howAmI.Happening
-import kotlinx.android.synthetic.main.activity_registration.view.name
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 
 class EnvironmentalAdapter(
     private var itemList: List<EnvironmentCondition>,
