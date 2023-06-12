@@ -17,6 +17,8 @@ import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentConditions.Companion.defaultEnvironmentConditions
 import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.environmentalView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.happeningView
@@ -46,6 +48,8 @@ class HowAmICreateEntryFragment : Fragment(), HappeningAdapter.OnItemClicked, En
     }
 
     private fun setCircleViews(){
+        btn_sleep_hour.text = "Unsure"
+        btn_sleep_quality.text = "Unsure"
         val traitCategories: MutableList<CheckinObject> = mutableListOf()
         val traits: MutableList<CheckinObject> = mutableListOf()
 
