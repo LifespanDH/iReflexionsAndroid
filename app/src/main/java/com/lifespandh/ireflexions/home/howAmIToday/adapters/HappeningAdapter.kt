@@ -67,6 +67,7 @@ class HappeningAdapter(
 
                 pushButton(happening)
 
+
                 if (absoluteAdapterPosition == itemList.size - 1)
                     listener.onCustomItemClicked()
                 else

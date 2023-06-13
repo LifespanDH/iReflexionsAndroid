@@ -218,6 +218,11 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     override fun onItemClicked(happening: WhatsHappening) {
+        if (happening.panicAttack) {
+            // Open Panic Attack Dialog here
+        } else {
+
+        }
     }
 
     override fun onCustomItemClicked() {
