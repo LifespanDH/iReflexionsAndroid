@@ -12,9 +12,7 @@ import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
-import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class HappeningAdapter(

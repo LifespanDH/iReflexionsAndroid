@@ -16,10 +16,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.EnvironmentalAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.TraitAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
-import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
-import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentConditions.Companion.defaultEnvironmentConditions
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
-import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
@@ -45,8 +42,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
         mutableListOf(),
         this
     )
-    private var happeningsList: ArrayList<Happening> = ArrayList()
-    private var environmentList: ArrayList<EnvironmentCondition> = ArrayList()
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
     private var currentCategory: TraitCategory? = null
@@ -154,9 +149,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                     }
                 }
         }
-//        happeningAdapter.setList(happeningsList)
 
-        environmentList.addAll(defaultEnvironmentConditions)
         environmentalView.apply {
             adapter = environmentalAdapter
             layoutManager =
@@ -167,14 +160,14 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                     }
                 }
         }
-//        environmentalAdapter.setList(environmentList)
-
     }
 
     private fun getTraitCategories() {
-        howAmITodayViewModel.getTraitCategories()
-        howAmITodayViewModel.getWhatsHappening()
-        howAmITodayViewModel.getEnvironmentalConditions()
+//        howAmITodayViewModel.getTraitCategories()
+//        howAmITodayViewModel.getWhatsHappening()
+//        howAmITodayViewModel.getEnvironmentalConditions()
+//
+        howAmITodayViewModel.getHowAmITodayData()
     }
 
     private fun setListeners() {
@@ -186,22 +179,35 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun setObservers(){
-        howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
-            setCircleViews(it)
-        }
+//        howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
+//            setCircleViews(it)
+//        }
+//
+//        howAmITodayViewModel.whatsHappeningLiveData.observeFreshly(this) {
+//            // Adding create new instance here
+//            val list = it.toMutableList()
+//            list.add(WhatsHappening.createNew())
+//            happeningAdapter.setList(list)
+//        }
+//
+//        howAmITodayViewModel.environmentalConditionsLiveData.observeFreshly(this) {
+//            // Adding "other" instance here
+//            val list = it.toMutableList()
+//            list.add(EnvironmentalCondition.other())
+//            environmentalAdapter.setList(list)
+//        }
 
-        howAmITodayViewModel.whatsHappeningLiveData.observeFreshly(this) {
-            // Adding create new instance here
-            val list = it.toMutableList()
-            list.add(WhatsHappening.createNew())
-            happeningAdapter.setList(list)
-        }
+        howAmITodayViewModel.howAmITodayLiveData.observeFreshly(this) {
+            val traitCategories = it.traitCategories
+            val whatsHappening = it.whatsHappening.toMutableList()
+            val environmentalConditions = it.environmentalConditions.toMutableList()
 
-        howAmITodayViewModel.environmentalConditionsLiveData.observeFreshly(this) {
-            // Adding "other" instance here
-            val list = it.toMutableList()
-            list.add(EnvironmentalCondition.other())
-            environmentalAdapter.setList(list)
+            whatsHappening.add(WhatsHappening.createNew())
+            environmentalConditions.add(EnvironmentalCondition.other())
+
+            setCircleViews(traitCategories)
+            happeningAdapter.setList(whatsHappening)
+            environmentalAdapter.setList(environmentalConditions)
         }
 
         howAmITodayViewModel.newWhatsHappening.observeFreshly(this) {

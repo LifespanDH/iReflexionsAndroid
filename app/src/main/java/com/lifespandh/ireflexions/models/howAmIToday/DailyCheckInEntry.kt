@@ -8,8 +8,8 @@ data class DailyCheckInEntry(
     @SerializedName("id")
     val id: Int,
 
-    @SerializedName("traitCategory")
-    val traitCategoryResults: List<TraitCategoryResult>,
+//    @SerializedName("traitCategory")
+//    val traitCategoryResults: List<TraitCategoryResult>,
 
     @SerializedName("sleep_duration")
     val sleepDuration: Int,

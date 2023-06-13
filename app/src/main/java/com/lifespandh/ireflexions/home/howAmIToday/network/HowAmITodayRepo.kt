@@ -1,8 +1,8 @@
 package com.lifespandh.ireflexions.home.howAmIToday.network
 
 import com.lifespandh.ireflexions.api.ApiClient
-import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -44,6 +44,20 @@ class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getEnvironmentalConditions()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getHowAmITodayData(): NetworkResult<HowAmITodayData> {
+        var networkResult: NetworkResult<HowAmITodayData>? = null
+
+        safeApiCall({
+            apiClient.getHowAmITodayData()
         }, {
             networkResult = it
         }, {

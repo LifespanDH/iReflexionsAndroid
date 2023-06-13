@@ -1,14 +1,11 @@
 package com.lifespandh.ireflexions.home.howAmIToday.network
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lifespandh.ireflexions.home.howAmIToday.CustomHappeningFragment
-import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
-import com.lifespandh.ireflexions.models.howAmIToday.Happening
+import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
@@ -29,6 +26,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     private val _environmentalConditionsLiveData = MutableLiveData<List<EnvironmentalCondition>>()
     val environmentalConditionsLiveData: LiveData<List<EnvironmentalCondition>>
         get() = _environmentalConditionsLiveData
+
+    private val _howAmITodayLiveData = MutableLiveData<HowAmITodayData>()
+    val howAmITodayLiveData: LiveData<HowAmITodayData>
+        get() = _howAmITodayLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -89,6 +90,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _environmentalConditionsLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getHowAmITodayData() {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.getHowAmITodayData()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _howAmITodayLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception
