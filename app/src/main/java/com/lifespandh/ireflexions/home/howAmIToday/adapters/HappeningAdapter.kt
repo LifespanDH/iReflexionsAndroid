@@ -57,27 +57,16 @@ class HappeningAdapter(
             name.text = happening.name
             Glide.with(getContext()).load(happening.image).into(image)
 
-            if(happening.name == "Panic Attack!") {
-                btnCircle.buttonColor = ContextCompat.getColor(
-                    getContext(),
-                    R.color.red
-                )
-            }
-                else {
-                btnCircle.buttonColor = ContextCompat.getColor(
-                    getContext(),
-                    R.color.whats_happening_item
-                )
-            }
             btnCircle.buttonType = ButtonType.Circle
 
-            colorButton(happening)
+            pushButton(happening)
 
             btnCircle.setOnClickListener {
                 if (absoluteAdapterPosition != itemList.size - 1)
                     howAmITodayViewModel.selectedWhatsHappening.removeOrAdd(happening)
 
-                colorButton(happening)
+                pushButton(happening)
+
                 if (absoluteAdapterPosition == itemList.size - 1)
                     listener.onCustomItemClicked()
                 else
@@ -85,20 +74,15 @@ class HappeningAdapter(
             }
         }
 
-        private fun colorButton(happening: WhatsHappening) {
+        private fun pushButton(happening: WhatsHappening) {
             btnCircle.isPushed = howAmITodayViewModel.selectedWhatsHappening.contains(happening)
             val newColor = if (btnCircle.isPushed)
-                ContextCompat.getColor(
-                    getContext(),
-                    R.color.whats_happening_item_pushed
-                )
+                R.color.whats_happening_item_pushed
             else
-                ContextCompat.getColor(
-                    getContext(),
-                    R.color.whats_happening_item
-                )
+                if (happening.panicAttack)
+                    R.color.red else R.color.whats_happening_item
 
-            btnCircle.buttonColor = newColor
+            btnCircle.buttonColor = ContextCompat.getColor(getContext(), newColor)
             btnCircle.invalidateView()
         }
 

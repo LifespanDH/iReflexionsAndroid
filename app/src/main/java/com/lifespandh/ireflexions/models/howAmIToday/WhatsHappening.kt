@@ -10,12 +10,15 @@ data class WhatsHappening(
     val image: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean
+    val userCreated: Boolean = false,
+
+    @SerializedName("panic_attack")
+    val panicAttack: Boolean  = false
     ) {
 
     companion object {
         fun createNew(): WhatsHappening {
-            return WhatsHappening("Create New", "", false)
+            return WhatsHappening("Create New", "", false, panicAttack = false)
         }
     }
 }

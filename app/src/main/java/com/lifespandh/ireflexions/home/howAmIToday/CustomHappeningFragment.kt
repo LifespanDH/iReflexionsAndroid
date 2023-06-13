@@ -68,7 +68,6 @@ class CustomHappeningFragment: BaseDialogFragment() {
         }
 
         saveButton.setOnClickListener {
-            //custom_name_editText.text
             when(dialogFor) {
                 DIALOG_FOR.WHATS_HAPPENING -> {
                     val whatsHappening = WhatsHappening(editText.trimString(), "", true)
