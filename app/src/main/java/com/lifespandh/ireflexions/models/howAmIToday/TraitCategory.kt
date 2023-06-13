@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class TraitCategory(
 
+    @SerializedName("id")
+    val id: Int,
+
     @SerializedName("name")
     val name: String,
 
@@ -20,5 +23,8 @@ data class TraitSubCategory(
     val name: String,
 
     @SerializedName("color")
-    val color: String
+    val color: String,
+
+    @SerializedName("id")
+    val id: Int
 )

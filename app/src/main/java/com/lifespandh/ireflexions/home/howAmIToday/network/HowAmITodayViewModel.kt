@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
+import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +20,12 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
+
+//    val selectedTraitsMap: HashMap<Int, Boolean> = hashMapOf()
+    var traitCategoryMap = HashMap<Int, Boolean>()
+    var traitsMap = HashMap<Int, Boolean>()
+    var allTraitsMap = HashMap<Int, Boolean>()
+    var hashMap = HashMap<Int, ArrayList<Int>>()
 
     fun getTraitCategories() {
         viewModelScope.launch {
