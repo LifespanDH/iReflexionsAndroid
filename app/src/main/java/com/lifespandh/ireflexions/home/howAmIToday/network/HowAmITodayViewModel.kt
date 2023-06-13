@@ -36,6 +36,7 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
 
     var selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
     var selectedWhatsHappening: MutableList<WhatsHappening> = mutableListOf()
+    var newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
 
     fun getTraitCategories() {
         viewModelScope.launch {

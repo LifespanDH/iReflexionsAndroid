@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.traitView
 class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked, EnvironmentalAdapter.OnItemClicked,
     TraitAdapter.OnItemClickedListener {
 
-    private val happeningAdapter by lazy { HappeningAdapter(listOf(), this, howAmITodayViewModel) }
+    private val happeningAdapter by lazy { HappeningAdapter(mutableListOf(), this, howAmITodayViewModel) }
     private val environmentalAdapter by lazy { EnvironmentalAdapter(listOf(), this) }
     private val traitAdapter = TraitAdapter(
         mutableListOf(),
@@ -48,7 +49,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     )
     private var happeningsList: ArrayList<Happening> = ArrayList()
     private var environmentList: ArrayList<EnvironmentCondition> = ArrayList()
-    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
     private var currentCategory: TraitCategory? = null
     private var traitsList: ArrayList<TraitSubCategory> = ArrayList()
@@ -195,6 +196,12 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             val list = it.toMutableList()
             list.add(WhatsHappening.createNew())
             happeningAdapter.setList(list)
+        }
+
+        howAmITodayViewModel.newWhatsHappening.observeFreshly(this) {
+            it?.let {
+                happeningAdapter.addUserCreated(it)
+            }
         }
     }
 

@@ -18,7 +18,7 @@ import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class HappeningAdapter(
-    private var itemList: List<WhatsHappening>,
+    private var itemList: MutableList<WhatsHappening>,
     private val listener: OnItemClicked,
     private val howAmITodayViewModel: HowAmITodayViewModel
 ) : BaseRecyclerViewAdapter() {
@@ -37,8 +37,16 @@ class HappeningAdapter(
     }
 
     fun setList(list: List<WhatsHappening>) {
-        this.itemList = list
+        this.itemList = list.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addUserCreated(happening: WhatsHappening) {
+//        this.itemList.add
+        logE("called here $happening ${this.itemList}")
+        this.itemList.add(this.itemList.size - 1, happening)
+        logE("called after ${this.itemList}")
+        notifyItemInserted(this.itemList.size - 2)
     }
 
     inner class HappeningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,30 +74,35 @@ class HappeningAdapter(
             }
             btnCircle.buttonType = ButtonType.Circle
 
+            colorButton(happening)
+
             btnCircle.setOnClickListener {
-                howAmITodayViewModel.selectedWhatsHappening.removeOrAdd(happening)
-                logE("called ${howAmITodayViewModel.selectedWhatsHappening}")
+                if (absoluteAdapterPosition != itemList.size - 1)
+                    howAmITodayViewModel.selectedWhatsHappening.removeOrAdd(happening)
 
-                btnCircle.isPushed = howAmITodayViewModel.selectedWhatsHappening.contains(happening)
-                val newColor = if (btnCircle.isPushed)
-                    ContextCompat.getColor(
-                        getContext(),
-                        R.color.whats_happening_item_pushed
-                    )
-                else
-                    ContextCompat.getColor(
-                        getContext(),
-                        R.color.whats_happening_item
-                    )
-
-                btnCircle.buttonColor = newColor
-                btnCircle.invalidateView()
-
-                if(absoluteAdapterPosition == itemList.size-1)
+                colorButton(happening)
+                if (absoluteAdapterPosition == itemList.size - 1)
                     listener.onCustomItemClicked()
                 else
                     listener.onItemClicked(happening)
             }
+        }
+
+        private fun colorButton(happening: WhatsHappening) {
+            btnCircle.isPushed = howAmITodayViewModel.selectedWhatsHappening.contains(happening)
+            val newColor = if (btnCircle.isPushed)
+                ContextCompat.getColor(
+                    getContext(),
+                    R.color.whats_happening_item_pushed
+                )
+            else
+                ContextCompat.getColor(
+                    getContext(),
+                    R.color.whats_happening_item
+                )
+
+            btnCircle.buttonColor = newColor
+            btnCircle.invalidateView()
         }
 
     }

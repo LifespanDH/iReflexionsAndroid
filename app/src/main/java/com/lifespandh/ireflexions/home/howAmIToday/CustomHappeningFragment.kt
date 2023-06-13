@@ -9,8 +9,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.activityViewModels
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.custom_happening.btn_save
 import kotlinx.android.synthetic.main.custom_happening.custom_name_editText
 import kotlinx.android.synthetic.main.fragment_text_crisis_lines.close_dialog_textView
@@ -21,6 +26,9 @@ class CustomHappeningFragment: BaseDialogFragment() {
     private lateinit var closeDialogImage : ImageView
     private lateinit var editText: EditText
     private lateinit var saveButton: Button
+
+    private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -57,6 +65,10 @@ class CustomHappeningFragment: BaseDialogFragment() {
 
         saveButton.setOnClickListener {
             //custom_name_editText.text
+            val whatsHappening = WhatsHappening(editText.trimString(), "", true)
+            howAmITodayViewModel.selectedWhatsHappening.add(whatsHappening)
+            howAmITodayViewModel.newWhatsHappening.value = whatsHappening
+            dismiss()
         }
     }
 }
