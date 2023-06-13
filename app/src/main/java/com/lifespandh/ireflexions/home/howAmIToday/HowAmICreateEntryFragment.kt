@@ -22,6 +22,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
@@ -31,6 +32,8 @@ import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCirc
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.environmentalView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.happeningView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.img_back
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.loader
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.mainLayout
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.traitView
 
 class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked, EnvironmentalAdapter.OnItemClicked,
@@ -168,6 +171,8 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 //        howAmITodayViewModel.getEnvironmentalConditions()
 //
         howAmITodayViewModel.getHowAmITodayData()
+        loader.makeVisible()
+        mainLayout.makeGone()
     }
 
     private fun setListeners() {
@@ -208,6 +213,9 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             setCircleViews(traitCategories)
             happeningAdapter.setList(whatsHappening)
             environmentalAdapter.setList(environmentalConditions)
+
+            mainLayout.makeVisible()
+            loader.makeGone()
         }
 
         howAmITodayViewModel.newWhatsHappening.observeFreshly(this) {
