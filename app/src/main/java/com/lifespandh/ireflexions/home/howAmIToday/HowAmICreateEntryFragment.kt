@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,6 +25,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
@@ -53,7 +55,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun init(){
-//        setCircleViews(it)
         setRecyclerViews()
         getTraitCategories()
         setObservers()
@@ -77,17 +78,20 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
         checkinCircleCategory.checkinObjects = checkInObjects
         checkinCircleCategory.isCategory = true
+        checkinCircleCategory.invalidate()
 
-//        checkinCircleCategory.selectedSector.observe(viewLifecycleOwner, {
+    //        checkinCircleCategory.selectedSector.observe(viewLifecycleOwner) {
 //
 //            traits.clear()
-//            currentCategory = EmotionTraits.categories[it]
+//            currentCategory = traitCategories[it]
+//
+//
 //
 //            for ((index, trait) in currentCategory!!.traits.withIndex()) {
 //                traits.add(
 //                    CheckinObject(
 //                        index,
-//                        ContextCompat.getColor(requireContext(), trait.color),
+//                        Color.parseColor(trait.color),
 //                        trait.name
 //                    )
 //                )
@@ -106,7 +110,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 //
 //            viewModel.traitsMap.clear()
 //
-//        })
+//        }
 
     }
 
@@ -145,6 +149,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
     private fun setObservers(){
         howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
+            logE("called $it")
             setCircleViews(it)
         }
     }

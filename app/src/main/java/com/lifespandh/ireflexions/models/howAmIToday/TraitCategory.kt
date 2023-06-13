@@ -11,7 +11,7 @@ data class TraitCategory(
     val color: String,
 
     @SerializedName("trait_sub_categories")
-    val subCategories: List<TraitSubCategory>
+    val traits: List<TraitSubCategory>
 )
 
 data class TraitSubCategory(
