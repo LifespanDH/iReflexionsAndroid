@@ -38,3 +38,4 @@ const val GET_RESOURCE_CONTENT = BASE_URL + IREF_USERS + "get_library_resources/
 
 // How Am I Today
 const val GET_TRAIT_CATEGORIES = BASE_URL + IREF_USERS + "get_trait_categories/"
+const val GET_WHATS_HAPPENING = BASE_URL + IREF_USERS + "get_whats_happening/"

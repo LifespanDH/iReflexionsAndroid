@@ -22,8 +22,10 @@ import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.removeOrAdd
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
@@ -38,7 +40,7 @@ import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.traitView
 class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked, EnvironmentalAdapter.OnItemClicked,
     TraitAdapter.OnItemClickedListener {
 
-    private val happeningAdapter by lazy { HappeningAdapter(listOf(), this) }
+    private val happeningAdapter by lazy { HappeningAdapter(listOf(), this, howAmITodayViewModel) }
     private val environmentalAdapter by lazy { EnvironmentalAdapter(listOf(), this) }
     private val traitAdapter = TraitAdapter(
         mutableListOf(),
@@ -142,8 +144,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
     }
 
-    private fun setRecyclerViews(){
-        happeningsList.addAll(defaultHappenings)
+    private fun setRecyclerViews() {
         happeningView.apply {
             adapter = happeningAdapter
             layoutManager =
@@ -154,7 +155,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                     }
                 }
         }
-        happeningAdapter.setList(happeningsList)
+//        happeningAdapter.setList(happeningsList)
 
         environmentList.addAll(defaultEnvironmentConditions)
         environmentalView.apply {
@@ -171,8 +172,9 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
     }
 
-    private fun getTraitCategories(){
+    private fun getTraitCategories() {
         howAmITodayViewModel.getTraitCategories()
+        howAmITodayViewModel.getWhatsHappening()
     }
 
     private fun setListeners() {
@@ -188,10 +190,15 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             logE("called $it")
             setCircleViews(it)
         }
+
+        howAmITodayViewModel.whatsHappeningLiveData.observeFreshly(this) {
+            val list = it.toMutableList()
+            list.add(WhatsHappening.createNew())
+            happeningAdapter.setList(list)
+        }
     }
 
-    override fun onItemClicked(happening: Happening) {
-
+    override fun onItemClicked(happening: WhatsHappening) {
     }
 
     override fun onCustomItemClicked() {

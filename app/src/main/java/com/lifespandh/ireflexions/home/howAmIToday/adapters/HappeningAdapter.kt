@@ -11,11 +11,16 @@ import com.lifespandh.irefgraphs.ButtonShadowView
 import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.Happening
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class HappeningAdapter(
-    private var itemList: List<Happening>,
-    private val listener: OnItemClicked
+    private var itemList: List<WhatsHappening>,
+    private val listener: OnItemClicked,
+    private val howAmITodayViewModel: HowAmITodayViewModel
 ) : BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HappeningViewHolder(getView(R.layout.item_whats_happening, parent))
@@ -31,7 +36,7 @@ class HappeningAdapter(
         return itemList.size
     }
 
-    fun setList(list: List<Happening>) {
+    fun setList(list: List<WhatsHappening>) {
         this.itemList = list
         notifyDataSetChanged()
     }
@@ -43,11 +48,10 @@ class HappeningAdapter(
         private val btnCircle: ButtonShadowView = itemView.findViewById(R.id.btn_circle_item)
 
 
-        fun bind(happening:Happening) {
+        fun bind(happening: WhatsHappening) {
             name.text = happening.name
-            if (happening.image != null) {
-                Glide.with(getContext()).load(happening.image).into(image)
-            }
+            Glide.with(getContext()).load(happening.image).into(image)
+
             if(happening.name == "Panic Attack!") {
                 btnCircle.buttonColor = ContextCompat.getColor(
                     getContext(),
@@ -63,6 +67,24 @@ class HappeningAdapter(
             btnCircle.buttonType = ButtonType.Circle
 
             btnCircle.setOnClickListener {
+                howAmITodayViewModel.selectedWhatsHappening.removeOrAdd(happening)
+                logE("called ${howAmITodayViewModel.selectedWhatsHappening}")
+
+                btnCircle.isPushed = howAmITodayViewModel.selectedWhatsHappening.contains(happening)
+                val newColor = if (btnCircle.isPushed)
+                    ContextCompat.getColor(
+                        getContext(),
+                        R.color.whats_happening_item_pushed
+                    )
+                else
+                    ContextCompat.getColor(
+                        getContext(),
+                        R.color.whats_happening_item
+                    )
+
+                btnCircle.buttonColor = newColor
+                btnCircle.invalidateView()
+
                 if(absoluteAdapterPosition == itemList.size-1)
                     listener.onCustomItemClicked()
                 else
@@ -72,7 +94,7 @@ class HappeningAdapter(
 
     }
     interface OnItemClicked {
-        fun onItemClicked(happening: Happening)
+        fun onItemClicked(happening: WhatsHappening)
         fun onCustomItemClicked()
     }
 }

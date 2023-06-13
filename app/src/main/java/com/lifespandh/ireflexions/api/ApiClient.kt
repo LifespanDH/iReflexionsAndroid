@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.*
 import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
@@ -84,4 +85,7 @@ interface ApiClient {
 
     @GET(GET_TRAIT_CATEGORIES)
     suspend fun getTraitCategories(): List<TraitCategory>
+
+    @GET(GET_WHATS_HAPPENING)
+    suspend fun getWhatsHappening(): List<WhatsHappening>
 }
