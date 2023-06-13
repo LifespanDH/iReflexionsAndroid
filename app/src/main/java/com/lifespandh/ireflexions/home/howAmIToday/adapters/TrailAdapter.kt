@@ -1,6 +1,5 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 
 class TraitAdapter(
-    private var itemList: List<TraitSubCategory>,
+    private var itemList: MutableList<TraitSubCategory>,
     private val listener: OnItemClickedListener
 ) :
     BaseRecyclerViewAdapter() {
@@ -37,12 +36,23 @@ class TraitAdapter(
     }
 
     fun setList(list: List<TraitSubCategory>) {
-        this.itemList = list
+        this.itemList = list.toMutableList()
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    fun removeOrAdd(traitSubCategory: TraitSubCategory) {
+        val index = itemList.indexOf(traitSubCategory)
+        if (index == -1) {
+            itemList.add(traitSubCategory)
+            notifyItemInserted(itemList.size - 1)
+        } else {
+            itemList.removeAt(index)
+            notifyItemRemoved(index)
+        }
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val txtName: TextView = itemView.findViewById(R.id.traitName)
         private val imgCancel: ImageView = itemView.findViewById(R.id.img_cancel)
 
@@ -50,20 +60,19 @@ class TraitAdapter(
             txtName.text = traitSubCategory.name
 
             imgCancel.setOnClickListener {
+                val index = this@TraitAdapter.itemList.indexOf(traitSubCategory)
+                this@TraitAdapter.itemList.removeAt(index)
+                notifyItemRemoved(index)
+
+                listener.onCancelClicked(traitSubCategory)
 //                listener.onItemClick(absoluteAdapterPosition, )
             }
 
         }
-
-        override fun onClick(p0: View?) {
-            listener.onItemClick(adapterPosition, this)
-        }
-
     }
 
     interface OnItemClickedListener {
-        fun onItemClick(position: Int, viewHolder: ViewHolder)
-
+        fun onCancelClicked(traitSubCategory: TraitSubCategory)
     }
 
 }

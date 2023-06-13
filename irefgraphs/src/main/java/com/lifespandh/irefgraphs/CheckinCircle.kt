@@ -12,6 +12,7 @@ import kotlin.math.ceil
 
 
 data class CheckinObject(
+    val id: Int,
     val orderNumber: Int,
     val color: Int,
     val text: String,

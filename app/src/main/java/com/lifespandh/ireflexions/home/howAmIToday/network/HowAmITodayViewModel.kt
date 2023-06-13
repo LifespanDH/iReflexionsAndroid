@@ -21,11 +21,14 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
 
-//    val selectedTraitsMap: HashMap<Int, Boolean> = hashMapOf()
-    var traitCategoryMap = HashMap<Int, Boolean>()
-    var traitsMap = HashMap<Int, Boolean>()
-    var allTraitsMap = HashMap<Int, Boolean>()
-    var hashMap = HashMap<Int, ArrayList<Int>>()
+////    val selectedTraitsMap: HashMap<Int, Boolean> = hashMapOf()
+//    var traitCategoryMap = HashMap<Int, Boolean>()
+//    var traitsMap = HashMap<Int, Boolean>()
+//    var allTraitsMap = HashMap<Int, Boolean>()
+//    var hashMap = HashMap<Int, ArrayList<Int>>()
+//    var emotionTraitsMap = HashMap<Int, ArrayList<Int>>()
+
+    var selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
 
     fun getTraitCategories() {
         viewModelScope.launch {

@@ -26,5 +26,8 @@ data class TraitSubCategory(
     val color: String,
 
     @SerializedName("id")
-    val id: Int
+    val id: Int,
+
+    @SerializedName("trait_id")
+    val traitId: Int
 )
