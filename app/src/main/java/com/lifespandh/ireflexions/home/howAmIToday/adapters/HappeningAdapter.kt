@@ -42,10 +42,7 @@ class HappeningAdapter(
     }
 
     fun addUserCreated(happening: WhatsHappening) {
-//        this.itemList.add
-        logE("called here $happening ${this.itemList}")
         this.itemList.add(this.itemList.size - 1, happening)
-        logE("called after ${this.itemList}")
         notifyItemInserted(this.itemList.size - 2)
     }
 

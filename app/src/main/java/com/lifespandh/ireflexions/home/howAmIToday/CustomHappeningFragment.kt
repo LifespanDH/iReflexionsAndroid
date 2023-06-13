@@ -2,23 +2,20 @@ package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.trimString
-import kotlinx.android.synthetic.main.custom_happening.btn_save
 import kotlinx.android.synthetic.main.custom_happening.custom_name_editText
-import kotlinx.android.synthetic.main.fragment_text_crisis_lines.close_dialog_textView
 
 class CustomHappeningFragment: BaseDialogFragment() {
 
@@ -27,6 +24,8 @@ class CustomHappeningFragment: BaseDialogFragment() {
     private lateinit var editText: EditText
     private lateinit var saveButton: Button
 
+    private var dialogFor = DIALOG_FOR.WHATS_HAPPENING
+    private val args: CustomHappeningFragmentArgs by navArgs()
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
 
@@ -48,9 +47,14 @@ class CustomHappeningFragment: BaseDialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null.")
     }
 
-    private fun init(){
+    private fun init() {
+        getArgumentValues()
         initViews()
         setListeners()
+    }
+
+    private fun getArgumentValues() {
+        dialogFor = args.dialogFor
     }
 
     private fun initViews(){
@@ -65,10 +69,22 @@ class CustomHappeningFragment: BaseDialogFragment() {
 
         saveButton.setOnClickListener {
             //custom_name_editText.text
-            val whatsHappening = WhatsHappening(editText.trimString(), "", true)
-            howAmITodayViewModel.selectedWhatsHappening.add(whatsHappening)
-            howAmITodayViewModel.newWhatsHappening.value = whatsHappening
+            when(dialogFor) {
+                DIALOG_FOR.WHATS_HAPPENING -> {
+                    val whatsHappening = WhatsHappening(editText.trimString(), "", true)
+                    howAmITodayViewModel.selectedWhatsHappening.add(whatsHappening)
+                    howAmITodayViewModel.newWhatsHappening.value = whatsHappening
+                }
+                DIALOG_FOR.ENVIRONMENTAL_CONDITIONS -> {
+                    val environmentalCondition = EnvironmentalCondition(editText.trimString(), true)
+                    howAmITodayViewModel.selectedEnvironmentalConditions.add(environmentalCondition)
+                    howAmITodayViewModel.newEnvironmentalCondition.value = environmentalCondition
+                }
+            }
             dismiss()
         }
+    }
+
+    companion object {
     }
 }

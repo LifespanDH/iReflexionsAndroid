@@ -275,6 +275,11 @@
     <dialog
         android:id="@+id/customHappeningFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.CustomHappeningFragment"
-        android:label="CustomHappeningFragment" />
+        android:label="CustomHappeningFragment">
+        <argument
+            android:name="dialogFor"
+            android:defaultValue="WHATS_HAPPENING"
+            app:argType="com.lifespandh.ireflexions.home.howAmIToday.DIALOG_FOR" />
+    </dialog>
 
 </navigation>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,14 +18,13 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.TraitAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentConditions.Companion.defaultEnvironmentConditions
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.Happening
-import com.lifespandh.ireflexions.models.howAmIToday.Happenings.Companion.defaultHappenings
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
-import com.lifespandh.ireflexions.utils.removeOrAdd
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
@@ -42,7 +40,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     TraitAdapter.OnItemClickedListener {
 
     private val happeningAdapter by lazy { HappeningAdapter(mutableListOf(), this, howAmITodayViewModel) }
-    private val environmentalAdapter by lazy { EnvironmentalAdapter(listOf(), this) }
+    private val environmentalAdapter by lazy { EnvironmentalAdapter(mutableListOf(), this, howAmITodayViewModel) }
     private val traitAdapter = TraitAdapter(
         mutableListOf(),
         this
@@ -169,13 +167,14 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                     }
                 }
         }
-        environmentalAdapter.setList(environmentList)
+//        environmentalAdapter.setList(environmentList)
 
     }
 
     private fun getTraitCategories() {
         howAmITodayViewModel.getTraitCategories()
         howAmITodayViewModel.getWhatsHappening()
+        howAmITodayViewModel.getEnvironmentalConditions()
     }
 
     private fun setListeners() {
@@ -188,19 +187,32 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
     private fun setObservers(){
         howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
-            logE("called $it")
             setCircleViews(it)
         }
 
         howAmITodayViewModel.whatsHappeningLiveData.observeFreshly(this) {
+            // Adding create new instance here
             val list = it.toMutableList()
             list.add(WhatsHappening.createNew())
             happeningAdapter.setList(list)
         }
 
+        howAmITodayViewModel.environmentalConditionsLiveData.observeFreshly(this) {
+            // Adding "other" instance here
+            val list = it.toMutableList()
+            list.add(EnvironmentalCondition.other())
+            environmentalAdapter.setList(list)
+        }
+
         howAmITodayViewModel.newWhatsHappening.observeFreshly(this) {
             it?.let {
                 happeningAdapter.addUserCreated(it)
+            }
+        }
+
+        howAmITodayViewModel.newEnvironmentalCondition.observeFreshly(this) {
+            it?.let {
+                environmentalAdapter.addUserCreated(it)
             }
         }
     }
@@ -209,12 +221,17 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     override fun onCustomItemClicked() {
-        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment()
+        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.WHATS_HAPPENING)
         findNavController().navigate(action)
     }
 
     override fun onEnvironmentItemClicked() {
         TODO("Not yet implemented")
+    }
+
+    override fun onOtherClicked() {
+        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.ENVIRONMENTAL_CONDITIONS)
+        findNavController().navigate(action)
     }
 
     override fun onCancelClicked(traitSubCategory: TraitSubCategory) {

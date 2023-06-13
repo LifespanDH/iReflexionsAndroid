@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lifespandh.ireflexions.home.howAmIToday.CustomHappeningFragment
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.Happening
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
@@ -23,6 +26,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val whatsHappeningLiveData: LiveData<List<WhatsHappening>>
         get() = _whatsHappeningLiveData
 
+    private val _environmentalConditionsLiveData = MutableLiveData<List<EnvironmentalCondition>>()
+    val environmentalConditionsLiveData: LiveData<List<EnvironmentalCondition>>
+        get() = _environmentalConditionsLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
@@ -34,9 +41,11 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
 //    var hashMap = HashMap<Int, ArrayList<Int>>()
 //    var emotionTraitsMap = HashMap<Int, ArrayList<Int>>()
 
-    var selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
-    var selectedWhatsHappening: MutableList<WhatsHappening> = mutableListOf()
-    var newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
+    val selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
+    val selectedWhatsHappening: MutableList<WhatsHappening> = mutableListOf()
+    val selectedEnvironmentalConditions: MutableList<EnvironmentalCondition> = mutableListOf()
+    val newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
+    val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
 
     fun getTraitCategories() {
         viewModelScope.launch {
@@ -63,6 +72,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _whatsHappeningLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getEnvironmentalConditions() {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.getEnvironmentalConditions()
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _environmentalConditionsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

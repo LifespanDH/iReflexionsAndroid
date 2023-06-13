@@ -3,6 +3,8 @@ package com.lifespandh.ireflexions.api
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentCondition
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.*
@@ -88,4 +90,7 @@ interface ApiClient {
 
     @GET(GET_WHATS_HAPPENING)
     suspend fun getWhatsHappening(): List<WhatsHappening>
+
+    @GET(GET_ENVIRONMENTAL_CONDITIONS)
+    suspend fun getEnvironmentalConditions(): List<EnvironmentalCondition>
 }
