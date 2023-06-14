@@ -1,12 +1,12 @@
 package com.lifespandh.ireflexions.home.course
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,17 +20,20 @@ import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeInvisible
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
 
-class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
+class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
-    private var currentPrograms: List<Program>? = null
     private val dialogUtils = DialogUtils()
     private var userProgramProgress: UserProgramProgress? = null
+
+    private var currentProgram: Program? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,55 +58,42 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     private fun setListeners(){
         currentProgramContainer.setOnClickListener {
             val courseprogress = userProgramProgress?.courseProgress
-            val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentPrograms?.get(0), programProgress = userProgramProgress)
+            val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentProgram, programProgress = userProgramProgress)
             findNavController().navigate(action)
         }
     }
 
     private fun getPrograms() {
         homeViewModel.getPrograms()
-        homeViewModel.getRegisteredProgramList()
         homeViewModel.getUserProgramProgress()
     }
 
-    private fun setViews(){
+    private fun setViews() {
         rvPrograms.apply {
             adapter = courseListProgramAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        if(currentPrograms == null)
-        {
-            browseProgramContainer.visibility = View.VISIBLE
-        }
+        browseProgramContainer.isVisible = currentProgram == null
     }
 
 
     private fun setObservers() {
         homeViewModel.programsLiveData.observeFreshly(this) {
             courseListProgramAdapter.setList(it)
+            updateCurrentProgram(it.filter { it.isRegistered })
         }
 
-        homeViewModel.registeredProgramsLiveData.observeFreshly(this){
-            currentPrograms = it
-            if(it?.isEmpty() != true) {
-                updateCurrentProgram()
-            }
-        }
-
-        homeViewModel.programProgressLiveData.observeFreshly(this){
+        homeViewModel.programProgressLiveData.observeFreshly(this) {
             userProgramProgress = it
             updateProgramProgress()
         }
 
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
             if(it) {
-                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully") {
-
-                }
+                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
             }
         }
-
 
         tokenViewModel.token.observeFreshly(this) {
             logE("called token $it")
@@ -115,48 +105,34 @@ class CourseListFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicke
     }
 
     companion object {
-        fun newInstance() = CourseListFragment()
+        fun newInstance() = ProgramFragment()
     }
-    private fun updateCurrentProgram() {
-        val currentProgram = currentPrograms?.get(0)
-        browseProgramContainer.visibility = View.INVISIBLE
-        currentProgramContainer.visibility = View.VISIBLE
-// <<<<<<< hait
-//         currentProgramItem.txt_enroll.visibility = View.INVISIBLE
-//         currentProgramItem.txt_program.text = currentProgram?.name
+    private fun updateCurrentProgram(currentPrograms: List<Program>) {
+        if (currentPrograms.isNullOrEmpty())
+            return
 
+        currentProgram = currentPrograms.get(0)
+        browseProgramContainer.makeInvisible()
+        currentProgramContainer.makeVisible()
 
-//         Glide.with(this)
-//             .load(currentProgram?.image)
-//             .centerCrop()
-//             .placeholder(R.drawable.program_copingwithcovidicon)
-//             .error(R.drawable.program_copingwithcovidicon)
-//             .into(currentProgramItem.img_program)
-
-//         courseListProgramAdapter.setCurrentProgram(currentPrograms?.first() ?: null)
-// =======
         currentProgramTitle.text = currentProgram?.name
-        courseListProgramAdapter.setCurrentProgram(currentPrograms?.first())
-// >>>>>>> master
     }
 
     private fun updateProgramProgress() {
-        val draw: Drawable = (ContextCompat.getDrawable(requireContext(), com.lifespandh.ireflexions.R.drawable.progress_drawable) ?: null) as Drawable
-        currentProgramProgressBar.progressDrawable = draw
+//        val draw: Drawable = (ContextCompat.getDrawable(requireContext(), R.drawable.progress_drawable) ?: null) as Drawable
+//        currentProgramProgressBar.progressDrawable = draw
         val programProgress = userProgramProgress?.programProgress
-        currentProgressTextView.text = programProgress?.toFloat().toString() ?: "0.0"
+
+        currentProgressTextView.text = if (userProgramProgress?.programProgress == null) "0%" else "${userProgramProgress?.programProgress?.toInt().toString()}%"
         currentProgramProgressBar.progress = programProgress?.toInt() ?: 0
     }
 
     override fun onItemClick(program: Program) {
-        if (currentPrograms?.isNullOrEmpty() == true) {
-            // Show program registration dialog here
+        if (currentProgram == null) {
             toast("Show registration dialog here")
         } else {
-            val currentProgram = currentPrograms?.first()!!
-            if (currentProgram.id == program.id) {
-                // User is registered in this program, open course page
-                val action = CourseListFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
+            if (currentProgram?.id == program.id) {
+                val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
                 findNavController().navigate(action)
             } else {
                 toast("You can register to only one program at a time")

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.home.course.CourseListFragmentDirections
 import com.lifespandh.ireflexions.models.ResourceLibraryItem
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_resource_library.resourceLibraryRV

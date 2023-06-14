@@ -84,7 +84,6 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         parentProgram = args.parentProgram
         parentCourse = args.parentCourse
         lessonNumber = args.lessonNumber
-
     }
 
     companion object {

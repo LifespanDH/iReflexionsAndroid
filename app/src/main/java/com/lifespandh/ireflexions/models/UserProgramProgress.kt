@@ -8,15 +8,15 @@ import kotlinx.android.parcel.Parcelize
 data class UserProgramProgress (
 
     @SerializedName("course_number")
-    val courseNumber: Int,
+    val courseNumber: Int?,
 
     @SerializedName("lesson_number")
-    val lessonNumber: Int,
+    val lessonNumber: Int?,
 
     @SerializedName("program_progress")
-    val programProgress: Float,
+    val programProgress: Float?,
 
     @SerializedName("course_progress")
-    val courseProgress: Float,
+    val courseProgress: Float?,
 
 ): Parcelable

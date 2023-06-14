@@ -154,7 +154,7 @@
     </fragment>
     <fragment
         android:id="@+id/courseListFragment"
-        android:name="com.lifespandh.ireflexions.home.course.CourseListFragment"
+        android:name="com.lifespandh.ireflexions.home.course.ProgramFragment"
         android:label="CourseListFragment">
         <action
             android:id="@+id/action_courseListFragment_to_courseFragment"

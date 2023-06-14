@@ -238,12 +238,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
 
             when(response) {
                 is NetworkResult.Success -> {
-                    Log.d("RegisteredProgramsApiCall", ""+response)
                     val data = response.data
                     _registeredProgramsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
-                    Log.d("RegisteredProgramsApiCall", ""+response.exception)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }
