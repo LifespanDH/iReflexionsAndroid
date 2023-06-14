@@ -12,9 +12,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.LessonQuestion
 import com.lifespandh.ireflexions.models.QUESTION_TYPE
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeGone
-import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.item_multiplechoice.view.answersRecyclerView
 
@@ -53,7 +51,7 @@ class QuestionsAdapter(
 
             questionText.text = question.question
 
-            multipleChoiceContainer.makeInvisible()
+            multipleChoiceContainer.makeGone()
             trueFalseContainer.makeGone()
             customAnswerEditText.makeGone()
 
@@ -79,7 +77,6 @@ class QuestionsAdapter(
         }
 
         private fun setAnswersRecyclerView(answers: List<String>) {
-            logE("called set rcl $answers")
             multipleChoiceContainer.answersRecyclerView.apply {
                 adapter = ChoicesAdapter(answers, object : ChoicesAdapter.OnChoiceClicked {
 
