@@ -119,7 +119,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         if (course.id != currentCourse?.id) {
             toast("You need to complete the previous courses first")
         } else {
-            val lessonNumber = userProgramProgress?.lessonNumber ?: 0
+            val lessonNumber = userProgramProgress?.lessonNumber ?: 1
             val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentProgram= parentProgram ,parentCourse = course, lessonNumber = lessonNumber)
             findNavController().navigate(action)
         }
