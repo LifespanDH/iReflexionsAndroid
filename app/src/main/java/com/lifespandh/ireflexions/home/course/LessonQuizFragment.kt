@@ -18,6 +18,7 @@ import com.lifespandh.ireflexions.models.LessonQuestion
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
 import com.lifespandh.ireflexions.utils.network.COURSE_NUMBER
 import com.lifespandh.ireflexions.utils.network.LESSON_ID
@@ -31,12 +32,12 @@ import kotlinx.android.synthetic.main.item_quiz.view.customAnswerEditText
 import kotlinx.android.synthetic.main.item_quiz.view.multipleChoiceContainer
 import kotlinx.android.synthetic.main.item_quiz.view.question_text
 import kotlinx.android.synthetic.main.item_quiz.view.trueFalseContainer
-import kotlinx.android.synthetic.main.lesson_quiz.itemQuiz
 import kotlinx.android.synthetic.main.lesson_quiz.nextButton
 import kotlinx.android.synthetic.main.lesson_quiz.previousButton
+import kotlinx.android.synthetic.main.lesson_quiz.questionsRecyclerView
 
 
-class LessonQuizFragment : BaseFragment() {
+class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
 
     private var lesson: Lesson? = null
     private var programId: Int = -1
@@ -48,6 +49,8 @@ class LessonQuizFragment : BaseFragment() {
     private var lessons = listOf<LessonQuestion>()
     private var questionNumber = 1
     private val selectedAnswers = mutableMapOf<Int, String>()
+
+    private val questionsAdapter by lazy { QuestionsAdapter(listOf(), this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,38 +73,46 @@ class LessonQuizFragment : BaseFragment() {
         setViews()
     }
 
-    private fun setQuestion(questionNumber: Int) {
-        val lessonQuestion = lessons[questionNumber - 1]
-        itemQuiz.multipleChoiceContainer.makeGone()
-        itemQuiz.trueFalseContainer.makeGone()
-        itemQuiz.customAnswerEditText.makeGone()
-
-
-        when(lessonQuestion.questionType) {
-            QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
-                itemQuiz.multipleChoiceContainer.makeVisible()
-                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-            }
-            QUESTION_TYPE.TRUE_FALSE.type -> {
-                itemQuiz.trueFalseContainer.makeVisible()
-            }
-            QUESTION_TYPE.INPUT.type -> {
-                itemQuiz.customAnswerEditText.makeVisible()
-            }
-            else -> {
-                itemQuiz.multipleChoiceContainer.makeVisible()
-                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-            }
+    private fun setViews() {
+        questionsRecyclerView.apply {
+            adapter = questionsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
-        itemQuiz.question_text.text = lessonQuestion.question
+    }
+
+    private fun setQuestion() {
+//        val lessonQuestion = lessons[questionNumber - 1]
+////        itemQuiz.multipleChoiceContainer.makeGone()
+////        itemQuiz.trueFalseContainer.makeGone()
+////        itemQuiz.customAnswerEditText.makeGone()
+//
+//
+//        when(lessonQuestion.questionType) {
+//            QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
+//                itemQuiz.multipleChoiceContainer.makeVisible()
+//                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
+//            }
+//            QUESTION_TYPE.TRUE_FALSE.type -> {
+//                itemQuiz.trueFalseContainer.makeVisible()
+//            }
+//            QUESTION_TYPE.INPUT.type -> {
+//                itemQuiz.customAnswerEditText.makeVisible()
+//            }
+//            else -> {
+//                itemQuiz.multipleChoiceContainer.makeVisible()
+//                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
+//            }
+//        }
+//        logE("called $lessonQuestion")
+//        itemQuiz.question_text.text = lessonQuestion.question
     }
 
     private fun setAnswersRecyclerView(questionNumber: Int, answers: List<String>) {
-        val quizAnswersAdapter = QuizAnswersAdapter(answers)
-        itemQuiz.multipleChoiceContainer.answersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = quizAnswersAdapter
-        }
+//        val quizAnswersAdapter = QuizAnswersAdapter(answers)
+//        itemQuiz.multipleChoiceContainer.answersRecyclerView.apply {
+//            layoutManager = LinearLayoutManager(requireContext())
+//            adapter = quizAnswersAdapter
+//        }
     }
 
     private fun getBundleValues() {
@@ -114,36 +125,33 @@ class LessonQuizFragment : BaseFragment() {
         previousButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber -= 1
-            setQuestion(questionNumber)
+            setQuestion()
         }
 
         nextButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber += 1
-            setQuestion(questionNumber)
+            setQuestion()
         }
     }
 
     private fun setObservers() {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
             lessons = it
-            setQuestion(questionNumber)
+            questionsAdapter.setList(it)
+//            setQuestion()
         }
 
     }
 
     private fun getLessonQuestions() {
-        val requestBody = createJsonRequestBody(LESSON_ID to 0)
+        val requestBody = createJsonRequestBody(LESSON_ID to lesson?.id)
         homeViewModel.getLessonQuestions(requestBody)
     }
 
     private fun saveProgress() {
         val requestBody = createJsonRequestBody(COURSE_ID to courseId, LESSON_ID to lesson?.id, PROGRAM_ID to programId)
         homeViewModel.saveProgramProgress(requestBody)
-    }
-
-    private fun setViews() {
-
     }
 
 }
