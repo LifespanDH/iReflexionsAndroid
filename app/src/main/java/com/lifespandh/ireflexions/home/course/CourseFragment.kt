@@ -18,6 +18,8 @@ import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.toast
+import kotlinx.android.synthetic.main.fragment_course_page.currentCourseContainer
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseProgressBar
 import kotlinx.android.synthetic.main.fragment_course_page.currentProgress
 import kotlinx.android.synthetic.main.fragment_course_page.rvCourses
@@ -32,6 +34,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     private val args: CourseFragmentArgs by navArgs()
 
     private var parentProgram: Program? = null
+    private var currentCourse: Course? = null
     private var userProgramProgress: UserProgramProgress? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +57,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         getBundleValues()
         setViews()
         setObservers()
+        setListeners()
         getCourses()
     }
 
@@ -66,6 +70,12 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         homeViewModel.coursesLiveData.observeFreshly(this) {
             courseAdapter.setList(it)
             setCurrentCourse(it)
+        }
+    }
+
+    private fun setListeners() {
+        currentCourseContainer.setOnClickListener {
+            currentCourse?.let { it1 -> onCourseClick(it1) }
         }
     }
 
@@ -94,9 +104,9 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     private fun setCurrentCourse(courses: List<Course>) {
         val courseNumber = userProgramProgress?.courseNumber ?: 1
         if (courseNumber > 0 && courses.size >= courseNumber - 1) {
-            val currentCourse = courses.get(courseNumber - 1)
-            currentCourseTitle.text = currentCourse.name
-            currentCourseDescription.text = currentCourse.description
+            currentCourse = courses.get(courseNumber - 1)
+            currentCourseTitle.text = currentCourse?.name
+            currentCourseDescription.text = currentCourse?.description
             // Set image here
         }
     }
@@ -106,9 +116,13 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     }
 
     override fun onCourseClick(course: Course) {
-        val lessonNumber = userProgramProgress?.lessonNumber ?: 0
-        val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentProgram= parentProgram ,parentCourse = course, lessonNumber = lessonNumber)
-        findNavController().navigate(action)
+        if (course.id != currentCourse?.id) {
+            toast("You need to complete the previous courses first")
+        } else {
+            val lessonNumber = userProgramProgress?.lessonNumber ?: 0
+            val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(parentProgram= parentProgram ,parentCourse = course, lessonNumber = lessonNumber)
+            findNavController().navigate(action)
+        }
     }
 
 }
