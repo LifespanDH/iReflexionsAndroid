@@ -107,6 +107,9 @@
         <action
             android:id="@+id/action_howAmICreateEntryFragment_to_customHappeningFragment"
             app:destination="@id/customHappeningFragment" />
+        <action
+            android:id="@+id/action_howAmICreateEntryFragment_to_panicAttackDialogFragment"
+            app:destination="@id/panicAttackDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/weeklyReportFragment"
@@ -283,5 +286,9 @@
             android:defaultValue="WHATS_HAPPENING"
             app:argType="com.lifespandh.ireflexions.home.howAmIToday.DIALOG_FOR" />
     </dialog>
+    <dialog
+        android:id="@+id/panicAttackDialogFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.PanicAttackDialogFragment"
+        android:label="PanicAttackDialogFragment" />
 
 </navigation>
