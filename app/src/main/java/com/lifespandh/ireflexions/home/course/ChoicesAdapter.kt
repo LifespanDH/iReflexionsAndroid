@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
@@ -34,16 +35,20 @@ class ChoicesAdapter(
 
         private val optionTextView: TextView = itemView.findViewById(R.id.optionTv)
         private val checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
+        private val choiceLayout: ConstraintLayout = itemView.findViewById(R.id.choiceLayout)
 
         fun bind(choice: String) {
             optionTextView.text = choice
 
             checkBox.isChecked = absoluteAdapterPosition == selectedPosition
 
+            optionTextView.setOnClickListener { checkBox.isChecked = !checkBox.isChecked}
+
+            choiceLayout.setOnClickListener { optionTextView.callOnClick() }
+
             checkBox.setOnCheckedChangeListener { _, isChecked ->
-                logE("called $isChecked $selectedPosition $absoluteAdapterPosition")
                 val prev = selectedPosition
-//                selectedPosition = -1
+
                 if (isChecked) {
                     selectedPosition = absoluteAdapterPosition
                     if (prev != -1)
