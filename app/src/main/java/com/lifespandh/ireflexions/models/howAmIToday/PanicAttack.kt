@@ -1,6 +1,8 @@
 package com.lifespandh.ireflexions.models.howAmIToday
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.sql.Time
 
 data class PanicAttack(
@@ -18,6 +20,7 @@ data class PanicAttack(
     val symptoms: List<PanicSymptom>
 )
 
+@Parcelize
 data class PanicTrigger(
 
     @SerializedName("name")
@@ -25,8 +28,9 @@ data class PanicTrigger(
 
     @SerializedName("user_created")
     val userCreated: Boolean
-)
+): Parcelable
 
+@Parcelize
 data class PanicSymptom(
 
     @SerializedName("name")
@@ -34,4 +38,4 @@ data class PanicSymptom(
 
     @SerializedName("user_created")
     val userCreated: Boolean
-)
+): Parcelable

@@ -10,9 +10,10 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.PanicAttackSymptom
 import com.lifespandh.ireflexions.models.PanicAttackTrigger
+import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 
 class PanicAttackTriggersAdapter(
-    private var listItems: List<PanicAttackTrigger>,
+    private var listItems: List<PanicTrigger>,
     private val listener: OnItemClicked
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,7 +29,7 @@ class PanicAttackTriggersAdapter(
         return listItems.size
     }
 
-    fun setList(list: List<PanicAttackTrigger>) {
+    fun setList(list: List<PanicTrigger>) {
         this.listItems = list
         notifyDataSetChanged()
     }
@@ -37,7 +38,7 @@ class PanicAttackTriggersAdapter(
 
         private val triggerButton: ButtonShadowView = itemView.findViewById(R.id.btn_item)
 
-        fun bind(panicAttackTrigger: PanicAttackTrigger) {
+        fun bind(panicAttackTrigger: PanicTrigger) {
 
             triggerButton.text = panicAttackTrigger.name
             triggerButton.buttonColor = ContextCompat.getColor(
@@ -54,7 +55,7 @@ class PanicAttackTriggersAdapter(
     }
 
     interface OnItemClicked {
-        fun onItemClicked(panicAttackTrigger: PanicAttackTrigger)
+        fun onItemClicked(panicAttackTrigger: PanicTrigger)
     }
 
 

@@ -60,7 +60,7 @@ class HappeningAdapter(
             pushButton(happening)
 
             btnCircle.setOnClickListener {
-                if (absoluteAdapterPosition != itemList.size - 1)
+                if (absoluteAdapterPosition != itemList.size - 1 && !happening.panicAttack)
                     howAmITodayViewModel.selectedWhatsHappening.removeOrAdd(happening)
 
                 pushButton(happening)

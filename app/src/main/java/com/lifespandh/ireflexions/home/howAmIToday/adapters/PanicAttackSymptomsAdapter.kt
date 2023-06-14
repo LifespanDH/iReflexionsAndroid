@@ -11,9 +11,10 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.PanicAttackSymptom
 import com.lifespandh.ireflexions.models.PanicAttackSymptoms
 import com.lifespandh.ireflexions.models.PanicAttackTrigger
+import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 
 class PanicAttackSymptomsAdapter(
-    private var listItems: List<PanicAttackSymptom>,
+    private var listItems: List<PanicSymptom>,
     private val listener: OnItemClicked
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,7 +31,7 @@ class PanicAttackSymptomsAdapter(
         return listItems.size
     }
 
-    fun setList(list: List<PanicAttackSymptom>) {
+    fun setList(list: List<PanicSymptom>) {
         this.listItems = list
         notifyDataSetChanged()
     }
@@ -39,7 +40,7 @@ class PanicAttackSymptomsAdapter(
 
         private val symptomButton: ButtonShadowView = itemView.findViewById(R.id.btn_item)
 
-        fun bind(panicAttackSymptom: PanicAttackSymptom) {
+        fun bind(panicAttackSymptom: PanicSymptom) {
 
             symptomButton.text = panicAttackSymptom.name
 
@@ -57,6 +58,6 @@ class PanicAttackSymptomsAdapter(
     }
 
     interface OnItemClicked {
-        fun onItemClicked(panicAttackSymptom: PanicAttackSymptom)
+        fun onItemClicked(panicAttackSymptom: PanicSymptom)
     }
 }

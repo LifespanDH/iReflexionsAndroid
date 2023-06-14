@@ -17,6 +17,8 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.TraitAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
+import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
