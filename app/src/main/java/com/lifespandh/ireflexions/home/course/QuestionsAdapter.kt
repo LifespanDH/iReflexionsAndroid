@@ -15,6 +15,8 @@ import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.item_multiplechoice.view.answersRecyclerView
+import kotlinx.android.synthetic.main.item_truefalseoptions.view.falseTextView
+import kotlinx.android.synthetic.main.item_truefalseoptions.view.trueTextView
 
 class QuestionsAdapter(
     private var questions: List<LessonQuestion>,
@@ -58,7 +60,7 @@ class QuestionsAdapter(
             when (question.questionType) {
                 QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
                     multipleChoiceContainer.makeVisible()
-                    setAnswersRecyclerView(question.answers)
+                    setAnswersRecyclerView(question)
                 }
 
                 QUESTION_TYPE.TRUE_FALSE.type -> {
@@ -71,15 +73,27 @@ class QuestionsAdapter(
 
                 else -> {
                     multipleChoiceContainer.makeVisible()
-                    setAnswersRecyclerView(question.answers)
+                    setAnswersRecyclerView(question)
                 }
+            }
+
+            trueFalseContainer.trueTextView.setOnClickListener {
+                // Change color of view here
+                listener.onAnswerSelected("", 1, question.id)
+            }
+
+            trueFalseContainer.falseTextView.setOnClickListener {
+                // Change color of view here
+                listener.onAnswerSelected("", 0, question.id)
             }
         }
 
-        private fun setAnswersRecyclerView(answers: List<String>) {
+        private fun setAnswersRecyclerView(question: LessonQuestion) {
             multipleChoiceContainer.answersRecyclerView.apply {
-                adapter = ChoicesAdapter(answers, object : ChoicesAdapter.OnChoiceClicked {
-
+                adapter = ChoicesAdapter(question.answers, object : ChoicesAdapter.OnChoiceClicked {
+                    override fun onChoiceSelected(choice: String, position: Int) {
+                        listener.onAnswerSelected(choice, position, question.id)
+                    }
                 })
                 layoutManager = LinearLayoutManager(this@QuestionsAdapter.getContext())
                 isVisible = true
@@ -88,6 +102,6 @@ class QuestionsAdapter(
     }
 
     interface OnAnswerSelected {
-
+        fun onAnswerSelected(choice: String, answerPosition: Int, questionId: Int)
     }
 }

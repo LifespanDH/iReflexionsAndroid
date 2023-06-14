@@ -80,41 +80,6 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
         }
     }
 
-    private fun setQuestion() {
-//        val lessonQuestion = lessons[questionNumber - 1]
-////        itemQuiz.multipleChoiceContainer.makeGone()
-////        itemQuiz.trueFalseContainer.makeGone()
-////        itemQuiz.customAnswerEditText.makeGone()
-//
-//
-//        when(lessonQuestion.questionType) {
-//            QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
-//                itemQuiz.multipleChoiceContainer.makeVisible()
-//                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-//            }
-//            QUESTION_TYPE.TRUE_FALSE.type -> {
-//                itemQuiz.trueFalseContainer.makeVisible()
-//            }
-//            QUESTION_TYPE.INPUT.type -> {
-//                itemQuiz.customAnswerEditText.makeVisible()
-//            }
-//            else -> {
-//                itemQuiz.multipleChoiceContainer.makeVisible()
-//                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-//            }
-//        }
-//        logE("called $lessonQuestion")
-//        itemQuiz.question_text.text = lessonQuestion.question
-    }
-
-    private fun setAnswersRecyclerView(questionNumber: Int, answers: List<String>) {
-//        val quizAnswersAdapter = QuizAnswersAdapter(answers)
-//        itemQuiz.multipleChoiceContainer.answersRecyclerView.apply {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = quizAnswersAdapter
-//        }
-    }
-
     private fun getBundleValues() {
         programId = args.programId
         courseId = args.courseId
@@ -125,13 +90,11 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
         previousButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber -= 1
-            setQuestion()
         }
 
         nextButton.setOnClickListener {
             selectedAnswers[questionNumber] = ""
             questionNumber += 1
-            setQuestion()
         }
     }
 
@@ -139,7 +102,6 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
             lessons = it
             questionsAdapter.setList(it)
-//            setQuestion()
         }
 
     }
@@ -152,6 +114,10 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
     private fun saveProgress() {
         val requestBody = createJsonRequestBody(COURSE_ID to courseId, LESSON_ID to lesson?.id, PROGRAM_ID to programId)
         homeViewModel.saveProgramProgress(requestBody)
+    }
+
+    override fun onAnswerSelected(choice: String, answerPosition: Int, questionId: Int) {
+        logE("called $choice $answerPosition $questionId")
     }
 
 }
