@@ -222,6 +222,12 @@
             app:argType="integer" />
 
         <argument
+            android:name="currentLesson"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.Lesson"
+            app:nullable="true"/>
+
+        <argument
             android:name="parentLesson"
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Lesson"

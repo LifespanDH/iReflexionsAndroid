@@ -13,6 +13,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 import com.lifespandh.ireflexions.models.Program
+import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.fragment_lesson_content.image
 import kotlinx.android.synthetic.main.fragment_lesson_content.lessonContentTV
 import kotlinx.android.synthetic.main.fragment_lesson_content.takeQuizButton
@@ -22,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_lesson_content.titleTextView
 class LessonContentFragment : BaseFragment() {
 
     private val args: LessonContentFragmentArgs by navArgs()
+
+    private var currentLesson: Lesson? = null
     private var lesson: Lesson? = null
     private var programId: Int = -1
     private var courseId = -1
@@ -51,6 +54,7 @@ class LessonContentFragment : BaseFragment() {
         programId = args.programId
         courseId = args.courseId
         lesson = args.parentLesson
+        currentLesson = args.currentLesson
     }
 
     private fun setViews() {
@@ -69,8 +73,12 @@ class LessonContentFragment : BaseFragment() {
 
     private fun setListeners(){
         takeQuizButton.setOnClickListener {
-            val action = LessonContentFragmentDirections.actionLessonContentFragmentToLessonQuizFragment(programId = programId, courseId = courseId, parentLesson = lesson)
-            findNavController().navigate(action)
+            if (currentLesson?.id != lesson?.id) {
+                toast("You cannot skip previous lessons")
+            } else {
+                val action = LessonContentFragmentDirections.actionLessonContentFragmentToLessonQuizFragment(programId = programId, courseId = courseId, parentLesson = lesson)
+                findNavController().navigate(action)
+            }
         }
     }
 

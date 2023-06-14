@@ -100,7 +100,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     override fun onLessonClick(lesson: Lesson) {
-        val action = LessonFragmentDirections.actionLessonFragmentToLessonContentFragment(programId = programId, courseId = courseId, parentLesson = lesson)
+        val action = LessonFragmentDirections.actionLessonFragmentToLessonContentFragment(programId = programId, courseId = courseId, parentLesson = lesson, currentLesson = currentLesson)
         findNavController().navigate(action)
     }
 }
