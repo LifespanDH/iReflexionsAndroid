@@ -8,14 +8,18 @@ import com.lifespandh.irefgraphs.ButtonShadowView
 import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.PanicAttackSymptom
 import com.lifespandh.ireflexions.models.PanicAttackSymptoms
 import com.lifespandh.ireflexions.models.PanicAttackTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
+import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class PanicAttackSymptomsAdapter(
     private var listItems: List<PanicSymptom>,
-    private val listener: OnItemClicked
+    private val listener: OnItemClicked,
+    private val howAmITodayViewModel: HowAmITodayViewModel
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PanicAttackSymptomViewHolder(getView(R.layout.item_panic_attack, parent))
@@ -51,10 +55,25 @@ class PanicAttackSymptomsAdapter(
             symptomButton.buttonType = ButtonType.Button2to1
 
             symptomButton.setOnClickListener {
+                if (absoluteAdapterPosition != listItems.size - 1)
+                    howAmITodayViewModel.selectedPanicSymptoms.removeOrAdd(panicAttackSymptom)
+
+                pushButton(panicAttackSymptom)
+
                 listener.onItemClicked(panicAttackSymptom)
             }
         }
 
+        private fun pushButton(panicAttackSymptom: PanicSymptom) {
+            symptomButton.isPushed = howAmITodayViewModel.selectedPanicSymptoms.contains(panicAttackSymptom)
+            val newColor = if (symptomButton.isPushed)
+                R.color.whats_happening_item_pushed
+            else
+                R.color.unsure_button
+
+            symptomButton.buttonColor = ContextCompat.getColor(getContext(), newColor)
+            symptomButton.invalidateView()
+        }
     }
 
     interface OnItemClicked {

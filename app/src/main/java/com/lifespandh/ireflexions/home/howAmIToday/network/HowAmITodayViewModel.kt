@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
+import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
+import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
@@ -45,8 +47,12 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
     val selectedWhatsHappening: MutableList<WhatsHappening> = mutableListOf()
     val selectedEnvironmentalConditions: MutableList<EnvironmentalCondition> = mutableListOf()
+    val selectedPanicSymptoms: MutableList<PanicSymptom> = mutableListOf()
+    val selectedPanicTriggers: MutableList<PanicTrigger> = mutableListOf()
+
     val newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
     val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
+
 
     fun getTraitCategories() {
         viewModelScope.launch {

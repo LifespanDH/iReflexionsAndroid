@@ -27,3 +27,9 @@ fun String.toDate(): Date? {
     val date = dateFormat.parse(this)
     return date
 }
+
+fun getTimeInFormat(date: Date? = null): String {
+    val timeInstance = DateFormat.getTimeInstance(DateFormat.SHORT)
+
+    return timeInstance.format(date ?: Date())
+}

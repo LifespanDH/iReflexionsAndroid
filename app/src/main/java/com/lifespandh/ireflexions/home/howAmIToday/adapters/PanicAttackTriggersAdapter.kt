@@ -8,13 +8,14 @@ import com.lifespandh.irefgraphs.ButtonShadowView
 import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.PanicAttackSymptom
-import com.lifespandh.ireflexions.models.PanicAttackTrigger
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class PanicAttackTriggersAdapter(
     private var listItems: List<PanicTrigger>,
-    private val listener: OnItemClicked
+    private val listener: OnItemClicked,
+    private val howAmITodayViewModel: HowAmITodayViewModel
 ): BaseRecyclerViewAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PanicAttackTriggerViewHolder(getView(R.layout.item_panic_attack, parent))
@@ -46,12 +47,28 @@ class PanicAttackTriggersAdapter(
                 R.color.environment_button
             )
             triggerButton.buttonType = ButtonType.Button2to1
+
             triggerButton.setOnClickListener {
+                if (absoluteAdapterPosition != listItems.size - 1)
+                    howAmITodayViewModel.selectedPanicTriggers.removeOrAdd(panicAttackTrigger)
+
+                pushButton(panicAttackTrigger)
+
                 listener.onItemClicked(panicAttackTrigger)
             }
 
         }
 
+        private fun pushButton(panicTrigger: PanicTrigger) {
+            triggerButton.isPushed = howAmITodayViewModel.selectedPanicTriggers.contains(panicTrigger)
+            val newColor = if (triggerButton.isPushed)
+                R.color.whats_happening_item_pushed
+            else
+                R.color.environment_button
+
+            triggerButton.buttonColor = ContextCompat.getColor(getContext(), newColor)
+            triggerButton.invalidateView()
+        }
     }
 
     interface OnItemClicked {
