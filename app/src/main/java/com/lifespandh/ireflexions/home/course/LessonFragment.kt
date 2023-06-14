@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_registration.view.name
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseDescription
 import kotlinx.android.synthetic.main.fragment_course_page.currentCourseTitle
 import kotlinx.android.synthetic.main.fragment_home.courses
+import kotlinx.android.synthetic.main.fragment_lesson.currentLessonContainer
 import kotlinx.android.synthetic.main.fragment_lesson.currentLessonName
 import kotlinx.android.synthetic.main.fragment_lesson.rvLessons
 
@@ -29,10 +30,12 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
+    private val args: LessonFragmentArgs by navArgs()
+
     private var parentProgram: Program? = null
     private var parentCourse: Course? = null
+    private var currentLesson: Lesson? = null
     private var lessonNumber: Int = 0
-    private val args: LessonFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +52,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private fun init() {
         getBundleValues()
         getLessons()
+        setListeners()
         setObservers()
         setViews()
     }
@@ -64,6 +68,12 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         homeViewModel.getLessons(requestBody)
     }
 
+    private fun setListeners() {
+        currentLessonContainer.setOnClickListener {
+            currentLesson?.let { it1 -> onLessonClick(it1) }
+        }
+    }
+
     private fun setViews(){
         rvLessons.apply {
             adapter = lessonAdapter
@@ -74,9 +84,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     private fun setCurrentLesson(lessons: List<Lesson>) {
         if (lessonNumber > 0 && lessons.size >= lessonNumber - 1) {
-            val currentLesson = lessons.get(lessonNumber - 1)
-            currentLessonName.text = currentLesson.name
-            // set image here
+            currentLesson = lessons.get(lessonNumber - 1)
+            currentLessonName.text = currentLesson?.name
         }
     }
 
