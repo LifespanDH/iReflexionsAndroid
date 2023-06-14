@@ -74,8 +74,8 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val saveProgressLiveData: LiveData<JsonObject>
         get() = _saveProgressLiveData
 
-    private val _userEnrolledLiveData = MutableLiveData<Boolean>()
-    val userEnrolledLiveData: LiveData<Boolean>
+    private val _userEnrolledLiveData = MutableLiveData<Program>()
+    val userEnrolledLiveData: LiveData<Program>
         get() = _userEnrolledLiveData
 
     private val _resourceContentLiveData = MutableLiveData<List<ResourceLibraryItem>>()
@@ -275,7 +275,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 is NetworkResult.Success -> {
                     logD("$response")
                     val data = response.data
-                    _userEnrolledLiveData.value = true
+                    _userEnrolledLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

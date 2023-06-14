@@ -103,7 +103,6 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
             lessons = it
             questionsAdapter.setList(it)
         }
-
     }
 
     private fun getLessonQuestions() {

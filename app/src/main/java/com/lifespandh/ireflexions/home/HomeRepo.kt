@@ -66,8 +66,8 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
-    suspend fun addUserToProgram(requestBody: RequestBody): NetworkResult<JsonObject> {
-        var networkResult: NetworkResult<JsonObject>? = null
+    suspend fun addUserToProgram(requestBody: RequestBody): NetworkResult<Program> {
+        var networkResult: NetworkResult<Program>? = null
 
         safeApiCall({
             apiClient.addUserToProgram(requestBody)

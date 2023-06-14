@@ -90,8 +90,9 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
         }
 
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
-            if(it) {
+            if(it != null) {
                 dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+                updateCurrentProgram(listOf(it))
             }
         }
 
