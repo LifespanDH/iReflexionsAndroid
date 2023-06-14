@@ -28,7 +28,14 @@ data class PanicTrigger(
 
     @SerializedName("user_created")
     val userCreated: Boolean
-): Parcelable
+): Parcelable {
+
+    companion object {
+        fun other(): PanicTrigger {
+            return PanicTrigger("Other", false)
+        }
+    }
+}
 
 @Parcelize
 data class PanicSymptom(
@@ -38,4 +45,11 @@ data class PanicSymptom(
 
     @SerializedName("user_created")
     val userCreated: Boolean
-): Parcelable
+): Parcelable {
+
+    companion object {
+        fun other(): PanicSymptom {
+            return PanicSymptom("Other", false)
+        }
+    }
+}

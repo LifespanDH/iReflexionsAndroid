@@ -79,6 +79,9 @@ class CustomHappeningFragment: BaseDialogFragment() {
                     howAmITodayViewModel.selectedEnvironmentalConditions.add(environmentalCondition)
                     howAmITodayViewModel.newEnvironmentalCondition.value = environmentalCondition
                 }
+
+                DIALOG_FOR.PANIC_TRIGGER -> TODO()
+                DIALOG_FOR.PANIC_SYMPTOM -> TODO()
             }
             dismiss()
         }

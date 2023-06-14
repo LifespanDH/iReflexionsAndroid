@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
@@ -99,8 +100,13 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
 
     private fun setObservers() {
         howAmITodayViewModel.howAmITodayLiveData.observe(viewLifecycleOwner) {
-            panicAttackSymptomsAdapter.setList(it.panicSymptoms)
-            panicAttackTriggersAdapter.setList(it.panicTriggers)
+            val symptoms = it.panicSymptoms.toMutableList()
+            symptoms.add(PanicSymptom.other())
+            panicAttackSymptomsAdapter.setList(symptoms)
+
+            val triggers = it.panicTriggers.toMutableList()
+            triggers.add(PanicTrigger.other())
+            panicAttackTriggersAdapter.setList(triggers)
         }
     }
 
@@ -110,5 +116,15 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
 
     override fun onItemClicked(panicAttackSymptom: PanicSymptom) {
 
+    }
+
+    override fun onCustomSymptomClicked() {
+//        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_SYMPTOM)
+//        findNavController().navigate(action)
+    }
+
+    override fun onCustomTriggerClicked() {
+//        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_TRIGGER)
+//        findNavController().navigate(action)
     }
 }

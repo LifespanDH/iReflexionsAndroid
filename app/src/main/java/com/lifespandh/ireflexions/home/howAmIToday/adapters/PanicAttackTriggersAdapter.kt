@@ -54,7 +54,9 @@ class PanicAttackTriggersAdapter(
 
                 pushButton(panicAttackTrigger)
 
-                listener.onItemClicked(panicAttackTrigger)
+                if (absoluteAdapterPosition != listItems.size - 1)
+                    listener.onItemClicked(panicAttackTrigger)
+                else listener.onCustomTriggerClicked()
             }
 
         }
@@ -73,6 +75,7 @@ class PanicAttackTriggersAdapter(
 
     interface OnItemClicked {
         fun onItemClicked(panicAttackTrigger: PanicTrigger)
+        fun onCustomTriggerClicked()
     }
 
 

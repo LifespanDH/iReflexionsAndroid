@@ -60,7 +60,9 @@ class PanicAttackSymptomsAdapter(
 
                 pushButton(panicAttackSymptom)
 
-                listener.onItemClicked(panicAttackSymptom)
+                if (absoluteAdapterPosition != listItems.size - 1)
+                    listener.onItemClicked(panicAttackSymptom)
+                else listener.onCustomSymptomClicked()
             }
         }
 
@@ -78,5 +80,6 @@ class PanicAttackSymptomsAdapter(
 
     interface OnItemClicked {
         fun onItemClicked(panicAttackSymptom: PanicSymptom)
+        fun onCustomSymptomClicked()
     }
 }
