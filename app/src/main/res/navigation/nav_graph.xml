@@ -290,6 +290,7 @@
         android:id="@+id/panicAttackDialogFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.PanicAttackDialogFragment"
         android:label="PanicAttackDialogFragment">
+
 <!--        <argument-->
 <!--            android:name="panicSymptoms"-->
 <!--            android:defaultValue="@null"-->
@@ -301,6 +302,9 @@
 <!--            android:defaultValue="@null"-->
 <!--            app:argType="com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger[]"-->
 <!--            app:nullable="true" />-->
+        <action
+            android:id="@+id/action_panicAttackDialogFragment_to_customHappeningFragment"
+            app:destination="@id/customHappeningFragment" />
     </dialog>
 
 </navigation>

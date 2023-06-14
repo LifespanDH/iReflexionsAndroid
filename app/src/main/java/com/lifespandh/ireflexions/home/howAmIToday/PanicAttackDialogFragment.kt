@@ -119,12 +119,12 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
     }
 
     override fun onCustomSymptomClicked() {
-//        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_SYMPTOM)
-//        findNavController().navigate(action)
+        val action = PanicAttackDialogFragmentDirections.actionPanicAttackDialogFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_SYMPTOM)
+        findNavController().navigate(action)
     }
 
     override fun onCustomTriggerClicked() {
-//        val action = HowAmICreateEntryFragmentDirections.actionHowAmICreateEntryFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_TRIGGER)
-//        findNavController().navigate(action)
+        val action = PanicAttackDialogFragmentDirections.actionPanicAttackDialogFragmentToCustomHappeningFragment(DIALOG_FOR.PANIC_TRIGGER)
+        findNavController().navigate(action)
     }
 }
