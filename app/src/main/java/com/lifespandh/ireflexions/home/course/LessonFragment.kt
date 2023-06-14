@@ -32,8 +32,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
     private val args: LessonFragmentArgs by navArgs()
 
-    private var parentProgram: Program? = null
-    private var parentCourse: Course? = null
+    private var programId: Int = -1
+    private var courseId = -1
     private var currentLesson: Lesson? = null
     private var lessonNumber: Int = 0
 
@@ -64,7 +64,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         }
     }
     private fun getLessons(){
-        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id)
+        val requestBody = createJsonRequestBody(COURSE_ID to courseId)
         homeViewModel.getLessons(requestBody)
     }
 
@@ -90,8 +90,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun getBundleValues() {
-        parentProgram = args.parentProgram
-        parentCourse = args.parentCourse
+        programId = args.programId
+        courseId = args.courseId
         lessonNumber = args.lessonNumber
     }
 
@@ -100,7 +100,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     override fun onLessonClick(lesson: Lesson) {
-        val action = LessonFragmentDirections.actionLessonFragmentToLessonContentFragment(parentProgram = parentProgram, parentCourse = parentCourse, parentLesson = lesson)
+        val action = LessonFragmentDirections.actionLessonFragmentToLessonContentFragment(programId = programId, courseId = courseId, parentLesson = lesson)
         findNavController().navigate(action)
     }
 }

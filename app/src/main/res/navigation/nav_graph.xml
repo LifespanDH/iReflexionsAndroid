@@ -188,16 +188,15 @@
         tools:layout="@layout/fragment_lesson">
 
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true" />
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <argument
-            android:name="parentCourse"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true" />
+            android:name="programId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
         <argument
             android:name="lessonNumber"
             android:defaultValue="0"
@@ -213,16 +212,14 @@
         tools:layout="@layout/fragment_lesson_content" >
 
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true"/>
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <argument
-            android:name="parentCourse"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true"/>
+            android:name="programId"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <argument
             android:name="parentLesson"
@@ -252,15 +249,14 @@
         app:argType="com.lifespandh.ireflexions.models.Lesson"
         app:nullable="true"/>
         <argument
-            android:name="parentCourse"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true"/>
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true"/>
+            android:name="programId"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/resourceItemFragment"

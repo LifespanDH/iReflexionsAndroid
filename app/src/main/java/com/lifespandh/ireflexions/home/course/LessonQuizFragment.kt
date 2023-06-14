@@ -39,8 +39,9 @@ import kotlinx.android.synthetic.main.lesson_quiz.previousButton
 class LessonQuizFragment : BaseFragment() {
 
     private var lesson: Lesson? = null
-    private var parentProgram: Program? = null
-    private var parentCourse: Course? = null
+    private var programId: Int = -1
+    private var courseId = -1
+
     private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
     private val args: LessonQuizFragmentArgs by navArgs()
     private lateinit var viewPager: ViewPager2
@@ -62,8 +63,8 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun init() {
-        getLessonQuestions()
         getBundleValues()
+        getLessonQuestions()
         setListeners()
         setObservers()
         setViews()
@@ -104,8 +105,8 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun getBundleValues() {
-        parentProgram = args.parentProgram
-        parentCourse = args.parentCourse
+        programId = args.programId
+        courseId = args.courseId
         lesson = args.parentLesson
     }
 
@@ -137,7 +138,7 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun saveProgress() {
-        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id , LESSON_ID to lesson?.id, PROGRAM_ID to parentProgram?.id)
+        val requestBody = createJsonRequestBody(COURSE_ID to courseId, LESSON_ID to lesson?.id, PROGRAM_ID to programId)
         homeViewModel.saveProgramProgress(requestBody)
     }
 

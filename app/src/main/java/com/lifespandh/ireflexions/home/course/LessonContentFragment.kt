@@ -23,8 +23,8 @@ class LessonContentFragment : BaseFragment() {
 
     private val args: LessonContentFragmentArgs by navArgs()
     private var lesson: Lesson? = null
-    private var parentProgram: Program? = null
-    private var parentCourse: Course? = null
+    private var programId: Int = -1
+    private var courseId = -1
 
 
     override fun onCreateView(
@@ -48,8 +48,8 @@ class LessonContentFragment : BaseFragment() {
     }
 
     private fun getBundleValues() {
-        parentProgram = args.parentProgram
-        parentCourse = args.parentCourse
+        programId = args.programId
+        courseId = args.courseId
         lesson = args.parentLesson
     }
 
@@ -69,7 +69,7 @@ class LessonContentFragment : BaseFragment() {
 
     private fun setListeners(){
         takeQuizButton.setOnClickListener {
-            val action = LessonContentFragmentDirections.actionLessonContentFragmentToLessonQuizFragment(parentProgram = parentProgram, parentCourse = parentCourse, parentLesson = lesson)
+            val action = LessonContentFragmentDirections.actionLessonContentFragmentToLessonQuizFragment(programId = programId, courseId = courseId, parentLesson = lesson)
             findNavController().navigate(action)
         }
     }
