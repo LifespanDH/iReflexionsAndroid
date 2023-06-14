@@ -1,41 +1,28 @@
 package com.lifespandh.ireflexions.home.course
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 import com.lifespandh.ireflexions.models.LessonQuestion
-import com.lifespandh.ireflexions.models.Program
-import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
-import com.lifespandh.ireflexions.utils.network.COURSE_NUMBER
 import com.lifespandh.ireflexions.utils.network.LESSON_ID
-import com.lifespandh.ireflexions.utils.network.LESSON_NUMBER
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
-import com.lifespandh.ireflexions.utils.ui.makeGone
-import com.lifespandh.ireflexions.utils.ui.makeVisible
-import kotlinx.android.synthetic.main.item_multiplechoice.view.answersRecyclerView
-import kotlinx.android.synthetic.main.item_quiz.view.customAnswerEditText
-import kotlinx.android.synthetic.main.item_quiz.view.multipleChoiceContainer
-import kotlinx.android.synthetic.main.item_quiz.view.question_text
-import kotlinx.android.synthetic.main.item_quiz.view.trueFalseContainer
-import kotlinx.android.synthetic.main.lesson_quiz.nextButton
-import kotlinx.android.synthetic.main.lesson_quiz.previousButton
+import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.lesson_quiz.questionsRecyclerView
-
+import kotlinx.android.synthetic.main.lesson_quiz.submitQuizButton
 
 class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
 
@@ -43,12 +30,12 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
     private var programId: Int = -1
     private var courseId = -1
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
     private val args: LessonQuizFragmentArgs by navArgs()
     private lateinit var viewPager: ViewPager2
-    private var lessons = listOf<LessonQuestion>()
-    private var questionNumber = 1
-    private val selectedAnswers = mutableMapOf<Int, String>()
+    private var lessonQuestions = listOf<LessonQuestion>()
+
+    private val selectedAnswers = mutableMapOf<Int, Int>()
 
     private val questionsAdapter by lazy { QuestionsAdapter(listOf(), this) }
 
@@ -87,20 +74,24 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
     }
 
     private fun setListeners() {
-        previousButton.setOnClickListener {
-            selectedAnswers[questionNumber] = ""
-            questionNumber -= 1
-        }
+        submitQuizButton.setOnClickListener {
+            var correctAnswers = 0
+            lessonQuestions.forEach {
+                val correctAnswer = it.correctAnswer
+                val userAnswer = selectedAnswers.get(it.id) ?: -1
 
-        nextButton.setOnClickListener {
-            selectedAnswers[questionNumber] = ""
-            questionNumber += 1
+                if (userAnswer != -1 && correctAnswer == userAnswer + 1) {
+                    correctAnswers += 1
+                }
+            }
+            // Need to add api call here
+            toast("You got $correctAnswers out of ${lessonQuestions.size} correct")
         }
     }
 
     private fun setObservers() {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
-            lessons = it
+            lessonQuestions = it
             questionsAdapter.setList(it)
         }
     }
@@ -117,6 +108,7 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
 
     override fun onAnswerSelected(choice: String, answerPosition: Int, questionId: Int) {
         logE("called $choice $answerPosition $questionId")
+        selectedAnswers[questionId] = answerPosition
     }
 
 }

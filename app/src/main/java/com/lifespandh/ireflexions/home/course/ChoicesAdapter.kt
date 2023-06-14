@@ -41,12 +41,16 @@ class ChoicesAdapter(
             checkBox.isChecked = absoluteAdapterPosition == selectedPosition
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->
+                logE("called $isChecked $selectedPosition $absoluteAdapterPosition")
                 val prev = selectedPosition
-                selectedPosition = -1
+//                selectedPosition = -1
                 if (isChecked) {
                     selectedPosition = absoluteAdapterPosition
                     if (prev != -1)
                         notifyItemChanged(prev)
+                } else {
+                    if (prev == absoluteAdapterPosition)
+                        selectedPosition = -1
                 }
 
                 listener.onChoiceSelected(choice, selectedPosition)

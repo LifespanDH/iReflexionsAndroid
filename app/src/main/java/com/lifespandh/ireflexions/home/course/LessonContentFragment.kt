@@ -5,14 +5,19 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 import com.lifespandh.ireflexions.models.Program
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.fragment_lesson_content.image
 import kotlinx.android.synthetic.main.fragment_lesson_content.lessonContentTV
@@ -29,6 +34,7 @@ class LessonContentFragment : BaseFragment() {
     private var programId: Int = -1
     private var courseId = -1
 
+    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
