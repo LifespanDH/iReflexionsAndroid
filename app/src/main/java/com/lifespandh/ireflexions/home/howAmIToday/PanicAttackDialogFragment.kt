@@ -47,9 +47,6 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
 
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
-    private var panicSymptoms: List<PanicSymptom> = listOf()
-    private var panicTriggers: List<PanicTrigger> = listOf()
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
