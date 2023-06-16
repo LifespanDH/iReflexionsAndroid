@@ -17,7 +17,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class PanicAttackSymptomsAdapter(
-    private var listItems: List<PanicSymptom>,
+    private var listItems: MutableList<PanicSymptom>,
     private val listener: OnItemClicked,
     private val howAmITodayViewModel: HowAmITodayViewModel
 ): BaseRecyclerViewAdapter() {
@@ -36,8 +36,13 @@ class PanicAttackSymptomsAdapter(
     }
 
     fun setList(list: List<PanicSymptom>) {
-        this.listItems = list
+        this.listItems = list.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addUserCreated(panicSymptom: PanicSymptom) {
+        this.listItems.add(this.listItems.size - 1, panicSymptom)
+        notifyItemInserted(this.listItems.size - 2)
     }
 
     inner class PanicAttackSymptomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

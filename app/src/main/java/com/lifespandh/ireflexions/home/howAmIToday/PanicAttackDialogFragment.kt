@@ -17,6 +17,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.PanicAttackTriggersA
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.img_close
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.symptomsView
@@ -26,8 +27,8 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
 
     private lateinit var view: View
 
-    private val panicAttackTriggersAdapter by lazy { PanicAttackTriggersAdapter(listOf(), this, howAmITodayViewModel) }
-    private val panicAttackSymptomsAdapter by lazy { PanicAttackSymptomsAdapter(listOf(), this, howAmITodayViewModel) }
+    private val panicAttackTriggersAdapter by lazy { PanicAttackTriggersAdapter(mutableListOf(), this, howAmITodayViewModel) }
+    private val panicAttackSymptomsAdapter by lazy { PanicAttackSymptomsAdapter(mutableListOf(), this, howAmITodayViewModel) }
 
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
@@ -107,6 +108,18 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
             val triggers = it.panicTriggers.toMutableList()
             triggers.add(PanicTrigger.other())
             panicAttackTriggersAdapter.setList(triggers)
+        }
+
+        howAmITodayViewModel.newPanicTrigger.observeFreshly(this) {
+            it?.let {
+                panicAttackTriggersAdapter.addUserCreated(it)
+            }
+        }
+
+        howAmITodayViewModel.newPanicSymptom.observeFreshly(this) {
+            it?.let {
+                panicAttackSymptomsAdapter.addUserCreated(it)
+            }
         }
     }
 

@@ -13,6 +13,8 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
+import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.custom_happening.custom_name_editText
@@ -68,20 +70,29 @@ class CustomHappeningFragment: BaseDialogFragment() {
         }
 
         saveButton.setOnClickListener {
+            val name = editText.trimString()
             when(dialogFor) {
                 DIALOG_FOR.WHATS_HAPPENING -> {
-                    val whatsHappening = WhatsHappening(editText.trimString(), "", true)
+                    val whatsHappening = WhatsHappening(name, "", true)
                     howAmITodayViewModel.selectedWhatsHappening.add(whatsHappening)
                     howAmITodayViewModel.newWhatsHappening.value = whatsHappening
                 }
                 DIALOG_FOR.ENVIRONMENTAL_CONDITIONS -> {
-                    val environmentalCondition = EnvironmentalCondition(editText.trimString(), true)
+                    val environmentalCondition = EnvironmentalCondition(name, true)
                     howAmITodayViewModel.selectedEnvironmentalConditions.add(environmentalCondition)
                     howAmITodayViewModel.newEnvironmentalCondition.value = environmentalCondition
                 }
 
-                DIALOG_FOR.PANIC_TRIGGER -> TODO()
-                DIALOG_FOR.PANIC_SYMPTOM -> TODO()
+                DIALOG_FOR.PANIC_TRIGGER -> {
+                    val panicTrigger = PanicTrigger(name, true)
+                    howAmITodayViewModel.newPanicTrigger.value = panicTrigger
+                    howAmITodayViewModel.selectedPanicTriggers.add(panicTrigger)
+                }
+                DIALOG_FOR.PANIC_SYMPTOM -> {
+                    val panicSymptom = PanicSymptom(name, true)
+                    howAmITodayViewModel.selectedPanicSymptoms.add(panicSymptom)
+                    howAmITodayViewModel.newPanicSymptom.value = panicSymptom
+                }
             }
             dismiss()
         }

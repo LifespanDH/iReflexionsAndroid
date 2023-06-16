@@ -16,6 +16,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.EnvironmentalAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.HappeningAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.TraitAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
@@ -27,6 +28,8 @@ import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_discard
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_save
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
@@ -183,6 +186,25 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             checkinCircleCategory.visibility = View.VISIBLE
             checkinCircleTrait.visibility = View.INVISIBLE
         }
+
+        btn_save.setOnClickListener {
+            val traitSubCategories = mutableListOf<TraitSubCategory>()
+            howAmITodayViewModel.selectedTraitSubCategory.values.forEach {
+                for (trait in it)
+                    traitSubCategories.add(trait)
+            }
+//            val dailyCheckInEntry = DailyCheckInEntry(
+//                traitSubCategories = traitSubCategories,
+//                whatsHappening = howAmITodayViewModel.selectedWhatsHappening,
+//                panicAttack = howAmITodayViewModel
+//            )
+        }
+
+        btn_discard.setOnClickListener {
+        // we can add dialog here to ask before leaving the screen
+            findNavController().navigateUp()
+        }
+
     }
 
     private fun setObservers(){

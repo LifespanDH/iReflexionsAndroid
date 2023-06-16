@@ -6,23 +6,29 @@ import java.util.*
 data class DailyCheckInEntry(
 
     @SerializedName("id")
-    val id: Int,
+    val id: Int = -1,
 
-//    @SerializedName("traitCategory")
-//    val traitCategoryResults: List<TraitCategoryResult>,
+    @SerializedName("traits")
+    val traitSubCategories: List<TraitSubCategory>,
 
-    @SerializedName("sleep_duration")
-    val sleepDuration: Int,
+    @SerializedName("whats_happening")
+    val whatsHappening: List<WhatsHappening>,
 
-    @SerializedName("sleep_quality")
-    val sleepQuality: Int,
+    @SerializedName("panic_attack")
+    val panicAttack: PanicAttack,
+
+    @SerializedName("environmental_conditions")
+    val environmentalConditions: List<EnvironmentalCondition>,
 
     @SerializedName("movement")
     val movement: Int,
 
-    @SerializedName("entry")
-    val entry: String,
+    @SerializedName("sleep_quality")
+    val sleepQuality: SleepQuality,
 
-    @SerializedName("date")
-    val date: Date
+    @SerializedName("journal_entry")
+    val journalEntry: String,
+
+    @SerializedName("date_time")
+    val dateTime: String,
 )

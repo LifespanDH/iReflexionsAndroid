@@ -52,7 +52,8 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
 
     val newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
     val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
-
+    val newPanicSymptom: MutableLiveData<PanicSymptom> = MutableLiveData()
+    val newPanicTrigger: MutableLiveData<PanicTrigger> = MutableLiveData()
 
     fun getTraitCategories() {
         viewModelScope.launch {

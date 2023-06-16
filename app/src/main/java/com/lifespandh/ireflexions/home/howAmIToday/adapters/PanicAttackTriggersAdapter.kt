@@ -13,7 +13,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class PanicAttackTriggersAdapter(
-    private var listItems: List<PanicTrigger>,
+    private var listItems: MutableList<PanicTrigger>,
     private val listener: OnItemClicked,
     private val howAmITodayViewModel: HowAmITodayViewModel
 ): BaseRecyclerViewAdapter() {
@@ -31,8 +31,13 @@ class PanicAttackTriggersAdapter(
     }
 
     fun setList(list: List<PanicTrigger>) {
-        this.listItems = list
+        this.listItems = list.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun addUserCreated(panicTrigger: PanicTrigger) {
+        this.listItems.add(this.listItems.size - 1, panicTrigger)
+        notifyItemInserted(this.listItems.size - 2)
     }
 
     inner class PanicAttackTriggerViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
