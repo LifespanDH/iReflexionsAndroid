@@ -162,7 +162,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_semi_bold"
-                android:text="@string/movement"
+                android:text="@string/exercise"
                 android:textAllCaps="true"
                 android:textColor="@color/icon_title_color"
                 app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
