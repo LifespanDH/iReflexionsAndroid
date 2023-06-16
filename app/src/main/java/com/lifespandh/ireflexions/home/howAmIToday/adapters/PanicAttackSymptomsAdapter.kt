@@ -53,11 +53,13 @@ class PanicAttackSymptomsAdapter(
 
             symptomButton.text = panicAttackSymptom.name
 
-            symptomButton.backgroundTintList = ContextCompat.getColorStateList(
-                getContext(),
-                R.color.unsure_button
-            )
+//            symptomButton.backgroundTintList = ContextCompat.getColorStateList(
+//                getContext(),
+//                R.color.unsure_button
+//            )
             symptomButton.buttonType = ButtonType.Button2to1
+
+            pushButton(panicAttackSymptom)
 
             symptomButton.setOnClickListener {
                 if (absoluteAdapterPosition != listItems.size - 1)

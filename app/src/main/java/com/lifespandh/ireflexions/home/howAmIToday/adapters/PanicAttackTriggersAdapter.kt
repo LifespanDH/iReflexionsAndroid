@@ -53,6 +53,8 @@ class PanicAttackTriggersAdapter(
             )
             triggerButton.buttonType = ButtonType.Button2to1
 
+            pushButton(panicAttackTrigger)
+
             triggerButton.setOnClickListener {
                 if (absoluteAdapterPosition != listItems.size - 1)
                     howAmITodayViewModel.selectedPanicTriggers.removeOrAdd(panicAttackTrigger)

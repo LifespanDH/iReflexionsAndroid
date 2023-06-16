@@ -85,8 +85,8 @@ class CustomHappeningFragment: BaseDialogFragment() {
 
                 DIALOG_FOR.PANIC_TRIGGER -> {
                     val panicTrigger = PanicTrigger(name, true)
-                    howAmITodayViewModel.newPanicTrigger.value = panicTrigger
                     howAmITodayViewModel.selectedPanicTriggers.add(panicTrigger)
+                    howAmITodayViewModel.newPanicTrigger.value = panicTrigger
                 }
                 DIALOG_FOR.PANIC_SYMPTOM -> {
                     val panicSymptom = PanicSymptom(name, true)

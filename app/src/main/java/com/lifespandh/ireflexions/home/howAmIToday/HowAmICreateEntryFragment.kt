@@ -196,7 +196,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 //            val dailyCheckInEntry = DailyCheckInEntry(
 //                traitSubCategories = traitSubCategories,
 //                whatsHappening = howAmITodayViewModel.selectedWhatsHappening,
-//                panicAttack = howAmITodayViewModel
+//                panicAttack = howAmITodayViewModel.
 //            )
         }
 
