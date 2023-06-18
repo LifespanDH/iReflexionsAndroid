@@ -8,5 +8,5 @@ data class SleepQuality(
     val time: Int,
 
     @SerializedName("quality")
-    val quality: Float
+    val quality: Int
 )

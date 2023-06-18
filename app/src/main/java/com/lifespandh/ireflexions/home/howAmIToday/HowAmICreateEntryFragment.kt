@@ -20,25 +20,34 @@ import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
+import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeInvisible
 import com.lifespandh.ireflexions.utils.ui.makeVisible
+import com.lifespandh.ireflexions.utils.ui.toast
+import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_discard
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_save
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_hour
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.btn_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleCategory
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.checkinCircleTrait
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.edt_journal
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.environmentalView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.happeningView
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.img_back
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.loader
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.mainLayout
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_movement
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_sleep
+import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.traitView
 
 class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked, EnvironmentalAdapter.OnItemClicked,
@@ -193,11 +202,24 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                 for (trait in it)
                     traitSubCategories.add(trait)
             }
-//            val dailyCheckInEntry = DailyCheckInEntry(
-//                traitSubCategories = traitSubCategories,
-//                whatsHappening = howAmITodayViewModel.selectedWhatsHappening,
-//                panicAttack = howAmITodayViewModel.
-//            )
+
+            val selectedPanicAttack = howAmITodayViewModel.selectedPanicAttack.value
+//            selectedPanicAttack?.time = getDateInFormat() + selectedPanicAttack?.time
+
+            val sleepQuality = SleepQuality(seekBar_sleep.progress, seekBar_sleep_quality.progress)
+
+            val dailyCheckInEntry = DailyCheckInEntry(
+                traitSubCategories = traitSubCategories,
+                whatsHappening = howAmITodayViewModel.selectedWhatsHappening,
+                panicAttack = selectedPanicAttack,
+                environmentalConditions = howAmITodayViewModel.selectedEnvironmentalConditions,
+                sleepQuality = sleepQuality,
+                movement = seekBar_movement.progress,
+                journalEntry = edt_journal.trimString(),
+                dateTime = getDateTimeInFormat()
+            )
+
+            howAmITodayViewModel.addDailyCheckInEntry(dailyCheckInEntry)
         }
 
         btn_discard.setOnClickListener {
@@ -252,6 +274,10 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             it?.let {
                 environmentalAdapter.addUserCreated(it)
             }
+        }
+
+        howAmITodayViewModel.dailyCheckInEntryAddedLiveData.observeFreshly(this) {
+            toast("added daily entry")
         }
     }
 

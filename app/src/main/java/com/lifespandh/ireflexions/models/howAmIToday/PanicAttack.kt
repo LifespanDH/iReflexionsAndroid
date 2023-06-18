@@ -8,13 +8,13 @@ import java.sql.Time
 data class PanicAttack(
 
     @SerializedName("time")
-    val time: Time,
+    var time: String,
 
     @SerializedName("intensity")
     val intensity: Int,
 
-    @SerializedName("trigger")
-    val trigger: PanicTrigger?,
+    @SerializedName("triggers")
+    val triggers: List<PanicTrigger>,
 
     @SerializedName("symptoms")
     val symptoms: List<PanicSymptom>
@@ -27,7 +27,10 @@ data class PanicTrigger(
     val name: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean
+    val userCreated: Boolean,
+
+    @SerializedName("id")
+    val id: Int = -1
 ): Parcelable {
 
     companion object {
@@ -44,7 +47,10 @@ data class PanicSymptom(
     val name: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean
+    val userCreated: Boolean,
+
+    @SerializedName("id")
+    val id: Int = -1
 ): Parcelable {
 
     companion object {

@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.home.howAmIToday.network
 
 import com.lifespandh.ireflexions.api.ApiClient
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
@@ -58,6 +59,20 @@ class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getHowAmITodayData()
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun addDailyCheckInEntry(dailyCheckInEntry: DailyCheckInEntry): NetworkResult<DailyCheckInEntry> {
+        var networkResult: NetworkResult<DailyCheckInEntry>? = null
+
+        safeApiCall({
+            apiClient.addDailyCheckInEntry(dailyCheckInEntry)
         }, {
             networkResult = it
         }, {

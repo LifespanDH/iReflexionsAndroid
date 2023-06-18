@@ -15,13 +15,27 @@ import com.lifespandh.ireflexions.base.BaseDialogFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.PanicAttackSymptomsAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.PanicAttackTriggersAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
+import com.lifespandh.ireflexions.utils.date.getTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.toast
+import com.lifespandh.ireflexions.utils.ui.trimString
+import kotlinx.android.synthetic.main.fragment_edit_support_contact.view.save_button
+import kotlinx.android.synthetic.main.fragment_panic_attack.edt_time
+import kotlinx.android.synthetic.main.fragment_panic_attack.intensitySlider
+import kotlinx.android.synthetic.main.fragment_panic_attack.view.btn_save
+import kotlinx.android.synthetic.main.fragment_panic_attack.view.edt_time
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.img_close
+import kotlinx.android.synthetic.main.fragment_panic_attack.view.intensitySlider
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.symptomsView
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.triggersView
+import kotlinx.android.synthetic.main.fragment_panic_attack_dialog.edt_time
+import java.time.Instant
+import java.util.Date
 
 class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapter.OnItemClicked, PanicAttackSymptomsAdapter.OnItemClicked {
 
@@ -73,9 +87,24 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
         view.img_close.setOnClickListener {
             dismiss()
         }
+
+        view.btn_save.setOnClickListener {
+            val panicAttack = PanicAttack(
+                time = getDateTimeInFormat(),
+                intensity = view.intensitySlider.intensity.value ?: 0,
+                triggers = howAmITodayViewModel.selectedPanicTriggers,
+                symptoms = howAmITodayViewModel.selectedPanicSymptoms
+            )
+
+            howAmITodayViewModel.selectedPanicAttack.value = panicAttack
+            toast("Panic attack added")
+            dismiss()
+        }
     }
 
     private fun setViews() {
+        view.edt_time.text = getTimeInFormat()
+
         view.triggersView.apply {
             adapter = panicAttackTriggersAdapter
             layoutManager =

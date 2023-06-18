@@ -13,7 +13,10 @@ data class WhatsHappening(
     val userCreated: Boolean = false,
 
     @SerializedName("panic_attack")
-    val panicAttack: Boolean  = false
+    val panicAttack: Boolean  = false,
+
+    @SerializedName("id")
+    val id: Int = -1
     ) {
 
     companion object {

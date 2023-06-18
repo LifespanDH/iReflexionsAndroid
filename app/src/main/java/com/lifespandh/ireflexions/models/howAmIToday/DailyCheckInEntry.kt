@@ -15,7 +15,7 @@ data class DailyCheckInEntry(
     val whatsHappening: List<WhatsHappening>,
 
     @SerializedName("panic_attack")
-    val panicAttack: PanicAttack,
+    val panicAttack: PanicAttack?,
 
     @SerializedName("environmental_conditions")
     val environmentalConditions: List<EnvironmentalCondition>,

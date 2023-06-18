@@ -96,4 +96,7 @@ interface ApiClient {
 
     @GET(GET_HOW_AM_I_TODAY_DATA)
     suspend fun getHowAmITodayData(): HowAmITodayData
+
+    @POST(ADD_DAILY_CHECK_IN_ENTRY)
+    suspend fun addDailyCheckInEntry(@Body dailyCheckInEntry: DailyCheckInEntry): DailyCheckInEntry
 }

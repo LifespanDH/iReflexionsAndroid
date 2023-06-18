@@ -8,7 +8,10 @@ data class EnvironmentalCondition(
     val name: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean
+    val userCreated: Boolean,
+
+    @SerializedName("id")
+    val id: Int = -1
 ) {
 
     companion object {

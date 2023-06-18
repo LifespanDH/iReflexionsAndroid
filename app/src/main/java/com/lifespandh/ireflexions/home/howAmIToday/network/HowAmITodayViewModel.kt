@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
+import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
@@ -33,6 +36,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val howAmITodayLiveData: LiveData<HowAmITodayData>
         get() = _howAmITodayLiveData
 
+    private val _dailyCheckInEntryAddedLiveData = MutableLiveData<DailyCheckInEntry>()
+    val dailyCheckInEntryAddedLiveData: LiveData<DailyCheckInEntry>
+        get() = _dailyCheckInEntryAddedLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
@@ -49,6 +56,8 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val selectedEnvironmentalConditions: MutableList<EnvironmentalCondition> = mutableListOf()
     val selectedPanicSymptoms: MutableList<PanicSymptom> = mutableListOf()
     val selectedPanicTriggers: MutableList<PanicTrigger> = mutableListOf()
+    val selectedPanicAttack: MutableLiveData<PanicAttack> = MutableLiveData()
+    val sleepQuality: SleepQuality? = null
 
     val newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
     val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
@@ -114,6 +123,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _howAmITodayLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun addDailyCheckInEntry(dailyCheckInEntry: DailyCheckInEntry) {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.addDailyCheckInEntry(dailyCheckInEntry)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _dailyCheckInEntryAddedLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="@id/guidelineTimeStart"
             app:layout_constraintTop_toTopOf="@+id/edt_time" />
 
-        <TextClock
+        <TextView
             android:id="@+id/edt_time"
             android:layout_width="0dp"
             android:layout_height="30dp"
@@ -85,6 +85,7 @@
             android:fontFamily="@font/montserrat_regular"
             android:gravity="center"
             android:hint="@string/hh_mm"
+            android:format24Hour="hh:mm:ss"
             android:inputType="time"
             android:paddingStart="10dp"
             android:singleLine="true"
@@ -128,7 +129,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_time" />
 
         <com.lifespandh.irefgraphs.TriangularSliderView
-            android:id="@+id/triangleSliderView"
+            android:id="@+id/intensitySlider"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
@@ -149,7 +150,7 @@
             android:textColor="@color/icon_title_color"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/triangleSliderView" />
+            app:layout_constraintTop_toBottomOf="@id/intensitySlider" />
 
 
         <androidx.recyclerview.widget.RecyclerView
