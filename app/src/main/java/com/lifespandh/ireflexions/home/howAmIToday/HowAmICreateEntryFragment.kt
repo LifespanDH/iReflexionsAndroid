@@ -326,4 +326,9 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 //
 //        traitAdapter.setList(traitsList)
     }
+
+    override fun onDestroyView() {
+        howAmITodayViewModel.clearData()
+        super.onDestroyView()
+    }
 }

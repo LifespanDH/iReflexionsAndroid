@@ -44,20 +44,12 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
 
-////    val selectedTraitsMap: HashMap<Int, Boolean> = hashMapOf()
-//    var traitCategoryMap = HashMap<Int, Boolean>()
-//    var traitsMap = HashMap<Int, Boolean>()
-//    var allTraitsMap = HashMap<Int, Boolean>()
-//    var hashMap = HashMap<Int, ArrayList<Int>>()
-//    var emotionTraitsMap = HashMap<Int, ArrayList<Int>>()
-
     val selectedTraitSubCategory: HashMap<Int, MutableList<TraitSubCategory>> = hashMapOf()
     val selectedWhatsHappening: MutableList<WhatsHappening> = mutableListOf()
     val selectedEnvironmentalConditions: MutableList<EnvironmentalCondition> = mutableListOf()
     val selectedPanicSymptoms: MutableList<PanicSymptom> = mutableListOf()
     val selectedPanicTriggers: MutableList<PanicTrigger> = mutableListOf()
     val selectedPanicAttack: MutableLiveData<PanicAttack> = MutableLiveData()
-    val sleepQuality: SleepQuality? = null
 
     val newWhatsHappening: MutableLiveData<WhatsHappening?> = MutableLiveData()
     val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
@@ -147,5 +139,19 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 }
             }
         }
+    }
+
+    fun clearData() {
+        this.selectedTraitSubCategory.clear()
+        this.selectedWhatsHappening.clear()
+        this.selectedEnvironmentalConditions.clear()
+        this.selectedPanicSymptoms.clear()
+        this.selectedPanicTriggers.clear()
+        this.selectedPanicAttack.value = null
+
+        this.newWhatsHappening.value = null
+        this.newEnvironmentalCondition.value = null
+        this.newPanicSymptom.value = null
+        this.newPanicTrigger.value = null
     }
 }
