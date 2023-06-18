@@ -10,21 +10,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.home.course.CoursesAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.JournalEntryAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener {
+class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener, JournalEntryAdapter.OnItemClicked {
 
     private var token: String? = null
     private var toDate = Calendar.getInstance().time
     private lateinit var weekAdapter: WeekAdapter
     private val dateBundle = Bundle()
     private lateinit var currentDate: Date
+    private val journalEntryAdapter by lazy { JournalEntryAdapter(mutableListOf(), this) }
     private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
-
     private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
     private val formatDay = SimpleDateFormat("EEE", Locale.US)
@@ -57,8 +60,16 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
     }
 
     private fun init() {
+        setViews()
         setListeners()
         setObservers()
+    }
+
+    private fun setViews(){
+        journalEntryOverview.apply {
+            adapter = journalEntryAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun setListeners() {
@@ -220,5 +231,9 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         weekAdapter.changeDataSet(position)
         this.toDate = toDate
         setJournalAdapter(toDate)
+    }
+
+    override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {
+        TODO("Not yet implemented")
     }
 }
