@@ -77,11 +77,17 @@ fun String.getTimeInFormat(format: String = TIME_FORMAT): String {
     return getTimeInFormat(format.parse(this))
 }
 
-fun getWeekDates(calendar: Calendar): MutableList<Pair<String, Triple<String, String, String>>> {
-    val formatDay = SimpleDateFormat(ONLY_DAY_FORMAT, Locale.US)
-    val formatMonth = SimpleDateFormat(ONLY_MONTH_FORMAT, Locale.US)
-    val formatDate = SimpleDateFormat(ONLY_DATE_FORMAT, Locale.US)
-    val dates: MutableList<Pair<String, Triple<String, String, String>>> = mutableListOf()
+fun getWeekDates(
+    calendar: Calendar,
+    dayFormat: String = ONLY_DAY_FORMAT,
+    monthFormat: String = ONLY_MONTH_FORMAT,
+    dateFormat: String = ONLY_DATE_FORMAT,
+    replaceMonthByWeek: Boolean = false
+): MutableList<Pair<String, Triple<String, String, String>>> {
+    val formatDay = SimpleDateFormat(dayFormat, Locale.US)
+    val formatMonth = SimpleDateFormat(monthFormat, Locale.US)
+    val formatDate = SimpleDateFormat(dateFormat, Locale.US)
+    val dates: MutableList<DateInfo> = mutableListOf()
 
     for (i in 0..6) {
         when (i) {
@@ -90,9 +96,32 @@ fun getWeekDates(calendar: Calendar): MutableList<Pair<String, Triple<String, St
             6 -> {
             }
         }
-        dates.add(calendar.time.getDateInFormat() to Triple(formatDay.format(calendar.time), formatMonth.format(calendar.time), formatDate.format(calendar.time)))
+        dates.add(
+            calendar.time.getDateInFormat() to Triple(
+                formatDay.format(calendar.time),
+                formatMonth.format(calendar.time),
+                formatDate.format(calendar.time)
+            )
+        )
         calendar.add(Calendar.DAY_OF_MONTH, 1)
     }
 
     return dates
+}
+
+fun getDateInHumanFormat(calendar: Calendar): String {
+    val dayNumberSuffix = getDayNumberSuffix(calendar.get(Calendar.DAY_OF_MONTH))
+    val formatter = SimpleDateFormat("EEEE, MMMM dd'$dayNumberSuffix', y", Locale.US)
+    return formatter.format(calendar.time)
+}
+
+private fun getDayNumberSuffix(day: Int): String? {
+    return if (day in 11..13) {
+        "th"
+    } else when (day % 10) {
+        1 -> "st"
+        2 -> "nd"
+        3 -> "rd"
+        else -> "th"
+    }
 }

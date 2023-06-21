@@ -42,7 +42,7 @@ import java.util.Date
 class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener, JournalEntryAdapter.OnItemClicked {
 
     private var toDate = Calendar.getInstance().time
-    private lateinit var weekAdapter: WeekAdapter
+    private val weekAdapter by lazy { WeekAdapter(listOf(), howAmITodayViewModel, this) }
     private val dateBundle = Bundle()
     private lateinit var currentDate: Date
     private val journalEntryAdapter by lazy { JournalEntryAdapter(mutableListOf(), this) }
@@ -95,6 +95,12 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
             adapter = journalEntryAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
+        dayView.apply {
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = weekAdapter
+        }
     }
 
     private fun setListeners() {
@@ -143,14 +149,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         currentDate = calendar.time
 
         val dates = getWeekDates(calendar)
-
-        dayView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        weekAdapter = WeekAdapter(
-            dates = dates, howAmITodayViewModel = howAmITodayViewModel
-        )
-        dayView.adapter = weekAdapter
-        weekAdapter.setOnItemClickedListener(this)
+        weekAdapter.setDates(dates)
     }
 
     private fun setEntryLayout(isListEmpty: Boolean) {
@@ -182,7 +181,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     }
 
     override fun onItemClick(position: Int, date: String) {
-        weekAdapter.changeDataSet(position)
         this.toDate = date.getDateInFormat(DATE_FORMAT)
         getDailyEntries(date)
     }

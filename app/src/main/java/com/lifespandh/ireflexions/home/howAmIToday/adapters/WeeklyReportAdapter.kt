@@ -10,31 +10,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
-import java.util.*
+import com.lifespandh.ireflexions.utils.date.DateInfo
 import kotlin.collections.ArrayList
 
 class WeeklyReportAdapter (
-    var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
-    var dateList: ArrayList<String>,
-    var dateListOrigin: ArrayList<Date>,
-    var dayList: ArrayList<String>,
-    var dates: ArrayList<String>,
+    private var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
+    private var dates: List<DateInfo>,
     private val listener: OnItemClickedListener
         ): BaseRecyclerViewAdapter () {
 
     private val dailyBundle = Bundle()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return WeeklyReportViewHolder(getView(R.layout.weekly_report_fragment_item, parent))
+        return WeeklyReportViewHolder(getView(R.layout.item_weekly_report, parent))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeeklyReportViewHolder)
-            holder.bind(dateList[position])
+            holder.bind(dates[position])
     }
 
     override fun getItemCount(): Int {
-        return dayList.size
+        return dates.size
+    }
+
+    fun setDates(dates: List<DateInfo>) {
+        this.dates = dates
     }
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -44,16 +45,16 @@ class WeeklyReportAdapter (
         var addCircleImage: ImageView = itemView.findViewById(R.id.addCircleImage)
         var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
 
-        fun bind(date: String) {
-            val journalItem = date
+        fun bind(dateInfo: DateInfo) {
+            val journalItem = dateInfo.first
 
             txtToday.text = journalItem
 
-            val date = dayList[position]
+            val date = dateInfo.second.first
             if (dailyEntryMap.containsKey(date)) {
                 weeklyEntryOverview.layoutManager = GridLayoutManager(getContext(), 1)
 
-                val dailyEntryList = dailyEntryMap[date]!!
+//                val dailyEntryList = dailyEntryMap[date]!!
 
                 txtAddNoEntry.visibility = View.INVISIBLE
                 addCircleImage.visibility = View.INVISIBLE
@@ -68,12 +69,12 @@ class WeeklyReportAdapter (
             }
 
             addCircleImage.setOnClickListener {
-                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
+//                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
             }
 
-            if (System.currentTimeMillis() < dateListOrigin[position].time) {
-                addCircleImage.isClickable = false
-            }
+//            if (System.currentTimeMillis() < dateListOrigin[position].time) {
+//                addCircleImage.isClickable = false
+//            }
         }
     }
 

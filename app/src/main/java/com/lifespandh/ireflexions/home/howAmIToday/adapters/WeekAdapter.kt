@@ -15,14 +15,14 @@ import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.DateInfo
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
+import kotlin.math.abs
 
 class WeekAdapter(
     private var dates: List<DateInfo>,
     private val howAmITodayViewModel: HowAmITodayViewModel,
+    private val listener: OnItemClickedListener,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
-
-    lateinit var listener: OnItemClickedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeekViewHolder(getView(R.layout.day_item, parent))
@@ -37,16 +37,8 @@ class WeekAdapter(
         return dates.size
     }
 
-    fun setOnItemClickedListener(listener: OnItemClickedListener) {
-        this.listener = listener
-    }
-
-    /**
-     * This function might not be the best way to do this
-     * Need to check this and change later, copied rn from previous code to save time
-     */
-    fun changeDataSet(position: Int) {
-        howAmITodayViewModel.selectedPosition = position
+    fun setDates(dates: List<DateInfo>) {
+        this.dates = dates
         notifyDataSetChanged()
     }
 
@@ -79,7 +71,6 @@ class WeekAdapter(
                 )
 
             }
-            val position = absoluteAdapterPosition
             if (absoluteAdapterPosition == itemCount - 1)
                 view.visibility = View.INVISIBLE
 
@@ -99,6 +90,12 @@ class WeekAdapter(
             }
 
             itemView.setOnClickListener {
+                val prev = howAmITodayViewModel.selectedPosition
+                howAmITodayViewModel.selectedPosition = absoluteAdapterPosition
+                if (prev != -1)
+                    notifyItemChanged(prev)
+                notifyItemChanged(howAmITodayViewModel.selectedPosition)
+
                 listener.onItemClick(absoluteAdapterPosition, date)
             }
         }

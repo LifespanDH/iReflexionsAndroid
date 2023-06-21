@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -39,21 +38,21 @@
         android:text="@string/no_entries_yet"
         android:textColor="@color/light_gray"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/addCircleImage"
         app:layout_constraintEnd_toStartOf="@id/addCircleImage"
-        app:layout_constraintTop_toTopOf="@id/addCircleImage"
-        app:layout_constraintBottom_toBottomOf="@id/addCircleImage"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/addCircleImage" />
 
     <ImageView
         android:id="@+id/addCircleImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/add_circle"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@id/txt_noentry"
+        android:src="@drawable/add_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/txt_add_noentry"
-        app:layout_constraintTop_toBottomOf="@+id/txt_today"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/txt_noentry"
+        app:layout_constraintTop_toBottomOf="@+id/txt_today" />
 
     <TextView
         android:id="@+id/txt_add_noentry"
@@ -65,17 +64,17 @@
         android:text="@string/add_new_entry"
         android:textColor="@color/light_gray"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addCircleImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addCircleImage"
-        app:layout_constraintTop_toTopOf="@id/addCircleImage"
-        app:layout_constraintBottom_toBottomOf="@+id/addCircleImage"/>
+        app:layout_constraintTop_toTopOf="@id/addCircleImage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weeklyEntryOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false"
         android:layout_marginTop="16dp"
+        android:nestedScrollingEnabled="false"
         android:scrollbars="vertical"
 
         app:layout_constraintEnd_toEndOf="parent"

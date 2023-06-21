@@ -17,6 +17,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeeklyReportAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.date.getWeekDates
 import kotlinx.android.synthetic.main.fragment_weekly_report.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,8 +26,10 @@ class WeeklyReportFragment : BaseFragment(),
     WeeklyReportAdapter.OnItemClickedListener,
     WeekAdapter.OnItemClickedListener {
 
-    private lateinit var adapter: WeekAdapter
     private lateinit var currentDate: Date
+
+    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val weekAdapter by lazy { WeekAdapter(listOf(), howAmITodayViewModel, this) }
 
     private val dateBundle = Bundle()
 
@@ -41,7 +44,6 @@ class WeeklyReportFragment : BaseFragment(),
     private val formatDate = SimpleDateFormat("dd", Locale.US)
     private val calendar = Calendar.getInstance()
 
-    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,10 +72,18 @@ class WeeklyReportFragment : BaseFragment(),
             firstDayOfWeek = Calendar.MONDAY
             this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
         }
+        setViews()
         setWeeklyReportAdapter()
-        setAdapter(calendar)
+        setAdapters(calendar)
         setListeners()
         setObservers()
+    }
+
+    private fun setViews() {
+        dayView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = weekAdapter
+        }
     }
 
     private fun setListeners(){
@@ -86,7 +96,7 @@ class WeeklyReportFragment : BaseFragment(),
             }
 
             setWeeklyReportAdapter()
-            setAdapter(calendarPrevious)
+            setAdapters(calendarPrevious)
 
         }
 
@@ -99,7 +109,7 @@ class WeeklyReportFragment : BaseFragment(),
             }
 
             setWeeklyReportAdapter()
-            setAdapter(calendarNext)
+            setAdapters(calendarNext)
         }
 
     }
@@ -116,35 +126,36 @@ class WeeklyReportFragment : BaseFragment(),
         val items: Map<String, List<DailyCheckInEntry>> = emptyMap()
 
         weekEntryOverview.layoutManager = GridLayoutManager(context, 1)
-        weeklyReportAdapter = WeeklyReportAdapter(
-            items, dateList, datesOrigin, dayList, dates, this
-        )
+//        weeklyReportAdapter = WeeklyReportAdapter(
+//            items, , this
+//        )
         weekEntryOverview.adapter = weeklyReportAdapter
     }
 
-    private fun setAdapter(calendar: Calendar) {
+    private fun setAdapters(calendar: Calendar) {
+        setWeekAdapter(calendar)
         currentDate = calendar.time
 
         var firstDayString = String()
         var lastDayString = String()
-        val days = ArrayList<String>()
-        val month = ArrayList<String>()
+//        val days = ArrayList<String>()
+//        val month = ArrayList<String>()
         val date = ArrayList<String>()
-        val dateList = ArrayList<String>()
+//        val dateList = ArrayList<String>()
         val weekDateList = ArrayList<String>()
         val weekDateListOrigin = ArrayList<Date>()
 
-//        for (i in 0..6) {
-//            when (i) {
-//                0 -> {
-//                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
-//                    firstDayString = parser.format(fDay)
-//                }
-//                6 -> {
-//                    lastDayString = parser.format(calendar.time)
-//                }
-//            }
-//
+        for (i in 0..6) {
+            when (i) {
+                0 -> {
+                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
+                    firstDayString = parser.format(fDay)
+                }
+                6 -> {
+                    lastDayString = parser.format(calendar.time)
+                }
+            }
+
 //            days.add(formatDay.format(calendar.time))
 //            month.add(formatMonth.format(calendar.time))
 //            date.add(formatDate.format(calendar.time))
@@ -153,34 +164,22 @@ class WeeklyReportFragment : BaseFragment(),
 //            weekDateList.add(formatter.format(calendar.time))
 //            weekDateListOrigin.add(calendar.time)
 //            dateList.add(parser.format(calendar.time))
-//            calendar.add(Calendar.DAY_OF_MONTH, 1)
-//        }
-//
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
 //        weeklyReportAdapter.dateList = weekDateList
 //        weeklyReportAdapter.dateListOrigin = weekDateListOrigin
 //        weeklyReportAdapter.dayList = date
 //        weeklyReportAdapter.dates = dateList
-//        weeklyReportAdapter.notifyDataSetChanged()
-//
-//        dayView.layoutManager =
-//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        adapter = WeekAdapter(
-//            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
-//        )
+        weeklyReportAdapter.notifyDataSetChanged()
 
-        adapter.setOnItemClickedListener(this)
-        dayView.adapter = adapter
+
+
     }
 
-    private fun getDayNumberSuffix(day: Int): String? {
-        return if (day in 11..13) {
-            "th"
-        } else when (day % 10) {
-            1 -> "st"
-            2 -> "nd"
-            3 -> "rd"
-            else -> "th"
-        }
+    private fun setWeekAdapter(calendar: Calendar) {
+        val dates = getWeekDates(calendar)
+        weekAdapter.setDates(dates)
     }
 
     override fun onItemClick(position: Int, date: String) {
