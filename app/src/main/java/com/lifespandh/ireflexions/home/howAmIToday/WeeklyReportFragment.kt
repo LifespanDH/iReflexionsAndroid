@@ -134,39 +134,39 @@ class WeeklyReportFragment : BaseFragment(),
         val weekDateList = ArrayList<String>()
         val weekDateListOrigin = ArrayList<Date>()
 
-        for (i in 0..6) {
-            when (i) {
-                0 -> {
-                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
-                    firstDayString = parser.format(fDay)
-                }
-                6 -> {
-                    lastDayString = parser.format(calendar.time)
-                }
-            }
-
-            days.add(formatDay.format(calendar.time))
-            month.add(formatMonth.format(calendar.time))
-            date.add(formatDate.format(calendar.time))
-            val dayNumberSuffix = getDayNumberSuffix(calendar.get(Calendar.DAY_OF_MONTH))
-            val formatter = SimpleDateFormat("EEEE, MMMM dd'$dayNumberSuffix', y", Locale.US)
-            weekDateList.add(formatter.format(calendar.time))
-            weekDateListOrigin.add(calendar.time)
-            dateList.add(parser.format(calendar.time))
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
-        weeklyReportAdapter.dateList = weekDateList
-        weeklyReportAdapter.dateListOrigin = weekDateListOrigin
-        weeklyReportAdapter.dayList = date
-        weeklyReportAdapter.dates = dateList
-        weeklyReportAdapter.notifyDataSetChanged()
-
-        dayView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        adapter = WeekAdapter(
-            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
-        )
+//        for (i in 0..6) {
+//            when (i) {
+//                0 -> {
+//                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
+//                    firstDayString = parser.format(fDay)
+//                }
+//                6 -> {
+//                    lastDayString = parser.format(calendar.time)
+//                }
+//            }
+//
+//            days.add(formatDay.format(calendar.time))
+//            month.add(formatMonth.format(calendar.time))
+//            date.add(formatDate.format(calendar.time))
+//            val dayNumberSuffix = getDayNumberSuffix(calendar.get(Calendar.DAY_OF_MONTH))
+//            val formatter = SimpleDateFormat("EEEE, MMMM dd'$dayNumberSuffix', y", Locale.US)
+//            weekDateList.add(formatter.format(calendar.time))
+//            weekDateListOrigin.add(calendar.time)
+//            dateList.add(parser.format(calendar.time))
+//            calendar.add(Calendar.DAY_OF_MONTH, 1)
+//        }
+//
+//        weeklyReportAdapter.dateList = weekDateList
+//        weeklyReportAdapter.dateListOrigin = weekDateListOrigin
+//        weeklyReportAdapter.dayList = date
+//        weeklyReportAdapter.dates = dateList
+//        weeklyReportAdapter.notifyDataSetChanged()
+//
+//        dayView.layoutManager =
+//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        adapter = WeekAdapter(
+//            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
+//        )
 
         adapter.setOnItemClickedListener(this)
         dayView.adapter = adapter

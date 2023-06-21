@@ -17,11 +17,14 @@ import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DATE
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,6 +65,9 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         howAmITodayViewModel.dailyCheckInEntriesLiveData.observeFreshly(viewLifecycleOwner) {
             journalEntryAdapter.setList(it)
             setEntryLayout(it.isEmpty())
+
+            loader.makeGone()
+            mainLayout.makeVisible()
         }
     }
 
@@ -73,6 +79,9 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     }
 
     private fun getDailyEntries(date: String) {
+        loader.makeVisible()
+        mainLayout.makeGone()
+
         val requestBody = createJsonRequestBody(DATE to date)
         howAmITodayViewModel.getDailyEntries(requestBody)
     }
@@ -116,23 +125,12 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         }
 
         arrow_previous.setOnClickListener {
-            val calendarPrevious = Calendar.getInstance().apply {
-                time = currentDate
-                firstDayOfWeek = Calendar.MONDAY
-                add(Calendar.DAY_OF_MONTH, -7)
-                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-            }
+            val calendarPrevious = getCalendarAfterBefore(currentDate, -7)
             setAdapter(calendarPrevious)
-
         }
 
         arrow_next.setOnClickListener {
-            val calendarNext = Calendar.getInstance().apply {
-                time = currentDate
-                firstDayOfWeek = Calendar.MONDAY
-                add(Calendar.DAY_OF_MONTH, 7)
-                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-            }
+            val calendarNext = getCalendarAfterBefore(currentDate, 7)
             setAdapter(calendarNext)
 
         }
@@ -140,34 +138,31 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
 
     private fun setAdapter(calendar: Calendar) {
         currentDate = calendar.time
-        var firstDayString = String()
-        var lastDayString = String()
+
         val days = ArrayList<String>()
         val month = ArrayList<String>()
         val date = ArrayList<String>()
         val dateList = ArrayList<String>()
-
+        val dates: MutableList<Pair<String, Triple<String, String, String>>> = mutableListOf()
         for (i in 0..6) {
             when (i) {
                 0 -> {
-                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
-                    firstDayString = parser.format(fDay)
                 }
                 6 -> {
-                    lastDayString = parser.format(calendar.time)
                 }
             }
             days.add(formatDay.format(calendar.time))
             month.add(formatMonth.format(calendar.time))
             date.add(formatDate.format(calendar.time))
             dateList.add(calendar.time.getDateInFormat())
+            dates.add(calendar.time.getDateInFormat() to Triple(formatDay.format(calendar.time), formatMonth.format(calendar.time), formatDate.format(calendar.time)))
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         weekAdapter = WeekAdapter(
-            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
+            dates = dates, howAmITodayViewModel = howAmITodayViewModel
         )
         dayView.adapter = weekAdapter
         weekAdapter.setOnItemClickedListener(this)
@@ -211,15 +206,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         addCircleImageViewBig.isInvisible = isListEmpty
     }
 
-    private fun setNoEntryLayout() {
-        txt_entry.visibility = View.INVISIBLE
-        addCircleImageView.visibility = View.INVISIBLE
-
-        txt_noentry.visibility = View.VISIBLE
-        txt_add_noentry.visibility = View.VISIBLE
-        addCircleImageViewBig.visibility = View.VISIBLE
-    }
-
     companion object {
         fun newInstance() = HowAmINoEntryFragment()
     }
@@ -243,7 +229,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         weekAdapter.changeDataSet(position)
         this.toDate = date.getDateInFormat(DATE_FORMAT)
         getDailyEntries(date)
-        setJournalAdapter(toDate)
     }
 
     override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {

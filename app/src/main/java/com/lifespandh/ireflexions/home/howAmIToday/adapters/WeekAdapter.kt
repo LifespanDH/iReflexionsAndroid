@@ -14,13 +14,13 @@ import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
-import kotlin.collections.ArrayList
 
+/**
+ * @param dates: Contains list of pairs
+ * each pair contains: (parsedDate, (weekDay, month, date))
+ */
 class WeekAdapter(
-    private var weekDays: List<String>,
-    private var month: ArrayList<String>,
-    private var date: ArrayList<String>,
-    private var dateList: ArrayList<String>,
+    private var dates: List<Pair<String, Triple<String, String, String>>>,
     private val howAmITodayViewModel: HowAmITodayViewModel,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
@@ -33,11 +33,11 @@ class WeekAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeekViewHolder)
-            holder.bind(dateList[position])
+            holder.bind(dates[position])
     }
 
     override fun getItemCount(): Int {
-        return weekDays.size
+        return dates.size
     }
 
     fun setOnItemClickedListener(listener: OnItemClickedListener) {
@@ -61,7 +61,9 @@ class WeekAdapter(
         private val view: View = itemView.findViewById(R.id.view)
         private val listDailyEntries: RecyclerView = itemView.findViewById(R.id.list_daily_entries)
 
-        fun bind(date: String) {
+        fun bind(datePair: Pair<String, Triple<String, String, String>>) {
+            val date = datePair.first
+
             val parsedDateTime = date.getDateInFormat(DATE_FORMAT)?.time
 
             if (parsedDateTime != null && System.currentTimeMillis() < parsedDateTime) {
@@ -84,9 +86,9 @@ class WeekAdapter(
             if (absoluteAdapterPosition == itemCount - 1)
                 view.visibility = View.INVISIBLE
 
-            val programItem = weekDays[position]
-            val month = month[position]
-            val date_ = this@WeekAdapter.date[position]
+            val programItem = datePair.second.first
+            val month = datePair.second.second
+            val date_ = datePair.second.third
             txtDay.text = programItem
             txtMonth.text = month
             txtDate.text = date_

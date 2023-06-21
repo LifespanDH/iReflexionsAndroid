@@ -46,6 +46,15 @@ fun String.toDate(): Date? {
     return date
 }
 
+fun getCalendarAfterBefore(currentDate: Date, days: Int): Calendar {
+    return Calendar.getInstance().apply {
+        time = currentDate
+        firstDayOfWeek = Calendar.MONDAY
+        add(Calendar.DAY_OF_MONTH, days)
+        this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+    }
+}
+
 fun getTimeInFormat(date: Date? = null, format: String = TIME_FORMAT): String {
     val timeInstance = SimpleDateFormat(format)
 
