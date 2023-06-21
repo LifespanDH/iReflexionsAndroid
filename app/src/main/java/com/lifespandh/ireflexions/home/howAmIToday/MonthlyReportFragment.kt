@@ -18,12 +18,15 @@ import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
+import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.util.Locale
 
-class MonthlyReportFragment : BaseFragment() {
+class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,38 +52,17 @@ class MonthlyReportFragment : BaseFragment() {
         class DayViewContainer(view: View) : ViewContainer(view) {
             val textView = view.findViewById<TextView>(R.id.calendarDayText)
             val monthView = view.findViewById<ViewGroup>(R.id.titlesContainer)
-        }
-        calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
 
-            override fun bind(container: DayViewContainer, data: CalendarDay) {
-                if (data.position == DayPosition.MonthDate) {
+            init {
+                view.setOnClickListener {
 
                 }
-                container.view.isInvisible = data.position != DayPosition.MonthDate
-                container.textView.text = data.date.dayOfMonth.toString()
             }
         }
 
-        val daysOfWeek = daysOfWeek()
+        calendarView.dayBinder = MonthsAdapter(this)
 
-        calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<DayViewContainer> {
-            override fun bind(container: DayViewContainer, data: CalendarMonth) {
-                if (container.monthView.tag == null) {
-                    container.monthView.tag = data.yearMonth
-                    container.monthView.children.map { it as TextView }
-                        .forEachIndexed { index, textView ->
-                            val dayOfWeek = daysOfWeek[index]
-                            val title = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
-                            textView.text = title
-                        }
-                }
-            }
-
-            override fun create(view: View): DayViewContainer {
-                return DayViewContainer(view)
-            }
-        }
+        calendarView.monthHeaderBinder = MonthFooterAdapter()
 
         val currentMonth = YearMonth.now()
         val startMonth = currentMonth.minusMonths(100)  // Adjust as needed
@@ -92,5 +74,9 @@ class MonthlyReportFragment : BaseFragment() {
 
     companion object {
 
+    }
+
+    override fun onDateClicked(date: String) {
+        logE("called here $date")
     }
 }
