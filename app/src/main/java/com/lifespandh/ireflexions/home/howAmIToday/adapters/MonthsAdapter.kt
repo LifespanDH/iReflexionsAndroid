@@ -13,15 +13,17 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
+import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
 class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : ViewContainer(view) {
     val textView: TextView = view.findViewById(R.id.calendarDayText)
 
+    var date: LocalDate? = null
     init {
         view.setOnClickListener {
-            listener?.onDateClicked("hello ")
+            listener?.onDateClicked(date)
         }
     }
 }
@@ -32,12 +34,13 @@ class MonthsAdapter(
     override fun create(view: View) = DayViewContainer(view, listener)
 
     override fun bind(container: DayViewContainer, data: CalendarDay) {
+        container.date = data.date
         container.view.isInvisible = data.position != DayPosition.MonthDate
         container.textView.text = data.date.dayOfMonth.toString()
     }
 
     interface OnDateClicked {
-        fun onDateClicked(date: String)
+        fun onDateClicked(date: LocalDate?)
     }
 }
 

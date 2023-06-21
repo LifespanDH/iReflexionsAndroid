@@ -5,16 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.children
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import com.kizitonwose.calendar.core.CalendarDay
-import com.kizitonwose.calendar.core.CalendarMonth
-import com.kizitonwose.calendar.core.DayPosition
-import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
-import com.kizitonwose.calendar.view.MonthDayBinder
-import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
@@ -22,9 +13,8 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
 import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
+import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.TextStyle
-import java.util.Locale
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
@@ -76,7 +66,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     }
 
-    override fun onDateClicked(date: String) {
+    override fun onDateClicked(date: LocalDate?) {
         logE("called here $date")
     }
 }
