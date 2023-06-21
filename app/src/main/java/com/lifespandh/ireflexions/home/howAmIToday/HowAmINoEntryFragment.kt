@@ -20,6 +20,7 @@ import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
+import com.lifespandh.ireflexions.utils.date.getWeekDates
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -36,12 +37,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     private val dateBundle = Bundle()
     private lateinit var currentDate: Date
     private val journalEntryAdapter by lazy { JournalEntryAdapter(mutableListOf(), this) }
-    private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
-    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-
-    private val formatDay = SimpleDateFormat("EEE", Locale.US)
-    private val formatMonth = SimpleDateFormat("MMM", Locale.US)
-    private val formatDate = SimpleDateFormat("dd", Locale.US)
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
@@ -132,32 +127,13 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         arrow_next.setOnClickListener {
             val calendarNext = getCalendarAfterBefore(currentDate, 7)
             setAdapter(calendarNext)
-
         }
     }
 
     private fun setAdapter(calendar: Calendar) {
         currentDate = calendar.time
 
-        val days = ArrayList<String>()
-        val month = ArrayList<String>()
-        val date = ArrayList<String>()
-        val dateList = ArrayList<String>()
-        val dates: MutableList<Pair<String, Triple<String, String, String>>> = mutableListOf()
-        for (i in 0..6) {
-            when (i) {
-                0 -> {
-                }
-                6 -> {
-                }
-            }
-            days.add(formatDay.format(calendar.time))
-            month.add(formatMonth.format(calendar.time))
-            date.add(formatDate.format(calendar.time))
-            dateList.add(calendar.time.getDateInFormat())
-            dates.add(calendar.time.getDateInFormat() to Triple(formatDay.format(calendar.time), formatMonth.format(calendar.time), formatDate.format(calendar.time)))
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
+        val dates = getWeekDates(calendar)
 
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

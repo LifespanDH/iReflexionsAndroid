@@ -11,6 +11,17 @@ const val TIME_FORMAT = "hh:mm:ss"
 
 const val DATE = "date"
 
+private const val ONLY_DAY_FORMAT = "EEE"
+private const val ONLY_MONTH_FORMAT = "MMM"
+private const val ONLY_DATE_FORMAT = "dd"
+
+/**
+ * Data Structure to be used majorly in
+ * WeekAdapter
+ * each pair contains: (parsedDate, (weekDay, month, date))
+ */
+typealias DateInfo = Pair<String, Triple<String, String, String>>
+
 fun getDateTimeInFormat(timestamp: Long? = null, format: String = DATE_TIME_LONG_FORMAT): String {
     val time = timestamp ?: System.currentTimeMillis()
     val date = Date(time)
@@ -64,4 +75,24 @@ fun getTimeInFormat(date: Date? = null, format: String = TIME_FORMAT): String {
 fun String.getTimeInFormat(format: String = TIME_FORMAT): String {
     val format = SimpleDateFormat(format)
     return getTimeInFormat(format.parse(this))
+}
+
+fun getWeekDates(calendar: Calendar): MutableList<Pair<String, Triple<String, String, String>>> {
+    val formatDay = SimpleDateFormat(ONLY_DAY_FORMAT, Locale.US)
+    val formatMonth = SimpleDateFormat(ONLY_MONTH_FORMAT, Locale.US)
+    val formatDate = SimpleDateFormat(ONLY_DATE_FORMAT, Locale.US)
+    val dates: MutableList<Pair<String, Triple<String, String, String>>> = mutableListOf()
+
+    for (i in 0..6) {
+        when (i) {
+            0 -> {
+            }
+            6 -> {
+            }
+        }
+        dates.add(calendar.time.getDateInFormat() to Triple(formatDay.format(calendar.time), formatMonth.format(calendar.time), formatDate.format(calendar.time)))
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+    }
+
+    return dates
 }

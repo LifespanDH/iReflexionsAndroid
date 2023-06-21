@@ -13,14 +13,11 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.DateInfo
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 
-/**
- * @param dates: Contains list of pairs
- * each pair contains: (parsedDate, (weekDay, month, date))
- */
 class WeekAdapter(
-    private var dates: List<Pair<String, Triple<String, String, String>>>,
+    private var dates: List<DateInfo>,
     private val howAmITodayViewModel: HowAmITodayViewModel,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
