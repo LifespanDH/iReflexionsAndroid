@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,16 +18,26 @@ import com.lifespandh.ireflexions.utils.date.DATE
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
-import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getWeekDates
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
-import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.addCircleImageView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.addCircleImageViewBig
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.arrow_next
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.arrow_previous
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.dailyEntryRecyclerView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.dayView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.layout_month
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.loader
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.mainLayout
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_add_noentry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_entry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_noentry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.weekView
+import java.util.Calendar
+import java.util.Date
 
 class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener, JournalEntryAdapter.OnItemClicked {
 
@@ -142,35 +151,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         )
         dayView.adapter = weekAdapter
         weekAdapter.setOnItemClickedListener(this)
-    }
-
-    private fun setJournalAdapter(date: Date) {
-//        var dailyEntries: List<DailyCheckInEntry> = emptyList()
-//
-//        val dailyItems = homeViewModel.dailyCheckInList.groupBy {
-//            dateFormat.format(parser.parse(it.date))
-//        }
-//
-//        if (dailyItems.containsKey(dateFormat.format(date))) {
-//            dailyEntries = dailyItems[dateFormat.format(date)]!!
-//        }
-//
-//        if (journalEntryOverview != null) {
-//            journalEntryOverview.layoutManager = GridLayoutManager(context, 1)
-//            journalEntryAdapter = JournalEntryAdapter(
-//                requireContext(),
-//                itemListDailyCheckIn = dailyEntries
-//            )
-//
-//            journalEntryAdapter.setOnItemClickedListener(this)
-//            journalEntryOverview.adapter = journalEntryAdapter
-//
-//            if (dailyEntries.isNotEmpty()) {
-//                setEntryLayout()
-//            } else {
-//                setNoEntryLayout()
-//            }
-//        }
     }
 
     private fun setEntryLayout(isListEmpty: Boolean) {
