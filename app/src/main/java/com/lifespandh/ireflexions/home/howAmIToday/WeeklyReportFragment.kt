@@ -15,10 +15,17 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeeklyReportAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.utils.date.DateInfo
+import com.lifespandh.ireflexions.utils.date.WEEK_START_DATE
 import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getWeekDates
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_weekly_report.*
+import kotlinx.android.synthetic.main.item_weekly_report.weeklyEntryOverview
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,16 +39,7 @@ class WeeklyReportFragment : BaseFragment(),
     private val weekAdapter by lazy { WeekAdapter(listOf(), howAmITodayViewModel, this) }
     private val weeklyReportAdapter by lazy { WeeklyReportAdapter(mapOf(), listOf(), this) }
 
-    private val dateBundle = Bundle()
-
-//    private lateinit var weeklyReportAdapter: WeeklyReportAdapter
-
-    private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
-    private var date = Calendar.getInstance().time
     private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-
-    private val calendar = Calendar.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +66,7 @@ class WeeklyReportFragment : BaseFragment(),
     private fun init() {
         setViews()
         setAdapters()
-
+        getWeeklyEntries()
         setListeners()
         setObservers()
     }
@@ -89,21 +87,28 @@ class WeeklyReportFragment : BaseFragment(),
         arrow_previous.setOnClickListener {
             val calendarPrevious = getCalendarAfterBefore(currentDate, -7)
             setAdapters(calendarPrevious)
+            getWeeklyEntries()
         }
 
         arrow_next.setOnClickListener {
             val calendarNext = getCalendarAfterBefore(currentDate, 7)
             setAdapters(calendarNext)
+            getWeeklyEntries()
         }
 
     }
 
     private fun setObservers() {
+        howAmITodayViewModel.weeklyReportLiveData.observeFreshly(viewLifecycleOwner) {
+            loader.makeGone()
+            weekEntryOverview.makeVisible()
 
+            weeklyReportAdapter.setDailyEntryMap(it.associate { it.date to it.dailyEntries })
+        }
     }
 
     private fun setAdapters(cal: Calendar? = null) {
-        val calendar_ = cal ?: calendar.apply {
+        val calendar_ = cal ?: Calendar.getInstance().apply {
             firstDayOfWeek = Calendar.MONDAY
             this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
         }
@@ -111,6 +116,14 @@ class WeeklyReportFragment : BaseFragment(),
         val dates = getWeekDates(calendar_)
         setWeekAdapter(dates)
         setWeeklyReportAdapter(dates)
+    }
+
+    private fun getWeeklyEntries() {
+        loader.makeVisible()
+        weekEntryOverview.makeGone()
+
+        val requestBody = createJsonRequestBody(WEEK_START_DATE to getDateInFormat(currentDate.time))
+        howAmITodayViewModel.getWeeklyEntries(requestBody)
     }
 
     private fun setWeekAdapter(dates: MutableList<DateInfo>) {

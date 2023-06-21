@@ -10,6 +10,7 @@ const val DATE_FORMAT = "yyyy-MM-dd"
 const val TIME_FORMAT = "hh:mm:ss"
 
 const val DATE = "date"
+const val WEEK_START_DATE = "week_start_date"
 
 private const val ONLY_DAY_FORMAT = "EEE"
 private const val ONLY_MONTH_FORMAT = "MMM"
@@ -81,8 +82,7 @@ fun getWeekDates(
     calendar: Calendar,
     dayFormat: String = ONLY_DAY_FORMAT,
     monthFormat: String = ONLY_MONTH_FORMAT,
-    dateFormat: String = ONLY_DATE_FORMAT,
-    replaceMonthByWeek: Boolean = false
+    dateFormat: String = ONLY_DATE_FORMAT
 ): MutableList<DateInfo> {
     val formatDay = SimpleDateFormat(dayFormat, Locale.US)
     val formatMonth = SimpleDateFormat(monthFormat, Locale.US)

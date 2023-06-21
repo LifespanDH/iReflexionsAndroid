@@ -5,6 +5,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WeeklyReport
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
@@ -88,6 +89,20 @@ class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getDailyEntries(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getWeeklyEntries(requestBody: RequestBody): NetworkResult<List<WeeklyReport>> {
+        var networkResult: NetworkResult<List<WeeklyReport>>? = null
+
+        safeApiCall({
+            apiClient.getWeeklyEntries(requestBody)
         }, {
             networkResult = it
         }, {

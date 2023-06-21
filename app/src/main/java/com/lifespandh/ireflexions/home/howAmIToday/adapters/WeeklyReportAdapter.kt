@@ -11,8 +11,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DateInfo
-import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
-import kotlin.collections.ArrayList
+import com.lifespandh.ireflexions.utils.logs.logE
 
 class WeeklyReportAdapter (
     private var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
@@ -35,6 +34,11 @@ class WeeklyReportAdapter (
         return dates.size
     }
 
+    fun setDailyEntryMap(weeklyReport: Map<String, List<DailyCheckInEntry>>) {
+        this.dailyEntryMap = weeklyReport
+        notifyDataSetChanged()
+    }
+
     fun setDates(dates: List<DateInfo>) {
         this.dates = dates
         notifyDataSetChanged()
@@ -48,26 +52,32 @@ class WeeklyReportAdapter (
         var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
 
         fun bind(dateInfo: DateInfo) {
-            val journalItem = dateInfo.first
+            val parsedDate = dateInfo.first
 
             txtToday.text = dateInfo.second
 
             val date = dateInfo.third.first
-            if (dailyEntryMap.containsKey(date)) {
+
+            if (dailyEntryMap.containsKey(parsedDate)) {
                 weeklyEntryOverview.layoutManager = GridLayoutManager(getContext(), 1)
 
-//                val dailyEntryList = dailyEntryMap[date]!!
+                val dailyEntryList = dailyEntryMap[parsedDate]
 
                 txtAddNoEntry.visibility = View.INVISIBLE
                 addCircleImage.visibility = View.INVISIBLE
                 txtNoEntry.visibility = View.INVISIBLE
 
-//                val adapter = JournalEntryAdapter(
-//                    itemListDailyCheckIn = dailyEntryList,
-//                    isChangeColor = true
-//                )
+                val adapter = JournalEntryAdapter(
+                    itemList = dailyEntryList as MutableList<DailyCheckInEntry>,
+                    object : JournalEntryAdapter.OnItemClicked {
+                        override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {
+
+                        }
+
+                    }
+                )
 //                adapter.setOnItemClickedListener(this)
-//                weeklyEntryOverview.adapter = adapter
+                weeklyEntryOverview.adapter = adapter
             }
 
             addCircleImage.setOnClickListener {

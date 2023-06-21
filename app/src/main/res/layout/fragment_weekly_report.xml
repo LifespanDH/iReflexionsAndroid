@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,100 +11,63 @@
         android:layout_height="wrap_content"
         tools:context=".ui.login.LoginFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.11" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.90" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineStartView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.06" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineEndView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.94" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03" />
-
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:text="@string/how_have_i_been_weekly"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toTopOf="@id/guidelineTop" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/arrow_previous"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toBottomOf="@+id/dayView"
-            app:layout_constraintEnd_toEndOf="@id/guidelineStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dayView"
             android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
+            app:layout_constraintEnd_toStartOf="@id/arrow_next"
+            app:layout_constraintStart_toEndOf="@id/arrow_previous"
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <ImageView
             android:id="@+id/arrow_next"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/arrow_forward"
             app:layout_constraintBottom_toBottomOf="@+id/dayView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidelineEnd"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <include
+            android:id="@+id/loader"
+            layout="@layout/loader"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dayView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weekEntryOverview"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEndView"
-            app:layout_constraintStart_toStartOf="@id/guidelineStartView"
             app:layout_constraintTop_toBottomOf="@+id/dayView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

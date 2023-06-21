@@ -32,3 +32,12 @@ data class DailyCheckInEntry(
     @SerializedName("date_time")
     val dateTime: String,
 )
+
+data class WeeklyReport(
+
+    @SerializedName("date")
+    val date: String,
+
+    @SerializedName("daily_entries")
+    val dailyEntries: List<DailyCheckInEntry>
+)

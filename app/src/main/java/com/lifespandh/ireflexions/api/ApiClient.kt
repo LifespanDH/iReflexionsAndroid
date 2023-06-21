@@ -6,6 +6,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WeeklyReport
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.*
 import com.lifespandh.ireflexions.utils.network.*
@@ -102,4 +103,7 @@ interface ApiClient {
 
     @POST(GET_DAILY_ENTRIES)
     suspend fun getDailyEntries(@Body requestBody: RequestBody): List<DailyCheckInEntry>
+
+    @POST(GET_WEEKLY_ENTRIES)
+    suspend fun getWeeklyEntries(@Body requestBody: RequestBody): List<WeeklyReport>
 }

@@ -13,6 +13,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WeeklyReport
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
@@ -44,6 +45,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     private val _dailyCheckInEntriesLiveData = MutableLiveData<List<DailyCheckInEntry>>()
     val dailyCheckInEntriesLiveData: LiveData<List<DailyCheckInEntry>>
         get() = _dailyCheckInEntriesLiveData
+
+    private val _weeklyReportLiveData = MutableLiveData<List<WeeklyReport>>()
+    val weeklyReportLiveData: LiveData<List<WeeklyReport>>
+        get() = _weeklyReportLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -160,6 +165,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _dailyCheckInEntriesLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getWeeklyEntries(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.getWeeklyEntries(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _weeklyReportLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception
