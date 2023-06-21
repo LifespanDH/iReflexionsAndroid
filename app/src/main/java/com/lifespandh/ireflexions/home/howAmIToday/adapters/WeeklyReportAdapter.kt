@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
@@ -12,6 +13,8 @@ import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DateInfo
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 
 class WeeklyReportAdapter (
     private var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
@@ -45,6 +48,7 @@ class WeeklyReportAdapter (
     }
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
         var txtToday: TextView = itemView.findViewById(R.id.txt_today)
         var txtNoEntry: TextView = itemView.findViewById(R.id.txt_noentry)
         var txtAddNoEntry: TextView = itemView.findViewById(R.id.txt_add_noentry)
@@ -56,17 +60,11 @@ class WeeklyReportAdapter (
 
             txtToday.text = dateInfo.second
 
-            val date = dateInfo.third.first
+            val dailyEntryList = dailyEntryMap.get(parsedDate)
+            val dailyEntriesPresent = !dailyEntryList.isNullOrEmpty()
 
-            if (dailyEntryMap.containsKey(parsedDate)) {
+            if (dailyEntriesPresent) {
                 weeklyEntryOverview.layoutManager = GridLayoutManager(getContext(), 1)
-
-                val dailyEntryList = dailyEntryMap[parsedDate]
-
-                txtAddNoEntry.visibility = View.INVISIBLE
-                addCircleImage.visibility = View.INVISIBLE
-                txtNoEntry.visibility = View.INVISIBLE
-
                 val adapter = JournalEntryAdapter(
                     itemList = dailyEntryList as MutableList<DailyCheckInEntry>,
                     object : JournalEntryAdapter.OnItemClicked {
@@ -76,17 +74,17 @@ class WeeklyReportAdapter (
 
                     }
                 )
-//                adapter.setOnItemClickedListener(this)
                 weeklyEntryOverview.adapter = adapter
             }
+
+            weeklyEntryOverview.isVisible = dailyEntriesPresent
+            txtAddNoEntry.isVisible = !dailyEntriesPresent
+            addCircleImage.isVisible = !dailyEntriesPresent
+            txtNoEntry.isVisible = !dailyEntriesPresent
 
             addCircleImage.setOnClickListener {
 //                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
             }
-
-//            if (System.currentTimeMillis() < dateListOrigin[position].time) {
-//                addCircleImage.isClickable = false
-//            }
         }
     }
 
