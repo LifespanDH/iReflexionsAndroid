@@ -1,20 +1,27 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.children
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.CalendarMonth
+import com.kizitonwose.calendar.core.DayPosition
+import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
+import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
-import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import java.time.YearMonth
+import java.time.format.TextStyle
+import java.util.Locale
 
 class MonthlyReportFragment : BaseFragment() {
 
@@ -41,18 +48,37 @@ class MonthlyReportFragment : BaseFragment() {
     private fun initViews() {
         class DayViewContainer(view: View) : ViewContainer(view) {
             val textView = view.findViewById<TextView>(R.id.calendarDayText)
-
-            // With ViewBinding
-            // val textView = CalendarDayLayoutBinding.bind(view).calendarDayText
+            val monthView = view.findViewById<ViewGroup>(R.id.titlesContainer)
         }
         calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
-            // Called only when a new container is needed.
             override fun create(view: View) = DayViewContainer(view)
 
-            // Called every time we need to reuse a container.
             override fun bind(container: DayViewContainer, data: CalendarDay) {
-                logE("called ${data.date.dayOfMonth} ${data.date.dayOfWeek}")
+                if (data.position == DayPosition.MonthDate) {
+
+                }
+                container.view.isInvisible = data.position != DayPosition.MonthDate
                 container.textView.text = data.date.dayOfMonth.toString()
+            }
+        }
+
+        val daysOfWeek = daysOfWeek()
+
+        calendarView.monthHeaderBinder = object : MonthHeaderFooterBinder<DayViewContainer> {
+            override fun bind(container: DayViewContainer, data: CalendarMonth) {
+                if (container.monthView.tag == null) {
+                    container.monthView.tag = data.yearMonth
+                    container.monthView.children.map { it as TextView }
+                        .forEachIndexed { index, textView ->
+                            val dayOfWeek = daysOfWeek[index]
+                            val title = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                            textView.text = title
+                        }
+                }
+            }
+
+            override fun create(view: View): DayViewContainer {
+                return DayViewContainer(view)
             }
         }
 
