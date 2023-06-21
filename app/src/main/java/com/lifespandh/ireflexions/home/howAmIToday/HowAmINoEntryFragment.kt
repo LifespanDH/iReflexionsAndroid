@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,7 +60,8 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
 
     private fun setObservers() {
         howAmITodayViewModel.dailyCheckInEntriesLiveData.observeFreshly(viewLifecycleOwner) {
-            logE("called here $it")
+            journalEntryAdapter.setList(it)
+            setEntryLayout(it.isEmpty())
         }
     }
 
@@ -75,7 +78,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     }
 
     private fun setViews(){
-        journalEntryOverview.apply {
+        dailyEntryRecyclerView.apply {
             adapter = journalEntryAdapter
             layoutManager = LinearLayoutManager(context)
         }
@@ -199,13 +202,13 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
 //        }
     }
 
-    private fun setEntryLayout() {
-        txt_entry.visibility = View.VISIBLE
-        addCircleImageView.visibility = View.VISIBLE
+    private fun setEntryLayout(isListEmpty: Boolean) {
+        txt_entry.isInvisible = !isListEmpty
+        addCircleImageView.isInvisible = !isListEmpty
 
-        txt_noentry.visibility = View.INVISIBLE
-        txt_add_noentry.visibility = View.INVISIBLE
-        addCircleImageViewBig.visibility = View.INVISIBLE
+        txt_noentry.isInvisible = isListEmpty
+        txt_add_noentry.isInvisible = isListEmpty
+        addCircleImageViewBig.isInvisible = isListEmpty
     }
 
     private fun setNoEntryLayout() {
