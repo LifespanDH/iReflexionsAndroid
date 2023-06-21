@@ -11,6 +11,7 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DateInfo
+import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
 import kotlin.collections.ArrayList
 
 class WeeklyReportAdapter (
@@ -36,6 +37,7 @@ class WeeklyReportAdapter (
 
     fun setDates(dates: List<DateInfo>) {
         this.dates = dates
+        notifyDataSetChanged()
     }
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -48,9 +50,9 @@ class WeeklyReportAdapter (
         fun bind(dateInfo: DateInfo) {
             val journalItem = dateInfo.first
 
-            txtToday.text = journalItem
+            txtToday.text = dateInfo.second
 
-            val date = dateInfo.second.first
+            val date = dateInfo.third.first
             if (dailyEntryMap.containsKey(date)) {
                 weeklyEntryOverview.layoutManager = GridLayoutManager(getContext(), 1)
 

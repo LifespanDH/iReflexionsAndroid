@@ -51,13 +51,13 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/how_have_i_been_weekly"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textSize="12sp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/how_have_i_been_weekly"
             android:textColor="@color/icon_title_color"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintTop_toTopOf="@id/guidelineTop"/>
+            app:layout_constraintTop_toTopOf="@id/guidelineTop" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineBottom"

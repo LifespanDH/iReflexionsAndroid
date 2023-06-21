@@ -15,7 +15,6 @@ import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.DateInfo
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
-import kotlin.math.abs
 
 class WeekAdapter(
     private var dates: List<DateInfo>,
@@ -50,8 +49,8 @@ class WeekAdapter(
         private val view: View = itemView.findViewById(R.id.view)
         private val listDailyEntries: RecyclerView = itemView.findViewById(R.id.list_daily_entries)
 
-        fun bind(datePair: Pair<String, Triple<String, String, String>>) {
-            val date = datePair.first
+        fun bind(dateInfo: DateInfo) {
+            val date = dateInfo.first
 
             val parsedDateTime = date.getDateInFormat(DATE_FORMAT)?.time
 
@@ -74,9 +73,9 @@ class WeekAdapter(
             if (absoluteAdapterPosition == itemCount - 1)
                 view.visibility = View.INVISIBLE
 
-            val programItem = datePair.second.first
-            val month = datePair.second.second
-            val date_ = datePair.second.third
+            val programItem = dateInfo.third.first
+            val month = dateInfo.third.second
+            val date_ = dateInfo.third.third
             txtDay.text = programItem
             txtMonth.text = month
             txtDate.text = date_
