@@ -89,10 +89,10 @@
             android:id="@+id/action_howAmINoEntryFragment_to_howAmICreateEntryFragment"
             app:destination="@id/howAmICreateEntryFragment" />
         <action
-            android:id="@+id/action_howAmINoEntryFragment_to_weeklyReportFragment2"
+            android:id="@+id/action_howAmINoEntryFragment_to_weeklyReportFragment"
             app:destination="@id/weeklyReportFragment" />
         <action
-            android:id="@+id/action_howAmINoEntryFragment_to_monthlyReportFragment2"
+            android:id="@+id/action_howAmINoEntryFragment_to_monthlyReportFragment"
             app:destination="@id/monthlyReportFragment" />
     </fragment>
     <fragment

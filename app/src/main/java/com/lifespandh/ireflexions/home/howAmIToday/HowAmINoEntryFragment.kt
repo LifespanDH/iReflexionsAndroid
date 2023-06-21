@@ -115,12 +115,12 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         }
 
         weekView.setOnClickListener {
-            findNavController().navigate(R.id.action_howAmINoEntryFragment_to_weeklyReportFragment2)
+            findNavController().navigate(R.id.action_howAmINoEntryFragment_to_weeklyReportFragment)
         }
 
         layout_month.setOnClickListener {
             findNavController().navigate(
-                R.id.action_howAmINoEntryFragment_to_monthlyReportFragment2,
+                R.id.action_howAmINoEntryFragment_to_monthlyReportFragment,
             )
         }
 
