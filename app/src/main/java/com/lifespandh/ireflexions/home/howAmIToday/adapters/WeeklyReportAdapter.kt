@@ -22,8 +22,6 @@ class WeeklyReportAdapter (
     private val listener: OnItemClickedListener
         ): BaseRecyclerViewAdapter () {
 
-    private val dailyBundle = Bundle()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeeklyReportViewHolder(getView(R.layout.item_weekly_report, parent))
     }
