@@ -49,11 +49,11 @@ class WeeklyReportAdapter (
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        var txtToday: TextView = itemView.findViewById(R.id.txt_today)
-        var txtNoEntry: TextView = itemView.findViewById(R.id.txt_noentry)
-        var txtAddNoEntry: TextView = itemView.findViewById(R.id.txt_add_noentry)
-        var addCircleImage: ImageView = itemView.findViewById(R.id.addCircleImage)
-        var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
+        private var txtToday: TextView = itemView.findViewById(R.id.txt_today)
+        private var txtNoEntry: TextView = itemView.findViewById(R.id.txt_noentry)
+        private var txtAddNoEntry: TextView = itemView.findViewById(R.id.txt_add_noentry)
+        private var addCircleImage: ImageView = itemView.findViewById(R.id.addCircleImage)
+        private var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
 
         fun bind(dateInfo: DateInfo) {
             val parsedDate = dateInfo.first
