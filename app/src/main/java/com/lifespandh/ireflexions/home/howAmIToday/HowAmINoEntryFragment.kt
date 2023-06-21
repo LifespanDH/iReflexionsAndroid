@@ -4,24 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
-import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.home.course.CoursesAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.JournalEntryAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.date.DATE
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener, JournalEntryAdapter.OnItemClicked {
 
-    private var token: String? = null
     private var toDate = Calendar.getInstance().time
     private lateinit var weekAdapter: WeekAdapter
     private val dateBundle = Bundle()
@@ -34,11 +38,10 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     private val formatMonth = SimpleDateFormat("MMM", Locale.US)
     private val formatDate = SimpleDateFormat("dd", Locale.US)
 
-    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
+    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -54,15 +57,21 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     }
 
     private fun setObservers() {
-        tokenViewModel.token.observeFreshly(viewLifecycleOwner) {
-            token = it
+        howAmITodayViewModel.dailyCheckInEntriesLiveData.observeFreshly(viewLifecycleOwner) {
+            logE("called here $it")
         }
     }
 
     private fun init() {
+        getDailyEntries(getDateInFormat())
         setViews()
         setListeners()
         setObservers()
+    }
+
+    private fun getDailyEntries(date: String) {
+        val requestBody = createJsonRequestBody(DATE to date)
+        howAmITodayViewModel.getDailyEntries(requestBody)
     }
 
     private fun setViews(){
@@ -148,14 +157,14 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
             days.add(formatDay.format(calendar.time))
             month.add(formatMonth.format(calendar.time))
             date.add(formatDate.format(calendar.time))
-            dateList.add(parser.format(calendar.time))
+            dateList.add(calendar.time.getDateInFormat())
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         weekAdapter = WeekAdapter(
-            days, month, date, dateList = dateList, homeViewModel = homeViewModel
+            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
         )
         dayView.adapter = weekAdapter
         weekAdapter.setOnItemClickedListener(this)
@@ -217,7 +226,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         val cal = Calendar.getInstance()
 
         cal.time = toDate
-        homeViewModel.selectedPosition = cal.get(Calendar.DAY_OF_WEEK) - 2
+        howAmITodayViewModel.selectedPosition = cal.get(Calendar.DAY_OF_WEEK) - 2
 
         cal.apply {
             firstDayOfWeek = Calendar.MONDAY
@@ -227,9 +236,10 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         setAdapter(cal)
     }
 
-    override fun onItemClick(position: Int, toDate: Date) {
+    override fun onItemClick(position: Int, date: String) {
         weekAdapter.changeDataSet(position)
-        this.toDate = toDate
+        this.toDate = date.getDateInFormat(DATE_FORMAT)
+        getDailyEntries(date)
         setJournalAdapter(toDate)
     }
 

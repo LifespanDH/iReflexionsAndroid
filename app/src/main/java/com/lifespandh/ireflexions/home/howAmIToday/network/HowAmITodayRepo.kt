@@ -8,6 +8,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
@@ -73,6 +74,20 @@ class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.addDailyCheckInEntry(dailyCheckInEntry)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getDailyEntries(requestBody: RequestBody): NetworkResult<List<DailyCheckInEntry>> {
+        var networkResult: NetworkResult<List<DailyCheckInEntry>>? = null
+
+        safeApiCall({
+            apiClient.getDailyEntries(requestBody)
         }, {
             networkResult = it
         }, {

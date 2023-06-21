@@ -18,13 +18,10 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.TraitAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
-import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
-import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
-import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -278,6 +275,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
         howAmITodayViewModel.dailyCheckInEntryAddedLiveData.observeFreshly(this) {
             toast("added daily entry")
+            findNavController().navigateUp()
         }
     }
 

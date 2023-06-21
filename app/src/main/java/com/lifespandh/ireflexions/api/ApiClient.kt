@@ -99,4 +99,7 @@ interface ApiClient {
 
     @POST(ADD_DAILY_CHECK_IN_ENTRY)
     suspend fun addDailyCheckInEntry(@Body dailyCheckInEntry: DailyCheckInEntry): DailyCheckInEntry
+
+    @POST(GET_DAILY_ENTRIES)
+    suspend fun getDailyEntries(@Body requestBody: RequestBody): List<DailyCheckInEntry>
 }

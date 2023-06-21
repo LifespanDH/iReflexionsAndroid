@@ -16,6 +16,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowAmITodayRepo): ViewModel() {
@@ -40,6 +41,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val dailyCheckInEntryAddedLiveData: LiveData<DailyCheckInEntry>
         get() = _dailyCheckInEntryAddedLiveData
 
+    private val _dailyCheckInEntriesLiveData = MutableLiveData<List<DailyCheckInEntry>>()
+    val dailyCheckInEntriesLiveData: LiveData<List<DailyCheckInEntry>>
+        get() = _dailyCheckInEntriesLiveData
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
@@ -55,6 +60,12 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     val newEnvironmentalCondition: MutableLiveData<EnvironmentalCondition?> = MutableLiveData()
     val newPanicSymptom: MutableLiveData<PanicSymptom> = MutableLiveData()
     val newPanicTrigger: MutableLiveData<PanicTrigger> = MutableLiveData()
+
+    var selectedPosition = -1
+        set(value) {
+            field = value
+        }
+        get
 
     fun getTraitCategories() {
         viewModelScope.launch {
@@ -132,6 +143,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _dailyCheckInEntryAddedLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getDailyEntries(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.getDailyEntries(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _dailyCheckInEntriesLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

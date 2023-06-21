@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeeklyReportAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import kotlinx.android.synthetic.main.fragment_weekly_report.*
 import java.text.SimpleDateFormat
@@ -39,7 +41,7 @@ class WeeklyReportFragment : BaseFragment(),
     private val formatDate = SimpleDateFormat("dd", Locale.US)
     private val calendar = Calendar.getInstance()
 
-    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory}
+    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,7 +165,7 @@ class WeeklyReportFragment : BaseFragment(),
         dayView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = WeekAdapter(
-            days, month, date, dateList = dateList, homeViewModel = homeViewModel
+            days, month, date, dateList = dateList, howAmITodayViewModel = howAmITodayViewModel
         )
 
         adapter.setOnItemClickedListener(this)
@@ -181,7 +183,7 @@ class WeeklyReportFragment : BaseFragment(),
         }
     }
 
-    override fun onItemClick(position: Int, toDate: Date) {
+    override fun onItemClick(position: Int, date: String) {
         TODO("Not yet implemented")
     }
 

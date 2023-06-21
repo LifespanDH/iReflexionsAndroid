@@ -87,12 +87,6 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
 
-    var selectedPosition = -1
-        set(value) {
-            field = value
-        }
-        get
-
     fun getExercises() {
         viewModelScope.launch {
             val response = homeRepo.getExercises()

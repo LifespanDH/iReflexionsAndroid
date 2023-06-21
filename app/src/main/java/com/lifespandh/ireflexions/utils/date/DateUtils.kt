@@ -5,10 +5,16 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
-fun getDateTimeInFormat(timestamp: Long? = null): String {
+const val DATE_TIME_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+const val DATE_FORMAT = "yyyy-MM-dd"
+const val TIME_FORMAT = "hh:mm:ss"
+
+const val DATE = "date"
+
+fun getDateTimeInFormat(timestamp: Long? = null, format: String = DATE_TIME_LONG_FORMAT): String {
     val time = timestamp ?: System.currentTimeMillis()
     val date = Date(time)
-    val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+    val format = SimpleDateFormat(format)
 //    val dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
     return format.format(date)
 }
@@ -17,11 +23,21 @@ fun getDateAfterDays(after: Int): Calendar {
     calendar.add(Calendar.DAY_OF_YEAR, after)
     return calendar
 }
-fun getDateInFormat(timestamp: Long? = null): String {
+fun getDateInFormat(timestamp: Long? = null, format: String = DATE_FORMAT): String {
     val time = timestamp ?: System.currentTimeMillis()
     val date = Date(time)
-    val format = SimpleDateFormat("YYYY-MM-DD")
+    val format = SimpleDateFormat(format)
     return format.format(date)
+}
+
+fun Date.getDateInFormat(format: String = DATE_FORMAT): String {
+    val format = SimpleDateFormat(format)
+    return format.format(this)
+}
+
+fun String.getDateInFormat(format: String = DATE_TIME_LONG_FORMAT): Date? {
+    val parser = SimpleDateFormat(format, Locale.getDefault())
+    return parser.parse(this)
 }
 
 fun String.toDate(): Date? {
@@ -30,13 +46,13 @@ fun String.toDate(): Date? {
     return date
 }
 
-fun getTimeInFormat(date: Date? = null): String {
-    val timeInstance = SimpleDateFormat("hh:mm:ss")
+fun getTimeInFormat(date: Date? = null, format: String = TIME_FORMAT): String {
+    val timeInstance = SimpleDateFormat(format)
 
     return timeInstance.format(date ?: Date())
 }
 
-fun String.getTimeInFormat(): String {
-    val format = SimpleDateFormat("hh:mm:ss")
+fun String.getTimeInFormat(format: String = TIME_FORMAT): String {
+    val format = SimpleDateFormat(format)
     return getTimeInFormat(format.parse(this))
 }

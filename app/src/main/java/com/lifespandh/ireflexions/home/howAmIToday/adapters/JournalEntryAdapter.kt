@@ -42,10 +42,11 @@ class JournalEntryAdapter(
         private val txtTime: TextView = itemView.findViewById(R.id.txt_time)
         private val imgJournal: ImageView = itemView.findViewById(R.id.img_journal)
 
-        fun bind(dailyCheckInEntry: DailyCheckInEntry){
+        fun bind(dailyCheckInEntry: DailyCheckInEntry) {
             txtMovement.text = getMovementText(dailyCheckInEntry.movement)
             txtSleep.text = "${dailyCheckInEntry.dateTime} hours"
-            txtTime.text = dailyCheckInEntry.dateTime.toString()
+            txtTime.text = dailyCheckInEntry.dateTime
+
             Glide.with(getContext()).load(
                 if (dailyCheckInEntry.journalEntry.isEmpty())
                     R.drawable.no_journal_entry else R.drawable.journal_entry

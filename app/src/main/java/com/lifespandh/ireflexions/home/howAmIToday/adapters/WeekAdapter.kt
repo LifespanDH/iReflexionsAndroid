@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
-import java.text.SimpleDateFormat
-import java.util.*
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import kotlin.collections.ArrayList
 
 class WeekAdapter(
@@ -21,11 +21,10 @@ class WeekAdapter(
     private var month: ArrayList<String>,
     private var date: ArrayList<String>,
     private var dateList: ArrayList<String>,
-    private val homeViewModel: HomeViewModel,
+    private val howAmITodayViewModel: HowAmITodayViewModel,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
 
-    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     lateinit var listener: OnItemClickedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -50,7 +49,7 @@ class WeekAdapter(
      * Need to check this and change later, copied rn from previous code to save time
      */
     fun changeDataSet(position: Int) {
-        homeViewModel.selectedPosition = position
+        howAmITodayViewModel.selectedPosition = position
         notifyDataSetChanged()
     }
 
@@ -63,16 +62,13 @@ class WeekAdapter(
         private val listDailyEntries: RecyclerView = itemView.findViewById(R.id.list_daily_entries)
 
         fun bind(date: String) {
-            val parsedDateTime = parser.parse(date).time
+            val parsedDateTime = date.getDateInFormat(DATE_FORMAT)?.time
 
-//            if (DateUtils.isToday(parsedDateTime))
-//                selectedPosition = absoluteAdapterPosition
-
-            if (System.currentTimeMillis() < parsedDateTime) {
+            if (parsedDateTime != null && System.currentTimeMillis() < parsedDateTime) {
                 itemView.isClickable = false
             }
 
-            if (absoluteAdapterPosition == homeViewModel.selectedPosition) {
+            if (absoluteAdapterPosition == howAmITodayViewModel.selectedPosition) {
                 itemView.background =
                     ContextCompat.getDrawable(getContext(), R.drawable.week_day_round_rectangle)
             } else {
@@ -104,13 +100,13 @@ class WeekAdapter(
             }
 
             itemView.setOnClickListener {
-                listener.onItemClick(absoluteAdapterPosition, parser.parse(dateList[absoluteAdapterPosition]))
+                listener.onItemClick(absoluteAdapterPosition, date)
             }
         }
     }
 
     interface OnItemClickedListener {
-        fun onItemClick(position: Int, toDate: Date)
+        fun onItemClick(position: Int, date: String)
     }
 }
 
