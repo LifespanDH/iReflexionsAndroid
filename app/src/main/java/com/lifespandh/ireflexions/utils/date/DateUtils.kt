@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.utils.date
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.YearMonth
 import java.util.*
 
 const val DATE_TIME_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -11,6 +12,8 @@ const val TIME_FORMAT = "hh:mm:ss"
 
 const val DATE = "date"
 const val WEEK_START_DATE = "week_start_date"
+
+const val TIME_DIFFERENCE = 500L // Months
 
 private const val ONLY_DAY_FORMAT = "EEE"
 private const val ONLY_MONTH_FORMAT = "MMM"
@@ -128,4 +131,20 @@ private fun getDayNumberSuffix(day: Int): String? {
         3 -> "rd"
         else -> "th"
     }
+}
+
+/**
+ * From external libraries
+ */
+
+fun getStartEndCurrentMonth(difference: Long): Triple<YearMonth, YearMonth, YearMonth> {
+    val currentMonth = YearMonth.now()
+    val startMonth = currentMonth.minusMonths(difference)
+    val endMonth = currentMonth.plusMonths(difference)
+
+    return Triple(startMonth, endMonth, currentMonth)
+}
+
+fun getCurrentMonth(): Int {
+    return YearMonth.now().monthValue
 }

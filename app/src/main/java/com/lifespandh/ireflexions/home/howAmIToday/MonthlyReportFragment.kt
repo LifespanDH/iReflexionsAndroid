@@ -5,18 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.utils.date.TIME_DIFFERENCE
+import com.lifespandh.ireflexions.utils.date.getCurrentMonth
+import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
 import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import java.time.LocalDate
 import java.time.YearMonth
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
+
+    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,27 +46,20 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     }
 
     private fun initViews() {
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            val textView = view.findViewById<TextView>(R.id.calendarDayText)
-            val monthView = view.findViewById<ViewGroup>(R.id.titlesContainer)
+        initCalendar()
+        getMonthlyReports()
+    }
 
-            init {
-                view.setOnClickListener {
-
-                }
-            }
-        }
-
+    private fun initCalendar() {
         calendarView.dayBinder = MonthsAdapter(this)
-
         calendarView.monthHeaderBinder = MonthFooterAdapter()
+        val months = getStartEndCurrentMonth(TIME_DIFFERENCE)
+        calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())
+        calendarView.scrollToMonth(months.third)
+    }
 
-        val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(100)  // Adjust as needed
-        val endMonth = currentMonth.plusMonths(100)  // Adjust as needed
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
-        calendarView.setup(startMonth, endMonth, firstDayOfWeek)
-        calendarView.scrollToMonth(currentMonth)
+    private fun getMonthlyReports(month: Int = getCurrentMonth()) {
+        howAmITodayViewModel.getMonthlyReports(month)
     }
 
     companion object {
