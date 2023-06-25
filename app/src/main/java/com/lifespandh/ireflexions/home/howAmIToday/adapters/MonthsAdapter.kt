@@ -31,6 +31,7 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
     val sleepTime: TextView = view.findViewById(R.id.sleepTime)
 
     val journalImage: ImageView = view.findViewById(R.id.journalImage)
+    val panicImage: ImageView = view.findViewById(R.id.panicImage)
 
     var date: LocalDate? = null
     init {
@@ -73,7 +74,11 @@ class MonthsAdapter(
                 }
             }
             PANIC_ATTACK -> {
-
+                val panicAttack = dayData?.get("panic_attack")?.asJsonArray
+                panicAttack?.let {
+                    if (it.isEmpty.not())
+                        container.panicImage.makeVisible()
+                }
             }
             MOVEMENT -> {
 
