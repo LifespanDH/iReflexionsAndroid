@@ -14,6 +14,11 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
+import com.lifespandh.ireflexions.utils.EMOTIONS
+import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
+import com.lifespandh.ireflexions.utils.MOVEMENT
+import com.lifespandh.ireflexions.utils.PANIC_ATTACK
+import com.lifespandh.ireflexions.utils.SLEEP
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import java.time.LocalDate
@@ -34,6 +39,7 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
 
 class MonthsAdapter(
     private val dailyData: JsonObject,
+    private val category: String,
     private val listener: OnDateClicked
 ): MonthDayBinder<DayViewContainer> {
     override fun create(view: View) = DayViewContainer(view, listener)
@@ -42,12 +48,30 @@ class MonthsAdapter(
         container.date = data.date
         container.view.isInvisible = data.position != DayPosition.MonthDate
         container.textView.text = data.date.dayOfMonth.toString()
-        logE("called at ${data.date.dayOfMonth}")
-        val sleep = (dailyData.get("${data.date.dayOfMonth}") as JsonObject?)?.get("sleep")?.asInt
-        sleep?.let {
-            container.sleepTime.makeVisible()
-            container.sleepTime.text = it.toString()
+
+        when(category) {
+            EMOTIONS -> {
+
+            }
+            SLEEP -> {
+                val sleep = (dailyData.get("${data.date.dayOfMonth}") as JsonObject?)?.get("sleep")?.asInt
+                sleep?.let {
+                    container.sleepTime.makeVisible()
+                    container.sleepTime.text = it.toString()
+                }
+            }
+            JOURNAL_ENTRIES -> {
+
+            }
+            PANIC_ATTACK -> {
+
+            }
+            MOVEMENT -> {
+
+            }
         }
+
+
     }
 
     interface OnDateClicked {
