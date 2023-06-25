@@ -9,7 +9,7 @@ data class DailyCheckInEntry(
     val id: Int = -1,
 
     @SerializedName("traits")
-    val traitSubCategories: List<TraitSubCategory>,
+    val userTraits: List<UserTrait>,
 
     @SerializedName("whats_happening")
     val whatsHappening: List<WhatsHappening>,

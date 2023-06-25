@@ -65,7 +65,6 @@ class TraitAdapter(
                 notifyItemRemoved(index)
 
                 listener.onCancelClicked(traitSubCategory)
-//                listener.onItemClick(absoluteAdapterPosition, )
             }
 
         }

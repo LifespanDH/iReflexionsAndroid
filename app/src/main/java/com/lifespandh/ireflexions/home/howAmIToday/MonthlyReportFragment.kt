@@ -15,6 +15,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.utils.date.TIME_DIFFERENCE
 import com.lifespandh.ireflexions.utils.date.getCurrentMonth
+import com.lifespandh.ireflexions.utils.date.getCurrentYear
 import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
 import com.lifespandh.ireflexions.utils.logs.logE
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
@@ -58,8 +59,8 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         calendarView.scrollToMonth(months.third)
     }
 
-    private fun getMonthlyReports(month: Int = getCurrentMonth()) {
-        howAmITodayViewModel.getMonthlyReports(month)
+    private fun getMonthlyReports(year: Int = getCurrentYear(),month: Int = getCurrentMonth()) {
+//        howAmITodayViewModel.getMonthlyReports(year, month)
     }
 
     companion object {

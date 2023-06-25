@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.utils.date
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.Year
 import java.time.YearMonth
 import java.util.*
 
@@ -147,4 +148,8 @@ fun getStartEndCurrentMonth(difference: Long): Triple<YearMonth, YearMonth, Year
 
 fun getCurrentMonth(): Int {
     return YearMonth.now().monthValue
+}
+
+fun getCurrentYear(): Int {
+    return YearMonth.now().year
 }

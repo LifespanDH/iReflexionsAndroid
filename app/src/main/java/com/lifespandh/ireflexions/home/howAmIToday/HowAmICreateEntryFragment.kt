@@ -21,6 +21,7 @@ import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
+import com.lifespandh.ireflexions.models.howAmIToday.UserTrait
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
@@ -59,7 +60,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
     private var currentCategory: TraitCategory? = null
-    private var traitsList: ArrayList<TraitSubCategory> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -195,6 +195,15 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
         btn_save.setOnClickListener {
             val traitSubCategories = mutableListOf<TraitSubCategory>()
+            val userTraits = mutableListOf<UserTrait>()
+            howAmITodayViewModel.selectedTraitSubCategory.forEach {
+                val traits = mutableListOf<TraitSubCategory>()
+                for (trait in it.value)
+                    traits.add(trait)
+                userTraits.add(
+                    UserTrait(it.key, traits)
+                )
+            }
             howAmITodayViewModel.selectedTraitSubCategory.values.forEach {
                 for (trait in it)
                     traitSubCategories.add(trait)
@@ -206,7 +215,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             val sleepQuality = SleepQuality(seekBar_sleep.progress, seekBar_sleep_quality.progress)
 
             val dailyCheckInEntry = DailyCheckInEntry(
-                traitSubCategories = traitSubCategories,
+                userTraits = userTraits,
                 whatsHappening = howAmITodayViewModel.selectedWhatsHappening,
                 panicAttack = selectedPanicAttack,
                 environmentalConditions = howAmITodayViewModel.selectedEnvironmentalConditions,

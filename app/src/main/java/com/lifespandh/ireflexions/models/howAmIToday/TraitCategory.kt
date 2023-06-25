@@ -31,3 +31,12 @@ data class TraitSubCategory(
     @SerializedName("trait_id")
     val traitId: Int
 )
+
+data class UserTrait(
+
+    @SerializedName("trait_category_id")
+    val traitCategory: Int,
+
+    @SerializedName("trait_sub_categories")
+    val traitSubCategories: List<TraitSubCategory>
+)
