@@ -96,7 +96,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     }
 
     private fun initCalendar(category: String = EMOTIONS) {
-        calendarView.dayBinder = MonthsAdapter(dailyData, category, this)
+        calendarView.dayBinder = MonthsAdapter(dailyData, category, requireContext(),this)
         calendarView.monthHeaderBinder = MonthFooterAdapter()
         val months = getStartEndCurrentMonth(TIME_DIFFERENCE)
         calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())

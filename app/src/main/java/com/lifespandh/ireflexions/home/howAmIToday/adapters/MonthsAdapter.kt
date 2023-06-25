@@ -1,9 +1,11 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import com.google.gson.JsonObject
@@ -32,6 +34,7 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
 
     val journalImage: ImageView = view.findViewById(R.id.journalImage)
     val panicImage: ImageView = view.findViewById(R.id.panicImage)
+    val movementImage: ImageView = view.findViewById(R.id.movementImage)
 
     var date: LocalDate? = null
     init {
@@ -44,6 +47,7 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
 class MonthsAdapter(
     private val dailyData: JsonObject,
     private val category: String,
+    private val context: Context,
     private val listener: OnDateClicked
 ): MonthDayBinder<DayViewContainer> {
     override fun create(view: View) = DayViewContainer(view, listener)
@@ -81,7 +85,19 @@ class MonthsAdapter(
                 }
             }
             MOVEMENT -> {
+                val movement = dayData?.get("movement")?.asInt
+                movement?.let {
+                    val image = when(movement) {
+                        in 0..2 -> {
+                            R.drawable.move_slider_low
+                        }
+                        3 -> R.drawable.move_slider_mid
+                        else -> R.drawable.move_slider_high
+                    }
+                    container.movementImage.setImageDrawable(ContextCompat.getDrawable(context, image))
+                    container.movementImage.makeVisible()
 
+                }
             }
         }
 
