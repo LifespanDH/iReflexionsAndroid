@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isInvisible
+import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -13,12 +14,15 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
 class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : ViewContainer(view) {
     val textView: TextView = view.findViewById(R.id.calendarDayText)
+    val sleepTime: TextView = view.findViewById(R.id.sleepTime)
 
     var date: LocalDate? = null
     init {
@@ -29,6 +33,7 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
 }
 
 class MonthsAdapter(
+    private val dailyData: JsonObject,
     private val listener: OnDateClicked
 ): MonthDayBinder<DayViewContainer> {
     override fun create(view: View) = DayViewContainer(view, listener)
@@ -37,6 +42,12 @@ class MonthsAdapter(
         container.date = data.date
         container.view.isInvisible = data.position != DayPosition.MonthDate
         container.textView.text = data.date.dayOfMonth.toString()
+        logE("called at ${data.date.dayOfMonth}")
+        val sleep = (dailyData.get("${data.date.dayOfMonth}") as JsonObject?)?.get("sleep")?.asInt
+        sleep?.let {
+            container.sleepTime.makeVisible()
+            container.sleepTime.text = it.toString()
+        }
     }
 
     interface OnDateClicked {

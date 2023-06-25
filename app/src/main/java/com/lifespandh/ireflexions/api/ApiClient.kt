@@ -106,4 +106,7 @@ interface ApiClient {
 
     @POST(GET_WEEKLY_ENTRIES)
     suspend fun getWeeklyEntries(@Body requestBody: RequestBody): List<WeeklyReport>
+
+    @POST(GET_MONTHLY_ENTRIES)
+    suspend fun getMonthlyReports(@Body requestBody: RequestBody): JsonObject
 }

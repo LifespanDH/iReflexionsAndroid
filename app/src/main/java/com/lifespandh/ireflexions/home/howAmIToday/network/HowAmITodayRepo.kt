@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.network
 
+import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
@@ -103,6 +104,20 @@ class HowAmITodayRepo @Inject constructor(private val apiClient: ApiClient) {
 
         safeApiCall({
             apiClient.getWeeklyEntries(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun getMonthlyReports(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.getMonthlyReports(requestBody)
         }, {
             networkResult = it
         }, {

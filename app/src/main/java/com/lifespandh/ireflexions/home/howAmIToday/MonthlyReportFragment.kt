@@ -4,23 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
+import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
-import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.utils.date.MONTH
 import com.lifespandh.ireflexions.utils.date.TIME_DIFFERENCE
+import com.lifespandh.ireflexions.utils.date.YEAR
 import com.lifespandh.ireflexions.utils.date.getCurrentMonth
 import com.lifespandh.ireflexions.utils.date.getCurrentYear
 import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
+import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import java.time.LocalDate
-import java.time.YearMonth
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
@@ -44,6 +46,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     private fun init() {
         initViews()
+        setObservers()
     }
 
     private fun initViews() {
@@ -51,16 +54,27 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         getMonthlyReports()
     }
 
-    private fun initCalendar() {
-        calendarView.dayBinder = MonthsAdapter(this)
+    private fun initCalendar(dailyData: JsonObject = JsonObject()) {
+        calendarView.dayBinder = MonthsAdapter(dailyData,this)
         calendarView.monthHeaderBinder = MonthFooterAdapter()
         val months = getStartEndCurrentMonth(TIME_DIFFERENCE)
         calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())
         calendarView.scrollToMonth(months.third)
     }
 
-    private fun getMonthlyReports(year: Int = getCurrentYear(),month: Int = getCurrentMonth()) {
-//        howAmITodayViewModel.getMonthlyReports(year, month)
+    private fun getMonthlyReports(year: Int = getCurrentYear(), month: Int = getCurrentMonth()) {
+        howAmITodayViewModel.getMonthlyReports(createJsonRequestBody(
+            YEAR to year,
+            MONTH to month
+        ))
+    }
+
+    private fun setObservers() {
+        howAmITodayViewModel.monthlyLiveData.observeFreshly(viewLifecycleOwner) {
+            val dailyData = it.get("daily_data") as JsonObject
+            logE("Called here $dailyData")
+            initCalendar(dailyData)
+        }
     }
 
     companion object {

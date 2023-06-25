@@ -4,17 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
 import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
 import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
-import com.lifespandh.ireflexions.models.howAmIToday.SleepQuality
 import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
 import com.lifespandh.ireflexions.models.howAmIToday.TraitSubCategory
 import com.lifespandh.ireflexions.models.howAmIToday.WeeklyReport
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -49,6 +50,10 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
     private val _weeklyReportLiveData = MutableLiveData<List<WeeklyReport>>()
     val weeklyReportLiveData: LiveData<List<WeeklyReport>>
         get() = _weeklyReportLiveData
+
+    private val _monthlyLiveData = MutableLiveData<JsonObject>()
+    val monthlyLiveData: LiveData<JsonObject>
+        get() = _monthlyLiveData
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -182,6 +187,23 @@ class HowAmITodayViewModel @Inject constructor(private val howAmITodayRepo: HowA
                 is NetworkResult.Success -> {
                     val data = response.data
                     _weeklyReportLiveData.value = data
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun getMonthlyReports(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = howAmITodayRepo.getMonthlyReports(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _monthlyLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

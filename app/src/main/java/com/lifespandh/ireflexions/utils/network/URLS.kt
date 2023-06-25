@@ -44,3 +44,4 @@ const val GET_HOW_AM_I_TODAY_DATA = BASE_URL + IREF_USERS + "get_how_am_i_today_
 const val ADD_DAILY_CHECK_IN_ENTRY =  BASE_URL + IREF_USERS + "add_daily_entry/"
 const val GET_DAILY_ENTRIES =  BASE_URL + IREF_USERS + "get_daily_entries/"
 const val GET_WEEKLY_ENTRIES = BASE_URL + IREF_USERS + "get_weekly_entries/"
+const val GET_MONTHLY_ENTRIES = BASE_URL + IREF_USERS + "get_monthly_entries/"

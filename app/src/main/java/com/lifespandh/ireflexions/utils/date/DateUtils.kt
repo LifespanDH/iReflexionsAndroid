@@ -13,6 +13,8 @@ const val TIME_FORMAT = "hh:mm:ss"
 
 const val DATE = "date"
 const val WEEK_START_DATE = "week_start_date"
+const val YEAR = "year"
+const val MONTH = "month"
 
 const val TIME_DIFFERENCE = 500L // Months
 
