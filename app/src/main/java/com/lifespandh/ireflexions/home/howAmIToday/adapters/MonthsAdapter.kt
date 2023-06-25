@@ -2,6 +2,7 @@ package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isInvisible
@@ -29,6 +30,8 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
     val textView: TextView = view.findViewById(R.id.calendarDayText)
     val sleepTime: TextView = view.findViewById(R.id.sleepTime)
 
+    val journalImage: ImageView = view.findViewById(R.id.journalImage)
+
     var date: LocalDate? = null
     init {
         view.setOnClickListener {
@@ -49,19 +52,25 @@ class MonthsAdapter(
         container.view.isInvisible = data.position != DayPosition.MonthDate
         container.textView.text = data.date.dayOfMonth.toString()
 
+        val dayData = (dailyData.get("${data.date.dayOfMonth}") as JsonObject?)
+
         when(category) {
             EMOTIONS -> {
 
             }
             SLEEP -> {
-                val sleep = (dailyData.get("${data.date.dayOfMonth}") as JsonObject?)?.get("sleep")?.asInt
+                val sleep = dayData?.get("sleep")?.asInt
                 sleep?.let {
                     container.sleepTime.makeVisible()
                     container.sleepTime.text = it.toString()
                 }
             }
             JOURNAL_ENTRIES -> {
-
+                val journalEntries = dayData?.get("journal_entries")?.asJsonArray
+                journalEntries?.let {
+                    if (it.isEmpty.not())
+                        container.journalImage.makeVisible()
+                }
             }
             PANIC_ATTACK -> {
 
