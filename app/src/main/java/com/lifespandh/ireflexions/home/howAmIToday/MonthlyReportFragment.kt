@@ -130,7 +130,6 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     private fun setObservers() {
         howAmITodayViewModel.monthlyLiveData.observeFreshly(viewLifecycleOwner) {
             dailyData = it.get("daily_data") as JsonObject
-            logE("Called here $dailyData")
             initCalendar()
         }
     }

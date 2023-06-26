@@ -4,10 +4,14 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -36,6 +40,8 @@ class DayViewContainer(view: View, listener: MonthsAdapter.OnDateClicked?) : Vie
     val panicImage: ImageView = view.findViewById(R.id.panicImage)
     val movementImage: ImageView = view.findViewById(R.id.movementImage)
 
+    val emotionsLayout: RecyclerView = view.findViewById(R.id.emotionsLayout)
+
     var date: LocalDate? = null
     init {
         view.setOnClickListener {
@@ -61,7 +67,17 @@ class MonthsAdapter(
 
         when(category) {
             EMOTIONS -> {
-
+                val emotions = dayData?.get("emotions")?.asJsonObject?.entrySet()
+                val totalCount = dayData?.get("emotions_count")?.asInt
+                if (totalCount == 0 || totalCount == null)
+                    return
+                emotions?.let {
+                    container.emotionsLayout.apply {
+                        adapter = EmotionBarAdapter(it.toMutableList(), totalCount!!)
+                        layoutManager = LinearLayoutManager(context)
+                        isVisible = true
+                    }
+                }
             }
             SLEEP -> {
                 val sleep = dayData?.get("sleep")?.asInt

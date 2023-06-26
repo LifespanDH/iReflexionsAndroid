@@ -57,4 +57,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendarDayText" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/emotionsLayout"
+        android:layout_width="40dp"
+        tools:listitem="@layout/item_emotion_bar"
+        android:layout_height="wrap_content"
+        tools:itemCount="6"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendarDayText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
