@@ -12,6 +12,7 @@ import com.lifespandh.ireflexions.home.course.CourseListProgramAdapter
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.utils.date.getTimeInFormat
 
 class JournalEntryAdapter(
     private var itemList: MutableList<DailyCheckInEntry>,
@@ -36,7 +37,7 @@ class JournalEntryAdapter(
 
     inner class JournalEntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val txtEnv: TextView = itemView.findViewById(R.id.txt_env)
+        private val txtSleepQuality: TextView = itemView.findViewById(R.id.txt_env)
         private val txtMovement: TextView = itemView.findViewById(R.id.txt_movement)
         private val txtSleep: TextView = itemView.findViewById(R.id.txt_sleep)
         private val txtTime: TextView = itemView.findViewById(R.id.txt_time)
@@ -44,13 +45,14 @@ class JournalEntryAdapter(
 
         fun bind(dailyCheckInEntry: DailyCheckInEntry) {
             txtMovement.text = getMovementText(dailyCheckInEntry.movement)
-            txtSleep.text = "${dailyCheckInEntry.dateTime} hours"
-            txtTime.text = dailyCheckInEntry.dateTime
+            txtSleep.text = "${dailyCheckInEntry.dateTime.substring(14)} hours"
+            txtTime.text = "Time: ${dailyCheckInEntry.dateTime.substring(14)}"
+            txtSleepQuality.text = dailyCheckInEntry.sleepQuality.quality.toString()
 
-            Glide.with(getContext()).load(
-                if (dailyCheckInEntry.journalEntry.isEmpty())
-                    R.drawable.no_journal_entry else R.drawable.journal_entry
-            ).into(imgJournal)
+//            Glide.with(getContext()).load(
+//                if (dailyCheckInEntry.journalEntry.isEmpty())
+//                    R.drawable.no_journal_entry else R.drawable.journal_entry
+//            ).into(imgJournal)
         }
 
     }

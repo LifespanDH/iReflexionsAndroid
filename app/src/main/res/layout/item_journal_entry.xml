@@ -42,14 +42,14 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineTop"
         tool:text="9:30 am" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_happenings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/title_env"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/txt_time"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/list_happenings"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/title_env"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"-->
+<!--        app:layout_constraintStart_toEndOf="@id/txt_time"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />-->
 
     <TextView
         android:id="@+id/title_env"
@@ -58,7 +58,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:text="@string/environment"
+        android:text="Sleep Quality:"
         android:textColor="@color/icon_title_color"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -112,7 +112,7 @@
         android:layout_margin="4dp"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:text="@string/title_sleep"
+        android:text="Sleep Duration"
         android:textColor="@color/icon_title_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/txt_sleep"

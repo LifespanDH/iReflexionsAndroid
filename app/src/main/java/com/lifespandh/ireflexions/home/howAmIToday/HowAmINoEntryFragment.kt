@@ -156,7 +156,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         txt_entry.isInvisible = !isListEmpty
         addCircleImageView.isInvisible = !isListEmpty
 
-        txt_noentry.isInvisible = isListEmpty
+        txt_noentry.isInvisible = !isListEmpty
         txt_add_noentry.isInvisible = isListEmpty
         addCircleImageViewBig.isInvisible = isListEmpty
     }
