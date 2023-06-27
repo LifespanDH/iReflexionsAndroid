@@ -19,9 +19,12 @@ import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.EmotionColorBarAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.JournalEntryListAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.PanicAttackListAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.Emotion
+import com.lifespandh.ireflexions.models.howAmIToday.EmotionData
 import com.lifespandh.ireflexions.utils.EMOTIONS
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
 import com.lifespandh.ireflexions.utils.MOVEMENT
@@ -41,6 +44,7 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import kotlinx.android.synthetic.main.fragment_monthly_report.categorySpinner
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarMovement
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarSleep
+import kotlinx.android.synthetic.main.fragment_monthly_report.emotionColorBarRecyclerView
 import kotlinx.android.synthetic.main.fragment_monthly_report.journalListRecyclerView
 import kotlinx.android.synthetic.main.fragment_monthly_report.panicListRecyclerView
 import java.time.LocalDate
@@ -51,7 +55,11 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
     private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf()) }
     private val panicAttackListAdapter by lazy { PanicAttackListAdapter(mutableListOf()) }
+    private val emotionColorBarAdapter by lazy { EmotionColorBarAdapter(mutableMapOf()) }
+    private val emotionsList = mutableMapOf<String, EmotionData>()
 
+    private var mainEmotionCount = 0
+    private var subEmotionsCount = 0
     private var dailyData: JsonObject = JsonObject()
     private var categories = arrayOf<String?>(EMOTIONS, SLEEP, JOURNAL_ENTRIES, PANIC_ATTACK, MOVEMENT)
 
@@ -100,6 +108,11 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
         panicListRecyclerView.apply {
             adapter = panicAttackListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        emotionColorBarRecyclerView.apply {
+            adapter = emotionColorBarAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -215,7 +228,26 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     }
 
     override fun addEmotionsToList(emotions: Set<MutableMap.MutableEntry<String, JsonElement>>?) {
-//        emotions?.size
+        emotions?.forEach {
+            val count = it.value.asJsonObject.get("count").asInt
+            if (count == 0)
+                return@forEach
+
+            val color = it.value.asJsonObject.get("color").asString
+            val traitSubs = it.value.asJsonObject.get("trait_sub_categories").asJsonObject.entrySet()
+            val subs = mutableMapOf<String, Emotion>()
+            traitSubs.forEachIndexed { index, sub ->
+                val currentEmotion = subs[sub.key]
+                if (currentEmotion?.count == null || currentEmotion?.count == 0)
+                    return@forEachIndexed
+                subs[sub.key] = Emotion((currentEmotion?.count ?: 0) + 1, currentEmotion?.color ?: sub.value.asJsonObject.get("color").asString)
+                subEmotionsCount += (subs[sub.key]?.count ?: 0)
+            }
+            val currentEmotionData = emotionsList[it.key]
+            emotionsList[it.key] = EmotionData(Emotion((currentEmotionData?.first?.count ?: 0) + count, color), subs)
+            mainEmotionCount += (emotionsList[it.key]?.first?.count ?: 0)
+        }
+        emotionColorBarAdapter.addToList(emotionsList, mainEmotionCount)
     }
 
     override fun addJournalEntryToList(toMutableList: MutableList<JsonElement>?, date: LocalDate) {

@@ -177,10 +177,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun getTraitCategories() {
-//        howAmITodayViewModel.getTraitCategories()
-//        howAmITodayViewModel.getWhatsHappening()
-//        howAmITodayViewModel.getEnvironmentalConditions()
-//
         howAmITodayViewModel.getHowAmITodayData()
         loader.makeVisible()
         mainLayout.makeGone()
@@ -210,7 +206,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
             }
 
             val selectedPanicAttack = howAmITodayViewModel.selectedPanicAttack.value
-//            selectedPanicAttack?.time = getDateInFormat() + selectedPanicAttack?.time
 
             val sleepQuality = SleepQuality(seekBar_sleep.progress, seekBar_sleep_quality.progress)
 
@@ -236,24 +231,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun setObservers(){
-//        howAmITodayViewModel.traitCategoryLiveData.observeFreshly(this) {
-//            setCircleViews(it)
-//        }
-//
-//        howAmITodayViewModel.whatsHappeningLiveData.observeFreshly(this) {
-//            // Adding create new instance here
-//            val list = it.toMutableList()
-//            list.add(WhatsHappening.createNew())
-//            happeningAdapter.setList(list)
-//        }
-//
-//        howAmITodayViewModel.environmentalConditionsLiveData.observeFreshly(this) {
-//            // Adding "other" instance here
-//            val list = it.toMutableList()
-//            list.add(EnvironmentalCondition.other())
-//            environmentalAdapter.setList(list)
-//        }
-
         howAmITodayViewModel.howAmITodayLiveData.observeFreshly(this) {
             val traitCategories = it.traitCategories
             val whatsHappening = it.whatsHappening.toMutableList()
@@ -320,18 +297,6 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
         if (howAmITodayViewModel.selectedTraitSubCategory.containsKey(traitSubCategory.traitId))
             howAmITodayViewModel.selectedTraitSubCategory[traitSubCategory.traitId]?.remove(traitSubCategory)
         checkinCircleTrait.invalidate()
-
-
-
-//        for (item in howAmITodayViewModel.emotionTraitsMap) {
-//            if (item.value.contains(traitSubCategory.id)) {
-//                howAmITodayViewModel.hashMap[item.key]!!.remove(position)
-//            }
-//        }
-//        howAmITodayViewModel.allTraitsMap[traitSubCategory.id] = false
-//        traitsList.remove(traitSubCategory)
-//
-//        traitAdapter.setList(traitsList)
     }
 
     override fun onDestroyView() {

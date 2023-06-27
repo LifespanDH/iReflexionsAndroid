@@ -27,6 +27,7 @@ import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
 import com.lifespandh.ireflexions.utils.MOVEMENT
 import com.lifespandh.ireflexions.utils.PANIC_ATTACK
 import com.lifespandh.ireflexions.utils.SLEEP
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import java.time.LocalDate
 import java.time.format.TextStyle
