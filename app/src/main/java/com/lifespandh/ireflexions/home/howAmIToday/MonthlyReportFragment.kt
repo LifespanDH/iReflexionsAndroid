@@ -1,7 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,15 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
-import com.lifespandh.irefgraphs.BarGraphView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.JournalEntryListAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.utils.EMOTIONS
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
@@ -38,12 +39,14 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import kotlinx.android.synthetic.main.fragment_monthly_report.categorySpinner
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarMovement
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarSleep
+import kotlinx.android.synthetic.main.fragment_monthly_report.journalListRecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf()) }
 
     private var dailyData: JsonObject = JsonObject()
     private var categories = arrayOf<String?>(EMOTIONS, SLEEP, JOURNAL_ENTRIES, PANIC_ATTACK, MOVEMENT)
@@ -85,6 +88,12 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
             android.R.layout.simple_spinner_dropdown_item)
 
         categorySpinner.adapter = ad
+
+        journalListRecyclerView.apply {
+            adapter = journalEntryListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            isVisible = true
+        }
     }
 
     private fun setListeners() {
@@ -104,6 +113,8 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
                 chartViewBarSleep.isVisible = category == SLEEP
                 chartViewBarMovement.isVisible = category == MOVEMENT
+
+                journalListRecyclerView.isVisible = category == JOURNAL_ENTRIES
             }
         }
 
@@ -137,7 +148,6 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     private fun initChart(
         category: String
     ) {
-
         val length = selectedMonth.length(YearMonth.now().isLeapYear)
         val dataList = FloatArray(length)
 
@@ -193,5 +203,13 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     override fun onDateClicked(date: LocalDate?) {
         logE("called here $date")
+    }
+
+    override fun addEmotionsToList(emotions: Set<MutableMap.MutableEntry<String, JsonElement>>?) {
+//        emotions?.size
+    }
+
+    override fun addJournalEntryToList(toMutableList: MutableList<JsonElement>?, date: LocalDate) {
+        journalEntryListAdapter.addToList(toMutableList, date)
     }
 }

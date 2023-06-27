@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -12,6 +11,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -26,7 +26,6 @@ import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
 import com.lifespandh.ireflexions.utils.MOVEMENT
 import com.lifespandh.ireflexions.utils.PANIC_ATTACK
 import com.lifespandh.ireflexions.utils.SLEEP
-import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -78,6 +77,7 @@ class MonthsAdapter(
                         isVisible = true
                     }
                 }
+                listener.addEmotionsToList(emotions)
             }
             SLEEP -> {
                 val sleep = dayData?.get("sleep")?.asInt
@@ -92,6 +92,7 @@ class MonthsAdapter(
                     if (it.isEmpty.not())
                         container.journalImage.makeVisible()
                 }
+                listener.addJournalEntryToList(journalEntries?.toMutableList(), data.date)
             }
             PANIC_ATTACK -> {
                 val panicAttack = dayData?.get("panic_attack")?.asJsonArray
@@ -122,6 +123,8 @@ class MonthsAdapter(
 
     interface OnDateClicked {
         fun onDateClicked(date: LocalDate?)
+        fun addEmotionsToList(emotions: Set<MutableMap.MutableEntry<String, JsonElement>>?)
+        fun addJournalEntryToList(toMutableList: MutableList<JsonElement>?, date: LocalDate)
     }
 }
 
