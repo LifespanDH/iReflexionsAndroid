@@ -9,6 +9,7 @@ import java.time.YearMonth
 import java.util.*
 
 const val DATE_TIME_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+const val DATE_TIME_MILLI_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.ddddd'Z'"
 const val DATE_FORMAT = "yyyy-MM-dd"
 const val TIME_FORMAT = "hh:mm:ss"
 

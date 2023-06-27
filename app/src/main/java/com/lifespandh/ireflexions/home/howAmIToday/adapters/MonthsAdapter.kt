@@ -11,6 +11,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.CalendarDay
@@ -100,6 +101,7 @@ class MonthsAdapter(
                     if (it.isEmpty.not())
                         container.panicImage.makeVisible()
                 }
+                listener.addPanicAttackToList(panicAttack, data.date)
             }
             MOVEMENT -> {
                 val movement = dayData?.get("movement")?.asInt
@@ -125,6 +127,7 @@ class MonthsAdapter(
         fun onDateClicked(date: LocalDate?)
         fun addEmotionsToList(emotions: Set<MutableMap.MutableEntry<String, JsonElement>>?)
         fun addJournalEntryToList(toMutableList: MutableList<JsonElement>?, date: LocalDate)
+        fun addPanicAttackToList(panicAttack: JsonArray?, date: LocalDate)
     }
 }
 

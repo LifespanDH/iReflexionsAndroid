@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
@@ -19,6 +20,7 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthFooterAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.MonthsAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.JournalEntryListAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.PanicAttackListAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.utils.EMOTIONS
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
@@ -40,6 +42,7 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.categorySpinner
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarMovement
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarSleep
 import kotlinx.android.synthetic.main.fragment_monthly_report.journalListRecyclerView
+import kotlinx.android.synthetic.main.fragment_monthly_report.panicListRecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -47,6 +50,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
     private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf()) }
+    private val panicAttackListAdapter by lazy { PanicAttackListAdapter(mutableListOf()) }
 
     private var dailyData: JsonObject = JsonObject()
     private var categories = arrayOf<String?>(EMOTIONS, SLEEP, JOURNAL_ENTRIES, PANIC_ATTACK, MOVEMENT)
@@ -92,7 +96,11 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         journalListRecyclerView.apply {
             adapter = journalEntryListAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            isVisible = true
+        }
+
+        panicListRecyclerView.apply {
+            adapter = panicAttackListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -115,6 +123,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
                 chartViewBarMovement.isVisible = category == MOVEMENT
 
                 journalListRecyclerView.isVisible = category == JOURNAL_ENTRIES
+                panicListRecyclerView.isVisible = category == PANIC_ATTACK
             }
         }
 
@@ -211,5 +220,9 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     override fun addJournalEntryToList(toMutableList: MutableList<JsonElement>?, date: LocalDate) {
         journalEntryListAdapter.addToList(toMutableList, date)
+    }
+
+    override fun addPanicAttackToList(panicAttack: JsonArray?, date: LocalDate) {
+        panicAttackListAdapter.addToList(panicAttack?.toMutableList(), date)
     }
 }
