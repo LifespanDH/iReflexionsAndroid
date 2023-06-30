@@ -169,14 +169,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/monthTop"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="JULY 2021"
+        android:gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:textColor="@color/icon_title_color"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:background="@color/card_background"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
     <com.kizitonwose.calendar.view.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         app:cv_dayViewResource="@layout/calendar_day_layout"
         app:cv_monthHeaderResource="@layout/item_calendar_days"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/monthTop" />
 
     <Spinner
         android:id="@+id/categorySpinner"

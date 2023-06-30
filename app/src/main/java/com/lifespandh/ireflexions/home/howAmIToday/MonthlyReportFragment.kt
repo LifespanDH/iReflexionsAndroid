@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarMoveme
 import kotlinx.android.synthetic.main.fragment_monthly_report.chartViewBarSleep
 import kotlinx.android.synthetic.main.fragment_monthly_report.emotionColorBarRecyclerView
 import kotlinx.android.synthetic.main.fragment_monthly_report.journalListRecyclerView
+import kotlinx.android.synthetic.main.fragment_monthly_report.monthTop
 import kotlinx.android.synthetic.main.fragment_monthly_report.panicListRecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
@@ -143,6 +144,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
     }
 
     private fun initCalendar(category: String = EMOTIONS) {
+        monthTop.text = "${getCurrentMonth()} ${getCurrentYear()}"
         calendarView.dayBinder = MonthsAdapter(dailyData, category, requireContext(),this)
         calendarView.monthHeaderBinder = MonthFooterAdapter()
         val months = getStartEndCurrentMonth(TIME_DIFFERENCE)
