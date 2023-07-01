@@ -39,6 +39,7 @@ import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.makeVisible
 import kotlinx.android.synthetic.main.fragment_monthly_report.calendarView
 import kotlinx.android.synthetic.main.fragment_monthly_report.categorySpinner
@@ -133,14 +134,23 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
                 val category = categories[position]
                 initCalendar(category ?: EMOTIONS)
 
+                hideViews()
+
                 chartViewBarSleep.isVisible = category == SLEEP
                 chartViewBarMovement.isVisible = category == MOVEMENT
-
                 journalListRecyclerView.isVisible = category == JOURNAL_ENTRIES
                 panicListRecyclerView.isVisible = category == PANIC_ATTACK
+                emotionColorBarRecyclerView.isVisible = category == EMOTIONS
             }
         }
+    }
 
+    private fun hideViews() {
+        chartViewBarSleep.makeGone()
+        chartViewBarMovement.makeGone()
+        journalListRecyclerView.makeGone()
+        panicListRecyclerView.makeGone()
+        emotionColorBarRecyclerView.makeGone()
     }
 
     private fun initCalendar(category: String = EMOTIONS) {

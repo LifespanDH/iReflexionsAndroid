@@ -12,6 +12,7 @@ const val DATE_TIME_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 const val DATE_TIME_MILLI_LONG_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.ddddd'Z'"
 const val DATE_FORMAT = "yyyy-MM-dd"
 const val TIME_FORMAT = "hh:mm:ss"
+const val DATE_TIME_FORMAT = "yyyy-MM-dd 'at' hh:mm"
 
 const val DATE = "date"
 const val WEEK_START_DATE = "week_start_date"
@@ -64,6 +65,14 @@ fun String.toDate(): Date? {
     val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT)
     val date = dateFormat.parse(this)
     return date
+}
+
+fun String.changeDateTimeFormat(fromFormat: String, toFormat: String): String {
+    val dateFormat = SimpleDateFormat(fromFormat)
+    val fromDate = dateFormat.parse(this)
+    val toDateFormat = SimpleDateFormat(toFormat)
+    val toDate = toDateFormat.format(fromDate)
+    return toDate
 }
 
 fun getCalendarAfterBefore(currentDate: Date, days: Int): Calendar {

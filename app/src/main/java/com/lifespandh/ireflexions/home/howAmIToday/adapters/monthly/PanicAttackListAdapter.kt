@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonElement
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_FORMAT
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_MILLI_LONG_FORMAT
+import com.lifespandh.ireflexions.utils.date.changeDateTimeFormat
 import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
 import com.lifespandh.ireflexions.utils.date.toDate
 import java.time.LocalDate
@@ -44,7 +47,7 @@ class PanicAttackListAdapter(
         private val panicAttackText: TextView = itemView.findViewById(R.id.panicAttackText)
 
         fun bind(pair: Pair<String, JsonElement>) {
-            panicAttackText.text = "${pair.first} ${pair.second.asJsonObject["time"].asString.toDate()}"
+            panicAttackText.text = "${pair.first} ${pair.second.asJsonObject["time"].asString.changeDateTimeFormat(DATE_TIME_MILLI_LONG_FORMAT, DATE_TIME_FORMAT)}"
         }
     }
 }
