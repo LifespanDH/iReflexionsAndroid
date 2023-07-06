@@ -2,7 +2,6 @@ package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +35,7 @@ import com.lifespandh.ireflexions.utils.date.MONTH
 import com.lifespandh.ireflexions.utils.date.TIME_DIFFERENCE
 import com.lifespandh.ireflexions.utils.date.YEAR
 import com.lifespandh.ireflexions.utils.date.getCurrentMonth
+import com.lifespandh.ireflexions.utils.date.getCurrentMonthInt
 import com.lifespandh.ireflexions.utils.date.getCurrentYear
 import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
@@ -157,13 +157,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
                 requireContext(),
                 R.style.MonthYearPickerDialogTheme,
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    Log.d("ProgramsApiCall", ""+ month)
-                    val calendar = Calendar.getInstance()
-                    calendar.set(Calendar.YEAR, year)
-                    calendar.set(Calendar.MONTH, month)
-
-// Set the date in the CalendarView
-                    calendarView.date
+                    initCalendar(year= year, month = month+1)
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -183,11 +177,11 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         emotionColorBarRecyclerView.makeGone()
     }
 
-    private fun initCalendar(category: String = EMOTIONS) {
+    private fun initCalendar(category: String = EMOTIONS, year: Int = getCurrentYear(), month: Int = getCurrentMonthInt()+1) {
         monthTop.text = "${getCurrentMonth()} ${getCurrentYear()}"
         calendarView.dayBinder = MonthsAdapter(dailyData, category, requireContext(),this)
         calendarView.monthHeaderBinder = MonthFooterAdapter()
-        val months = getStartEndCurrentMonth(TIME_DIFFERENCE)
+        val months = getStartEndCurrentMonth(year,month+1,TIME_DIFFERENCE)
         calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())
         calendarView.scrollToMonth(months.third)
 
