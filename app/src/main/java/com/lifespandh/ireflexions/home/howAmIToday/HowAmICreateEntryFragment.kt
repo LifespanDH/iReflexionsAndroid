@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.irefgraphs.CheckinObject
@@ -47,6 +48,7 @@ import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_mov
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_sleep
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.seekBar_sleep_quality
 import kotlinx.android.synthetic.main.fragment_how_am_i_create_entry.traitView
+import java.util.Date
 
 class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked, EnvironmentalAdapter.OnItemClicked,
     TraitAdapter.OnItemClickedListener {
@@ -58,9 +60,10 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
         this
     )
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val args by navArgs<HowAmICreateEntryFragmentArgs>()
 
     private var currentCategory: TraitCategory? = null
-    private var dateTime: String? = null
+    private var dateTime: Date? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,11 +78,16 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     }
 
     private fun init() {
+        getBundleValues()
         setViews()
         setRecyclerViews()
         getTraitCategories()
         setListeners()
         setObservers()
+    }
+
+    private fun getBundleValues() {
+        dateTime = args.date
     }
 
     private fun setViews() {
@@ -218,7 +226,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
                 sleepQuality = sleepQuality,
                 movement = seekBar_movement.progress,
                 journalEntry = edt_journal.trimString(),
-                dateTime = getDateTimeInFormat()
+                dateTime = getDateTimeInFormat(dateTime?.time)
             )
 
             howAmITodayViewModel.addDailyCheckInEntry(dailyCheckInEntry)

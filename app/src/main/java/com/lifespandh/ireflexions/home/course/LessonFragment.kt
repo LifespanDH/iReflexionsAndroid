@@ -17,6 +17,7 @@ import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import kotlinx.android.synthetic.main.activity_registration.view.name
@@ -95,6 +96,10 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun setCurrentLesson(lessons: List<Lesson>) {
+        if (lessonNumber >= lessons.size) {
+            findNavController().navigateUp()
+            return
+        }
         if (lessonNumber > 0 && lessons.size >= lessonNumber - 1) {
             currentLesson = lessons.get(lessonNumber - 1)
             currentLessonName.text = currentLesson?.name

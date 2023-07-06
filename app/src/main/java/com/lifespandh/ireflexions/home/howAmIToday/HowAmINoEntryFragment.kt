@@ -106,11 +106,8 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     private fun setListeners() {
         addCircleImageView.setOnClickListener {
             if (System.currentTimeMillis() > toDate.time) {
-                dateBundle.putSerializable("DATE", toDate)
-                findNavController().navigate(
-                    R.id.action_howAmINoEntryFragment_to_howAmICreateEntryFragment,
-                    dateBundle
-                )
+                val action = HowAmINoEntryFragmentDirections.actionHowAmINoEntryFragmentToHowAmICreateEntryFragment(toDate)
+                findNavController().navigate(action)
             }
         }
 
@@ -126,11 +123,8 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
 
         addCircleImageViewBig.setOnClickListener {
             if (System.currentTimeMillis() > toDate.time) {
-                dateBundle.putSerializable("DATE", toDate)
-                findNavController().navigate(
-                    R.id.action_howAmINoEntryFragment_to_howAmICreateEntryFragment,
-                    dateBundle
-                )
+                val action = HowAmINoEntryFragmentDirections.actionHowAmINoEntryFragmentToHowAmICreateEntryFragment(toDate)
+                findNavController().navigate(action)
             }
         }
 
