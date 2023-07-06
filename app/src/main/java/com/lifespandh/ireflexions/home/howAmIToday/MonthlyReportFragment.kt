@@ -51,9 +51,11 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.emotionColorBarRec
 import kotlinx.android.synthetic.main.fragment_monthly_report.journalListRecyclerView
 import kotlinx.android.synthetic.main.fragment_monthly_report.monthTop
 import kotlinx.android.synthetic.main.fragment_monthly_report.panicListRecyclerView
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.Calendar
+import java.util.Locale
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
@@ -177,11 +179,11 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         emotionColorBarRecyclerView.makeGone()
     }
 
-    private fun initCalendar(category: String = EMOTIONS, year: Int = getCurrentYear(), month: Int = getCurrentMonthInt()+1) {
-        monthTop.text = "${getCurrentMonth()} ${getCurrentYear()}"
+    private fun initCalendar(category: String = EMOTIONS, year: Int = getCurrentYear(), month: Int = getCurrentMonthInt()) {
+        monthTop.text = "${getMonthName(month-1)} $year"
         calendarView.dayBinder = MonthsAdapter(dailyData, category, requireContext(),this)
         calendarView.monthHeaderBinder = MonthFooterAdapter()
-        val months = getStartEndCurrentMonth(year,month+1,TIME_DIFFERENCE)
+        val months = getStartEndCurrentMonth(year,month,TIME_DIFFERENCE)
         calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())
         calendarView.scrollToMonth(months.third)
 
@@ -292,5 +294,12 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
     override fun addPanicAttackToList(panicAttack: JsonArray?, date: LocalDate) {
         panicAttackListAdapter.addToList(panicAttack?.toMutableList(), date)
+    }
+
+    fun getMonthName(monthNumber: Int): String {
+        val dateFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, monthNumber)
+        return dateFormat.format(calendar.time)
     }
 }
