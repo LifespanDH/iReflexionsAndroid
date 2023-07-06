@@ -176,6 +176,8 @@
         android:text="JULY 2021"
         android:gravity="center"
         android:layout_marginHorizontal="50dp"
+        android:drawableEnd="@drawable/calendar"
+        android:paddingEnd="5dp"
         android:textColor="@color/icon_title_color"
         android:fontFamily="@font/montserrat_semi_bold"
         android:background="@color/card_background"

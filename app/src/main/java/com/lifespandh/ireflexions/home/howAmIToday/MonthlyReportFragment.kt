@@ -1,6 +1,8 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +53,7 @@ import kotlinx.android.synthetic.main.fragment_monthly_report.monthTop
 import kotlinx.android.synthetic.main.fragment_monthly_report.panicListRecyclerView
 import java.time.LocalDate
 import java.time.YearMonth
+import java.util.Calendar
 
 class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
 
@@ -142,6 +145,33 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
                 panicListRecyclerView.isVisible = category == PANIC_ATTACK
                 emotionColorBarRecyclerView.isVisible = category == EMOTIONS
             }
+        }
+        monthTop.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.calendar, 0)
+        monthTop.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+
+            // Create the DatePickerDialog with the custom style
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                R.style.MonthYearPickerDialogTheme,
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    Log.d("ProgramsApiCall", ""+ month)
+                    val calendar = Calendar.getInstance()
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, month)
+
+// Set the date in the CalendarView
+                    calendarView.date
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+
+            datePickerDialog.show()
+
         }
     }
 
