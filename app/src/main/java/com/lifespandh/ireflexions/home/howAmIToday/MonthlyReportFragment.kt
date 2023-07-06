@@ -151,10 +151,6 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         monthTop.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.calendar, 0)
         monthTop.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-
-            // Create the DatePickerDialog with the custom style
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 R.style.MonthYearPickerDialogTheme,
@@ -165,9 +161,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
-
             datePickerDialog.show()
-
         }
     }
 
