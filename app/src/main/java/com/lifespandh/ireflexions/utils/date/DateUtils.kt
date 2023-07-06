@@ -151,8 +151,8 @@ private fun getDayNumberSuffix(day: Int): String? {
  * From external libraries
  */
 
-fun getStartEndCurrentMonth(difference: Long): Triple<YearMonth, YearMonth, YearMonth> {
-    val currentMonth = YearMonth.now()
+fun getStartEndCurrentMonth(year: Int = getCurrentYear(), month: Int = getCurrentMonthInt(), difference: Long = TIME_DIFFERENCE): Triple<YearMonth, YearMonth, YearMonth> {
+    val currentMonth = YearMonth.of(year, month)
     val startMonth = currentMonth.minusMonths(difference)
     val endMonth = currentMonth.plusMonths(difference)
 
@@ -161,6 +161,10 @@ fun getStartEndCurrentMonth(difference: Long): Triple<YearMonth, YearMonth, Year
 
 fun getCurrentMonth(): Month {
     return YearMonth.now().month
+}
+
+fun getCurrentMonthInt(): Int {
+    return YearMonth.now().monthValue
 }
 
 fun getCurrentYear(): Int {
