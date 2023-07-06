@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +56,17 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         setListeners()
         setObservers()
         setViews()
+        observeResult()
+    }
+
+    private fun observeResult() {
+        val currentBackStackEntry = findNavController().currentBackStackEntry
+        val savedStateHandle = currentBackStackEntry?.savedStateHandle
+        savedStateHandle?.getLiveData<Boolean>(LessonContentFragment.LESSON_RESULT)
+            ?.observe(currentBackStackEntry, Observer { result ->
+                if (result)
+                    lessonNumber += 1
+            })
     }
 
     private fun setObservers() {

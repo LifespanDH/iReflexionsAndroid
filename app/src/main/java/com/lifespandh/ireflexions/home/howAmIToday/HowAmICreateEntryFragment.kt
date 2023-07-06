@@ -60,6 +60,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
     private var currentCategory: TraitCategory? = null
+    private var dateTime: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

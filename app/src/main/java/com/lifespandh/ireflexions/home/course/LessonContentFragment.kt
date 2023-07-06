@@ -79,6 +79,8 @@ class LessonContentFragment : BaseFragment() {
         val savedStateHandle = currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<String>(LessonQuizFragment.QUIZ_RESULT)
             ?.observe(currentBackStackEntry, Observer { result ->
+                val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
+                savedStateHandle?.set(LESSON_RESULT, true)
                 findNavController().navigateUp()
             })
     }
@@ -96,5 +98,7 @@ class LessonContentFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = LessonContentFragment()
+
+        const val LESSON_RESULT = "lesson_result"
     }
 }
