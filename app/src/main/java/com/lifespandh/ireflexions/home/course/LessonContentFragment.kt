@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -74,7 +75,12 @@ class LessonContentFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-
+        val currentBackStackEntry = findNavController().currentBackStackEntry
+        val savedStateHandle = currentBackStackEntry?.savedStateHandle
+        savedStateHandle?.getLiveData<String>(LessonQuizFragment.QUIZ_RESULT)
+            ?.observe(currentBackStackEntry, Observer { result ->
+                findNavController().navigateUp()
+            })
     }
 
     private fun setListeners(){

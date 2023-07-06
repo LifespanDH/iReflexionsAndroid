@@ -86,6 +86,7 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
             }
             // Need to add api call here
             toast("You got $correctAnswers out of ${lessonQuestions.size} correct")
+            saveProgress()
         }
     }
 
@@ -93,6 +94,12 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
             lessonQuestions = it
             questionsAdapter.setList(it)
+        }
+
+        homeViewModel.saveProgressLiveData.observeFreshly(this) {
+            val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
+            savedStateHandle?.set(QUIZ_RESULT, true)
+            findNavController().navigateUp()
         }
     }
 
@@ -109,6 +116,11 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
     override fun onAnswerSelected(choice: String, answerPosition: Int, questionId: Int) {
         logE("called $choice $answerPosition $questionId")
         selectedAnswers[questionId] = answerPosition
+    }
+
+    companion object {
+
+        const val QUIZ_RESULT = "quiz_result"
     }
 
 }
