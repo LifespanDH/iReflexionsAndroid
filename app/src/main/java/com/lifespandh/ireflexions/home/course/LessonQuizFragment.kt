@@ -98,7 +98,7 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
 
         homeViewModel.saveProgressLiveData.observeFreshly(this) {
             val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
-            savedStateHandle?.set(QUIZ_RESULT, true)
+            savedStateHandle?.set(QUIZ_RESULT, "true")
             findNavController().navigateUp()
         }
     }
