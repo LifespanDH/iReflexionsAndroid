@@ -97,6 +97,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     private fun setCurrentLesson(lessons: List<Lesson>) {
         if (lessonNumber >= lessons.size) {
+            val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
+            savedStateHandle?.set(RESULT, true)
             findNavController().navigateUp()
             return
         }
@@ -114,6 +116,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     companion object {
         fun newInstance() = LessonFragment()
+
+        const val RESULT = "result"
     }
 
     override fun onLessonClick(lesson: Lesson) {

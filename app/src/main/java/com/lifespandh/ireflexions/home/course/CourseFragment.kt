@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
     private var parentProgram: Program? = null
     private var currentCourse: Course? = null
+    private var courseNumber: Int? = null
     private var userProgramProgress: UserProgramProgress? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +61,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         setObservers()
         setListeners()
         getCourses()
+        observeResult()
     }
 
     private fun getCourses(){
@@ -102,13 +105,23 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     }
 
     private fun setCurrentCourse(courses: List<Course>) {
-        val courseNumber = userProgramProgress?.courseNumber ?: 1
-        if (courseNumber > 0 && courses.size >= courseNumber - 1) {
-            currentCourse = courses.get(courseNumber - 1)
+        courseNumber = if (courseNumber == null) (userProgramProgress?.courseNumber ?: 1) else courseNumber
+        if (courseNumber!! > 0 && courses.size >= courseNumber!! - 1) {
+            currentCourse = courses.get(courseNumber!! - 1)
             currentCourseTitle.text = currentCourse?.name
             currentCourseDescription.text = currentCourse?.description
             // Set image here
         }
+    }
+
+    private fun observeResult() {
+        val currentBackStackEntry = findNavController().currentBackStackEntry
+        val savedStateHandle = currentBackStackEntry?.savedStateHandle
+        savedStateHandle?.getLiveData<Boolean>(LessonFragment.RESULT)
+            ?.observe(currentBackStackEntry, Observer { result ->
+                if (result)
+                    courseNumber = courseNumber?.plus(1)
+            })
     }
 
     companion object {
