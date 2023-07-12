@@ -1,5 +1,6 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,6 +13,11 @@ import com.lifespandh.ireflexions.home.course.CourseListProgramAdapter
 import com.lifespandh.ireflexions.models.Program
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_LONG_FORMAT
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_MILLI_LONG_FORMAT
+import com.lifespandh.ireflexions.utils.date.TIME_FORMAT
+import com.lifespandh.ireflexions.utils.date.changeDateTimeFormat
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getTimeInFormat
 
 class JournalEntryAdapter(
@@ -45,8 +51,9 @@ class JournalEntryAdapter(
 
         fun bind(dailyCheckInEntry: DailyCheckInEntry) {
             txtMovement.text = getMovementText(dailyCheckInEntry.movement)
-            txtSleep.text = "${dailyCheckInEntry.dateTime.substring(14)} hours"
-            txtTime.text = "Time: ${dailyCheckInEntry.dateTime.substring(14)}"
+            txtSleep.text = "${dailyCheckInEntry.sleepQuality.time} hours"
+            Log.d("time", dailyCheckInEntry.dateTime)
+            txtTime.text = "Time: ${dailyCheckInEntry.dateTime.changeDateTimeFormat(DATE_TIME_LONG_FORMAT , TIME_FORMAT)}"
             txtSleepQuality.text = dailyCheckInEntry.sleepQuality.quality.toString()
 
 //            Glide.with(getContext()).load(

@@ -84,7 +84,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:text="@string/title_movement"
+        android:text="@string/title_exercise"
         android:textColor="@color/icon_title_color"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"

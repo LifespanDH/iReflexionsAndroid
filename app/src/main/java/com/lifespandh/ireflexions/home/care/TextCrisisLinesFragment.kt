@@ -88,8 +88,8 @@ class TextCrisisLinesFragment : BaseDialogFragment() {
         }
 
         crisis_text_line3_phone.setOnClickListener {
-            val teen2TeenText = getString(R.string.teen2teen_message_text_crisis_line)
-            openMessageAppWithPhoneNumber("839863", teen2TeenText)
+            val startText = getString(R.string.start_message_text_crisis_line)
+            openMessageAppWithPhoneNumber("678678", startText)
         }
     }
 

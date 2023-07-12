@@ -392,6 +392,7 @@
                 android:gravity="start|top"
                 android:hint="@string/write_about_your_day_and_or_thoughts_and_feelings_if_you_d_like"
                 android:padding="8dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/grey"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
