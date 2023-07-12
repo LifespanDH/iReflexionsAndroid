@@ -9,153 +9,6 @@
     android:padding="@dimen/padding_8dp"
     android:weightSum="3">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/title"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/activity_horizontal_margin"-->
-    <!--        android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--        android:text="@string/how_have_i_been_monthly"-->
-    <!--        android:textColor="@color/icon_title_color"-->
-    <!--        android:textSize="@dimen/font_monthly_report_title"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/viewCalendar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        android:background="@drawable/view_data_rectangle"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/title">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/calendarTitle"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:fontFamily="@font/montserrat_medium"-->
-    <!--            android:gravity="center"-->
-    <!--            android:padding="@dimen/padding_8dp"-->
-    <!--            android:textColor="@color/calendar_title_date"-->
-    <!--            android:textSize="@dimen/font_calendar_title_date"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            tools:text="July 2021" />-->
-
-    <!--        <androidx.appcompat.widget.AppCompatImageView-->
-    <!--            android:id="@+id/datePicker"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginTop="@dimen/margin_10dp"-->
-    <!--            android:src="@drawable/ic_montly_calendar"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.95"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <GridView-->
-    <!--            android:id="@+id/gridViewCalendar"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:fontFamily="@font/montserrat_semi_bold"-->
-    <!--            android:gravity="center"-->
-    <!--            android:numColumns="7"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/calendarTitle" />-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:id="@+id/spinnerCalendarView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        app:cardBackgroundColor="@color/spinner_calendar_card_view"-->
-    <!--        app:cardCornerRadius="@dimen/spinner_calendar_view_corner_radius"-->
-    <!--        app:cardElevation="@dimen/spinner_calendar_view_card_elevation"-->
-    <!--        app:cardUseCompatPadding="true"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/viewCalendar"-->
-    <!--        app:layout_constraintVertical_weight="1">-->
-
-    <!--        <androidx.appcompat.widget.AppCompatSpinner-->
-    <!--            android:id="@+id/spinnerCalendarCategories"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content" />-->
-
-    <!--    </androidx.cardview.widget.CardView>-->
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rvEmotions"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/margin_5dp"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView" />-->
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rvEventDates"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/margin_5dp"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView" />-->
-
-    <!--    <com.lifespandh.irefgraphs.BarGraphView-->
-    <!--        android:id="@+id/chartViewBarSleep"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/margin_5dp"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        android:background="@android:color/transparent"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:barColor1="@color/light_gray"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView"-->
-    <!--        tools:visibility="gone" />-->
-
-    <!--    <com.lifespandh.irefgraphs.BarGraphView-->
-    <!--        android:id="@+id/chartViewBarMovement"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-    <!--        android:layout_marginTop="@dimen/margin_5dp"-->
-    <!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--        android:background="@android:color/transparent"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:barColor1="@color/light_gray"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/spinnerCalendarView"-->
-    <!--        tools:visibility="gone" />-->
-
-    <!--    <include-->
-    <!--        android:id="@+id/titlesContainer"-->
-    <!--        layout="@layout/item_calendar_days" />-->
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -173,22 +26,23 @@
         android:id="@+id/monthTop"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="JULY 2021"
-        android:gravity="center"
         android:layout_marginHorizontal="50dp"
-        android:drawableEnd="@drawable/calendar"
-        android:paddingEnd="5dp"
-        android:textColor="@color/icon_title_color"
-        android:fontFamily="@font/montserrat_semi_bold"
+        android:layout_marginTop="20dp"
         android:background="@color/card_background"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
+        android:drawableEnd="@drawable/calendar"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:gravity="center"
+        android:paddingEnd="5dp"
+        android:text="JULY 2021"
+        android:textColor="@color/icon_title_color"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <com.kizitonwose.calendar.view.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:cv_dayViewResource="@layout/calendar_day_layout"
