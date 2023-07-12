@@ -2,6 +2,7 @@ package com.lifespandh.ireflexions.home.course
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,7 +124,6 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 //        val draw: Drawable = (ContextCompat.getDrawable(requireContext(), R.drawable.progress_drawable) ?: null) as Drawable
 //        currentProgramProgressBar.progressDrawable = draw
         val programProgress = userProgramProgress?.programProgress
-
         currentProgressTextView.text = if (userProgramProgress?.programProgress == null) "0%" else "${userProgramProgress?.programProgress?.toInt().toString()}%"
         currentProgramProgressBar.progress = programProgress?.toInt() ?: 0
     }

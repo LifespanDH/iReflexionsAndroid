@@ -19,6 +19,7 @@ import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getWeekDates
+import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
 import com.lifespandh.ireflexions.utils.ui.makeGone
@@ -48,6 +49,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     private val journalEntryAdapter by lazy { JournalEntryAdapter(mutableListOf(), this) }
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val dialogUtils = DialogUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +111,9 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
                 val action = HowAmINoEntryFragmentDirections.actionHowAmINoEntryFragmentToHowAmICreateEntryFragment(toDate)
                 findNavController().navigate(action)
             }
+            else {
+                dialogUtils.showMessageDialog(requireContext(), "Error", "Cannot add a post-dated entry")
+            }
         }
 
         weekView.setOnClickListener {
@@ -122,10 +127,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
         }
 
         addCircleImageViewBig.setOnClickListener {
-            if (System.currentTimeMillis() > toDate.time) {
-                val action = HowAmINoEntryFragmentDirections.actionHowAmINoEntryFragmentToHowAmICreateEntryFragment(toDate)
-                findNavController().navigate(action)
-            }
+            addCircleImageView.callOnClick()
         }
 
         arrow_previous.setOnClickListener {

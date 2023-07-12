@@ -53,7 +53,7 @@ class JournalEntryAdapter(
             txtMovement.text = getMovementText(dailyCheckInEntry.movement)
             txtSleep.text = "${dailyCheckInEntry.sleepQuality.time} hours"
             Log.d("time", dailyCheckInEntry.dateTime)
-            txtTime.text = "Time: ${dailyCheckInEntry.dateTime.changeDateTimeFormat(DATE_TIME_LONG_FORMAT , TIME_FORMAT)}"
+            //txtTime.text = "Time: ${dailyCheckInEntry.dateTime.changeDateTimeFormat(DATE_TIME_LONG_FORMAT , TIME_FORMAT)}"
             txtSleepQuality.text = dailyCheckInEntry.sleepQuality.quality.toString()
 
 //            Glide.with(getContext()).load(
