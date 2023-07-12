@@ -162,6 +162,9 @@
         <action
             android:id="@+id/action_courseListFragment_to_courseFragment"
             app:destination="@id/courseFragment" />
+        <action
+            android:id="@+id/action_courseListFragment_to_programCompletionFragment"
+            app:destination="@id/programCompletionFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -306,5 +309,9 @@
             android:id="@+id/action_panicAttackDialogFragment_to_customHappeningFragment"
             app:destination="@id/customHappeningFragment" />
     </dialog>
+    <dialog
+        android:id="@+id/programCompletionFragment"
+        android:name="com.lifespandh.ireflexions.home.course.ProgramCompletionFragment"
+        android:label="ProgramCompletionFragment" />
 
 </navigation>
