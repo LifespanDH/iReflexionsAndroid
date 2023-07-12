@@ -124,6 +124,7 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 //        val draw: Drawable = (ContextCompat.getDrawable(requireContext(), R.drawable.progress_drawable) ?: null) as Drawable
 //        currentProgramProgressBar.progressDrawable = draw
         val programProgress = userProgramProgress?.programProgress
+        Log.d("progress" , "$programProgress")
         currentProgressTextView.text = if (userProgramProgress?.programProgress == null) "0%" else "${userProgramProgress?.programProgress?.toInt().toString()}%"
         currentProgramProgressBar.progress = programProgress?.toInt() ?: 0
     }

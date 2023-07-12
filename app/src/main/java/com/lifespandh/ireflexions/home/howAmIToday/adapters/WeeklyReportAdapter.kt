@@ -81,7 +81,7 @@ class WeeklyReportAdapter (
             txtNoEntry.isVisible = !dailyEntriesPresent
 
             addCircleImage.setOnClickListener {
-//                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
+                //listener.onAddEntryClicked(dates[absoluteAdapterPosition].first)
             }
         }
     }

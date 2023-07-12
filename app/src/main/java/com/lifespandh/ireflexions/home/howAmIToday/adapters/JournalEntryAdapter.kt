@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
@@ -48,6 +50,7 @@ class JournalEntryAdapter(
         private val txtSleep: TextView = itemView.findViewById(R.id.txt_sleep)
         private val txtTime: TextView = itemView.findViewById(R.id.txt_time)
         private val imgJournal: ImageView = itemView.findViewById(R.id.img_journal)
+        private val journalEntryContainer: ConstraintLayout = itemView.findViewById(R.id.journalEntryContainer)
 
         fun bind(dailyCheckInEntry: DailyCheckInEntry) {
             txtMovement.text = getMovementText(dailyCheckInEntry.movement)
@@ -55,6 +58,11 @@ class JournalEntryAdapter(
             Log.d("time", dailyCheckInEntry.dateTime)
             //txtTime.text = "Time: ${dailyCheckInEntry.dateTime.changeDateTimeFormat(DATE_TIME_LONG_FORMAT , TIME_FORMAT)}"
             txtSleepQuality.text = dailyCheckInEntry.sleepQuality.quality.toString()
+
+            journalEntryContainer.setOnClickListener {
+                listener.onItemClick(dailyCheckInEntry)
+            }
+
 
 //            Glide.with(getContext()).load(
 //                if (dailyCheckInEntry.journalEntry.isEmpty())

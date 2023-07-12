@@ -182,6 +182,6 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener,
     }
 
     override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {
-        TODO("Not yet implemented")
+
     }
 }

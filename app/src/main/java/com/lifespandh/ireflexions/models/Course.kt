@@ -17,6 +17,9 @@ data class Course (
     val description: String,
 
     @SerializedName("image")
-    val image: String?
+    val image: String?,
+
+    @SerializedName("order")
+    val order: Int
 
 ): Parcelable

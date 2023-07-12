@@ -24,4 +24,7 @@ data class Lesson (
 
     @SerializedName("image")
     val image: String,
+
+    @SerializedName("order")
+    val order: Int
 ): Parcelable
