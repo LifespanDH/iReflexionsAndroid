@@ -105,11 +105,6 @@
             app:argType="java.util.Date"
             app:nullable="true" />
 
-        <argument android:name="dailyEntry"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry"
-            app:nullable="true" />
-
         <action
             android:id="@+id/action_howAmICreateEntryFragment_to_customHappeningFragment"
             app:destination="@id/customHappeningFragment" />
