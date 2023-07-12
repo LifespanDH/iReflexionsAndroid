@@ -65,6 +65,8 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
     private var currentCategory: TraitCategory? = null
     private var dateTime: Date? = null
 
+    private var dailyCheckInEntry: DailyCheckInEntry? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,6 +90,7 @@ class HowAmICreateEntryFragment : BaseFragment(), HappeningAdapter.OnItemClicked
 
     private fun getBundleValues() {
         dateTime = args.date
+        dailyCheckInEntry = args.dailyEntry
     }
 
     private fun setViews() {
