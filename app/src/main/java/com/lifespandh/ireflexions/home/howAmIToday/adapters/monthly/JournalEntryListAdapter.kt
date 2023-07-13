@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonElement
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.howAmIToday.adapters.JournalEntryAdapter
-import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -50,12 +48,12 @@ class JournalEntryListAdapter(
         fun bind(journalEntry: Pair<String, String>) {
             journalEntryText.text = "${journalEntry.first} (${journalEntry.second.substring(0,2)})"
             journalEntryText.setOnClickListener {
-                listener.onItemClick(journalEntry)
+                listener.onJournalItemClick(journalEntry)
             }
         }
     }
 
     interface OnItemClicked {
-        fun onItemClick(journalEntry: Pair<String, String>)
+        fun onJournalItemClick(journalEntry: Pair<String, String>)
     }
 }

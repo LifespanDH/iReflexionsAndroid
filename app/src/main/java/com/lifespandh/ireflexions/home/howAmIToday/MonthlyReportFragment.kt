@@ -58,11 +58,11 @@ import java.time.YearMonth
 import java.util.Calendar
 import java.util.Locale
 
-class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, JournalEntryListAdapter.OnItemClicked {
+class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, JournalEntryListAdapter.OnItemClicked, PanicAttackListAdapter.OnItemClicked {
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
     private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf(),this) }
-    private val panicAttackListAdapter by lazy { PanicAttackListAdapter(mutableListOf()) }
+    private val panicAttackListAdapter by lazy { PanicAttackListAdapter(mutableListOf(), this) }
     private val emotionColorBarAdapter by lazy { EmotionColorBarAdapter(mutableMapOf()) }
     private val emotionsList = mutableMapOf<String, EmotionData>()
 
@@ -298,8 +298,12 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
         return dateFormat.format(calendar.time)
     }
 
-    override fun onItemClick(journalEntry: Pair<String, String>) {
+    override fun onJournalItemClick(journalEntry: Pair<String, String>) {
         val action = MonthlyReportFragmentDirections.actionMonthlyReportFragmentToJournalEntryViewFragment(date = journalEntry.first, entry = journalEntry.second)
         findNavController().navigate(action)
+    }
+
+    override fun onPanicItemClick(pair: Pair<String, JsonElement>) {
+        TODO("Not yet implemented")
     }
 }
