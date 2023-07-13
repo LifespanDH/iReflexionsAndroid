@@ -4,8 +4,8 @@
     <!-- Define the background properties like color etc -->
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="10dp"></corners>
-            <solid android:color="@color/bluegreen"></solid>
+            <corners android:radius="2dp"></corners>
+            <solid android:color="@color/grey"></solid>
         </shape>
     </item>
 

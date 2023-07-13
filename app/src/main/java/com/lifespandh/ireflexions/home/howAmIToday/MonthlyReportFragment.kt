@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
@@ -57,10 +58,10 @@ import java.time.YearMonth
 import java.util.Calendar
 import java.util.Locale
 
-class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
+class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, JournalEntryListAdapter.OnItemClicked {
 
     private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
-    private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf()) }
+    private val journalEntryListAdapter by lazy { JournalEntryListAdapter(mutableListOf(),this) }
     private val panicAttackListAdapter by lazy { PanicAttackListAdapter(mutableListOf()) }
     private val emotionColorBarAdapter by lazy { EmotionColorBarAdapter(mutableMapOf()) }
     private val emotionsList = mutableMapOf<String, EmotionData>()
@@ -242,7 +243,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         chartViewBar.xAxisShow = true
         chartViewBar.yAxisShow = true
         if (category == SLEEP) {
-            chartViewBar.yAxisLabelStep = 2f
+            chartViewBar.yAxisLabels = requireContext().resources.getStringArray(R.array.sleepLabels)
         } else {
             chartViewBar.yAxisLabels = requireContext().resources.getStringArray(R.array.movementLabels)
         }
@@ -295,5 +296,10 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.MONTH, monthNumber)
         return dateFormat.format(calendar.time)
+    }
+
+    override fun onItemClick(journalEntry: Pair<String, String>) {
+        val action = MonthlyReportFragmentDirections.actionMonthlyReportFragmentToJournalEntryViewFragment(date = journalEntry.first, entry = journalEntry.second)
+        findNavController().navigate(action)
     }
 }

@@ -125,7 +125,11 @@
         android:id="@+id/monthlyReportFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.MonthlyReportFragment"
         android:label="fragment_monthly_report"
-        tools:layout="@layout/fragment_monthly_report" />
+        tools:layout="@layout/fragment_monthly_report" >
+        <action
+            android:id="@+id/action_monthlyReportFragment_to_journalEntryViewFragment"
+            app:destination="@id/journalEntryViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/careCenterExerciseFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment"
@@ -314,5 +318,20 @@
         android:id="@+id/programCompletionFragment"
         android:name="com.lifespandh.ireflexions.home.course.ProgramCompletionFragment"
         android:label="ProgramCompletionFragment" />
+    <dialog
+        android:id="@+id/journalEntryViewFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.JournalEntryViewFragment"
+        android:label="JournalEntryViewFragment">
+        <argument
+        android:name="date"
+        android:defaultValue="@null"
+        app:nullable="true"
+        app:argType="string" />
+        <argument
+            android:name="entry"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string" />
+    </dialog>
 
 </navigation>
