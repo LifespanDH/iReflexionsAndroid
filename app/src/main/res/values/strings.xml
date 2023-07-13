@@ -363,6 +363,17 @@
         <item>4-5</item>
     </string-array>
 
+    <string-array name="sleepLabels">
+        <item>0</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+    </string-array>
+
     <string name="game_view_content_description">Game View</string>
     <string name="device_disconnected_exit_exercise_cause_message">Heart rate sensor is disconnected. Exercise will be terminated.</string>
     <string name="exercise">Exercise</string>

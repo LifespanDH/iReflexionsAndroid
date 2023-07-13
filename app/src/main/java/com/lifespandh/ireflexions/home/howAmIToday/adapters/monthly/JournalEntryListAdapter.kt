@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonElement
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.JournalEntryAdapter
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -14,7 +16,8 @@ import java.util.Calendar
 import java.util.Date
 
 class JournalEntryListAdapter(
-    private val journalEntries: MutableList<Pair<String, String>>
+    private val journalEntries: MutableList<Pair<String, String>>,
+    private val listener: OnItemClicked
 ): BaseRecyclerViewAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -43,8 +46,16 @@ class JournalEntryListAdapter(
 
         private val journalEntryText: TextView = itemView.findViewById(R.id.journalEntryText)
 
+
         fun bind(journalEntry: Pair<String, String>) {
-            journalEntryText.text = "${journalEntry.first} (${journalEntry.second})"
+            journalEntryText.text = "${journalEntry.first} (${journalEntry.second.substring(0,2)})"
+            journalEntryText.setOnClickListener {
+                listener.onItemClick(journalEntry)
+            }
         }
+    }
+
+    interface OnItemClicked {
+        fun onItemClick(journalEntry: Pair<String, String>)
     }
 }
