@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.sql.Time
 
+@Parcelize
 data class PanicAttack(
 
     @SerializedName("time")
@@ -18,7 +19,7 @@ data class PanicAttack(
 
     @SerializedName("symptoms")
     val symptoms: List<PanicSymptom>
-)
+): Parcelable
 
 @Parcelize
 data class PanicTrigger(
@@ -27,7 +28,7 @@ data class PanicTrigger(
     val name: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean,
+    val userCreated: Boolean = false,
 
     @SerializedName("id")
     val id: Int = -1
@@ -47,7 +48,7 @@ data class PanicSymptom(
     val name: String,
 
     @SerializedName("user_created")
-    val userCreated: Boolean,
+    val userCreated: Boolean = false,
 
     @SerializedName("id")
     val id: Int = -1

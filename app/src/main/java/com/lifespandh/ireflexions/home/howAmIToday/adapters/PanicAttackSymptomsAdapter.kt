@@ -9,11 +9,7 @@ import com.lifespandh.irefgraphs.ButtonType
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
-import com.lifespandh.ireflexions.models.PanicAttackSymptom
-import com.lifespandh.ireflexions.models.PanicAttackSymptoms
-import com.lifespandh.ireflexions.models.PanicAttackTrigger
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
-import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
 import com.lifespandh.ireflexions.utils.removeOrAdd
 
 class PanicAttackSymptomsAdapter(

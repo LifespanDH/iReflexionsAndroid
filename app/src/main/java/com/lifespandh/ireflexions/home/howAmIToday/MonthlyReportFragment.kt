@@ -27,6 +27,7 @@ import com.lifespandh.ireflexions.home.howAmIToday.adapters.monthly.PanicAttackL
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.Emotion
 import com.lifespandh.ireflexions.models.howAmIToday.EmotionData
+import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.utils.EMOTIONS
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
 import com.lifespandh.ireflexions.utils.MOVEMENT
@@ -39,6 +40,7 @@ import com.lifespandh.ireflexions.utils.date.getCurrentMonth
 import com.lifespandh.ireflexions.utils.date.getCurrentMonthInt
 import com.lifespandh.ireflexions.utils.date.getCurrentYear
 import com.lifespandh.ireflexions.utils.date.getStartEndCurrentMonth
+import com.lifespandh.ireflexions.utils.deserializeFromJson
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -304,6 +306,8 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
     }
 
     override fun onPanicItemClick(pair: Pair<String, JsonElement>) {
-        TODO("Not yet implemented")
+        val panicAttack = pair.second.deserializeFromJson(PanicAttack::class.java)
+        val action = MonthlyReportFragmentDirections.actionMonthlyReportFragmentToPanicAttackDialogFragment(panicAttack = panicAttack)
+        findNavController().navigate(action)
     }
 }

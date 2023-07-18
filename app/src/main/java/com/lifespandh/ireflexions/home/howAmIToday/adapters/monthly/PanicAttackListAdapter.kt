@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonElement
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.PanicAttack
+import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.utils.date.DATE_TIME_FORMAT
 import com.lifespandh.ireflexions.utils.date.DATE_TIME_MILLI_LONG_FORMAT
 import com.lifespandh.ireflexions.utils.date.changeDateTimeFormat
 import com.lifespandh.ireflexions.utils.date.getDateInHumanFormat
 import com.lifespandh.ireflexions.utils.deserializeFromJson
 import com.lifespandh.ireflexions.utils.logs.logD
+import com.lifespandh.ireflexions.utils.logs.logE
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.util.Calendar
@@ -51,8 +52,7 @@ class PanicAttackListAdapter(
 
         fun bind(pair: Pair<String, JsonElement>) {
             panicAttackText.text = "${pair.first} ${pair.second.asJsonObject["time"].asString.changeDateTimeFormat(DATE_TIME_MILLI_LONG_FORMAT, DATE_TIME_FORMAT)}"
-            var panic = pair.second.deserializeFromJson(PanicAttack::class.java)
-            logD("${panic?.time} ${panic?.intensity} ${panic?.symptomResults} ${panic?.triggerResults} ${pair.second} ")
+
             panicAttackText.setOnClickListener {
                 listener.onPanicItemClick(pair)
             }

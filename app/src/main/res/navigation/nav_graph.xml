@@ -129,6 +129,11 @@
         <action
             android:id="@+id/action_monthlyReportFragment_to_journalEntryViewFragment"
             app:destination="@id/journalEntryViewFragment" />
+        <action
+            android:id="@+id/action_monthlyReportFragment_to_journalEntryViewFragment2"
+            app:destination="@id/journalEntryViewFragment" />
+        <action android:id="@+id/action_monthlyReportFragment_to_panicAttackDialogFragment"
+            app:destination="@id/panicAttackDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/careCenterExerciseFragment"
@@ -298,6 +303,12 @@
         android:id="@+id/panicAttackDialogFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.PanicAttackDialogFragment"
         android:label="PanicAttackDialogFragment">
+
+        <argument
+            android:name="panicAttack"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.howAmIToday.PanicAttack"
+            app:nullable="true" />
 
 <!--        <argument-->
 <!--            android:name="panicSymptoms"-->

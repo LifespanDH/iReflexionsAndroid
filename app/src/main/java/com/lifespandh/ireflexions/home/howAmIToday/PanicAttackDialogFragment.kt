@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
@@ -18,15 +19,20 @@ import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
 import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom
 import com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_MILLI_LONG_FORMAT
+import com.lifespandh.ireflexions.utils.date.TIME_FORMAT
+import com.lifespandh.ireflexions.utils.date.changeDateTimeFormat
 import com.lifespandh.ireflexions.utils.date.getDateTimeInFormat
 import com.lifespandh.ireflexions.utils.date.getTimeInFormat
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeGone
 import com.lifespandh.ireflexions.utils.ui.toast
 import com.lifespandh.ireflexions.utils.ui.trimString
 import kotlinx.android.synthetic.main.fragment_edit_support_contact.view.save_button
 import kotlinx.android.synthetic.main.fragment_panic_attack.edt_time
 import kotlinx.android.synthetic.main.fragment_panic_attack.intensitySlider
+import kotlinx.android.synthetic.main.fragment_panic_attack.view.btn_discard
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.btn_save
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.edt_time
 import kotlinx.android.synthetic.main.fragment_panic_attack.view.img_close
@@ -41,9 +47,11 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
 
     private lateinit var view: View
 
+    private var panicAttack: PanicAttack? = null
+
     private val panicAttackTriggersAdapter by lazy { PanicAttackTriggersAdapter(mutableListOf(), this, howAmITodayViewModel) }
     private val panicAttackSymptomsAdapter by lazy { PanicAttackSymptomsAdapter(mutableListOf(), this, howAmITodayViewModel) }
-
+    private val args by navArgs<PanicAttackDialogFragmentArgs>()
     private val howAmITodayViewModel by activityViewModels<HowAmITodayViewModel> { viewModelFactory }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -78,13 +86,31 @@ class PanicAttackDialogFragment : BaseDialogFragment(), PanicAttackTriggersAdapt
     }
 
     private fun init() {
+        getBundleValues()
         setViews()
         setObservers()
         setListeners()
+
+        panicAttack?.let {
+            panicAttackSymptomsAdapter.setList(it.symptoms)
+            panicAttackTriggersAdapter.setList(it.triggers)
+
+            view.btn_save.makeGone()
+            view.edt_time.text = it.time.changeDateTimeFormat(DATE_TIME_MILLI_LONG_FORMAT, TIME_FORMAT)
+            view.intensitySlider.progress = it.intensity.toFloat()
+        }
     }
 
-    private fun setListeners(){
+    private fun getBundleValues() {
+        panicAttack = args.panicAttack
+    }
+
+    private fun setListeners() {
         view.img_close.setOnClickListener {
+            dismiss()
+        }
+
+        view.btn_discard.setOnClickListener {
             dismiss()
         }
 
