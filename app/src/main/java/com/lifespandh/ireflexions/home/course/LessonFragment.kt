@@ -34,6 +34,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
     private val args: LessonFragmentArgs by navArgs()
 
+    private var lessonCount = 0
     private var programId: Int = -1
     private var courseId = -1
     private var courseProgress = 0f
@@ -65,16 +66,17 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         val currentBackStackEntry = findNavController().currentBackStackEntry
         val savedStateHandle = currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<Boolean>(LessonContentFragment.LESSON_RESULT)
-            ?.observe(currentBackStackEntry, Observer { result ->
-                if (result)
-                    lessonNumber += 1
+            ?.observeFreshly(currentBackStackEntry, Observer { result ->
+                if (result) {
+                    lessonCount += 1
+                }
             })
     }
 
     private fun setObservers() {
         homeViewModel.lessonsLiveData.observeFreshly(this) {
             lessonAdapter.setList(it)
-            lessonNumber = (courseProgress * it.size).toInt()
+            lessonNumber = (courseProgress * it.size).toInt() + lessonCount
             logE("called here $lessonNumber $courseProgress")
             setCurrentLesson(it)
         }

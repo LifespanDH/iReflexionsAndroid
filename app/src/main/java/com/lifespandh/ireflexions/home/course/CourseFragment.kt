@@ -90,8 +90,8 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
         tvCurrentProgramCourses.text = "${parentProgram?.name} courses"
 
-        currentProgress.text = "${userProgramProgress?.courseProgress?.toInt() ?: 0}%"
-        currentCourseProgressBar.progress = userProgramProgress?.courseProgress?.toInt() ?: 0
+        currentProgress.text = "${(userProgramProgress?.courseProgress?.times(100))?.toInt() ?: 0}%"
+        currentCourseProgressBar.progress = (userProgramProgress?.courseProgress?.times(100))?.toInt() ?: 0
     }
 
     private fun setViews(currentCourse: Course) {
@@ -106,7 +106,8 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
 
     private fun setCurrentCourse(courses: List<Course>) {
         courseNumber = if (courseNumber == null) ((userProgramProgress?.courseNumber)) else courseNumber
-        logE("called here $courseNumber ${userProgramProgress?.courseNumber}")
+        if (courseNumber!! >= courses.size)
+            return
         if (courses.size >= courseNumber!!) {
             currentCourse = courses.get(courseNumber!!)
             currentCourseTitle.text = currentCourse?.name
