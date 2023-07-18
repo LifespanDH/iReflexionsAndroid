@@ -105,9 +105,10 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
     }
 
     private fun setCurrentCourse(courses: List<Course>) {
-        courseNumber = if (courseNumber == null) (userProgramProgress?.courseNumber ?: 1) else courseNumber
-        if (courseNumber!! > 0 && courses.size >= courseNumber!! - 1) {
-            currentCourse = courses.get(courseNumber!! - 1)
+        courseNumber = if (courseNumber == null) ((userProgramProgress?.courseNumber)) else courseNumber
+        logE("called here $courseNumber ${userProgramProgress?.courseNumber}")
+        if (courses.size >= courseNumber!!) {
+            currentCourse = courses.get(courseNumber!!)
             currentCourseTitle.text = currentCourse?.name
             currentCourseDescription.text = currentCourse?.description
             // Set image here
@@ -119,6 +120,7 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         val savedStateHandle = currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<Boolean>(LessonFragment.RESULT)
             ?.observe(currentBackStackEntry, Observer { result ->
+                logE("called back $result")
                 if (result)
                     courseNumber = courseNumber?.plus(1)
             })
@@ -128,12 +130,17 @@ class CourseFragment : BaseFragment(), CoursesAdapter.OnCourseClick {
         fun newInstance() = CourseFragment()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        courseNumber = null
+    }
+
     override fun onCourseClick(course: Course) {
         if (course.id != currentCourse?.id) {
             toast("You need to complete the previous courses first")
         } else {
-            val lessonNumber = userProgramProgress?.lessonNumber ?: 1
-            val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(programId = parentProgram?.id ?: -1, courseId = course.id, lessonNumber = lessonNumber)
+//            val lessonNumber = (userProgramProgress?.lessonNumber?.plus(1)) ?: 1
+            val action = CourseFragmentDirections.actionCourseFragmentToLessonFragment(programId = parentProgram?.id ?: -1, courseId = course.id, courseProgress = userProgramProgress?.courseProgress ?: 0f)
             findNavController().navigate(action)
         }
     }

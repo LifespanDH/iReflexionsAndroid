@@ -10,8 +10,8 @@ data class UserProgramProgress (
     @SerializedName("course_number")
     val courseNumber: Int?,
 
-    @SerializedName("lesson_number")
-    val lessonNumber: Int?,
+//    @SerializedName("lesson_number")
+//    val lessonNumber: Int?,
 
     @SerializedName("program_progress")
     val programProgress: Float?,

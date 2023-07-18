@@ -209,9 +209,9 @@
             app:argType="integer" />
 
         <argument
-            android:name="lessonNumber"
+            android:name="courseProgress"
             android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="float" />
         <action
             android:id="@+id/action_lessonFragment_to_lessonContentFragment"
             app:destination="@id/lessonContentFragment" />

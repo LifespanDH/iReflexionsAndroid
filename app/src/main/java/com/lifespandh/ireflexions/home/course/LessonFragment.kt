@@ -36,6 +36,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
     private var programId: Int = -1
     private var courseId = -1
+    private var courseProgress = 0f
     private var currentLesson: Lesson? = null
     private var lessonNumber: Int = 0
 
@@ -73,6 +74,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private fun setObservers() {
         homeViewModel.lessonsLiveData.observeFreshly(this) {
             lessonAdapter.setList(it)
+            lessonNumber = (courseProgress * it.size).toInt()
+            logE("called here $lessonNumber $courseProgress")
             setCurrentLesson(it)
         }
     }
@@ -87,7 +90,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         }
     }
 
-    private fun setViews(){
+    private fun setViews() {
         rvLessons.apply {
             adapter = lessonAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -96,14 +99,15 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun setCurrentLesson(lessons: List<Lesson>) {
+        logE("called $lessonNumber ${lessons.size}")
         if (lessonNumber >= lessons.size) {
             val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
             savedStateHandle?.set(RESULT, true)
             findNavController().navigateUp()
             return
         }
-        if (lessonNumber > 0 && lessons.size >= lessonNumber - 1) {
-            currentLesson = lessons.get(lessonNumber - 1)
+        if (lessons.size >= lessonNumber) {
+            currentLesson = lessons.get(lessonNumber)
             currentLessonName.text = currentLesson?.name
         }
     }
@@ -111,7 +115,8 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private fun getBundleValues() {
         programId = args.programId
         courseId = args.courseId
-        lessonNumber = args.lessonNumber
+        courseProgress = args.courseProgress
+//        lessonNumber = args.lessonNumber
     }
 
     companion object {

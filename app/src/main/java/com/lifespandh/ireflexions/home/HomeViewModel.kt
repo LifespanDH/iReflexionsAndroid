@@ -243,7 +243,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
         }
     }
 
-    fun getUserProgramProgress(){
+    fun getUserProgramProgress() {
         viewModelScope.launch {
             val response = homeRepo.getUserProgramProgress()
 
