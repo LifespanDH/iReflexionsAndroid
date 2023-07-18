@@ -14,11 +14,15 @@ import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeeklyReportAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.DATE_TIME_LONG_FORMAT
 import com.lifespandh.ireflexions.utils.date.DateInfo
 import com.lifespandh.ireflexions.utils.date.WEEK_START_DATE
+import com.lifespandh.ireflexions.utils.date.changeDateTimeFormat
 import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.getWeekDates
+import com.lifespandh.ireflexions.utils.date.toDate
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
@@ -143,7 +147,7 @@ class WeeklyReportFragment : BaseFragment(),
     }
 
     override fun onAddEntryClicked(date: String) {
-        val parsedDate = parser.parse(date)
+        val parsedDate = date.changeDateTimeFormat(DATE_FORMAT, DATE_TIME_LONG_FORMAT).getDateInFormat()
         val action = WeeklyReportFragmentDirections.actionWeeklyReportFragmentToHowAmICreateEntryFragment(parsedDate)
         findNavController().navigate(action)
     }
