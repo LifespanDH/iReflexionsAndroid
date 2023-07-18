@@ -93,16 +93,9 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
             if(it != null) {
                 dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+                userProgramProgress = null
                 updateCurrentProgram(listOf(it))
             }
-        }
-
-        tokenViewModel.token.observeFreshly(this) {
-            logE("called token $it")
-        }
-
-        tokenViewModel.refreshToken.observeFreshly(this) {
-            logE("called refresh $it")
         }
     }
 
@@ -132,10 +125,18 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
             toast("Show registration dialog here")
         } else {
             if (currentProgram?.id == program.id) {
+                if (userProgramProgress?.programProgress == 1f) {
+                    toast("You have already completed the program")
+                    return
+                }
                 val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
                 findNavController().navigate(action)
             } else {
-                toast("You can register to only one program at a time")
+                if (userProgramProgress?.programProgress == 1f) {
+                    onProgramEnroll(program)
+                } else {
+                    toast("You can register to only one program at a time")
+                }
             }
         }
     }
