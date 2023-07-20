@@ -75,8 +75,9 @@ class RegistrationActivity : BaseActivity() {
 
     private fun setObservers() {
         authViewModel.userRegisteredLiveData.observeFreshly(this) {
-            dialogUtils.showMessageDialog(this, "Success", "User Registered")
-            finish()
+            dialogUtils.showMessageDialog(this, "Success", "User Registered", {
+                finish()
+            })
         }
 
         authViewModel.errorLiveData.observeFreshly(this) {
