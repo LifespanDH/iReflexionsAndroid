@@ -92,7 +92,7 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 
         homeViewModel.userEnrolledLiveData.observeFreshly(this) {
             if(it != null) {
-                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User registered successfully")
+                dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User enrolled successfully")
                 userProgramProgress = null
                 updateCurrentProgram(listOf(it))
             }
@@ -122,7 +122,7 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 
     override fun onItemClick(program: Program) {
         if (currentProgram == null) {
-            toast("Show registration dialog here")
+            //toast("Show registration dialog here")
         } else {
             if (currentProgram?.id == program.id) {
                 if (userProgramProgress?.programProgress == 1f) {
