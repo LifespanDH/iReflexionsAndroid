@@ -199,7 +199,7 @@
             android:layout_gravity="center_horizontal"
             android:clickable="false"
             android:fontFamily="@font/montserrat"
-            android:text="@string/immersion"
+            android:text="EXERCISES"
             android:textColor="@color/icon_title_color"
             android:textSize="12sp" />
 
