@@ -124,7 +124,7 @@ class CareCenterFragment : BaseFragment(), PermissionLauncher.OnPermissionResult
 
         call_therapist_button.setOnClickListener {
             if (sharedPrefs.isLoggedIn) {
-                val phone = "+16232432774"
+                val phone = "+(520)5574479"
                 openPhoneApp(phone)
             }
             else {

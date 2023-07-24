@@ -85,7 +85,7 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
                 }
             }
             // Need to add api call here
-            toast("You got $correctAnswers out of ${lessonQuestions.size} correct")
+//            toast("You got $correctAnswers out of ${lessonQuestions.size} correct")
             saveProgress()
         }
     }
