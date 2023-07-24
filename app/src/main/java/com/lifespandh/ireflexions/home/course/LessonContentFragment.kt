@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.home.course
 
 import android.os.Bundle
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -70,7 +71,7 @@ class LessonContentFragment : BaseFragment() {
             .load(lesson?.image)
             .into(image)
         //setImage
-        lessonContentTV.text = lesson?.content
+        lessonContentTV.text = Html.fromHtml(lesson?.content, Html.FROM_HTML_MODE_COMPACT)
         lessonContentTV.setMovementMethod(ScrollingMovementMethod())
     }
 
