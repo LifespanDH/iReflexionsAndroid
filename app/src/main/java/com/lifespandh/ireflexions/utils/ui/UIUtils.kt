@@ -1,6 +1,7 @@
 package com.lifespandh.ireflexions.utils.ui
 
 import android.content.Context
+import android.content.res.Resources.getSystem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -49,3 +50,5 @@ fun areStringsEmpty(vararg strings: String): Boolean {
     }
     return false
 }
+
+val Int.dp: Int get() = (this / getSystem().displayMetrics.density).toInt()

@@ -2,7 +2,12 @@ package com.lifespandh.ireflexions.api
 
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.EnvironmentalCondition
+import com.lifespandh.ireflexions.models.howAmIToday.HowAmITodayData
+import com.lifespandh.ireflexions.models.howAmIToday.TraitCategory
+import com.lifespandh.ireflexions.models.howAmIToday.WeeklyReport
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.*
 import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
@@ -45,7 +50,7 @@ interface ApiClient {
     suspend fun getUserProgramProgress(): UserProgramProgress
 
     @POST(ADD_USER_TO_PROGRAM)
-    suspend fun addUserToProgram(@Body requestBody: RequestBody): JsonObject
+    suspend fun addUserToProgram(@Body requestBody: RequestBody): Program
 
     @POST(GET_COURSES)
     @Headers("Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgxNjA5NzM4LCJpYXQiOjE2ODE1OTg5MzgsImp0aSI6IjM0NTQ0MWI0ZDZmOTRhYmFiZGM0OTgzYzEzYmIwNTJjIiwidXNlcl9pZCI6Ik5vbmUifQ.vw0ON_CiGDSzeR9TizTDsHjHwqJrJUH9YY12bSM4eG0")
@@ -81,5 +86,27 @@ interface ApiClient {
     @GET(GET_RESOURCE_CONTENT)
     suspend fun getResourceContent(): List<ResourceLibraryItem>
 
+    @GET(GET_TRAIT_CATEGORIES)
+    suspend fun getTraitCategories(): List<TraitCategory>
 
+    @GET(GET_WHATS_HAPPENING)
+    suspend fun getWhatsHappening(): List<WhatsHappening>
+
+    @GET(GET_ENVIRONMENTAL_CONDITIONS)
+    suspend fun getEnvironmentalConditions(): List<EnvironmentalCondition>
+
+    @GET(GET_HOW_AM_I_TODAY_DATA)
+    suspend fun getHowAmITodayData(): HowAmITodayData
+
+    @POST(ADD_DAILY_CHECK_IN_ENTRY)
+    suspend fun addDailyCheckInEntry(@Body dailyCheckInEntry: DailyCheckInEntry): DailyCheckInEntry
+
+    @POST(GET_DAILY_ENTRIES)
+    suspend fun getDailyEntries(@Body requestBody: RequestBody): List<DailyCheckInEntry>
+
+    @POST(GET_WEEKLY_ENTRIES)
+    suspend fun getWeeklyEntries(@Body requestBody: RequestBody): List<WeeklyReport>
+
+    @POST(GET_MONTHLY_ENTRIES)
+    suspend fun getMonthlyReports(@Body requestBody: RequestBody): JsonObject
 }

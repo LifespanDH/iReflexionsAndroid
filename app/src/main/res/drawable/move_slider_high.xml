@@ -1,0 +1,29 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:name="slider_movement_high"
+    android:width="80dp"
+    android:height="20dp"
+    android:viewportWidth="80"
+    android:viewportHeight="20">
+  <!-- Group -->
+  <group
+      android:name="group">
+
+    <!-- Bezier -->
+    <path
+        android:name="bezier"
+        android:pathData="M 3.5,10 L 76.5,10 "
+        android:fillColor="#FF65AAA5"
+        android:strokeColor="#FFB59F3F"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Oval -->
+    <path
+        android:name="oval"
+        android:pathData="M 79,10 C 79,14.97 74.97,19 70,19 C 65.03,19 61,14.97 61,10 C 61,5.03 65.03,1 70,1 C 74.97,1 79,5.03 79,10 Z"
+        android:fillColor="#FFB59F3F" />
+  </group>
+</vector>

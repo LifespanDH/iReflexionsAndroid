@@ -23,8 +23,6 @@ class CourseListProgramAdapter(
     private val listener: OnItemClicked
 ) : BaseRecyclerViewAdapter() {
 
-    private var currentProgram: Program? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ProgramViewHolder(getView(R.layout.program_item, parent))
     }
@@ -43,26 +41,15 @@ class CourseListProgramAdapter(
         notifyDataSetChanged()
     }
 
-    fun setCurrentProgram(currentProgram: Program?) {
-        this.currentProgram = currentProgram
-        var index = -1
-        kotlin.run {
-            programs.forEachIndexed { i, program ->
-                if (program.id == currentProgram?.id) {
-                    index = i
-                    return@run
-                }
-            }
-        }
-
-        if (index != -1)
-            notifyItemChanged(index)
+    fun setEnrolled(program: Program) {
+        for (p in this.programs)
+            p.isRegistered = p.id == program.id
+        notifyDataSetChanged()
     }
 
     inner class ProgramViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val myTextView: TextView = itemView.findViewById(R.id.txt_program)
-//        private val textScore: TextView = itemView.findViewById(R.id.txt_match)
         private val textEnroll: TextView = itemView.findViewById(R.id.txt_enroll)
         private val textEnrolled: TextView = itemView.findViewById(R.id.txtEnrolled)
 
@@ -73,20 +60,14 @@ class CourseListProgramAdapter(
         private val progressBarText: TextView = itemView.findViewById(R.id.progressBarText)
         private val progressBar: ProgressBar = itemView.findViewById(R.id.programProgressBar)
 
-
-        private val guidelineContainerBottom: Guideline = itemView.findViewById(R.id.guidelineContainerBottom)
-       // private val guidelineContainerEnd: Guideline = itemView.findViewById(R.id.guidelineContainerEnd)
-
-        private val displaymetrics = DisplayMetrics()
-
         fun bind(program: Program) {
             myTextView.text = program.name
-            if (program.img != null) {
-                Glide.with(getContext()).load(program.img).into(imgCard)
+            if (program.image != null) {
+                Glide.with(getContext()).load(program.image).into(imgCard)
             }
 
-            textEnrolled.isVisible = program.id == currentProgram?.id
-            textEnroll.isVisible = program.id != currentProgram?.id
+            textEnrolled.isVisible = program.isRegistered
+            textEnroll.isVisible = !program.isRegistered
 
             progressBarText.visibility = View.INVISIBLE
             progressBar.visibility = View.INVISIBLE

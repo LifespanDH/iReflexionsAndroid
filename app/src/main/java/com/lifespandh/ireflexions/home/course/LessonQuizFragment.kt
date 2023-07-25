@@ -1,52 +1,43 @@
 package com.lifespandh.ireflexions.home.course
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
 import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.models.Course
 import com.lifespandh.ireflexions.models.Lesson
 import com.lifespandh.ireflexions.models.LessonQuestion
-import com.lifespandh.ireflexions.models.Program
-import com.lifespandh.ireflexions.models.QUESTION_TYPE
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
+import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.COURSE_ID
-import com.lifespandh.ireflexions.utils.network.COURSE_NUMBER
 import com.lifespandh.ireflexions.utils.network.LESSON_ID
-import com.lifespandh.ireflexions.utils.network.LESSON_NUMBER
 import com.lifespandh.ireflexions.utils.network.PROGRAM_ID
 import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
-import com.lifespandh.ireflexions.utils.ui.makeGone
-import com.lifespandh.ireflexions.utils.ui.makeVisible
-import kotlinx.android.synthetic.main.item_multiplechoice.view.answersRecyclerView
-import kotlinx.android.synthetic.main.item_quiz.view.customAnswerEditText
-import kotlinx.android.synthetic.main.item_quiz.view.multipleChoiceContainer
-import kotlinx.android.synthetic.main.item_quiz.view.question_text
-import kotlinx.android.synthetic.main.item_quiz.view.trueFalseContainer
-import kotlinx.android.synthetic.main.lesson_quiz.itemQuiz
-import kotlinx.android.synthetic.main.lesson_quiz.nextButton
-import kotlinx.android.synthetic.main.lesson_quiz.previousButton
+import com.lifespandh.ireflexions.utils.ui.toast
+import kotlinx.android.synthetic.main.lesson_quiz.questionsRecyclerView
+import kotlinx.android.synthetic.main.lesson_quiz.submitQuizButton
 
-
-class LessonQuizFragment : BaseFragment() {
+class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
 
     private var lesson: Lesson? = null
-    private var parentProgram: Program? = null
-    private var parentCourse: Course? = null
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private var programId: Int = -1
+    private var courseId = -1
+
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
     private val args: LessonQuizFragmentArgs by navArgs()
     private lateinit var viewPager: ViewPager2
-    private var lessons = listOf<LessonQuestion>()
-    private var questionNumber = 1
-    private val selectedAnswers = mutableMapOf<Int, String>()
+    private var lessonQuestions = listOf<LessonQuestion>()
+
+    private val selectedAnswers = mutableMapOf<Int, Int>()
+
+    private val questionsAdapter by lazy { QuestionsAdapter(listOf(), this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,87 +53,78 @@ class LessonQuizFragment : BaseFragment() {
     }
 
     private fun init() {
-        getLessonQuestions()
         getBundleValues()
+        getLessonQuestions()
         setListeners()
         setObservers()
         setViews()
     }
 
-    private fun setQuestion(questionNumber: Int) {
-        val lessonQuestion = lessons[questionNumber - 1]
-        itemQuiz.multipleChoiceContainer.makeGone()
-        itemQuiz.trueFalseContainer.makeGone()
-        itemQuiz.customAnswerEditText.makeGone()
-
-
-        when(lessonQuestion.questionType) {
-            QUESTION_TYPE.MULTIPLE_CHOICE.type -> {
-                itemQuiz.multipleChoiceContainer.makeVisible()
-                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-            }
-            QUESTION_TYPE.TRUE_FALSE.type -> {
-                itemQuiz.trueFalseContainer.makeVisible()
-            }
-            QUESTION_TYPE.INPUT.type -> {
-                itemQuiz.customAnswerEditText.makeVisible()
-            }
-            else -> {
-                itemQuiz.multipleChoiceContainer.makeVisible()
-                setAnswersRecyclerView(questionNumber, lessonQuestion.answers)
-            }
-        }
-        itemQuiz.question_text.text = lessonQuestion.question
-    }
-
-    private fun setAnswersRecyclerView(questionNumber: Int, answers: List<String>) {
-        val quizAnswersAdapter = QuizAnswersAdapter(answers)
-        itemQuiz.multipleChoiceContainer.answersRecyclerView.apply {
+    private fun setViews() {
+        questionsRecyclerView.apply {
+            adapter = questionsAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = quizAnswersAdapter
         }
     }
 
     private fun getBundleValues() {
-        parentProgram = args.parentProgram
-        parentCourse = args.parentCourse
+        programId = args.programId
+        courseId = args.courseId
         lesson = args.parentLesson
     }
 
     private fun setListeners() {
-        previousButton.setOnClickListener {
-            selectedAnswers[questionNumber] = ""
-            questionNumber -= 1
-            setQuestion(questionNumber)
-        }
+        submitQuizButton.setOnClickListener {
+            var correctAnswers = 0
+            lessonQuestions.forEach {
+                val correctAnswer = it.correctAnswer
+                val userAnswer = selectedAnswers.get(it.id) ?: -1
 
-        nextButton.setOnClickListener {
-            selectedAnswers[questionNumber] = ""
-            questionNumber += 1
-            setQuestion(questionNumber)
+                if (userAnswer != -1 && correctAnswer == userAnswer + 1) {
+                    correctAnswers += 1
+                }
+            }
+            // Need to add api call here
+//            toast("You got $correctAnswers out of ${lessonQuestions.size} correct")
+            saveProgress()
         }
     }
 
     private fun setObservers() {
         homeViewModel.lessonQuestionsLiveData.observeFreshly(this) {
-            lessons = it
-            setQuestion(questionNumber)
+            lessonQuestions = it
+            questionsAdapter.setList(it)
         }
 
+        homeViewModel.programProgressLiveData.observeFreshly(this) {
+            val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
+            savedStateHandle?.set(QUIZ_RESULT, "true")
+            findNavController().navigateUp()
+        }
+
+        homeViewModel.saveProgressLiveData.observeFreshly(this) {
+            homeViewModel.getUserProgramProgress()
+        }
     }
 
     private fun getLessonQuestions() {
-        val requestBody = createJsonRequestBody(LESSON_ID to 0)
+        val requestBody = createJsonRequestBody(LESSON_ID to lesson?.id)
         homeViewModel.getLessonQuestions(requestBody)
     }
 
     private fun saveProgress() {
-        val requestBody = createJsonRequestBody(COURSE_ID to parentCourse?.id , LESSON_ID to lesson?.id, PROGRAM_ID to parentProgram?.id)
+        val requestBody = createJsonRequestBody(COURSE_ID to courseId, LESSON_ID to lesson?.id, PROGRAM_ID to programId)
         homeViewModel.saveProgramProgress(requestBody)
     }
 
-    private fun setViews() {
+    override fun onAnswerSelected(choice: String, answerPosition: Int, questionId: Int) {
+        logE("called $choice $answerPosition $questionId")
+        selectedAnswers[questionId] = answerPosition
+    }
 
+    companion object {
+
+        const val QUIZ_RESULT = "quiz_result"
     }
 
 }

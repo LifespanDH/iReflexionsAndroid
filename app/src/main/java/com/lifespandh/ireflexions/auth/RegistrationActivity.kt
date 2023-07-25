@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.models.User
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
 import com.lifespandh.ireflexions.utils.date.getDateAfterDays
 import com.lifespandh.ireflexions.utils.date.getDateInFormat
 import com.lifespandh.ireflexions.utils.date.toDate
@@ -62,10 +63,9 @@ class RegistrationActivity : BaseActivity() {
             val email = email.trimString()
             val phone = phone.trimString()
             val region = region.trimString()
-            val dob = dateOfBirth.trimString().toDate()
+            val dob = dateOfBirth.trimString().getDateInFormat(DATE_FORMAT)
             val password = password.trimString()
 
-            logE("${dateOfBirth.trimString()} ${dateOfBirth.trimString().toDate()} $dob")
             val user = dob?.let { it1 -> User(name, email, phone, it1, region, password) }
             if (user != null) {
                 authViewModel.registerUser(user)
@@ -75,8 +75,9 @@ class RegistrationActivity : BaseActivity() {
 
     private fun setObservers() {
         authViewModel.userRegisteredLiveData.observeFreshly(this) {
-            dialogUtils.showMessageDialog(this, "Success", "User Registered")
-            finish()
+            dialogUtils.showMessageDialog(this, "Success", "User Registered", {
+                finish()
+            })
         }
 
         authViewModel.errorLiveData.observeFreshly(this) {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.lifespandh.irefgraphs.ButtonShadowView
+        android:id="@+id/btn_circle_item"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_item"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        android:src="@drawable/ic_heartbreak"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_circle_item"
+        app:layout_constraintEnd_toEndOf="@+id/btn_circle_item"
+        app:layout_constraintStart_toStartOf="@+id/btn_circle_item"
+        app:layout_constraintTop_toTopOf="@+id/btn_circle_item" />
+
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_light"
+        android:gravity="center"
+        android:textColor="@color/icon_title_color"
+        android:textSize="11sp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_circle_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

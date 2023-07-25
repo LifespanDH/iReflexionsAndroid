@@ -11,10 +11,12 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
 import com.lifespandh.ireflexions.models.CareCenterExercise
 import com.lifespandh.ireflexions.utils.logs.logE
+import kotlinx.android.synthetic.main.fragment_lesson_content.image
 
 class CareCenterExerciseAdapter(
     private var exercises: List<CareCenterExercise>
@@ -93,6 +95,9 @@ class CareCenterExerciseAdapter(
         private val seekBar: SeekBar = itemView.findViewById(R.id.seekBar)
 
         fun bind(careCenterExercise: CareCenterExercise) {
+            Glide.with(getContext())
+                .load(careCenterExercise?.image)
+                .into(imgExercise)
             titleExercise.text = careCenterExercise.name
             descExercise.text = careCenterExercise.description
 

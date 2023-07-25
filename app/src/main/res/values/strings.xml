@@ -264,6 +264,7 @@
     <string name="environmental_conditions">Environmental Conditions</string>
     <string name="movement">Movement</string>
     <string name="title_movement">Movement:</string>
+    <string name="title_exercise">Exercise:</string>
     <string name="no_body_movement">No Body \nMovement</string>
     <string name="intense_body_movement">Intense Body \nMovement</string>
     <string name="sleep">Sleep</string>
@@ -357,9 +358,20 @@
     </string-array>
 
     <string-array name="movementLabels">
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
+        <item>1-2</item>
+        <item>3</item>
+        <item>4-5</item>
+    </string-array>
+
+    <string-array name="sleepLabels">
+        <item>0</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
     </string-array>
 
     <string name="game_view_content_description">Game View</string>
@@ -406,6 +418,7 @@
     <string name="biofeedback_coming_soon">Coming soon…</string>
     <string name="home_message_text_crisis_line">Home</string>
     <string name="teen2teen_message_text_crisis_line">teen2teen</string>
+    <string name="start_message_text_crisis_line">START</string>
     <string name="loading_courses_message">Loading courses</string>
     <string name="error_message_unenroll">Sorry, there was a server error. Please choose another program from the list to unenroll of current program!</string>
 

@@ -14,7 +14,10 @@ data class Program (
     val name: String,
 
     @SerializedName("image")
-    val img: String?
+    val image: String?,
+
+    @SerializedName("is_registered")
+    var isRegistered: Boolean
 
 //    @SerializedName("courses")
 //    val courses: List<Course>

@@ -6,6 +6,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -18,9 +20,14 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+//    buildFeatures {
+//        buildConfig = true
+//    }
 
     buildTypes {
         release {
@@ -32,12 +39,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://1857-2601-8c0-801-b4d0-20cf-3f0e-1177-1152.ngrok-free.app/\"")
-
+            buildConfigField("String", "BASE_URL", "\"http://18.206.4.70/\"")
         }
     }
     compileOptions {
-//        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -50,6 +56,8 @@ dependencies {
 
     // local modules
     implementation project(':unityLibraryDebug')
+    implementation project(':irefgraphs')
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
@@ -139,7 +147,7 @@ dependencies {
     implementation 'com.amplifyframework:aws-auth-cognito:2.5.0'
 
 //    // Support for Java 8 features
-//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
@@ -155,6 +163,14 @@ dependencies {
     // Lottie Files
     def lottieVersion = "6.0.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    // Calendar View
+    implementation 'com.kizitonwose.calendar:view:2.4.0-beta01'
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
 }
 

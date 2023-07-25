@@ -4,14 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.lifespandh.ireflexions.R
+import com.lifespandh.ireflexions.auth.LoginActivity
 import com.lifespandh.ireflexions.base.BaseActivity
 import com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.ui.toast
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.app_bar_main.arrowBack
+import kotlinx.android.synthetic.main.app_bar_main.drawerMenu
 
 class HomeActivity : BaseActivity() {
 
@@ -29,7 +35,6 @@ class HomeActivity : BaseActivity() {
         init()
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_bar_items, menu)
         supportActionBar?.title = null
         return true
     }
@@ -42,9 +47,15 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setListeners() {
-//        back_arrow.setOnClickListener {
-//            onBackPressed()
-//        }
+
+        arrowBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        drawerMenu.setOnClickListener {
+            showPopup(it)
+        }
+
     }
 
     private fun setupFragment(fragment: Fragment = HomeFragment.newInstance()) {
@@ -67,6 +78,28 @@ class HomeActivity : BaseActivity() {
             mBackPressed = System.currentTimeMillis();
         } else {
             navController.navigateUp()
+        }
+    }
+
+    private fun showPopup(v: View) {
+        PopupMenu(this, v).apply {
+            setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener {
+                override fun onMenuItemClick(item: MenuItem?): Boolean {
+                    return when (item?.itemId) {
+
+                        R.id.signOut -> {
+                            tokenViewModel.deleteToken()
+                            tokenViewModel.deleteRefreshToken()
+                            startActivity(LoginActivity.newInstance(this@HomeActivity))
+                            true
+                        }
+                        else -> false
+                    }
+                }
+
+            })
+            inflate(R.menu.menu_home)
+            show()
         }
     }
 

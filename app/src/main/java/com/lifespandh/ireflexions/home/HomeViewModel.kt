@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -74,8 +75,8 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val saveProgressLiveData: LiveData<JsonObject>
         get() = _saveProgressLiveData
 
-    private val _userEnrolledLiveData = MutableLiveData<Boolean>()
-    val userEnrolledLiveData: LiveData<Boolean>
+    private val _userEnrolledLiveData = MutableLiveData<Program>()
+    val userEnrolledLiveData: LiveData<Program>
         get() = _userEnrolledLiveData
 
     private val _resourceContentLiveData = MutableLiveData<List<ResourceLibraryItem>>()
@@ -87,11 +88,9 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
 
-    var selectedPosition = -1
-        set(value) {
-            field = value
-        }
-        get
+    val userProgramProgress: MutableLiveData<UserProgramProgress> = MutableLiveData()
+    val lessonCount: MutableLiveData<Int> = MutableLiveData(0)
+    val courseCount: MutableLiveData<Int> = MutableLiveData(0)
 
     fun getExercises() {
         viewModelScope.launch {
@@ -238,12 +237,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
 
             when(response) {
                 is NetworkResult.Success -> {
-                    Log.d("RegisteredProgramsApiCall", ""+response)
                     val data = response.data
                     _registeredProgramsLiveData.value = data
                 }
                 is NetworkResult.Error -> {
-                    Log.d("RegisteredProgramsApiCall", ""+response.exception)
                     val error = response.exception
                     _errorLiveData.value = error.toString()
                 }
@@ -251,7 +248,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
         }
     }
 
-    fun getUserProgramProgress(){
+    fun getUserProgramProgress() {
         viewModelScope.launch {
             val response = homeRepo.getUserProgramProgress()
 
@@ -260,6 +257,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                     Log.d("ProgramProgressApiCall", ""+response)
                     val data = response.data
                     _programProgressLiveData.value = data
+                    userProgramProgress.value = data
                 }
                 is NetworkResult.Error -> {
                     Log.d("ProgramProgressApiCall", ""+response.exception)
@@ -277,7 +275,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                 is NetworkResult.Success -> {
                     logD("$response")
                     val data = response.data
-                    _userEnrolledLiveData.value = true
+                    _userEnrolledLiveData.value = data
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception

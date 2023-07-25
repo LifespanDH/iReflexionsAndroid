@@ -21,7 +21,8 @@ class ResourceItemAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is ResourceItemAdapter.ResourceItemViewHolder)
-            holder.bind(resourceItems[position])    }
+            holder.bind(resourceItems[position])
+    }
 
     override fun getItemCount(): Int {
         return resourceItems.size

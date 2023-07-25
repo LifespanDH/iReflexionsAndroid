@@ -1,41 +1,60 @@
 package com.lifespandh.ireflexions.home.howAmIToday
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.core.view.isInvisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseFragment
-import com.lifespandh.ireflexions.home.HomeViewModel
+import com.lifespandh.ireflexions.home.howAmIToday.adapters.JournalEntryAdapter
 import com.lifespandh.ireflexions.home.howAmIToday.adapters.WeekAdapter
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.date.DATE
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.getCalendarAfterBefore
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
+import com.lifespandh.ireflexions.utils.date.getWeekDates
+import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
-import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.*
-import java.text.SimpleDateFormat
-import java.util.*
+import com.lifespandh.ireflexions.utils.logs.logD
+import com.lifespandh.ireflexions.utils.network.createJsonRequestBody
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.addCircleImageView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.addCircleImageViewBig
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.arrow_next
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.arrow_previous
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.dailyEntryRecyclerView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.dayView
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.layout_month
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.loader
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.mainLayout
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_add_noentry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_entry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.txt_noentry
+import kotlinx.android.synthetic.main.fragment_how_am_i_no_entry.weekView
+import java.util.Calendar
+import java.util.Date
 
-class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener {
+class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener, JournalEntryAdapter.OnItemClicked {
 
-    private var token: String? = null
     private var toDate = Calendar.getInstance().time
-    private lateinit var weekAdapter: WeekAdapter
+    private val weekAdapter by lazy { WeekAdapter(listOf(), howAmITodayViewModel, this) }
     private val dateBundle = Bundle()
     private lateinit var currentDate: Date
-    private val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+    private val journalEntryAdapter by lazy { JournalEntryAdapter(mutableListOf(), this) }
 
-    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-
-    private val formatDay = SimpleDateFormat("EEE", Locale.US)
-    private val formatMonth = SimpleDateFormat("MMM", Locale.US)
-    private val formatDate = SimpleDateFormat("dd", Locale.US)
-
-    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
+    private val howAmITodayViewModel by viewModels<HowAmITodayViewModel> { viewModelFactory }
+    private val dialogUtils = DialogUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -51,150 +70,93 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
     }
 
     private fun setObservers() {
-        tokenViewModel.token.observeFreshly(viewLifecycleOwner) {
-            token = it
+        howAmITodayViewModel.dailyCheckInEntriesLiveData.observeFreshly(viewLifecycleOwner) {
+            journalEntryAdapter.setList(it)
+            setEntryLayout(it.isEmpty())
+
+            loader.makeGone()
+            mainLayout.makeVisible()
         }
     }
 
     private fun init() {
+        getDailyEntries(getDateInFormat(toDate.time))
+        setViews()
         setListeners()
         setObservers()
+    }
+
+    private fun getDailyEntries(date: String) {
+        loader.makeVisible()
+        mainLayout.makeGone()
+
+        val requestBody = createJsonRequestBody(DATE to date)
+        howAmITodayViewModel.getDailyEntries(requestBody)
+    }
+
+    private fun setViews(){
+        dailyEntryRecyclerView.apply {
+            adapter = journalEntryAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        dayView.apply {
+            layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = weekAdapter
+        }
     }
 
     private fun setListeners() {
         addCircleImageView.setOnClickListener {
             if (System.currentTimeMillis() > toDate.time) {
-                dateBundle.putSerializable("DATE", toDate)
-                findNavController().navigate(
-                    R.id.action_howAmINoEntryFragment_to_howAmICreateEntryFragment,
-                    dateBundle
-                )
+                val action = HowAmINoEntryFragmentDirections.actionHowAmINoEntryFragmentToHowAmICreateEntryFragment(toDate)
+                findNavController().navigate(action)
+            }
+            else {
+                dialogUtils.showMessageDialog(requireContext(), "Error", "Cannot add a post-dated entry")
             }
         }
 
         weekView.setOnClickListener {
-            findNavController().navigate(R.id.action_howAmINoEntryFragment_to_weeklyReportFragment2)
+            findNavController().navigate(R.id.action_howAmINoEntryFragment_to_weeklyReportFragment)
         }
 
         layout_month.setOnClickListener {
             findNavController().navigate(
-                R.id.action_howAmINoEntryFragment_to_monthlyReportFragment2,
+                R.id.action_howAmINoEntryFragment_to_monthlyReportFragment,
             )
         }
 
         addCircleImageViewBig.setOnClickListener {
-            if (System.currentTimeMillis() > toDate.time) {
-                dateBundle.putSerializable("DATE", toDate)
-                findNavController().navigate(
-                    R.id.action_howAmINoEntryFragment_to_howAmICreateEntryFragment,
-                    dateBundle
-                )
-            }
+            addCircleImageView.callOnClick()
         }
 
         arrow_previous.setOnClickListener {
-            val calendarPrevious = Calendar.getInstance().apply {
-                time = currentDate
-                firstDayOfWeek = Calendar.MONDAY
-                add(Calendar.DAY_OF_MONTH, -7)
-                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-            }
+            val calendarPrevious = getCalendarAfterBefore(currentDate, -7)
             setAdapter(calendarPrevious)
-
         }
 
         arrow_next.setOnClickListener {
-            val calendarNext = Calendar.getInstance().apply {
-                time = currentDate
-                firstDayOfWeek = Calendar.MONDAY
-                add(Calendar.DAY_OF_MONTH, 7)
-                this[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-            }
+            val calendarNext = getCalendarAfterBefore(currentDate, 7)
             setAdapter(calendarNext)
-
         }
     }
 
     private fun setAdapter(calendar: Calendar) {
         currentDate = calendar.time
-        var firstDayString = String()
-        var lastDayString = String()
-        val days = ArrayList<String>()
-        val month = ArrayList<String>()
-        val date = ArrayList<String>()
-        val dateList = ArrayList<String>()
 
-        for (i in 0..6) {
-            when (i) {
-                0 -> {
-                    val fDay = dateFormat.parse(dateFormat.format(calendar.time))
-                    firstDayString = parser.format(fDay)
-                }
-                6 -> {
-                    lastDayString = parser.format(calendar.time)
-                }
-            }
-            days.add(formatDay.format(calendar.time))
-            month.add(formatMonth.format(calendar.time))
-            date.add(formatDate.format(calendar.time))
-            dateList.add(parser.format(calendar.time))
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
-        dayView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        weekAdapter = WeekAdapter(
-            days, month, date, dateList = dateList, homeViewModel = homeViewModel
-        )
-        dayView.adapter = weekAdapter
-        weekAdapter.setOnItemClickedListener(this)
+        val dates = getWeekDates(calendar)
+        weekAdapter.setDates(dates)
     }
 
-    private fun setJournalAdapter(date: Date) {
-//        var dailyEntries: List<DailyCheckInEntry> = emptyList()
-//
-//        val dailyItems = homeViewModel.dailyCheckInList.groupBy {
-//            dateFormat.format(parser.parse(it.date))
-//        }
-//
-//        if (dailyItems.containsKey(dateFormat.format(date))) {
-//            dailyEntries = dailyItems[dateFormat.format(date)]!!
-//        }
-//
-//        if (journalEntryOverview != null) {
-//            journalEntryOverview.layoutManager = GridLayoutManager(context, 1)
-//            journalEntryAdapter = JournalEntryAdapter(
-//                requireContext(),
-//                itemListDailyCheckIn = dailyEntries
-//            )
-//
-//            journalEntryAdapter.setOnItemClickedListener(this)
-//            journalEntryOverview.adapter = journalEntryAdapter
-//
-//            if (dailyEntries.isNotEmpty()) {
-//                setEntryLayout()
-//            } else {
-//                setNoEntryLayout()
-//            }
-//        }
-    }
+    private fun setEntryLayout(isListEmpty: Boolean) {
+        txt_entry.isInvisible = !isListEmpty
+        addCircleImageView.isInvisible = !isListEmpty
 
-    private fun setEntryLayout() {
-        txt_entry.visibility = View.VISIBLE
-        addCircleImageView.visibility = View.VISIBLE
-
-        txt_noentry.visibility = View.INVISIBLE
-        txt_add_noentry.visibility = View.INVISIBLE
-        addCircleImageViewBig.visibility = View.INVISIBLE
-    }
-
-    private fun setNoEntryLayout() {
-        txt_entry.visibility = View.INVISIBLE
-        addCircleImageView.visibility = View.INVISIBLE
-
-        txt_noentry.visibility = View.VISIBLE
-        txt_add_noentry.visibility = View.VISIBLE
-        addCircleImageViewBig.visibility = View.VISIBLE
+        txt_noentry.isInvisible = !isListEmpty
+        txt_add_noentry.isInvisible = isListEmpty
+        addCircleImageViewBig.isInvisible = isListEmpty
     }
 
     companion object {
@@ -206,7 +168,7 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         val cal = Calendar.getInstance()
 
         cal.time = toDate
-        homeViewModel.selectedPosition = cal.get(Calendar.DAY_OF_WEEK) - 2
+        howAmITodayViewModel.selectedPosition = cal.get(Calendar.DAY_OF_WEEK) - 2
 
         cal.apply {
             firstDayOfWeek = Calendar.MONDAY
@@ -216,9 +178,12 @@ class HowAmINoEntryFragment : BaseFragment(), WeekAdapter.OnItemClickedListener 
         setAdapter(cal)
     }
 
-    override fun onItemClick(position: Int, toDate: Date) {
-        weekAdapter.changeDataSet(position)
-        this.toDate = toDate
-        setJournalAdapter(toDate)
+    override fun onItemClick(position: Int, date: String) {
+        this.toDate = date.getDateInFormat(DATE_FORMAT)
+        getDailyEntries(date)
+    }
+
+    override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {
+
     }
 }

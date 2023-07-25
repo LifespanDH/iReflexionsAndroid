@@ -89,10 +89,10 @@
             android:id="@+id/action_howAmINoEntryFragment_to_howAmICreateEntryFragment"
             app:destination="@id/howAmICreateEntryFragment" />
         <action
-            android:id="@+id/action_howAmINoEntryFragment_to_weeklyReportFragment2"
+            android:id="@+id/action_howAmINoEntryFragment_to_weeklyReportFragment"
             app:destination="@id/weeklyReportFragment" />
         <action
-            android:id="@+id/action_howAmINoEntryFragment_to_monthlyReportFragment2"
+            android:id="@+id/action_howAmINoEntryFragment_to_monthlyReportFragment"
             app:destination="@id/monthlyReportFragment" />
     </fragment>
     <fragment
@@ -104,6 +104,13 @@
             android:defaultValue="@null"
             app:argType="java.util.Date"
             app:nullable="true" />
+
+        <action
+            android:id="@+id/action_howAmICreateEntryFragment_to_customHappeningFragment"
+            app:destination="@id/customHappeningFragment" />
+        <action
+            android:id="@+id/action_howAmICreateEntryFragment_to_panicAttackDialogFragment"
+            app:destination="@id/panicAttackDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/weeklyReportFragment"
@@ -118,7 +125,16 @@
         android:id="@+id/monthlyReportFragment"
         android:name="com.lifespandh.ireflexions.home.howAmIToday.MonthlyReportFragment"
         android:label="fragment_monthly_report"
-        tools:layout="@layout/fragment_monthly_report" />
+        tools:layout="@layout/fragment_monthly_report" >
+        <action
+            android:id="@+id/action_monthlyReportFragment_to_journalEntryViewFragment"
+            app:destination="@id/journalEntryViewFragment" />
+        <action
+            android:id="@+id/action_monthlyReportFragment_to_journalEntryViewFragment2"
+            app:destination="@id/journalEntryViewFragment" />
+        <action android:id="@+id/action_monthlyReportFragment_to_panicAttackDialogFragment"
+            app:destination="@id/panicAttackDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/careCenterExerciseFragment"
         android:name="com.lifespandh.ireflexions.home.care.CareCenterExerciseFragment"
@@ -151,11 +167,14 @@
     </fragment>
     <fragment
         android:id="@+id/courseListFragment"
-        android:name="com.lifespandh.ireflexions.home.course.CourseListFragment"
+        android:name="com.lifespandh.ireflexions.home.course.ProgramFragment"
         android:label="CourseListFragment">
         <action
             android:id="@+id/action_courseListFragment_to_courseFragment"
             app:destination="@id/courseFragment" />
+        <action
+            android:id="@+id/action_courseListFragment_to_programCompletionFragment"
+            app:destination="@id/programCompletionFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -167,11 +186,11 @@
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Program"
             app:nullable="true" />
-        <argument
-            android:name="programProgress"
-            android:defaultValue="@null"
-            app:nullable="true"
-            app:argType="com.lifespandh.ireflexions.models.UserProgramProgress"/>
+<!--        <argument-->
+<!--            android:name="programProgress"-->
+<!--            android:defaultValue="@null"-->
+<!--            app:argType="com.lifespandh.ireflexions.models.UserProgramProgress"-->
+<!--            app:nullable="true" />-->
 
         <action
             android:id="@+id/action_courseFragment_to_lessonFragment"
@@ -185,20 +204,19 @@
         tools:layout="@layout/fragment_lesson">
 
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true" />
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <argument
-            android:name="parentCourse"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true" />
-        <argument
-            android:name="lessonNumber"
-            android:defaultValue="0"
+            android:name="programId"
+            android:defaultValue="-1"
             app:argType="integer" />
+
+        <argument
+            android:name="courseProgress"
+            android:defaultValue="0"
+            app:argType="float" />
         <action
             android:id="@+id/action_lessonFragment_to_lessonContentFragment"
             app:destination="@id/lessonContentFragment" />
@@ -207,25 +225,29 @@
         android:id="@+id/lessonContentFragment"
         android:name="com.lifespandh.ireflexions.home.course.LessonContentFragment"
         android:label="fragment_lesson_content"
-        tools:layout="@layout/fragment_lesson_content" >
+        tools:layout="@layout/fragment_lesson_content">
 
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true"/>
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
 
         <argument
-            android:name="parentCourse"
+            android:name="programId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <argument
+            android:name="currentLesson"
             android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true"/>
+            app:argType="com.lifespandh.ireflexions.models.Lesson"
+            app:nullable="true" />
 
         <argument
             android:name="parentLesson"
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Lesson"
-            app:nullable="true"/>
+            app:nullable="true" />
         <action
             android:id="@+id/action_lessonContentFragment_to_lessonQuizFragment"
             app:destination="@id/lessonQuizFragment" />
@@ -234,7 +256,7 @@
         android:id="@+id/resourceLibraryFragment"
         android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceLibraryFragment"
         android:label="fragment_resource_library"
-        tools:layout="@layout/fragment_resource_library" >
+        tools:layout="@layout/fragment_resource_library">
         <action
             android:id="@+id/action_resourceLibraryFragment_to_resourceItemFragment"
             app:destination="@id/resourceItemFragment" />
@@ -242,32 +264,85 @@
     <fragment
         android:id="@+id/lessonQuizFragment"
         android:name="com.lifespandh.ireflexions.home.course.LessonQuizFragment"
-        android:label="LessonQuizFragment" >
-    <argument
-        android:name="parentLesson"
-        android:defaultValue="@null"
-        app:argType="com.lifespandh.ireflexions.models.Lesson"
-        app:nullable="true"/>
+        android:label="LessonQuizFragment">
         <argument
-            android:name="parentCourse"
+            android:name="parentLesson"
             android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Course"
-            app:nullable="true"/>
+            app:argType="com.lifespandh.ireflexions.models.Lesson"
+            app:nullable="true" />
         <argument
-            android:name="parentProgram"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.Program"
-            app:nullable="true"/>
+            android:name="courseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <argument
+            android:name="programId"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/resourceItemFragment"
         android:name="com.lifespandh.ireflexions.home.resourceLibrary.ResourceItemFragment"
-        android:label="ResourceItemFragment" >
-    <argument
-        android:name="item"
-        android:defaultValue="@null"
-        app:argType="com.lifespandh.ireflexions.models.ResourceLibraryItem"
-        app:nullable="true"/>
+        android:label="ResourceItemFragment">
+        <argument
+            android:name="item"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.ResourceLibraryItem"
+            app:nullable="true" />
     </fragment>
+    <dialog
+        android:id="@+id/customHappeningFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.CustomHappeningFragment"
+        android:label="CustomHappeningFragment">
+        <argument
+            android:name="dialogFor"
+            android:defaultValue="WHATS_HAPPENING"
+            app:argType="com.lifespandh.ireflexions.home.howAmIToday.DIALOG_FOR" />
+    </dialog>
+    <dialog
+        android:id="@+id/panicAttackDialogFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.PanicAttackDialogFragment"
+        android:label="PanicAttackDialogFragment">
+
+        <argument
+            android:name="panicAttack"
+            android:defaultValue="@null"
+            app:argType="com.lifespandh.ireflexions.models.howAmIToday.PanicAttack"
+            app:nullable="true" />
+
+<!--        <argument-->
+<!--            android:name="panicSymptoms"-->
+<!--            android:defaultValue="@null"-->
+<!--            app:argType="com.lifespandh.ireflexions.models.howAmIToday.PanicSymptom[]"-->
+<!--            app:nullable="true" />-->
+
+<!--        <argument-->
+<!--            android:name="panicTriggers"-->
+<!--            android:defaultValue="@null"-->
+<!--            app:argType="com.lifespandh.ireflexions.models.howAmIToday.PanicTrigger[]"-->
+<!--            app:nullable="true" />-->
+        <action
+            android:id="@+id/action_panicAttackDialogFragment_to_customHappeningFragment"
+            app:destination="@id/customHappeningFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/programCompletionFragment"
+        android:name="com.lifespandh.ireflexions.home.course.ProgramCompletionFragment"
+        android:label="ProgramCompletionFragment" />
+    <dialog
+        android:id="@+id/journalEntryViewFragment"
+        android:name="com.lifespandh.ireflexions.home.howAmIToday.JournalEntryViewFragment"
+        android:label="JournalEntryViewFragment">
+        <argument
+        android:name="date"
+        android:defaultValue="@null"
+        app:nullable="true"
+        app:argType="string" />
+        <argument
+            android:name="entry"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string" />
+    </dialog>
 
 </navigation>

@@ -35,3 +35,13 @@ const val DELETE_SUPPORT_CONTACT = BASE_URL + IREF_USERS + "delete_support_conta
 const val GET_JOURNAL_ENTRIES = BASE_URL + IREF_USERS + "get_journal_entries/"
 const val GET_CARE_CENTER_EXERCISES = BASE_URL + IREF_USERS + "get_care_center_exercises/"
 const val GET_RESOURCE_CONTENT = BASE_URL + IREF_USERS + "get_library_resources/"
+
+// How Am I Today
+const val GET_TRAIT_CATEGORIES = BASE_URL + IREF_USERS + "get_trait_categories/"
+const val GET_WHATS_HAPPENING = BASE_URL + IREF_USERS + "get_whats_happening/"
+const val GET_ENVIRONMENTAL_CONDITIONS = BASE_URL + IREF_USERS + "get_environmental_conditions/"
+const val GET_HOW_AM_I_TODAY_DATA = BASE_URL + IREF_USERS + "get_how_am_i_today_data/"
+const val ADD_DAILY_CHECK_IN_ENTRY =  BASE_URL + IREF_USERS + "add_daily_entry/"
+const val GET_DAILY_ENTRIES =  BASE_URL + IREF_USERS + "get_daily_entries/"
+const val GET_WEEKLY_ENTRIES = BASE_URL + IREF_USERS + "get_weekly_entries/"
+const val GET_MONTHLY_ENTRIES = BASE_URL + IREF_USERS + "get_monthly_entries/"

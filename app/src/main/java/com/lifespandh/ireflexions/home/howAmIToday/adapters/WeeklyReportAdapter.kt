@@ -5,74 +5,83 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
-import java.util.*
-import kotlin.collections.ArrayList
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.date.DateInfo
+import com.lifespandh.ireflexions.utils.logs.logE
+import com.lifespandh.ireflexions.utils.ui.makeGone
+import com.lifespandh.ireflexions.utils.ui.makeVisible
 
 class WeeklyReportAdapter (
-    var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
-    var dateList: ArrayList<String>,
-    var dateListOrigin: ArrayList<Date>,
-    var dayList: ArrayList<String>,
-    var dates: ArrayList<String>,
+    private var dailyEntryMap: Map<String, List<DailyCheckInEntry>>,
+    private var dates: List<DateInfo>,
     private val listener: OnItemClickedListener
         ): BaseRecyclerViewAdapter () {
 
-    private val dailyBundle = Bundle()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return WeeklyReportViewHolder(getView(R.layout.weekly_report_fragment_item, parent))
+        return WeeklyReportViewHolder(getView(R.layout.item_weekly_report, parent))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeeklyReportViewHolder)
-            holder.bind(dateList[position])
+            holder.bind(dates[position])
     }
 
     override fun getItemCount(): Int {
-        return dayList.size
+        return dates.size
+    }
+
+    fun setDailyEntryMap(weeklyReport: Map<String, List<DailyCheckInEntry>>) {
+        this.dailyEntryMap = weeklyReport
+        notifyDataSetChanged()
+    }
+
+    fun setDates(dates: List<DateInfo>) {
+        this.dates = dates
+        notifyDataSetChanged()
     }
 
     inner class WeeklyReportViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var txtToday: TextView = itemView.findViewById(R.id.txt_today)
-        var txtNoEntry: TextView = itemView.findViewById(R.id.txt_noentry)
-        var txtAddNoEntry: TextView = itemView.findViewById(R.id.txt_add_noentry)
-        var addCircleImage: ImageView = itemView.findViewById(R.id.addCircleImage)
-        var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
 
-        fun bind(date: String) {
-            val journalItem = date
+        private var txtToday: TextView = itemView.findViewById(R.id.txt_today)
+        private var txtNoEntry: TextView = itemView.findViewById(R.id.txt_noentry)
+        private var txtAddNoEntry: TextView = itemView.findViewById(R.id.txt_add_noentry)
+        private var addCircleImage: ImageView = itemView.findViewById(R.id.addCircleImage)
+        private var weeklyEntryOverview: RecyclerView = itemView.findViewById(R.id.weeklyEntryOverview)
 
-            txtToday.text = journalItem
+        fun bind(dateInfo: DateInfo) {
+            val parsedDate = dateInfo.first
 
-            val date = dayList[position]
-            if (dailyEntryMap.containsKey(date)) {
+            txtToday.text = dateInfo.second
+
+            val dailyEntryList = dailyEntryMap.get(parsedDate)
+            val dailyEntriesPresent = !dailyEntryList.isNullOrEmpty()
+
+            if (dailyEntriesPresent) {
                 weeklyEntryOverview.layoutManager = GridLayoutManager(getContext(), 1)
+                val adapter = JournalEntryAdapter(
+                    itemList = dailyEntryList as MutableList<DailyCheckInEntry>,
+                    object : JournalEntryAdapter.OnItemClicked {
+                        override fun onItemClick(dailyCheckInEntry: DailyCheckInEntry) {
 
-                val dailyEntryList = dailyEntryMap[date]!!
+                        }
 
-                txtAddNoEntry.visibility = View.INVISIBLE
-                addCircleImage.visibility = View.INVISIBLE
-                txtNoEntry.visibility = View.INVISIBLE
-
-//                val adapter = JournalEntryAdapter(
-//                    itemListDailyCheckIn = dailyEntryList,
-//                    isChangeColor = true
-//                )
-//                adapter.setOnItemClickedListener(this)
-//                weeklyEntryOverview.adapter = adapter
+                    }
+                )
+                weeklyEntryOverview.adapter = adapter
             }
+
+            weeklyEntryOverview.isVisible = dailyEntriesPresent
+            txtAddNoEntry.isVisible = !dailyEntriesPresent
+            addCircleImage.isVisible = !dailyEntriesPresent
+            txtNoEntry.isVisible = !dailyEntriesPresent
 
             addCircleImage.setOnClickListener {
-                listener.onAddEntryClicked(dates[absoluteAdapterPosition])
-            }
-
-            if (System.currentTimeMillis() < dateListOrigin[position].time) {
-                addCircleImage.isClickable = false
+                listener.onAddEntryClicked(dates[absoluteAdapterPosition].first)
             }
         }
     }

@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Experience. Evolution"
+        android:text="Your Success. Our Mission"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,7 +3,7 @@ package com.lifespandh.ireflexions.home
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.api.ApiClient
 import com.lifespandh.ireflexions.models.*
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.utils.network.NetworkResult
 import com.lifespandh.ireflexions.utils.network.safeApiCall
 import okhttp3.RequestBody
@@ -66,8 +66,8 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
-    suspend fun addUserToProgram(requestBody: RequestBody): NetworkResult<JsonObject> {
-        var networkResult: NetworkResult<JsonObject>? = null
+    suspend fun addUserToProgram(requestBody: RequestBody): NetworkResult<Program> {
+        var networkResult: NetworkResult<Program>? = null
 
         safeApiCall({
             apiClient.addUserToProgram(requestBody)

@@ -1,6 +1,5 @@
 package com.lifespandh.ireflexions.home.howAmIToday.adapters
 
-import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,23 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.base.BaseRecyclerViewAdapter
-import com.lifespandh.ireflexions.home.HomeViewModel
-import com.lifespandh.ireflexions.models.howAmI.DailyCheckInEntry
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import com.lifespandh.ireflexions.home.howAmIToday.network.HowAmITodayViewModel
+import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.utils.date.DATE_FORMAT
+import com.lifespandh.ireflexions.utils.date.DateInfo
+import com.lifespandh.ireflexions.utils.date.getDateInFormat
 
 class WeekAdapter(
-    private var weekDays: List<String>,
-    private var month: ArrayList<String>,
-    private var date: ArrayList<String>,
-    private var dateList: ArrayList<String>,
-    private val homeViewModel: HomeViewModel,
+    private var dates: List<DateInfo>,
+    private val howAmITodayViewModel: HowAmITodayViewModel,
+    private val listener: OnItemClickedListener,
     private var dailyEntryMapItem: Map<String, List<DailyCheckInEntry>> = emptyMap(),
 ) : BaseRecyclerViewAdapter() {
-
-    private val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-    lateinit var listener: OnItemClickedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeekViewHolder(getView(R.layout.day_item, parent))
@@ -35,23 +29,15 @@ class WeekAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeekViewHolder)
-            holder.bind(dateList[position])
+            holder.bind(dates[position])
     }
 
     override fun getItemCount(): Int {
-        return weekDays.size
+        return dates.size
     }
 
-    fun setOnItemClickedListener(listener: OnItemClickedListener) {
-        this.listener = listener
-    }
-
-    /**
-     * This function might not be the best way to do this
-     * Need to check this and change later, copied rn from previous code to save time
-     */
-    fun changeDataSet(position: Int) {
-        homeViewModel.selectedPosition = position
+    fun setDates(dates: List<DateInfo>) {
+        this.dates = dates
         notifyDataSetChanged()
     }
 
@@ -63,17 +49,16 @@ class WeekAdapter(
         private val view: View = itemView.findViewById(R.id.view)
         private val listDailyEntries: RecyclerView = itemView.findViewById(R.id.list_daily_entries)
 
-        fun bind(date: String) {
-            val parsedDateTime = parser.parse(date).time
+        fun bind(dateInfo: DateInfo) {
+            val date = dateInfo.first
 
-//            if (DateUtils.isToday(parsedDateTime))
-//                selectedPosition = absoluteAdapterPosition
+            val parsedDateTime = date.getDateInFormat(DATE_FORMAT)?.time
 
-            if (System.currentTimeMillis() < parsedDateTime) {
+            if (parsedDateTime != null && System.currentTimeMillis() < parsedDateTime) {
                 itemView.isClickable = false
             }
 
-            if (absoluteAdapterPosition == homeViewModel.selectedPosition) {
+            if (absoluteAdapterPosition == howAmITodayViewModel.selectedPosition) {
                 itemView.background =
                     ContextCompat.getDrawable(getContext(), R.drawable.week_day_round_rectangle)
             } else {
@@ -85,13 +70,12 @@ class WeekAdapter(
                 )
 
             }
-            val position = absoluteAdapterPosition
             if (absoluteAdapterPosition == itemCount - 1)
                 view.visibility = View.INVISIBLE
 
-            val programItem = weekDays[position]
-            val month = month[position]
-            val date_ = this@WeekAdapter.date[position]
+            val programItem = dateInfo.third.first
+            val month = dateInfo.third.second
+            val date_ = dateInfo.third.third
             txtDay.text = programItem
             txtMonth.text = month
             txtDate.text = date_
@@ -105,13 +89,19 @@ class WeekAdapter(
             }
 
             itemView.setOnClickListener {
-                listener.onItemClick(absoluteAdapterPosition, parser.parse(dateList[absoluteAdapterPosition]))
+                val prev = howAmITodayViewModel.selectedPosition
+                howAmITodayViewModel.selectedPosition = absoluteAdapterPosition
+                if (prev != -1)
+                    notifyItemChanged(prev)
+                notifyItemChanged(howAmITodayViewModel.selectedPosition)
+
+                listener.onItemClick(absoluteAdapterPosition, date)
             }
         }
     }
 
     interface OnItemClickedListener {
-        fun onItemClick(position: Int, toDate: Date)
+        fun onItemClick(position: Int, date: String)
     }
 }
 

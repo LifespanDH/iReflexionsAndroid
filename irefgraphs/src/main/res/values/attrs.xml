@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="circular_progress">
+        <attr name="upper_text" format="string"/>
+        <attr name="lower_text" format="string"/>
+        <attr name="progress" format="integer"/>
+        <attr name="percentage" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="BreathPacerView">
+        <attr name="isBlack" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="BarGraphView">
+        <attr name="barColor1" format="color"/>
+        <attr name="barColor2" format="color"/>
+        <attr name="barColor3" format="color"/>
+        <attr name="barColor4" format="color"/>
+        <attr name="maxH" format="float"/>
+        <attr name="barWidthRatio" format="float"/>
+        <attr name="showShadow" format="boolean"/>
+        <attr name="showMedian" format="boolean"/>
+        <attr name="showBaseline" format="boolean"/>
+        <attr name="showTopLines" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="PushButton">
+        <attr name="text" format="string"/>
+    </declare-styleable>
+
+</resources>

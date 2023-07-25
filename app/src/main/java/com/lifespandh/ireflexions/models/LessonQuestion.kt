@@ -18,7 +18,10 @@ data class LessonQuestion (
     val answers: List<String>,
 
     @SerializedName("correct_answer")
-    val correctAnswer: String
+    val correctAnswer: Int,
+
+    @SerializedName("id")
+    val id: Int
 
 )
 
