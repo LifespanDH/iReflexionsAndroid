@@ -29,8 +29,8 @@ import com.lifespandh.ireflexions.models.howAmIToday.Emotion
 import com.lifespandh.ireflexions.models.howAmIToday.EmotionData
 import com.lifespandh.ireflexions.models.howAmIToday.PanicAttack
 import com.lifespandh.ireflexions.utils.EMOTIONS
+import com.lifespandh.ireflexions.utils.EXERCISE
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
-import com.lifespandh.ireflexions.utils.MOVEMENT
 import com.lifespandh.ireflexions.utils.PANIC_ATTACK
 import com.lifespandh.ireflexions.utils.SLEEP
 import com.lifespandh.ireflexions.utils.date.MONTH
@@ -71,7 +71,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
     private var mainEmotionCount = 0
     private var subEmotionsCount = 0
     private var dailyData: JsonObject = JsonObject()
-    private var categories = arrayOf<String?>(EMOTIONS, SLEEP, JOURNAL_ENTRIES, PANIC_ATTACK, MOVEMENT)
+    private var categories = arrayOf<String?>(EMOTIONS, SLEEP, JOURNAL_ENTRIES, PANIC_ATTACK, EXERCISE)
 
     private var selectedMonth = getCurrentMonth()
     private var selectedYear = getCurrentYear()
@@ -145,7 +145,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
                 hideViews()
 
                 chartViewBarSleep.isVisible = category == SLEEP
-                chartViewBarMovement.isVisible = category == MOVEMENT
+                chartViewBarMovement.isVisible = category == EXERCISE
                 journalListRecyclerView.isVisible = category == JOURNAL_ENTRIES
                 panicListRecyclerView.isVisible = category == PANIC_ATTACK
                 emotionColorBarRecyclerView.isVisible = category == EMOTIONS
@@ -184,7 +184,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
         calendarView.setup(months.first, months.second, firstDayOfWeekFromLocale())
         calendarView.scrollToMonth(months.third)
 
-        if (category in listOf(SLEEP, MOVEMENT))
+        if (category in listOf(SLEEP, EXERCISE))
             initChart(category ?: SLEEP)
     }
 
@@ -215,7 +215,7 @@ class MonthlyReportFragment : BaseFragment(), MonthsAdapter.OnDateClicked, Journ
                 SLEEP -> {
                     dataList[i] = dayData?.get("sleep")?.asFloat ?: 0f
                 }
-                MOVEMENT -> {
+                EXERCISE -> {
                     dataList[i] = dayData?.get("movement")?.asFloat ?: 0f
                 }
             }

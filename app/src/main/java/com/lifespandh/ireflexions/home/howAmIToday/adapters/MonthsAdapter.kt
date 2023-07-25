@@ -23,8 +23,8 @@ import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.lifespandh.ireflexions.R
 import com.lifespandh.ireflexions.utils.EMOTIONS
+import com.lifespandh.ireflexions.utils.EXERCISE
 import com.lifespandh.ireflexions.utils.JOURNAL_ENTRIES
-import com.lifespandh.ireflexions.utils.MOVEMENT
 import com.lifespandh.ireflexions.utils.PANIC_ATTACK
 import com.lifespandh.ireflexions.utils.SLEEP
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -104,7 +104,7 @@ class MonthsAdapter(
                 }
                 listener.addPanicAttackToList(panicAttack, data.date)
             }
-            MOVEMENT -> {
+            EXERCISE -> {
                 val movement = dayData?.get("movement")?.asInt
                 movement?.let {
                     val image = when(movement) {
