@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -30,14 +31,14 @@ import kotlinx.android.synthetic.main.fragment_lesson.rvLessons
 
 class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
     private val lessonAdapter by lazy { LessonAdapter(listOf(), this) }
     private val args: LessonFragmentArgs by navArgs()
 
-    private var lessonCount = 0
+//    private var lessonCount = 0
     private var programId: Int = -1
     private var courseId = -1
-    private var courseProgress = 0f
+//    private var courseProgress = 0f
     private var currentLesson: Lesson? = null
     private var lessonNumber: Int = 0
 
@@ -67,17 +68,17 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         val savedStateHandle = currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<Boolean>(LessonContentFragment.LESSON_RESULT)
             ?.observeFreshly(currentBackStackEntry, Observer { result ->
-                if (result) {
-                    lessonCount += 1
-                }
+//                if (result) {
+//                    lessonCount += 1
+//                }
             })
     }
 
     private fun setObservers() {
         homeViewModel.lessonsLiveData.observeFreshly(this) {
             lessonAdapter.setList(it)
-            lessonNumber = (courseProgress * it.size).toInt() + lessonCount
-            logE("called here $lessonNumber $courseProgress")
+            lessonNumber =
+                (homeViewModel.userProgramProgress.value?.courseProgress?.times(it.size))?.toInt() ?: 0
             setCurrentLesson(it)
         }
     }
@@ -101,13 +102,15 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     }
 
     private fun setCurrentLesson(lessons: List<Lesson>) {
-        logE("called $lessonNumber ${lessons.size}")
-        if (lessonNumber >= lessons.size) {
+        logE("called $lessonNumber ${homeViewModel.lessonCount.value} ${lessons.size}")
+        if (homeViewModel.lessonCount.value!! >= lessons.size) {
             val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
-            savedStateHandle?.set(RESULT, true)
+//            savedStateHandle?.set(RESULT, true)
+            homeViewModel.courseCount.value = (homeViewModel.courseCount.value ?: 0)?.plus(1)
             findNavController().navigateUp()
             return
         }
+        homeViewModel.lessonCount.value = lessonNumber
         if (lessons.size >= lessonNumber) {
             currentLesson = lessons.get(lessonNumber)
             currentLessonName.text = currentLesson?.name
@@ -117,7 +120,7 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
     private fun getBundleValues() {
         programId = args.programId
         courseId = args.courseId
-        courseProgress = args.courseProgress
+//        courseProgress = args.courseProgress
 //        lessonNumber = args.lessonNumber
     }
 
@@ -125,6 +128,11 @@ class LessonFragment : BaseFragment(), LessonAdapter.OnLessonClick {
         fun newInstance() = LessonFragment()
 
         const val RESULT = "result"
+    }
+
+    override fun onDestroyView() {
+        homeViewModel.lessonsLiveData.removeObservers(this)
+        super.onDestroyView()
     }
 
     override fun onLessonClick(lesson: Lesson) {

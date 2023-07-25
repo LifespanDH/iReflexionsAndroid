@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_course_list.*
 
 class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
     private val courseListProgramAdapter by lazy { CourseListProgramAdapter(listOf(), this) }
     private val dialogUtils = DialogUtils()
     private var userProgramProgress: UserProgramProgress? = null
@@ -59,7 +60,7 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
     private fun setListeners(){
         currentProgramContainer.setOnClickListener {
             val courseprogress = userProgramProgress?.courseProgress
-            val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentProgram, programProgress = userProgramProgress)
+            val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = currentProgram)
             findNavController().navigate(action)
         }
     }
@@ -94,6 +95,8 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
             if(it != null) {
                 dialogUtils.showMessageDialog(requireContext(), "SUCCESS","User enrolled successfully")
                 userProgramProgress = null
+                courseListProgramAdapter.setEnrolled(it)
+                homeViewModel.getUserProgramProgress()
                 updateCurrentProgram(listOf(it))
             }
         }
@@ -102,6 +105,13 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
     companion object {
         fun newInstance() = ProgramFragment()
     }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.lessonCount.value = 0
+        homeViewModel.courseCount.value = 0
+    }
+
     private fun updateCurrentProgram(currentPrograms: List<Program>) {
         if (currentPrograms.isNullOrEmpty())
             return
@@ -129,7 +139,7 @@ class ProgramFragment : BaseFragment(), CourseListProgramAdapter.OnItemClicked {
                     toast("You have already completed the program")
                     return
                 }
-                val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program, programProgress = userProgramProgress)
+                val action = ProgramFragmentDirections.actionCourseListFragmentToCourseFragment(parentProgram = program)
                 findNavController().navigate(action)
             } else {
                 if (userProgramProgress?.programProgress == 1f) {

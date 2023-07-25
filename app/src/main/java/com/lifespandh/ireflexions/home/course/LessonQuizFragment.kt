@@ -96,10 +96,14 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
             questionsAdapter.setList(it)
         }
 
-        homeViewModel.saveProgressLiveData.observeFreshly(this) {
+        homeViewModel.programProgressLiveData.observeFreshly(this) {
             val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
             savedStateHandle?.set(QUIZ_RESULT, "true")
             findNavController().navigateUp()
+        }
+
+        homeViewModel.saveProgressLiveData.observeFreshly(this) {
+            homeViewModel.getUserProgramProgress()
         }
     }
 
@@ -109,7 +113,6 @@ class LessonQuizFragment : BaseFragment(), QuestionsAdapter.OnAnswerSelected {
     }
 
     private fun saveProgress() {
-        logE("ca;lled $courseId ${lesson?.id} $programId")
         val requestBody = createJsonRequestBody(COURSE_ID to courseId, LESSON_ID to lesson?.id, PROGRAM_ID to programId)
         homeViewModel.saveProgramProgress(requestBody)
     }

@@ -186,11 +186,11 @@
             android:defaultValue="@null"
             app:argType="com.lifespandh.ireflexions.models.Program"
             app:nullable="true" />
-        <argument
-            android:name="programProgress"
-            android:defaultValue="@null"
-            app:argType="com.lifespandh.ireflexions.models.UserProgramProgress"
-            app:nullable="true" />
+<!--        <argument-->
+<!--            android:name="programProgress"-->
+<!--            android:defaultValue="@null"-->
+<!--            app:argType="com.lifespandh.ireflexions.models.UserProgramProgress"-->
+<!--            app:nullable="true" />-->
 
         <action
             android:id="@+id/action_courseFragment_to_lessonFragment"

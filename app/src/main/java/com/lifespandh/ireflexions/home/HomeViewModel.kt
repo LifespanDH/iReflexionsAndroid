@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
+import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -86,6 +87,10 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
+
+    val userProgramProgress: MutableLiveData<UserProgramProgress> = MutableLiveData()
+    val lessonCount: MutableLiveData<Int> = MutableLiveData(0)
+    val courseCount: MutableLiveData<Int> = MutableLiveData(0)
 
     fun getExercises() {
         viewModelScope.launch {
@@ -252,6 +257,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                     Log.d("ProgramProgressApiCall", ""+response)
                     val data = response.data
                     _programProgressLiveData.value = data
+                    userProgramProgress.value = data
                 }
                 is NetworkResult.Error -> {
                     Log.d("ProgramProgressApiCall", ""+response.exception)

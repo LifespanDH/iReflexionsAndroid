@@ -41,6 +41,12 @@ class CourseListProgramAdapter(
         notifyDataSetChanged()
     }
 
+    fun setEnrolled(program: Program) {
+        for (p in this.programs)
+            p.isRegistered = p.id == program.id
+        notifyDataSetChanged()
+    }
+
     inner class ProgramViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val myTextView: TextView = itemView.findViewById(R.id.txt_program)

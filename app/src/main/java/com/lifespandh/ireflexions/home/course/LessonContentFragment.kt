@@ -36,7 +36,7 @@ class LessonContentFragment : BaseFragment() {
     private var programId: Int = -1
     private var courseId = -1
 
-    private val homeViewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private val homeViewModel by activityViewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +81,8 @@ class LessonContentFragment : BaseFragment() {
         savedStateHandle?.getLiveData<String>(LessonQuizFragment.QUIZ_RESULT)
             ?.observe(currentBackStackEntry, Observer { result ->
                 val savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
-                savedStateHandle?.set(LESSON_RESULT, true)
+//                savedStateHandle?.set(LESSON_RESULT, true)
+                homeViewModel.lessonCount.value = (homeViewModel.lessonCount.value ?: 0)?.plus(1)
                 findNavController().navigateUp()
             })
     }
