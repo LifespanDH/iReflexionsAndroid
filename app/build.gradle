@@ -6,6 +6,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -164,6 +166,11 @@ dependencies {
 
     // Calendar View
     implementation 'com.kizitonwose.calendar:view:2.4.0-beta01'
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
 }
 

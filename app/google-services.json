@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185063801657",
+    "project_id": "ireflexions-93cb9",
+    "storage_bucket": "ireflexions-93cb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185063801657:android:11c4d90ab06f77df1a5ee8",
+        "android_client_info": {
+          "package_name": "com.lifespandh.ireflexions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185063801657-r08s3rk4m5jsveqsgsk02no5n070n5sa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZv2shQ-Cf1ZEsGKSzsTGCzov-tyw0GAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185063801657-r08s3rk4m5jsveqsgsk02no5n070n5sa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
