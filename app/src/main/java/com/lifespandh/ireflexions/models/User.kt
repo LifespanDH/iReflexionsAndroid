@@ -16,7 +16,7 @@ data class User(
     val phoneNumber: String,
 
     @SerializedName(DOB)
-    val dob: Date,
+    val dob: String,
 
     @SerializedName(REGION)
     val region: String,

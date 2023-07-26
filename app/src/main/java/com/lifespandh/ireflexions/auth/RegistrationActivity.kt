@@ -63,7 +63,7 @@ class RegistrationActivity : BaseActivity() {
             val email = email.trimString()
             val phone = phone.trimString()
             val region = region.trimString()
-            val dob = dateOfBirth.trimString().getDateInFormat(DATE_FORMAT)
+            val dob = dateOfBirth.trimString() //.getDateInFormat(DATE_FORMAT)
             val password = password.trimString()
 
             val user = dob?.let { it1 -> User(name, email, phone, it1, region, password) }
