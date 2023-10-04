@@ -8,6 +8,13 @@
     <WebView
         android:id="@+id/communityWebView"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent" />
+
+    <include
+        layout="@layout/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loader" />
 
 </FrameLayout>

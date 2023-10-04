@@ -33,13 +33,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            buildConfigField("String", "HEY_PEERS_ACCESS_KEY", "\"${HEY_PEERS_ACCESS_KEY}\"")
+            buildConfigField("String", "HEY_PEERS_BASE_URL", "\"${HEY_PEERS_BASE_URL}\"")
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             versionNameSuffix "debug"
-            buildConfigField("String", "BASE_URL", "\"http://18.206.4.70/\"")
+            buildConfigField("String", "BASE_URL", "\"http://623f-2601-8c0-800-8ac0-cc50-ad0c-1a16-affc.ngrok-free.app/\"")
+            buildConfigField("String", "HEY_PEERS_ACCESS_KEY", "\"${HEY_PEERS_STAGING_ACCESS_KEY}\"")
+            buildConfigField("String", "HEY_PEERS_BASE_URL", "\"${HEY_PEERS_STAGING_BASE_URL}\"")
+            buildConfigField("int", "HEY_PEERS_ORG_ID", "${HEY_PEERS_STAGING_ORG_ID}")
         }
     }
     compileOptions {
