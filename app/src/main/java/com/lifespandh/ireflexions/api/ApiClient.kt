@@ -13,8 +13,11 @@ import com.lifespandh.ireflexions.utils.network.*
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 @JvmSuppressWildcards
 interface ApiClient {
@@ -109,4 +112,17 @@ interface ApiClient {
 
     @POST(GET_MONTHLY_ENTRIES)
     suspend fun getMonthlyReports(@Body requestBody: RequestBody): JsonObject
+
+    // Hey Peers APIs
+    @POST(HP_AUTHENTICATE)
+    suspend fun heyPeersAuthenticate(@Body requestBody: RequestBody): JsonObject
+
+    @POST(HP_CREATE_USER)
+    suspend fun heyPeersCreateUser(@Path("id") id: Int, @Header("Authorization") token: String, @Body requestBody: RequestBody): JsonObject
+
+    @POST(HP_GENERATE_OTL_LINK)
+    suspend fun heyPeersGenerateOTLLink(@Path("id") id: Int, @Path("uuid") uuid: String, @Header("Authorization") token: String): JsonObject
+
+    @POST(SAVE_HP_UUID)
+    suspend fun saveHPUUID(@Body requestBody: RequestBody): JsonObject
 }

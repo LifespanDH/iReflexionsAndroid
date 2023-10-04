@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.lifespandh.ireflexions.models.*
 import com.lifespandh.ireflexions.models.howAmIToday.DailyCheckInEntry
 import com.lifespandh.ireflexions.models.howAmIToday.WhatsHappening
+import com.lifespandh.ireflexions.utils.HP_TOKEN
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
 import com.lifespandh.ireflexions.utils.network.NetworkResult
@@ -87,6 +89,23 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveData
+
+    // HeyPeers LiveData variables
+    private val _heyPeersTokenLiveData = MutableLiveData<String>()
+    val heyPeersTokenLiveData: LiveData<String>
+        get() = _heyPeersTokenLiveData
+
+    private val _heyPeersUUIDLiveData = MutableLiveData<String?>()
+    val heyPeersUUIDLiveData: LiveData<String?>
+        get() = _heyPeersUUIDLiveData
+
+    private val _hPUUIDLiveData = MutableLiveData<String>()
+    val hPUUIDLiveData: LiveData<String>
+        get() = _hPUUIDLiveData
+
+    private val _heyPeersOTLLinkLiveData = MutableLiveData<String>()
+    val heyPeersOTLLinkLiveData: LiveData<String>
+        get() = _heyPeersOTLLinkLiveData
 
     val userProgramProgress: MutableLiveData<UserProgramProgress> = MutableLiveData()
     val lessonCount: MutableLiveData<Int> = MutableLiveData(0)
@@ -383,5 +402,80 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
 //    fun changeSelectedPosition(position: Int) {
 //        this.selectedPosition = position
 //    }
+
+    // HeyPeers API functions
+    fun heyPeersAuthenticate(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.heyPeersAuthenticate(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    val token = data.get(HP_TOKEN).asString
+                    _heyPeersTokenLiveData.value = token
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun heyPeersCreateUser(id: Int, token: String, requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.heyPeersCreateUser(id, token, requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    val uuid = data.get("user").asJsonObject.get("id").asString
+                    val url = data.get("user").asJsonObject.get("invitation_url").asString
+                    logE("called here $url")
+                    _heyPeersUUIDLiveData.value = uuid
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                    _heyPeersUUIDLiveData.value = null
+                }
+            }
+        }
+    }
+
+    fun heyPeersGenerateOTLLink(id: Int, uuid: String, token: String) {
+        viewModelScope.launch {
+            val response = homeRepo.heyPeersGenerateOTLLink(id, uuid, token)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    val otlLink = data.get("otl_url").asString
+                    _heyPeersOTLLinkLiveData.value = otlLink
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
+
+    fun saveHPUUID(requestBody: RequestBody) {
+        viewModelScope.launch {
+            val response = homeRepo.saveHPUUID(requestBody)
+
+            when(response) {
+                is NetworkResult.Success -> {
+                    val data = response.data
+                    _hPUUIDLiveData.value = if (data.get("uuid") is JsonNull) "" else data.get("uuid").asString
+                }
+                is NetworkResult.Error -> {
+                    val error = response.exception
+                    _errorLiveData.value = error.toString()
+                }
+            }
+        }
+    }
 
 }

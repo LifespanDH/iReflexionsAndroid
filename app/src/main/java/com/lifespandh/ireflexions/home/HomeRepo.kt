@@ -234,4 +234,61 @@ class HomeRepo @Inject constructor(private val apiClient: ApiClient) {
         return networkResult!!
     }
 
+    // HeyPeers API functions
+    suspend fun heyPeersAuthenticate(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.heyPeersAuthenticate(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun heyPeersCreateUser(id: Int, token: String, requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.heyPeersCreateUser(id, token, requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun heyPeersGenerateOTLLink(id: Int, uuid: String, token: String): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.heyPeersGenerateOTLLink(id, uuid, token)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
+    suspend fun saveHPUUID(requestBody: RequestBody): NetworkResult<JsonObject> {
+        var networkResult: NetworkResult<JsonObject>? = null
+
+        safeApiCall({
+            apiClient.saveHPUUID(requestBody)
+        }, {
+            networkResult = it
+        }, {
+            networkResult = it
+        })
+
+        return networkResult!!
+    }
+
 }

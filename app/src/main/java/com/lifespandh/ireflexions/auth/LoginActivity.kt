@@ -15,6 +15,7 @@ import com.lifespandh.ireflexions.home.HomeActivity
 import com.lifespandh.ireflexions.home.HomeFragment
 import com.lifespandh.ireflexions.onboarding.SurveyActivity
 import com.lifespandh.ireflexions.utils.dialogs.DialogUtils
+import com.lifespandh.ireflexions.utils.jwt.getEmailFromJWT
 import com.lifespandh.ireflexions.utils.livedata.observeFreshly
 import com.lifespandh.ireflexions.utils.logs.logD
 import com.lifespandh.ireflexions.utils.logs.logE
@@ -128,7 +129,7 @@ class LoginActivity : BaseActivity() {
         authViewModel.tokenLiveData.observeFreshly(this) {
             tokenViewModel.saveToken(it.token)
             tokenViewModel.saveRefreshToken(it.refresh)
-            logE("called token it ${it.refresh}")
+            logE("called token it ${it.token.getEmailFromJWT()}")
         }
 
         tokenViewModel.token.observeFreshly(this) {

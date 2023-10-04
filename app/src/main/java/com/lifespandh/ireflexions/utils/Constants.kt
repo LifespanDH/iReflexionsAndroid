@@ -16,3 +16,11 @@ const val SLEEP = "SLEEP"
 const val JOURNAL_ENTRIES = "JOURNAL ENTRIES"
 const val PANIC_ATTACK = "PANIC ATTACK"
 const val EXERCISE = "EXERCISE"
+
+// HeyPeers
+const val HP_TOKEN = "token"
+const val HP_ACCESS_KEY = "access_key"
+const val HP_EMAIL = "email"
+const val HP_FIRST_NAME = "first_name"
+const val HP_LAST_NAME = "last_name"
+const val HP_UUID = "uuid"

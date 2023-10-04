@@ -3,6 +3,7 @@ package com.lifespandh.ireflexions.utils.network
 import com.lifespandh.ireflexions.BuildConfig
 
 const val BASE_URL = BuildConfig.BASE_URL
+const val HEY_PEERS_BASE_URL = BuildConfig.HEY_PEERS_BASE_URL
 
 const val USERS = "users/"
 const val ON_BOARDING = "onboarding/"
@@ -45,3 +46,10 @@ const val ADD_DAILY_CHECK_IN_ENTRY =  BASE_URL + IREF_USERS + "add_daily_entry/"
 const val GET_DAILY_ENTRIES =  BASE_URL + IREF_USERS + "get_daily_entries/"
 const val GET_WEEKLY_ENTRIES = BASE_URL + IREF_USERS + "get_weekly_entries/"
 const val GET_MONTHLY_ENTRIES = BASE_URL + IREF_USERS + "get_monthly_entries/"
+
+const val SAVE_HP_UUID = BASE_URL + IREF_USERS + "save_hp_uuid/"
+
+// HeyPeers URLs
+const val HP_AUTHENTICATE = HEY_PEERS_BASE_URL + "authenticate"
+const val HP_CREATE_USER = HEY_PEERS_BASE_URL + "organizations/{id}/invite_user"
+const val HP_GENERATE_OTL_LINK = HEY_PEERS_BASE_URL + "organizations/{id}/users/{uuid}/generate_otl_url"
