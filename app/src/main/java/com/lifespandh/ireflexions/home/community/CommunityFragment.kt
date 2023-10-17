@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
+import android.webkit.WebStorage
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -34,6 +36,8 @@ class CommunityFragment : BaseFragment() {
     private var userEmail: String? = null
     private var userName: String? = null
 
+    private var userExists = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -58,6 +62,14 @@ class CommunityFragment : BaseFragment() {
     }
 
     private fun setupWebView() {
+        // Clear all the Application Cache, Web SQL Database and the HTML5 Web Storage
+        WebStorage.getInstance().deleteAllData();
+
+        // Clear all the cookies
+        CookieManager.getInstance().removeAllCookies(null);
+        CookieManager.getInstance().flush();
+
+
 //        communityWebView.apply {
 //            settings.javaScriptEnabled = true
 //            loadUrl("https://www.heypeers.com/")
@@ -68,7 +80,10 @@ class CommunityFragment : BaseFragment() {
         tokenViewModel.token.observeFreshly(viewLifecycleOwner) {
             userEmail = it?.getEmailFromJWT()
             userName = it?.getNameFromJWT()
+
+            logE("called $userEmail $userName $it")
         }
+
         homeViewModel.heyPeersTokenLiveData.observeFreshly(viewLifecycleOwner) {
             token = it
             val requestBody = createJsonRequestBody(HP_EMAIL to userEmail, HP_FIRST_NAME to userName, HP_LAST_NAME to "")
@@ -76,12 +91,26 @@ class CommunityFragment : BaseFragment() {
         }
 
         homeViewModel.heyPeersUUIDLiveData.observeFreshly(viewLifecycleOwner) {
-            val requestBody = createJsonRequestBody(HP_UUID to it)
+            if (it != null) {
+                loader.makeGone()
+                communityWebView.apply {
+                    clearCache(true);
+                    clearFormData();
+                    clearHistory();
+                    clearSslPreferences();
+                    isVisible = true
+                    webViewClient = WebViewClient()
+                    settings.javaScriptEnabled = true
+                    loadUrl(it.second)
+                }
+            }
+            userExists = it == null
+            val requestBody = createJsonRequestBody(HP_UUID to it?.first)
             homeViewModel.saveHPUUID(requestBody)
         }
 
         homeViewModel.hPUUIDLiveData.observeFreshly(viewLifecycleOwner) {
-            if (it.isNullOrEmpty().not())
+            if (it.isNullOrEmpty().not() && userExists)
                 homeViewModel.heyPeersGenerateOTLLink(BuildConfig.HEY_PEERS_ORG_ID, it, "Bearer $token")
         }
 
@@ -89,7 +118,10 @@ class CommunityFragment : BaseFragment() {
             loader.makeGone()
 
             communityWebView.apply {
-                isVisible = true
+                clearCache(true);
+                clearFormData();
+                clearHistory();
+                clearSslPreferences();                isVisible = true
                 webViewClient = WebViewClient()
                 settings.javaScriptEnabled = true
                 loadUrl(it)

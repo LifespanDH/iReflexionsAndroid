@@ -95,8 +95,8 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
     val heyPeersTokenLiveData: LiveData<String>
         get() = _heyPeersTokenLiveData
 
-    private val _heyPeersUUIDLiveData = MutableLiveData<String?>()
-    val heyPeersUUIDLiveData: LiveData<String?>
+    private val _heyPeersUUIDLiveData = MutableLiveData<Pair<String, String>?>()
+    val heyPeersUUIDLiveData: LiveData<Pair<String, String>?>
         get() = _heyPeersUUIDLiveData
 
     private val _hPUUIDLiveData = MutableLiveData<String>()
@@ -432,7 +432,7 @@ class HomeViewModel @Inject constructor(private val homeRepo: HomeRepo): ViewMod
                     val uuid = data.get("user").asJsonObject.get("id").asString
                     val url = data.get("user").asJsonObject.get("invitation_url").asString
                     logE("called here $url")
-                    _heyPeersUUIDLiveData.value = uuid
+                    _heyPeersUUIDLiveData.value = Pair(uuid, url)
                 }
                 is NetworkResult.Error -> {
                     val error = response.exception
